@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
+.Button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  font: inherit;
+  padding: 10px;
+  margin: 10px;
+  font-weight: bold;
+}
+
+.Button:first-of-type {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.Success {
+  color: white;
+  background-color: #87d9f6;
+  border: solid 1px #87d9f6;
+  border-radius: 8px;
+  font-family: "BenchNine", sans-serif;
+  font-size: 1.5em;
+}
+
+.Danger {
+  color: #944317;
+  font-family: "BenchNine", sans-serif;
+  font-size: 1.5em;
+}
+
+.Button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.ButtonDiv {
+  text-align: center;
+  padding-left: 8px;
+}
+
+.Button:hover {
+  border: solid 1px teal;
+}
