@@ -26,7 +26,10 @@
 }
 
 .Danger {
-  color: #944317;
+  color: white;
+  background-color: #944317;
+  border-radius: 8px;
+  border: solid 1px #944317;
   font-family: "BenchNine", sans-serif;
   font-size: 1.5em;
 }
