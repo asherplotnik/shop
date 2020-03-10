@@ -105,7 +105,7 @@ class BCollections extends Component {
             onClick: (e, handleOriginal) => {
               console.log("A Td Element was clicked!");
               console.log("it produced this event:", e.target.innerHTML);
-              if (e.target.innerHTML === "DELETE") {
+              if (e.target.innerHTML === "DELETE!") {
                 this.setState({ deletePressed: true });
               }
               console.log("It was in this column:", column);
