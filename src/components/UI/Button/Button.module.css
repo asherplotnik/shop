@@ -19,7 +19,6 @@
 .Success {
   color: white;
   background-color: #87d9f6;
-  border: solid 1px #87d9f6;
   border-radius: 8px;
   font-family: "BenchNine", sans-serif;
   font-size: 1.5em;
@@ -29,9 +28,24 @@
   color: white;
   background-color: #944317;
   border-radius: 8px;
-  border: solid 1px #944317;
   font-family: "BenchNine", sans-serif;
   font-size: 1.5em;
+}
+
+.SuccessSmall {
+  color: white;
+  background-color: #87d9f6;
+  border-radius: 8px;
+  font-family: "BenchNine", sans-serif;
+  font-size: 1.1em;
+}
+
+.DangerSmall {
+  color: white;
+  background-color: #944317;
+  border-radius: 8px;
+  font-family: "BenchNine", sans-serif;
+  font-size: 1.1em;
 }
 
 .Button:disabled {
@@ -44,6 +58,6 @@
   padding-left: 8px;
 }
 
-.Button:hover {
-  border: solid 1px teal;
+.Button :hover {
+  color: black;
 }

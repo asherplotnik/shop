@@ -6,62 +6,69 @@ import "react-table-6/react-table.css";
 import classes from "./BCollections.module.css";
 import Button from "../../../../components/UI/Button/Button";
 import Modal from "../../../../components/UI/Modal/Modal";
+import ModalConfirm from "../../../../components/UI/Modal/modalContents/modalConfirm/ModalConfirm";
 
 class BCollections extends Component {
   state = {
     collections: [],
     loading: true,
     deletePressed: false,
-    updatePressed: false
+    pressedRecordId: null,
+    pressedRecordColl: null,
+    updatePressed: false,
+    canceled: false
   };
 
-  requestQuery = sql => {
+  requestQuery = (sql, action) => {
     const sqlQuery = { sql: sql };
     axios
-      .post("http://localhost:9000/API/query", sqlQuery)
+      .post("http://localhost:9000/API/" + action, sqlQuery)
       .then(response => {
         console.log("[response.data] => ", response.data);
         console.log("[sql] => ", response.data);
-        this.setState({ loading: false, collections: response.data });
+        if (action === "query") {
+          this.setState({
+            loading: false,
+            collections: response.data
+          });
+        } else {
+          this.setState({
+            loading: false,
+            deletePressed: false,
+            canceled: true
+          });
+        }
       })
       .catch(error => {
         console.log(error);
-        this.setState({ loading: false });
+        this.setState({ loading: false, deletePressed: false });
       });
   };
 
   componentDidMount() {
-    this.requestQuery("SELECT * FROM collections");
+    this.requestQuery("SELECT * FROM collections", "query");
+  }
+  componentDidUpdate(nextProps, nextState) {
+    if (this.state.canceled) {
+      this.requestQuery("SELECT * FROM collections", "query");
+      this.setState({ canceled: false });
+    }
   }
 
-  cancelDeleteHandler = () => {};
+  cancelDeleteHandler = () => {
+    this.setState({
+      deletePressed: false,
+      canceled: true,
+      pressedRecordId: null,
+      pressedRecordColl: null
+    });
+  };
 
-  makeShittyTable = obj => {
-    let table = {};
-    let firstLine = {};
-    let keysArr = [];
-    let akey = obj.slice(0, 1).map(keys => {
-      for (let i = 0; i < Object.getOwnPropertyNames(keys).length; i++) {
-        keysArr[i] = Object.getOwnPropertyNames(keys)[i];
-      }
-      return Object.getOwnPropertyNames(keys)[0];
-    });
-    firstLine = (
-      <tr>
-        {keysArr.map(aKey => (
-          <th key={akey}>{aKey}</th>
-        ))}
-      </tr>
+  deleteRecordHandler = () => {
+    this.requestQuery(
+      "DELETE FROM collections WHERE id = " + this.state.pressedRecordId,
+      "delete"
     );
-    let rows = this.state.collections.map(row => {
-      let rowArr = [];
-      for (let i = 0; i < keysArr.length; i++) {
-        rowArr.push(<td key={i}>{row[keysArr[i]]}</td>);
-      }
-      return <tr>{rowArr}</tr>;
-    });
-    table = [firstLine, ...rows];
-    return <table>{table}</table>;
   };
 
   makeNiceTable = data => {
@@ -85,11 +92,11 @@ class BCollections extends Component {
       row["img"] = (
         <img src={row["img"]} alt={row["img"]} style={{ width: 80 }} />
       );
-      row["id"] = <p style={{ marginTop: "35px" }}>{row["id"]}</p>;
-      row["name"] = <p style={{ marginTop: "35px" }}>{row["name"]}</p>;
-      row["desc"] = <p style={{ marginTop: "35px" }}>{row["desc"]}</p>;
-      row["upt"] = <Button btnType="Success">UPDATE</Button>;
-      row["del"] = <Button btnType="Danger">DELETE</Button>;
+      row["id"] = <span style={{ marginTop: "35px" }}> {row["id"]} </span>;
+      row["name"] = <span style={{ marginTop: "35px" }}>{row["name"]} </span>;
+      row["desc"] = <span style={{ marginTop: "35px" }}> {row["desc"]} </span>;
+      row["upt"] = <Button btnType="SuccessSmall">UPDATE</Button>;
+      row["del"] = <Button btnType="DangerSmall">DELETE</Button>;
 
       return null;
     });
@@ -103,14 +110,23 @@ class BCollections extends Component {
         getTdProps={(state, rowInfo, column, instance) => {
           return {
             onClick: (e, handleOriginal) => {
+              this.setState({
+                pressedRecordId: rowInfo.row.id.props.children[1],
+                pressedRecordColl: column.Header
+              });
               console.log("A Td Element was clicked!");
               console.log("it produced this event:", e.target.innerHTML);
-              if (e.target.innerHTML === "DELETE!") {
+              if (e.target.innerHTML === "DELETE") {
                 this.setState({ deletePressed: true });
               }
-              console.log("It was in this column:", column);
-              console.log("It was in this row:", rowInfo);
+              console.log("It was in this column:", column.Header);
+              console.log(
+                "It was in this row:",
+                rowInfo.row.id.props.children[1]
+              );
+
               console.log("It was in this table instance:", instance);
+
               if (handleOriginal) {
                 handleOriginal();
               }
@@ -119,6 +135,15 @@ class BCollections extends Component {
         }}
       />
     );
+  };
+  uploadImage = e => {
+    let files = e.target.files;
+    console.log("datafile", files);
+    let reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+    reader.onload = e => {
+      console.log("img data", e.target.result);
+    };
   };
 
   render() {
@@ -130,13 +155,21 @@ class BCollections extends Component {
             modalClosed={this.cancelDeleteHandler}
             show={this.state.deletePressed}
           >
-            ARE YOU SURE?
+            <ModalConfirm
+              modalClosed={this.cancelDeleteHandler}
+              deleteConfirmed={this.deleteRecordHandler}
+            />
           </Modal>
           <div className={classes.Wrapper}>
             <div className={classes.TableDiv}>
               {this.makeNiceTable(this.state.collections)}
             </div>
-            <div className={classes.Control}></div>
+            <div className={classes.Control}>
+              <div className={classes.AddButton}>
+                <Button btnType="Success">ADD COLLECTION</Button>
+                <input type="file" name="file" onChange={this.uploadImage} />
+              </div>
+            </div>
           </div>
         </React.Fragment>
       );

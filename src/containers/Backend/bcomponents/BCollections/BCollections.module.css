@@ -8,15 +8,21 @@
 }
 
 .Control {
-  height: 500px;
+  height: 659px;
   width: 33%;
   margin-right: 60px;
   border: solid 1px #ccc;
   display: inline-block;
   border-radius: 10px;
+  text-align: left;
 }
 
 .Wrapper {
   display: flex;
   justify-content: space-between;
+}
+
+.AddButton {
+  margin: 20px 0px 0px 20px;
+  display: block;
 }
