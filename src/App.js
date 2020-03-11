@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import classes from "./App.module.css";
+import Layout from "./hoc/Layout/Layout";
+import Home from "./components/Home/Home";
+import Trending from "./components/Trending/Trending";
+import Collections from "./components/Collections/Collections";
+import About from "./components/About/About";
+import Items from "./components/Items/Items";
+import Product from "./components/Product/Product";
+import Backend from "./containers/Backend/Backend";
+import { Route, Switch } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div className={classes.App}>
+        <Switch>
+          <Route path="/backend" component={Backend} />
+          <Switch>
+            <Layout>
+              <Route path="/" exact component={Home} />
+              <Route path="/collections" exact component={Collections} />
+              <Route path="/trending" exact component={Trending} />
+              <Route path="/about" exact component={About} />
+              <Route path="/items" exact component={Items} />
+              <Route path="/product" exact component={Product} />
+            </Layout>
+          </Switch>
+        </Switch>
+      </div>
+    );
+  }
 }
 
 export default App;

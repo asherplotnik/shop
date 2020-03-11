@@ -1,0 +1,52 @@
+.NavElement {
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+}
+
+.NavElement:hover {
+  color: #3990af;
+  transition: color 0.3s ease-out;
+}
+.ItemsElement {
+  opacity: 100%;
+  position: relative;
+  margin: 5px;
+  border: solid 1px #b6e4f5;
+  max-width: 300px;
+}
+
+.ItemsElement:hover {
+  border: solid 1px #09b6f5;
+}
+
+.Txt {
+  margin-bottom: 10px;
+}
+
+.Image {
+  height: 300px;
+}
+
+.Desc {
+  position: absolute;
+  display: block;
+  opacity: 0%;
+  bottom: 0px;
+  margin: 0;
+  font-size: larger;
+  transition: opacity 0.3s ease-out;
+  height: 300px;
+  width: 300px;
+  text-align: center;
+}
+
+.Desc:hover {
+  opacity: 100%;
+  margin: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.InnerDesc {
+  margin-top: 250px;
+}
