@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
 .Th {
   border: solid 1px black;
 }
@@ -23,6 +24,31 @@
 }
 
 .AddButton {
-  margin: 20px 0px 0px 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.ShowInputFile {
   display: block;
+}
+
+.FormDiv {
+  display: block;
+  border: solid 1px #ccc;
+  border-radius: 10px;
+  margin: 15px;
+}
+
+.FormList {
+  list-style: none;
+}
+
+.FormList li {
+  font-family: "BenchNine", sans-serif;
+  font-size: larger;
+}
+
+.FormList input {
+  font-family: "BenchNine", sans-serif;
+  font-size: larger;
 }

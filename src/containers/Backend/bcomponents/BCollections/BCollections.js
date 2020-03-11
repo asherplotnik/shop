@@ -15,6 +15,7 @@ class BCollections extends Component {
     deletePressed: false,
     pressedRecordId: null,
     pressedRecordColl: null,
+    inputFileToggleOn: false,
     updatePressed: false,
     canceled: false
   };
@@ -25,19 +26,40 @@ class BCollections extends Component {
       .post("http://localhost:9000/API/" + action, sqlQuery)
       .then(response => {
         console.log("[response.data] => ", response.data);
-        console.log("[sql] => ", response.data);
         if (action === "query") {
           this.setState({
             loading: false,
             collections: response.data
           });
-        } else {
+        } else if (action === "delete") {
           this.setState({
             loading: false,
             deletePressed: false,
             canceled: true
           });
         }
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({ loading: false, deletePressed: false });
+      });
+  };
+
+  onAddCollecionForm = async e => {
+    e.preventDefault();
+    const addCollecionForm = document.querySelector("#addCollecionForm");
+    const formData = new FormData(addCollecionForm);
+    axios
+      .post("http://localhost:9000/API/uploadCollectionForm", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(response => {
+        console.log("[add collection respose] => ", response.data);
+        this.setState({
+          inputFileToggleOn: false
+        });
       })
       .catch(error => {
         console.log(error);
@@ -69,6 +91,12 @@ class BCollections extends Component {
       "DELETE FROM collections WHERE id = " + this.state.pressedRecordId,
       "delete"
     );
+  };
+  addInputHandler = prevState => {
+    this.setState({
+      inputFileToggleOn: !prevState.inputFileToggleOn,
+      canceled: true
+    });
   };
 
   makeNiceTable = data => {
@@ -136,17 +164,12 @@ class BCollections extends Component {
       />
     );
   };
-  uploadImage = e => {
-    let files = e.target.files;
-    console.log("datafile", files);
-    let reader = new FileReader();
-    reader.readAsDataURL(files[0]);
-    reader.onload = e => {
-      console.log("img data", e.target.result);
-    };
-  };
 
   render() {
+    let inputClass = "none";
+    if (this.state.inputFileToggleOn) {
+      inputClass = "block";
+    }
     let viewPage = <Spinner />;
     if (!this.props.loading) {
       viewPage = (
@@ -166,8 +189,50 @@ class BCollections extends Component {
             </div>
             <div className={classes.Control}>
               <div className={classes.AddButton}>
-                <Button btnType="Success">ADD COLLECTION</Button>
-                <input type="file" name="file" onChange={this.uploadImage} />
+                <Button
+                  className={classes.Add}
+                  clicked={() => this.addInputHandler(this.state)}
+                  btnType="Success"
+                >
+                  ADD COLLECTION
+                </Button>
+              </div>
+              <div className={classes.FormDiv} style={{ display: inputClass }}>
+                <form id="addCollecionForm" onSubmit={this.onAddCollecionForm}>
+                  <ul className={classes.FormList}>
+                    <li>
+                      <label htmlFor="collName">ENTER COLLECTION'S NAME:</label>
+                    </li>
+                    <li>
+                      <input type="text" id="collName" name="collectionName" />
+                    </li>
+                    <li style={{ opacity: " 0% " }}>space</li>
+                    <li>
+                      <label htmlFor="collName">
+                        ENTER COLLECTION'S DESCRIPTION:
+                      </label>
+                    </li>
+                    <li>
+                      <input
+                        type="text"
+                        id="collDesc"
+                        name="collectionDesc"
+                        width="30"
+                      />
+                    </li>
+                    <li style={{ opacity: " 0% " }}>space</li>
+                    <li>
+                      <label htmlFor="uploadFile">ADD IMAGE FILE:</label>
+                    </li>
+                    <li>
+                      <input id="uploadFile" type="file" name="image" />
+                    </li>
+                    <li style={{ opacity: " 0% " }}>space</li>
+                    <li>
+                      <input type="submit" value="Submit" />
+                    </li>
+                  </ul>
+                </form>
               </div>
             </div>
           </div>
