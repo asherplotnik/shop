@@ -72,7 +72,10 @@ class BCollections extends Component {
     );
   };
   imagePressedHandler = () =>{
-    this.setState({addImagePressed:true})
+    this.setState({
+      addImagePressed:true,
+      canceled: true
+    })
   }
 
   makeNiceTable = data => {
