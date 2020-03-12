@@ -7,6 +7,8 @@ import classes from "./BCollections.module.css";
 import Button from "../../../../components/UI/Button/Button";
 import Modal from "../../../../components/UI/Modal/Modal";
 import ModalConfirm from "../../../../components/UI/Modal/modalContents/modalConfirm/ModalConfirm";
+import AddForm from "../AddForm/AddForm";
+import UpdateForm from "../UpdateForm/UpdateForm";
 
 class BCollections extends Component {
   state = {
@@ -16,8 +18,26 @@ class BCollections extends Component {
     pressedRecordId: null,
     pressedRecordColl: null,
     inputFileToggleOn: false,
-    updatePressed: false,
+    updateToggleOn: false,
     canceled: false
+  };
+
+  updateFormCallBack = parm => {
+    this.setState({
+      updateToggleOn: false,
+      updatePressed: false,
+      loading: false
+    });
+    this.requestQuery("SELECT * FROM collections", "query");
+  };
+
+  addFormCallBack = parm => {
+    this.setState({
+      inputFileToggleOn: false,
+      deletePressed: false,
+      loading: false
+    });
+    this.requestQuery("SELECT * FROM collections", "query");
   };
 
   requestQuery = (sql, action) => {
@@ -47,6 +67,7 @@ class BCollections extends Component {
 
   onAddCollecionForm = async e => {
     e.preventDefault();
+
     const addCollecionForm = document.querySelector("#addCollecionForm");
     const formData = new FormData(addCollecionForm);
     axios
@@ -57,13 +78,20 @@ class BCollections extends Component {
       })
       .then(response => {
         console.log("[add collection respose] => ", response.data);
+        if (response.data === "collection exists already") {
+          alert(response.data);
+        }
         this.setState({
-          inputFileToggleOn: false
+          inputFileToggleOn: false,
+          deletePressed: false,
+          loading: false
         });
+        this.requestQuery("SELECT * FROM collections", "query");
       })
       .catch(error => {
-        console.log(error);
+        alert(error);
         this.setState({ loading: false, deletePressed: false });
+        this.requestQuery("SELECT * FROM collections", "query");
       });
   };
 
@@ -86,16 +114,22 @@ class BCollections extends Component {
     });
   };
 
+  updateRecordHandler = () => {
+    this.requestQuery(console.log("UPDATE CONFIRMED"));
+  };
+
   deleteRecordHandler = () => {
     this.requestQuery(
       "DELETE FROM collections WHERE id = " + this.state.pressedRecordId,
       "delete"
     );
   };
-  addInputHandler = prevState => {
-    this.setState({
-      inputFileToggleOn: !prevState.inputFileToggleOn,
-      canceled: true
+  addInputHandler = () => {
+    this.setState(prevState => {
+      return {
+        inputFileToggleOn: !prevState.inputFileToggleOn,
+        canceled: true
+      };
     });
   };
 
@@ -123,8 +157,20 @@ class BCollections extends Component {
       row["id"] = <span style={{ marginTop: "35px" }}> {row["id"]} </span>;
       row["name"] = <span style={{ marginTop: "35px" }}>{row["name"]} </span>;
       row["desc"] = <span style={{ marginTop: "35px" }}> {row["desc"]} </span>;
-      row["upt"] = <Button btnType="SuccessSmall">UPDATE</Button>;
-      row["del"] = <Button btnType="DangerSmall">DELETE</Button>;
+      row["upt"] = (
+        <Button
+          id="updateButton"
+          disabled={this.state.inputFileToggleOn}
+          btnType="SuccessSmall"
+        >
+          UPDATE
+        </Button>
+      );
+      row["del"] = (
+        <Button disabled={this.state.inputFileToggleOn} btnType="DangerSmall">
+          DELETE
+        </Button>
+      );
 
       return null;
     });
@@ -138,25 +184,37 @@ class BCollections extends Component {
         getTdProps={(state, rowInfo, column, instance) => {
           return {
             onClick: (e, handleOriginal) => {
-              this.setState({
-                pressedRecordId: rowInfo.row.id.props.children[1],
-                pressedRecordColl: column.Header
-              });
-              console.log("A Td Element was clicked!");
-              console.log("it produced this event:", e.target.innerHTML);
-              if (e.target.innerHTML === "DELETE") {
-                this.setState({ deletePressed: true });
-              }
-              console.log("It was in this column:", column.Header);
-              console.log(
-                "It was in this row:",
-                rowInfo.row.id.props.children[1]
-              );
+              if (rowInfo !== undefined) {
+                console.log("A Td Element was clicked!");
+                console.log("it produced this event:", e.target.innerHTML);
+                if (e.target.innerHTML === "DELETE") {
+                  this.setState({
+                    deletePressed: true,
+                    pressedRecordId: rowInfo.row.id.props.children[1],
+                    pressedRecordColl: column.Header
+                  });
+                }
+                if (
+                  e.target.innerHTML === "UPDATE" &&
+                  !this.state.inputFileToggleOn
+                ) {
+                  this.setState(prevState => {
+                    return {
+                      updateToggleOn: !prevState.updateToggleOn,
+                      canceled: true,
+                      pressedRecordId: rowInfo.row.id.props.children[1],
+                      pressedRecordColl: column.Header
+                    };
+                  });
+                }
+                console.log("It was in this column:", column.Header);
+                console.log("It was in this row:", rowInfo);
 
-              console.log("It was in this table instance:", instance);
+                console.log("It was in this table instance:", instance);
 
-              if (handleOriginal) {
-                handleOriginal();
+                if (handleOriginal) {
+                  handleOriginal();
+                }
               }
             }
           };
@@ -166,9 +224,13 @@ class BCollections extends Component {
   };
 
   render() {
+    let updateClass = "none";
     let inputClass = "none";
-    if (this.state.inputFileToggleOn) {
+    if (this.state.inputFileToggleOn && !this.state.updateToggleOn) {
       inputClass = "block";
+    }
+    if (this.state.updateToggleOn && !this.state.inputFileToggleOn) {
+      updateClass = "block";
     }
     let viewPage = <Spinner />;
     if (!this.props.loading) {
@@ -187,54 +249,18 @@ class BCollections extends Component {
             <div className={classes.TableDiv}>
               {this.makeNiceTable(this.state.collections)}
             </div>
-            <div className={classes.Control}>
-              <div className={classes.AddButton}>
-                <Button
-                  className={classes.Add}
-                  clicked={() => this.addInputHandler(this.state)}
-                  btnType="Success"
-                >
-                  ADD COLLECTION
-                </Button>
-              </div>
-              <div className={classes.FormDiv} style={{ display: inputClass }}>
-                <form id="addCollecionForm" onSubmit={this.onAddCollecionForm}>
-                  <ul className={classes.FormList}>
-                    <li>
-                      <label htmlFor="collName">ENTER COLLECTION'S NAME:</label>
-                    </li>
-                    <li>
-                      <input type="text" id="collName" name="collectionName" />
-                    </li>
-                    <li style={{ opacity: " 0% " }}>space</li>
-                    <li>
-                      <label htmlFor="collName">
-                        ENTER COLLECTION'S DESCRIPTION:
-                      </label>
-                    </li>
-                    <li>
-                      <input
-                        type="text"
-                        id="collDesc"
-                        name="collectionDesc"
-                        width="30"
-                      />
-                    </li>
-                    <li style={{ opacity: " 0% " }}>space</li>
-                    <li>
-                      <label htmlFor="uploadFile">ADD IMAGE FILE:</label>
-                    </li>
-                    <li>
-                      <input id="uploadFile" type="file" name="image" />
-                    </li>
-                    <li style={{ opacity: " 0% " }}>space</li>
-                    <li>
-                      <input type="submit" value="Submit" />
-                    </li>
-                  </ul>
-                </form>
-              </div>
-            </div>
+            <AddForm
+              input={inputClass}
+              addForm={this.addFormCallBack}
+              onAddInputHanadler={this.addInputHandler}
+              updateToggle={this.state.updateToggleOn}
+            >
+              <UpdateForm
+              // update={updateClass}
+              // updateForm={this.updateFormCallBack}
+              // cancelUpdate={this.cancelUpdate}
+              />
+            </AddForm>
           </div>
         </React.Fragment>
       );

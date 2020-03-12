@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
+.Th {
+  border: solid 1px black;
+}
+.TableDiv {
+  width: 60%;
+  display: inline-block;
+  left: 0;
+}
+
+.Control {
+  height: 659px;
+  width: 33%;
+  margin-right: 60px;
+  border: solid 1px #ccc;
+  display: inline-block;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.Wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.AddButton {
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.ShowInputFile {
+  display: block;
+}
+
+.FormDiv {
+  display: block;
+  border: solid 1px #ccc;
+  border-radius: 10px;
+  margin: 15px;
+}
+
+.FormList {
+  list-style: none;
+}
+
+.FormList li {
+  font-family: "BenchNine", sans-serif;
+  font-size: larger;
+}
+
+.FormList input {
+  font-family: "BenchNine", sans-serif;
+  font-size: larger;
+}
