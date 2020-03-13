@@ -64,7 +64,7 @@ class AddForm extends Component {
                   type="text"
                   id="collDesc"
                   name="collectionDesc"
-                  width="30"
+                  size="30"
                 />
               </li>
               <li style={{ opacity: " 0% " }}>space</li>

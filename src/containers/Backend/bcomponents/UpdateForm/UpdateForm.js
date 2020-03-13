@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import classes from "./UpdateForm.module.css";
 import axios from "axios";
 class AddForm extends Component {
-  onAddCollecionForm = async e => {
+  onUpdateCollecionForm = async e => {
     e.preventDefault();
-
-    const addCollecionForm = document.querySelector("#addCollecionForm");
-    const formData = new FormData(addCollecionForm);
+    const updateCollecionForm = document.querySelector("#updateCollecionForm");
+    const formData = new FormData(updateCollecionForm);
+    formData.append("collectionId", this.props.updateState.pressedRecordId);
     axios
-      .post("http://localhost:9000/API/uploadCollectionForm", formData, {
+      .post("http://localhost:9000/API/updateCollectionForm", formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
@@ -29,32 +29,38 @@ class AddForm extends Component {
   render() {
     return (
       <div className={classes.FormDiv} style={{ display: this.props.update }}>
-        <form id="updateCollecionForm" onSubmit={this.onupdateCollecionForm}>
+        <form id="updateCollecionForm" onSubmit={this.onUpdateCollecionForm}>
           <ul className={classes.FormList}>
             <label className={classes.Font}>UPDATE COLLECTION :</label>
             <br></br>
             <br></br>
             <li>
-              <label htmlFor="collName">ENTER COLLECTION'S NAME:</label>
+              <label htmlFor="collName">COLLECTION'S NAME:</label>
             </li>
             <li>
-              <input type="text" id="collName" name="collectionName" />
+              <input
+                type="text"
+                id="collName"
+                name="collectionName"
+                defaultValue={this.props.updateState.pressedRecordName}
+              />
             </li>
             <li style={{ opacity: " 0% " }}>space</li>
             <li>
-              <label htmlFor="collName">ENTER COLLECTION'S DESCRIPTION:</label>
+              <label htmlFor="collName">COLLECTION'S DESCRIPTION:</label>
             </li>
             <li>
               <input
                 type="text"
                 id="collDesc"
                 name="collectionDesc"
-                width="30"
+                size="30"
+                defaultValue={this.props.updateState.pressedRecordDesc}
               />
             </li>
             <li style={{ opacity: " 0% " }}>space</li>
             <li>
-              <label htmlFor="uploadFile">ADD IMAGE FILE:</label>
+              <label htmlFor="uploadFile">CHANGE IMAGE FILE:</label>
             </li>
             <li>
               <input id="uploadFile" type="file" name="image" />

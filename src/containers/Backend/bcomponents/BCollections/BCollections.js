@@ -17,6 +17,8 @@ class BCollections extends Component {
     deletePressed: false,
     pressedRecordId: null,
     pressedRecordColl: null,
+    pressedRecordName: null,
+    pressedRecordDesc: null,
     inputFileToggleOn: false,
     updateToggleOn: false,
     canceled: false
@@ -187,7 +189,10 @@ class BCollections extends Component {
               if (rowInfo !== undefined) {
                 console.log("A Td Element was clicked!");
                 console.log("it produced this event:", e.target.innerHTML);
-                if (e.target.innerHTML === "DELETE") {
+                if (
+                  e.target.innerHTML === "DELETE" &&
+                  !this.state.inputFileToggleOn
+                ) {
                   this.setState({
                     deletePressed: true,
                     pressedRecordId: rowInfo.row.id.props.children[1],
@@ -203,7 +208,9 @@ class BCollections extends Component {
                       updateToggleOn: !prevState.updateToggleOn,
                       canceled: true,
                       pressedRecordId: rowInfo.row.id.props.children[1],
-                      pressedRecordColl: column.Header
+                      pressedRecordColl: column.Header,
+                      pressedRecordName: rowInfo.row.name.props.children[0],
+                      pressedRecordDesc: rowInfo.row.desc.props.children[1]
                     };
                   });
                 }
@@ -259,6 +266,7 @@ class BCollections extends Component {
                 update={updateClass}
                 updateForm={this.updateFormCallBack}
                 cancelUpdate={this.cancelUpdate}
+                updateState={this.state}
               />
             </AddForm>
           </div>
