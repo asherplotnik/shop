@@ -44,6 +44,9 @@ class AddForm extends Component {
         <div className={classes.FormDiv} style={{ display: this.props.input }}>
           <form id="addCollecionForm" onSubmit={this.onAddCollecionForm}>
             <ul className={classes.FormList}>
+              <label className={classes.Font}>ADD COLLECTION :</label>
+              <br></br>
+              <br></br>
               <li>
                 <label htmlFor="collName">ENTER COLLECTION'S NAME:</label>
               </li>
@@ -69,7 +72,7 @@ class AddForm extends Component {
                 <label htmlFor="uploadFile">ADD IMAGE FILE:</label>
               </li>
               <li>
-                <input id="uploadFile" type="file" name="image" />
+                <input id="uploadFile" type="file" name="image" required />
               </li>
               <li style={{ opacity: " 0% " }}>space</li>
               <li>

@@ -31,6 +31,9 @@ class AddForm extends Component {
       <div className={classes.FormDiv} style={{ display: this.props.update }}>
         <form id="updateCollecionForm" onSubmit={this.onupdateCollecionForm}>
           <ul className={classes.FormList}>
+            <label className={classes.Font}>UPDATE COLLECTION :</label>
+            <br></br>
+            <br></br>
             <li>
               <label htmlFor="collName">ENTER COLLECTION'S NAME:</label>
             </li>

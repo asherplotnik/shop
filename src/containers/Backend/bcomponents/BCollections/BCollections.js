@@ -256,9 +256,9 @@ class BCollections extends Component {
               updateToggle={this.state.updateToggleOn}
             >
               <UpdateForm
-              // update={updateClass}
-              // updateForm={this.updateFormCallBack}
-              // cancelUpdate={this.cancelUpdate}
+                update={updateClass}
+                updateForm={this.updateFormCallBack}
+                cancelUpdate={this.cancelUpdate}
               />
             </AddForm>
           </div>
