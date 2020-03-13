@@ -12,9 +12,9 @@
   height: 659px;
   width: 33%;
   margin-right: 60px;
-  border: solid 1px #ccc;
+
   display: inline-block;
-  border-radius: 10px;
+
   text-align: left;
 }
 
@@ -49,6 +49,11 @@
 }
 
 .FormList input {
+  font-family: "BenchNine", sans-serif;
+  font-size: larger;
+}
+
+.Font {
   font-family: "BenchNine", sans-serif;
   font-size: larger;
 }
