@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import classes from "./UpdateForm.module.css";
+import classes from "./UpdateCollectionForm.module.css";
 import axios from "axios";
 class AddForm extends Component {
   onUpdateCollecionForm = async e => {
@@ -47,7 +47,7 @@ class AddForm extends Component {
             </li>
             <li style={{ opacity: " 0% " }}>space</li>
             <li>
-              <label htmlFor="collName">COLLECTION'S DESCRIPTION:</label>
+              <label htmlFor="collDesc">COLLECTION'S DESCRIPTION:</label>
             </li>
             <li>
               <input

@@ -39,6 +39,13 @@
   font-family: "BenchNine", sans-serif;
   font-size: 1.1em;
 }
+.NavySmall {
+  color: white;
+  background-color: navy;
+  border-radius: 8px;
+  font-family: "BenchNine", sans-serif;
+  font-size: 1.1em;
+}
 
 .DangerSmall {
   color: white;
@@ -49,7 +56,9 @@
 }
 
 .Button:disabled {
-  color: #ccc;
+  color: white;
+  background-color: #ccc;
+
   cursor: not-allowed;
 }
 
@@ -59,5 +68,5 @@
 }
 
 .Button :hover {
-  color: black;
+  color: teal;
 }
