@@ -59,7 +59,7 @@ class ItemsTable extends Component {
                 code: null,
                 collection: null,
                 size: null,
-                type: null,
+                bytype: null,
                 price: null
               };
               if (rowInfo !== undefined) {
@@ -73,6 +73,7 @@ class ItemsTable extends Component {
                   rowDetails.code = rowInfo.original.code;
                   rowDetails.collection = rowInfo.original.collection;
                   rowDetails.size = rowInfo.original.size;
+                  rowDetails.desc = rowInfo.original.desc;
                   rowDetails.type = rowInfo.original.type;
                   rowDetails.price = rowInfo.original.price;
                   this.props.pressedUpdate(rowDetails);

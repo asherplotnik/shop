@@ -127,6 +127,7 @@ class BItems extends Component {
               rId={this.props.pressedRecordId}
               rCode={this.props.pressedRecordCode}
               rCollection={this.props.pressedRecordCollection}
+              rDesc={this.props.pressedRecordDesc}
               rSize={this.props.pressedRecordSize}
               rType={this.props.pressedRecordType}
               rPrice={this.props.pressedRecordPrice}
@@ -162,6 +163,7 @@ const mapStateToProps = state => {
     updatePressed: state.updatePressed,
     pressedRecordId: state.pressedRecordId,
     pressedRecordCode: state.pressedRecordCode,
+    pressedRecordDesc: state.pressedRecordDesc,
     pressedRecordCollection: state.pressedRecordCollection,
     pressedRecordSize: state.pressedRecordSize,
     pressedRecordType: state.pressedRecordType,

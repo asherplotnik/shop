@@ -10,6 +10,7 @@ const addItemForm = props => {
       );
     }
   }
+
   return (
     <div className={classes.AddItemsForm}>
       <form id="addItemForm" onSubmit={props.addItem}>
@@ -17,27 +18,27 @@ const addItemForm = props => {
         <ul className={classes.FormList}>
           <li>
             <label htmlFor="AddCode">CODE: </label>
-            <input type="text" name="addCode" />
+            <input defaultValue = {props.title ==="UPDATE PRODUCT" ? props.rCode : null} type="text" name="addCode" />
           </li>
           <li>
             <label htmlFor="AddCollection">COLLECTION: </label>
-            <select name="addCollection"> {options} </select>
+            <select defaultValue = {props.title ==="UPDATE PRODUCT" ? props.rCollection : null} name="addCollection"> {options} </select>
           </li>
           <li>
             <label htmlFor="AddDesc">DESCRIPTION: </label>
-            <input type="text" name="addDesc" />
+            <input defaultValue = {props.title ==="UPDATE PRODUCT" ? props.rDesc : null} type="text" name="addDesc" />
           </li>
           <li>
             <label htmlFor="AddSize">SIZE: </label>
-            <input type="text" name="addSize" />
+            <input defaultValue = {props.title ==="UPDATE PRODUCT" ? props.rSize : null} type="text" name="addSize" />
           </li>
           <li>
             <label htmlFor="AddPrice">PRICE: </label>
-            <input type="text" name="addPrice" />
+            <input defaultValue = {props.title ==="UPDATE PRODUCT" ? props.rPrice : null} type="text" name="addPrice" />
           </li>
           <li>
             <label htmlFor="AddType">TYPE: </label>
-            <input type="text" name="addType" />
+            <input defaultValue = {props.title ==="UPDATE PRODUCT" ? props.rType : null} type="text" name="addType" />
           </li>
           <li>
             <label htmlFor="AddImg">IMAGE: </label>
