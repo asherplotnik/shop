@@ -18,46 +18,64 @@ class ItemsTable extends Component {
       { Header: "SIZE", accessor: "size", width: 90, filterable: false },
       { Header: "PRICE", accessor: "price", width: 90, filterable: false },
       { Header: "TYPE", accessor: "type", width: 90 },
-      { Header: "IMAGE", accessor: "img", width: 100, filterable: false },
-      { Header: "IMAGE2", accessor: "img2", width: 100, filterable: false },
-      { Header: "UPDATE", accessor: "upt", width: 90, filterable: false },
-      { Header: "DELETE", accessor: "del", width: 90, filterable: false }
+      {
+        Header: "IMAGE",
+        accessor: "img",
+        width: 100,
+        filterable: false,
+        Cell: row => (
+          <img
+            src={row.value}
+            alt={row.value}
+            style={{ width: "100px", height: "100px" }}
+          />
+        )
+      },
+      {
+        Header: "IMAGE2",
+        accessor: "img2",
+        Cell: row => (
+          <img
+            src={row.value}
+            alt={row.value}
+            style={{ width: "100px", height: "100px" }}
+          />
+        ),
+        width: 100,
+        filterable: false
+      },
+      {
+        Header: "UPDATE",
+        accessor: "upt",
+        Cell: () => (
+          <Button id="updateButton" btnType="SuccessSmall">
+            UPDATE
+          </Button>
+        ),
+        width: 90,
+        filterable: false
+      },
+      {
+        Header: "DELETE",
+        accessor: "del",
+        Cell: () => <Button btnType="DangerSmall">DELETE</Button>,
+        width: 90,
+        filterable: false
+      }
     ];
 
     let data = [...this.props.passedData];
-    console.log("data", data);
-    data.map(row => {
-      row["img"] = (
-        <img
-          src={"http://localhost:9000/images/" + row["code"] + ".jpg"}
-          alt={"http://localhost:9000/images/" + row["code"]}
-          style={{ width: 80 }}
-        />
-      );
-      row["img2"] = (
-        <img
-          src={"http://localhost:9000/images/" + row["code"] + "2.jpg"}
-          alt={"http://localhost:9000/images/" + row["code"] + "2.jpg"}
-          style={{ width: 80 }}
-        />
-      );
-      row["upt"] = (
-        <Button id="updateButton" btnType="SuccessSmall">
-          UPDATE
-        </Button>
-      );
-      row["del"] = <Button btnType="DangerSmall">DELETE</Button>;
-      return null;
-    });
+
     return (
       <ReactTable
         getTdProps={(state, rowInfo, column, instance) => {
           return {
             onClick: (e, handleOriginal) => {
               const rowDetails = {
-                id: null,
+                rowId: null,
                 code: null,
                 collection: null,
+                desc: null,
                 size: null,
                 type: null,
                 price: null
@@ -69,11 +87,12 @@ class ItemsTable extends Component {
                   this.props.pressedDelete(rowInfo.original.id);
                 }
                 if (e.target.innerHTML === "UPDATE") {
-                  rowDetails.id = rowInfo.original.id;
+                  rowDetails.rowId = rowInfo.original.id;
                   rowDetails.code = rowInfo.original.code;
                   rowDetails.collection = rowInfo.original.collection;
+                  rowDetails.desc = rowInfo.original.desc;
                   rowDetails.size = rowInfo.original.size;
-                  rowDetails.type = rowInfo.original.type;
+                  rowDetails.typology = rowInfo.original.type;
                   rowDetails.price = rowInfo.original.price;
                   this.props.pressedUpdate(rowDetails);
                 }

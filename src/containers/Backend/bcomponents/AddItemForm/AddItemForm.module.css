@@ -13,13 +13,13 @@
   padding: 3px;
   justify-content: space-between;
   font-family: "BenchNine", sans-serif;
-  font-size: larger;
+  font-size: x-large;
 }
 
 .Font,
-.FormList option,
+.FormList button,
 .FormList input,
 .FormList select {
   font-family: "BenchNine", sans-serif;
-  font-size: larger;
+  font-size: x-large;
 }

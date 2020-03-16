@@ -145,30 +145,36 @@ class BCollections extends Component {
       { Header: "ID", accessor: "id", width: 40 },
       { Header: "NAME", accessor: "name", width: 250 },
       { Header: "DESCRIPTION", accessor: "desc", width: 400 },
-      { Header: "IMAGE", accessor: "img", width: 100 },
-      { Header: "UPDATE", accessor: "upt", width: 100 },
-      { Header: "DELETE", accessor: "del", width: 100 }
+      {
+        Header: "IMAGE",
+        accessor: "img",
+        Cell: row => (
+          <img
+            src={row.value}
+            alt={row.value}
+            style={{ width: "100px", height: "100px" }}
+          />
+        ),
+        width: 100
+      },
+      {
+        Header: "UPDATE",
+        accessor: "upt",
+        Cell: () => (
+          <Button id="updateButton" btnType="SuccessSmall">
+            UPDATE
+          </Button>
+        ),
+        width: 100
+      },
+      {
+        Header: "DELETE",
+        accessor: "del",
+        Cell: () => <Button btnType="DangerSmall">DELETE</Button>,
+        width: 100
+      }
     ];
-    data.map(row => {
-      row["img"] = (
-        <img src={row["img"]} alt={row["img"]} style={{ width: 80 }} />
-      );
-      row["upt"] = (
-        <Button
-          id="updateButton"
-          disabled={this.state.inputFileToggleOn}
-          btnType="SuccessSmall"
-        >
-          UPDATE
-        </Button>
-      );
-      row["del"] = (
-        <Button disabled={this.state.inputFileToggleOn} btnType="DangerSmall">
-          DELETE
-        </Button>
-      );
-      return null;
-    });
+
     return (
       <ReactTable
         className="-highlight -striped"

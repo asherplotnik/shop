@@ -11,9 +11,9 @@ class Items extends Component {
     Items: []
   };
   fetchItems = () => {
-    const selectedColl = this.props.location.search.substr(1).toLowerCase();
+    const selectedColl = this.props.location.search.substr(1);
     const sql = "SELECT * FROM Items WHERE collection = '" + selectedColl + "'";
-    console.log(sql);
+    console.log("[ ----items]", sql);
     const sqlQuery = { sql: sql };
     axios
       .post("http://localhost:9000/API/query", sqlQuery)
@@ -41,7 +41,7 @@ class Items extends Component {
           { name: "items", search: item.collection }
         ];
         const link = { pathname: "/product", search: item.code };
-        const imagePath = "http://localhost:9000/images/" + item.code + ".jpg";
+        const imagePath = item.img;
         return (
           <ItemsElement
             link={link}

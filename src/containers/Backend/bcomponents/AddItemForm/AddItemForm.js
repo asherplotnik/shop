@@ -6,55 +6,68 @@ const addItemForm = props => {
   if (props.collSelect) {
     for (let i = 0; i < props.collSelect.length; i++) {
       options.push(
-        <option value={props.collSelect[i]}>{props.collSelect[i]}</option>
+        <option key={i} value={props.collSelect[i]}>
+          {props.collSelect[i]}
+        </option>
       );
     }
   }
   return (
     <div className={classes.AddItemsForm}>
-      <form id="addItemForm" onSubmit={props.addItem}>
+      <form id={props.formId} onSubmit={props.addItem}>
         <div className={classes.Font}>{props.title}</div>
         <ul className={classes.FormList}>
-          <li>
+          <li key="code">
             <label htmlFor="AddCode">CODE: </label>
-            <input type="text" name="addCode" />
+            <input type="text" name="addCode" defaultValue={props.rCode} />
           </li>
-          <li>
+          <li key="collection">
             <label htmlFor="AddCollection">COLLECTION: </label>
-            <select name="addCollection"> {options} </select>
+            <select name="addCollection">
+              {" "}
+              {options} defaultValue={props.rCollection}
+            </select>
           </li>
-          <li>
+          <li key="desc">
             <label htmlFor="AddDesc">DESCRIPTION: </label>
-            <input type="text" name="addDesc" />
+            <input type="text" name="addDesc" defaultValue={props.rDesc} />
           </li>
-          <li>
+          <li key="size">
             <label htmlFor="AddSize">SIZE: </label>
-            <input type="text" name="addSize" />
+            <input type="text" name="addSize" defaultValue={props.rSize} />
           </li>
-          <li>
+          <li key="price">
             <label htmlFor="AddPrice">PRICE: </label>
-            <input type="text" name="addPrice" />
+            <input type="text" name="addPrice" defaultValue={props.rPrice} />
           </li>
-          <li>
+          <li key="type">
             <label htmlFor="AddType">TYPE: </label>
-            <input type="text" name="addType" />
+            <input type="text" name="addType" defaultValue={props.rType} />
           </li>
-          <li>
+          <li key="imageL">
             <label htmlFor="AddImg">IMAGE: </label>
           </li>{" "}
-          <li>
-            <input type="file" name="addImg" />
+          <li key="image">
+            <input
+              type="file"
+              name="addImg"
+              required={props.title === "ADD PRODUCT" ? true : false}
+            />
           </li>
-          <li>
+          <li key="imageL2">
             <label htmlFor="AddImg2">IMAGE 2: </label>
           </li>{" "}
-          <li>
-            <input type="file" name="addImg2" />
+          <li key="image2">
+            <input
+              type="file"
+              name="addImg2"
+              required={props.title === "ADD PRODUCT" ? true : false}
+            />
           </li>{" "}
           <br></br>
           <br></br>
-          <li>
-            <input type="submit" value="Submit" />
+          <li key="sub">
+            <input type="submit" value="SUBMIT" />
             <button type="button" onClick={props.modalClosed}>
               CANCEL
             </button>
