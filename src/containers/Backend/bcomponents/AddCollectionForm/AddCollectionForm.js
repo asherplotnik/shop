@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Button from "../../../../components/UI/Button/Button";
-import classes from "./AddForm.module.css";
+import classes from "./AddCollectionForm.module.css";
 import axios from "axios";
 
 class AddForm extends Component {
@@ -48,35 +48,31 @@ class AddForm extends Component {
               <br></br>
               <br></br>
               <li>
-                <label htmlFor="collName">ENTER COLLECTION'S NAME:</label>
+                <label htmlFor="addCollName">ENTER COLLECTION'S NAME:</label>
               </li>
               <li>
-                <input type="text" id="collName" name="collectionName" />
+                <input type="text" id="addCollName" name="collectionName" />
               </li>
               <li style={{ opacity: " 0% " }}>space</li>
               <li>
-                <label htmlFor="collName">
+                <label htmlFor="addCollDesc">
                   ENTER COLLECTION'S DESCRIPTION:
                 </label>
               </li>
               <li>
                 <input
                   type="text"
-                  id="collDesc"
+                  id="addCollDesc"
                   name="collectionDesc"
-                  width="30"
+                  size="30"
                 />
               </li>
               <li style={{ opacity: " 0% " }}>space</li>
               <li>
-                <label htmlFor="uploadFile">ADD IMAGE FILE: </label>
+                <label htmlFor="addUploadFile">ADD IMAGE FILE:</label>
               </li>
               <li>
-                <input 
-                  id="uploadFile" 
-                  type='file' 
-                  name="image"
-                />
+                <input id="addUploadFile" type="file" name="image" required />
               </li>
               <li style={{ opacity: " 0% " }}>space</li>
               <li>

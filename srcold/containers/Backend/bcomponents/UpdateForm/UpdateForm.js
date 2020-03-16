@@ -57,7 +57,7 @@ class AddForm extends Component {
               <label htmlFor="uploadFile">IMAGE FILE:</label>
             </li>
             <li>
-              <input id="uploadFile" type="file" name="image" />
+              <input id="uploadFile" type="file"  name="image" />
             </li>
             <li style={{ opacity: " 0% " }}>space</li>
             <li>

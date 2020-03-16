@@ -40,13 +40,13 @@ class Items extends Component {
           { name: "collections", search: "" },
           { name: "items", search: item.collection }
         ];
-        const link = { pathname: "/product", search: item.name };
-        const imagePath = "/images/" + item.name + ".jpg";
+        const link = { pathname: "/product", search: item.code };
+        const imagePath = "http://localhost:9000/images/" + item.code + ".jpg";
         return (
           <ItemsElement
             link={link}
-            img={process.env.PUBLIC_URL + imagePath}
-            name={item.name}
+            img={imagePath}
+            name={item.code}
             key={item.id}
             size={item.size}
             price={item.price}

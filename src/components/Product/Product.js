@@ -11,7 +11,7 @@ class Product extends Component {
   };
   fetchProduct = () => {
     const selectedProduct = this.props.location.search.substr(1);
-    const sql = "SELECT * FROM items WHERE name = '" + selectedProduct + "'";
+    const sql = "SELECT * FROM items WHERE code = '" + selectedProduct + "'";
     console.log(sql);
     const sqlQuery = { sql: sql };
     axios
@@ -37,22 +37,22 @@ class Product extends Component {
         currentPath = [
           { name: "collections", search: "" },
           { name: "items", search: item.collection },
-          { name: "product", search: item.name }
+          { name: "product", search: item.code }
         ];
 
-        const imagePath = "/images/" + item.name + ".jpg";
+        const imagePath = " http://localhost:9000/images/" + item.code + ".jpg";
         return (
           <div key={1}>
             <div className={classes.ImageDiv}>
               <img
-                src={process.env.PUBLIC_URL + imagePath}
+                src={imagePath}
                 alt="whatever are you satisfied from the alt"
               />
             </div>
             <div className={classes.Text}>
               <p className={classes.PDesc}>{item.desc}</p>
               <hr className={classes.HrClass} />
-              <p className={classes.PName}>Code: {item.name}</p>
+              <p className={classes.PName}>Code: {item.code}</p>
               <hr className={classes.HrClass} />
               <p className={classes.PSize}>Size: {item.size}</p>
               <hr className={classes.HrClass} />
