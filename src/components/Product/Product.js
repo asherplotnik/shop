@@ -40,7 +40,7 @@ class Product extends Component {
           { name: "product", search: item.code }
         ];
 
-        const imagePath = " http://localhost:9000/images/" + item.code + ".jpg";
+        const imagePath = item.img;
         return (
           <div key={1}>
             <div className={classes.ImageDiv}>

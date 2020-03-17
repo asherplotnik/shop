@@ -38,7 +38,6 @@ class Collections extends Component {
         return (
           <CollectionsElement
             link={link}
-            img={process.env.PUBLIC_URL + collection.img}
             name={collection.name}
             key={collection.id}
             exact

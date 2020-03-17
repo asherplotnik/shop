@@ -2,16 +2,12 @@
 .Th {
   border: solid 1px black;
 }
-.TableDiv {
-  width: 60%;
-  display: inline-block;
-  left: 0;
-}
 
 .Control {
   height: 659px;
   width: 33%;
-  margin-right: 60px;
+  margin-right: 40px;
+  margin-left: 20px;
   border: solid 1px #ccc;
   display: inline-block;
   border-radius: 10px;

@@ -1,7 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-  items: [],
+  itmes: [],
   loading: true,
   addPressed: false,
   deletePressed: false,
@@ -46,28 +46,18 @@ const itemsReducer = (state = initialState, action) => {
       return {
         ...state,
         updatePressed: !state.updatePressed,
-        pressedRecordId: action.row.rowId,
+        pressedRecordId: action.row.Id,
         pressedRecordCode: action.row.code,
-        pressedRecordCollection: action.row.collection,
-        pressedRecordDesc: action.row.desc,
+        pressedRecordCollection: action.collection,
         pressedRecordSize: action.row.size,
-        pressedRecordType: action.row.typology,
-        pressedRecordPrice: action.row.price
+        pressedRecordType: action.row.type,
+        pressedRecordPrice: action.row.price,
+        pressedRecordDesc: action.row.desc
       };
     case actionTypes.SET_COLLECTION_SELECT:
       return {
         ...state,
         collectionSelect: action.col
-      };
-    case actionTypes.TOGGLE_UPDATE_OFF:
-      return {
-        ...state,
-        updatePressed: false
-      };
-    case actionTypes.TOGGLE_ADD_OFF:
-      return {
-        ...state,
-        addPressed: false
       };
     default:
       return state;

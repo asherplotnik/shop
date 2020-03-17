@@ -7,8 +7,8 @@ import classes from "./BCollections.module.css";
 import Button from "../../../../components/UI/Button/Button";
 import Modal from "../../../../components/UI/Modal/Modal";
 import ModalConfirm from "../../../../components/UI/Modal/modalContents/modalConfirm/ModalConfirm";
-import AddForm from "../AddForm/AddForm";
-import UpdateForm from "../UpdateForm/UpdateForm";
+import AddCollectionForm from "../AddCollectionForm/AddCollectionForm";
+import UpdateCollectionForm from "../UpdateCollectionForm/UpdateCollectionForm";
 
 class BCollections extends Component {
   state = {
@@ -19,7 +19,6 @@ class BCollections extends Component {
     pressedRecordColl: null,
     pressedRecordName: null,
     pressedRecordDesc: null,
-    pressedRecordImage: null,
     inputFileToggleOn: false,
     updateToggleOn: false,
     canceled: false
@@ -117,10 +116,6 @@ class BCollections extends Component {
     });
   };
 
-  updateRecordHandler = () => {
-    this.requestQuery(console.log("UPDATE CONFIRMED"));
-  };
-
   deleteRecordHandler = () => {
     this.requestQuery(
       "DELETE FROM collections WHERE id = " + this.state.pressedRecordId,
@@ -136,7 +131,8 @@ class BCollections extends Component {
     });
   };
 
-  makeNiceTable = data => {
+  makeNiceTable = collData => {
+    let data = [...collData];
     let keysArr = [];
     data.slice(0, 1).map(keys => {
       for (let i = 0; i < Object.getOwnPropertyNames(keys).length; i++) {
@@ -157,9 +153,6 @@ class BCollections extends Component {
       row["img"] = (
         <img src={row["img"]} alt={row["img"]} style={{ width: 80 }} />
       );
-      row["id"] = <span style={{ marginTop: "35px" }}> {row["id"]} </span>;
-      row["name"] = <span style={{ marginTop: "35px" }}>{row["name"]} </span>;
-      row["desc"] = <span style={{ marginTop: "35px" }}> {row["desc"]} </span>;
       row["upt"] = (
         <Button
           id="updateButton"
@@ -174,10 +167,8 @@ class BCollections extends Component {
           DELETE
         </Button>
       );
-
       return null;
     });
-
     return (
       <ReactTable
         className="-highlight -striped"
@@ -190,12 +181,16 @@ class BCollections extends Component {
               if (rowInfo !== undefined) {
                 console.log("A Td Element was clicked!");
                 console.log("it produced this event:", e.target.innerHTML);
-                if (e.target.innerHTML === "DELETE" &&
-                !this.state.inputFileToggleOn) {
-                  this.setState({
-                    deletePressed: true,
-                    pressedRecordId: rowInfo.row.id.props.children[1],
-                    pressedRecordColl: column.Header
+                if (
+                  e.target.innerHTML === "DELETE" &&
+                  !this.state.inputFileToggleOn
+                ) {
+                  this.setState(prevState => {
+                    return {
+                      deletePressed: !prevState.deletePressed,
+                      pressedRecordId: rowInfo.original.id,
+                      pressedRecordColl: column.Header
+                    };
                   });
                 }
                 if (
@@ -206,17 +201,15 @@ class BCollections extends Component {
                     return {
                       updateToggleOn: !prevState.updateToggleOn,
                       canceled: true,
-                      pressedRecordId: rowInfo.row.id.props.children[1],
+                      pressedRecordId: rowInfo.original.id,
                       pressedRecordColl: column.Header,
-                      pressedRecordName: rowInfo.row.name.props.children[0],
-                      pressedRecordDesc: rowInfo.row.desc.props.children[1],
-                      pressedRecordImage:rowInfo.row.img.props.src
+                      pressedRecordName: rowInfo.original.name,
+                      pressedRecordDesc: rowInfo.original.desc
                     };
                   });
                 }
                 console.log("It was in this column:", column.Header);
                 console.log("It was in this row:", rowInfo);
-
                 console.log("It was in this table instance:", instance);
 
                 if (handleOriginal) {
@@ -256,19 +249,19 @@ class BCollections extends Component {
             <div className={classes.TableDiv}>
               {this.makeNiceTable(this.state.collections)}
             </div>
-            <AddForm
+            <AddCollectionForm
               input={inputClass}
               addForm={this.addFormCallBack}
               onAddInputHanadler={this.addInputHandler}
               updateToggle={this.state.updateToggleOn}
             >
-              <UpdateForm
+              <UpdateCollectionForm
                 update={updateClass}
                 updateForm={this.updateFormCallBack}
                 cancelUpdate={this.cancelUpdate}
-                collState={this.state}
+                updateState={this.state}
               />
-            </AddForm>
+            </AddCollectionForm>
           </div>
         </React.Fragment>
       );
