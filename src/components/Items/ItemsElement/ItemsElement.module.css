@@ -6,14 +6,13 @@
 
 .NavElement:hover {
   color: #3990af;
-  transition: color 0.3s ease-out;
 }
 .ItemsElement {
   opacity: 100%;
   position: relative;
   margin: 5px;
   border: solid 1px #b6e4f5;
-  max-width: 300px;
+  width: 300px;
 }
 
 .ItemsElement:hover {
@@ -24,8 +23,15 @@
   margin-bottom: 10px;
 }
 
-.Image {
-  height: 300px;
+.Image1 {
+  max-height: 300px;
+  width: 300px;
+  vertical-align: middle;
+}
+.Image2 {
+  max-height: 300px;
+  width: 300px;
+  vertical-align: middle;
 }
 
 .Desc {
@@ -33,20 +39,12 @@
   display: block;
   opacity: 0%;
   bottom: 0px;
-  margin: 0;
-  font-size: larger;
   transition: opacity 0.3s ease-out;
-  height: 300px;
   width: 300px;
   text-align: center;
 }
 
 .Desc:hover {
   opacity: 100%;
-  margin: 0;
   transition: opacity 0.3s ease-out;
-}
-
-.InnerDesc {
-  margin-top: 250px;
 }

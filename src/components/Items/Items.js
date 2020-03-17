@@ -42,10 +42,12 @@ class Items extends Component {
         ];
         const link = { pathname: "/product", search: item.code };
         const imagePath = item.img;
+        const imagePath2 = item.img2;
         return (
           <ItemsElement
             link={link}
             img={imagePath}
+            img2={imagePath2}
             name={item.code}
             key={item.id}
             size={item.size}

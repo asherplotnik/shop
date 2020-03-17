@@ -16,6 +16,7 @@ const initialState = {
   pressedRecordPrice: null,
   updateToggleOn: false,
   collectionSelect: [],
+  bulkPressed: false,
   canceled: false
 };
 
@@ -62,12 +63,31 @@ const itemsReducer = (state = initialState, action) => {
     case actionTypes.TOGGLE_UPDATE_OFF:
       return {
         ...state,
-        updatePressed: false
+        updatePressed: false,
+        pressedRecordId: null,
+        pressedRecordCode: null,
+        pressedRecordCollection: null,
+        pressedRecordDesc: null,
+        pressedRecordSize: null,
+        pressedRecordType: null,
+        pressedRecordPrice: null
       };
     case actionTypes.TOGGLE_ADD_OFF:
       return {
         ...state,
-        addPressed: false
+        addPressed: false,
+        pressedRecordId: null,
+        pressedRecordCode: null,
+        pressedRecordCollection: null,
+        pressedRecordDesc: null,
+        pressedRecordSize: null,
+        pressedRecordType: null,
+        pressedRecordPrice: null
+      };
+    case actionTypes.BULK_PRESSED:
+      return {
+        ...state,
+        bulkPressed: !state.bulkPressed
       };
     default:
       return state;
