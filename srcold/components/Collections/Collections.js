@@ -40,6 +40,7 @@ class Collections extends Component {
             link={link}
             name={collection.name}
             key={collection.id}
+            img={collection.img}
             exact
           ></CollectionsElement>
         );

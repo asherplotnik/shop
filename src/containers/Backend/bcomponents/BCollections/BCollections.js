@@ -142,11 +142,71 @@ class BCollections extends Component {
     });
 
     const columns = [
-      { Header: "ID", accessor: "id", width: 40 },
-      { Header: "NAME", accessor: "name", width: 250 },
-      { Header: "DESCRIPTION", accessor: "desc", width: 400 },
       {
-        Header: "IMAGE",
+        Header: (
+          <div>
+            <div key="ID" className={classes.HeaderStyle}>
+              ID
+            </div>
+          </div>
+        ),
+        accessor: "id",
+        width: 40,
+        Cell: row => (
+          <div style={{ lineHeight: "70px" }}>
+            <div key={row.value} className={classes.CellStyle}>
+              {" "}
+              {row.value}{" "}
+            </div>
+          </div>
+        )
+      },
+      {
+        Header: (
+          <div>
+            <div key="NAME" className={classes.HeaderStyle}>
+              NAME
+            </div>
+          </div>
+        ),
+        accessor: "name",
+        width: 250,
+        Cell: row => (
+          <div style={{ lineHeight: "70px" }}>
+            <div key={row.value} className={classes.CellStyle}>
+              {" "}
+              {row.value.toUpperCase()}{" "}
+            </div>
+          </div>
+        )
+      },
+      {
+        Header: (
+          <div>
+            <div key="DESCRIPTION" className={classes.HeaderStyle}>
+              DESCRIPTION
+            </div>
+          </div>
+        ),
+        accessor: "desc",
+        width: 400,
+        Cell: row => (
+          <div style={{ lineHeight: "70px" }}>
+            <div key={row.value} className={classes.CellStyle}>
+              {" "}
+              {row.value.toUpperCase()}{" "}
+            </div>
+          </div>
+        )
+      },
+      {
+        Header: (
+          <div>
+            <div key="IMAGE" className={classes.HeaderStyle}>
+              IMAGE
+            </div>
+          </div>
+        ),
         accessor: "img",
         Cell: row => (
           <img
@@ -158,7 +218,13 @@ class BCollections extends Component {
         width: 100
       },
       {
-        Header: "UPDATE",
+        Header: (
+          <div>
+            <div key="UPDATE" className={classes.HeaderStyle}>
+              UPDATE
+            </div>
+          </div>
+        ),
         accessor: "upt",
         Cell: () => (
           <Button id="updateButton" btnType="SuccessSmall">
@@ -168,7 +234,13 @@ class BCollections extends Component {
         width: 100
       },
       {
-        Header: "DELETE",
+        Header: (
+          <div>
+            <div key="DELETE" className={classes.HeaderStyle}>
+              DELETE
+            </div>
+          </div>
+        ),
         accessor: "del",
         Cell: () => <Button btnType="DangerSmall">DELETE</Button>,
         width: 100

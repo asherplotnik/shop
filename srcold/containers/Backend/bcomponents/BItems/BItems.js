@@ -18,20 +18,36 @@ class BItems extends Component {
 
   onAddItemForm = async e => {
     e.preventDefault();
-
     const addItemForm = document.querySelector("#addItemForm");
     const formData = new FormData(addItemForm);
-    this.props.onAddPressed();
-    let queryType = "";
-    if (formData.get("formType") === "ADD PRODUCT"){
-      queryType = "uploadItemForm";
-    }
-    else if (formData.get("formType") === "UPDATE PRODUCT" ){
-      queryType = "upldateItemForm"
-      formData.append("itemId",this.props.pressedRecordId )
-    }
+    this.props.onToggleAddOff();
     axios
-      .post("http://localhost:9000/API/" + queryType, formData, {
+      .post("http://localhost:9000/API/uploadItemForm", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(response => {
+        console.log("[add collection respose] => ", response.data);
+        if (response.data === "Item exists already") {
+          alert(response.data);
+        }
+        this.requestQuery("SELECT * FROM items", "query");
+      })
+      .catch(error => {
+        alert(error);
+        this.requestQuery("SELECT * FROM collections", "query");
+      });
+  };
+
+  onUpdateItemForm = async e => {
+    e.preventDefault();
+    const itemForm = document.querySelector("#updateItemForm");
+    const formData = new FormData(itemForm);
+    this.props.onToggleUpdateOff();
+    formData.append("itemId", this.props.pressedRecordId);
+    axios
+      .post("http://localhost:9000/API/updateItemForm", formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
@@ -84,7 +100,6 @@ class BItems extends Component {
       });
   };
 
-  onUpdateItemForm = () => {};
   onDeleteHandler = () => {
     this.requestQuery(
       "delete from items where id = " + this.props.pressedRecordId,
@@ -97,6 +112,15 @@ class BItems extends Component {
     if (!this.props.loading) {
       viewPage = (
         <React.Fragment>
+          <Modal
+            show={this.props.bulkPressed}
+            modalClosed={this.props.onBulkPressed} 
+            >
+              <form id="bulkForm">
+                <div>SELECT FILE TO UPLOAD:</div>
+                <div><input type = "file" name="bulkFile"/></div>
+              </form>
+          </Modal>
           <Modal
             show={this.props.deletePressed}
             modalClosed={this.props.onDeletePressed}
@@ -111,6 +135,7 @@ class BItems extends Component {
             modalClosed={this.props.onAddPressed}
           >
             <AddItemForm
+              formId="addItemForm"
               title="ADD PRODUCT"
               addItem={this.onAddItemForm}
               collSelect={this.props.collectionSelect}
@@ -122,9 +147,9 @@ class BItems extends Component {
             modalClosed={this.props.onUpdatePressed}
           >
             <AddItemForm
+              formId="updateItemForm"
               title="UPDATE PRODUCT"
               collSelect={this.props.collectionSelect}
-              rId={this.props.pressedRecordId}
               rCode={this.props.pressedRecordCode}
               rCollection={this.props.pressedRecordCollection}
               rDesc={this.props.pressedRecordDesc}
@@ -138,6 +163,9 @@ class BItems extends Component {
           <div className={classes.addProduct}>
             <Button btnType="NavySmall" clicked={this.props.onAddPressed}>
               ADD PRODUCT
+            </Button>
+            <Button btnType="NavySmall" clicked={this.props.onBulkPressed}>
+              ADD FROM FILE 
             </Button>
           </div>
           <ItemsTable
@@ -163,11 +191,12 @@ const mapStateToProps = state => {
     updatePressed: state.updatePressed,
     pressedRecordId: state.pressedRecordId,
     pressedRecordCode: state.pressedRecordCode,
-    pressedRecordDesc: state.pressedRecordDesc,
     pressedRecordCollection: state.pressedRecordCollection,
+    pressedRecordDesc: state.pressedRecordDesc,
     pressedRecordSize: state.pressedRecordSize,
     pressedRecordType: state.pressedRecordType,
     pressedRecordPrice: state.pressedRecordPrice,
+    bulkPressed: state.bulkPressed,
     collectionSelect: state.collectionSelect
   };
 };
@@ -179,7 +208,10 @@ const mapDispatchToProps = dispatch => {
     onAddPressed: () => dispatch(actions.addPressed()),
     onDeletePressed: rowId => dispatch(actions.deletePressed(rowId)),
     onUpdatePressed: row => dispatch(actions.updatePressed(row)),
-    onSetCollectionSelect: col => dispatch(actions.setCollectionSelect(col))
+    onSetCollectionSelect: col => dispatch(actions.setCollectionSelect(col)),
+    onToggleUpdateOff: () => dispatch(actions.toggleUpdateOff()),
+    onToggleAddOff: () => dispatch(actions.toggleAddOff()),
+    onBulkPressed: () => dispatch(actions.bulkPressed())
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(BItems);

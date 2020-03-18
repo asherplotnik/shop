@@ -6,20 +6,150 @@ import ReactTable from "react-table-6";
 class ItemsTable extends Component {
   render() {
     const columns = [
-      { Header: "ID", accessor: "id",width: 40, Cell: row => (<div style={{lineHeight:"70px"}}><div key = {row.value} className = {classes.CellStyle}> {row.value} </div></div> ) },
-      { Header: "CODE", accessor: "code", width: 230 , Cell: row => (<div style={{lineHeight:"70px"}}><div key = {row.value} className = {classes.CellStyle}> {row.value.toUpperCase()} </div></div> )},
-      { Header: "COLLECTION", accessor: "collection", width: 280 , Cell: row => (<div style={{lineHeight:"70px"}}><div key = {row.value} className = {classes.CellStyle}> {row.value.toUpperCase()} </div></div> )},
       {
-        Header: "DESCRIPTION",
+        Header: (
+          <div>
+            <div key="ID" className={classes.HeaderStyle}>
+              ID
+            </div>
+          </div>
+        ),
+        accessor: "id",
+        width: 40,
+        Cell: row => (
+          <div style={{ lineHeight: "70px" }}>
+            <div key={row.value} className={classes.CellStyle}>
+              {" "}
+              {row.value}{" "}
+            </div>
+          </div>
+        )
+      },
+      {
+        Header: (
+          <div>
+            <div key="CODE" className={classes.HeaderStyle}>
+              CODE
+            </div>
+          </div>
+        ),
+        accessor: "code",
+        width: 230,
+        Cell: row => (
+          <div style={{ lineHeight: "70px" }}>
+            <div key={row.value} className={classes.CellStyle}>
+              {" "}
+              {row.value.toUpperCase()}{" "}
+            </div>
+          </div>
+        )
+      },
+      {
+        Header: (
+          <div>
+            <div key="COLLECTION" className={classes.HeaderStyle}>
+              COLLECTION
+            </div>
+          </div>
+        ),
+        accessor: "collection",
+        width: 280,
+        Cell: row => (
+          <div style={{ lineHeight: "70px" }}>
+            <div key={row.value} className={classes.CellStyle}>
+              {" "}
+              {row.value.toUpperCase()}{" "}
+            </div>
+          </div>
+        )
+      },
+      {
+        Header: (
+          <div>
+            <div key="DESCRIPTION" className={classes.HeaderStyle}>
+              DESCRIPTION
+            </div>
+          </div>
+        ),
         accessor: "desc",
         width: 370,
-        filterable: false, Cell: row => (<div style={{lineHeight:"70px"}}><div key = {row.value} className = {classes.CellStyle}> {row.value.toUpperCase()} </div></div> )
+        filterable: false,
+        Cell: row => (
+          <div style={{ lineHeight: "70px" }}>
+            <div key={row.value} className={classes.CellStyle}>
+              {" "}
+              {row.value.toUpperCase()}{" "}
+            </div>
+          </div>
+        )
       },
-      { Header: "SIZE", accessor: "size", width: 90, filterable: false, Cell: row => (<div style={{lineHeight:"70px"}}><div key = {row.value} className = {classes.CellStyle}> {row.value.toUpperCase()} </div></div> ) },
-      { Header: "PRICE", accessor: "price", width: 90, filterable: false, Cell: row => (<div style={{lineHeight:"70px"}}><div key = {row.value} className = {classes.CellStyle}> {row.value} </div></div> ) },
-      { Header: "TYPE", accessor: "type", width: 90, Cell: row => (<div style={{lineHeight:"70px"}}><div key = {row.value} className = {classes.CellStyle}> {row.value.toUpperCase()} </div></div> ) },
       {
-        Header: "IMAGE",
+        Header: (
+          <div>
+            <div key="SIZE" className={classes.HeaderStyle}>
+              SIZE
+            </div>
+          </div>
+        ),
+        accessor: "size",
+        width: 90,
+        filterable: false,
+        Cell: row => (
+          <div style={{ lineHeight: "70px" }}>
+            <div key={row.value} className={classes.CellStyle}>
+              {" "}
+              {row.value.toUpperCase()}{" "}
+            </div>
+          </div>
+        )
+      },
+      {
+        Header: (
+          <div>
+            <div key="PRICE" className={classes.HeaderStyle}>
+              PRICE
+            </div>
+          </div>
+        ),
+        accessor: "price",
+        width: 90,
+        filterable: false,
+        Cell: row => (
+          <div style={{ lineHeight: "70px" }}>
+            <div key={row.value} className={classes.CellStyle}>
+              {" "}
+              {row.value}{" "}
+            </div>
+          </div>
+        )
+      },
+      {
+        Header: (
+          <div>
+            <div key="TYPE" className={classes.HeaderStyle}>
+              TYPE
+            </div>
+          </div>
+        ),
+        accessor: "type",
+        width: 90,
+        Cell: row => (
+          <div style={{ lineHeight: "70px" }}>
+            <div key={row.value} className={classes.CellStyle}>
+              {" "}
+              {row.value.toUpperCase()}{" "}
+            </div>
+          </div>
+        )
+      },
+      {
+        Header: (
+          <div>
+            <div key="IMAGE" className={classes.HeaderStyle}>
+              IMAGE
+            </div>
+          </div>
+        ),
         accessor: "img",
         width: 100,
         filterable: false,
@@ -32,7 +162,13 @@ class ItemsTable extends Component {
         )
       },
       {
-        Header: "IMAGE2",
+        Header: (
+          <div>
+            <div key="IMAGE2" className={classes.HeaderStyle}>
+              IMAGE 2
+            </div>
+          </div>
+        ),
         accessor: "img2",
         Cell: row => (
           <img
@@ -45,10 +181,16 @@ class ItemsTable extends Component {
         filterable: false
       },
       {
-        Header: "UPDATE",
+        Header: (
+          <div>
+            <div key="UPDATE" className={classes.HeaderStyle}>
+              UPDATE
+            </div>
+          </div>
+        ),
         accessor: "upt",
         Cell: () => (
-         <Button id="updateButton" btnType="SuccessSmall" >
+          <Button id="updateButton" btnType="SuccessSmall">
             UPDATE
           </Button>
         ),
@@ -56,16 +198,22 @@ class ItemsTable extends Component {
         filterable: false
       },
       {
-        Header: "DELETE",
+        Header: (
+          <div>
+            <div key="DELETE" className={classes.HeaderStyle}>
+              DELETE
+            </div>
+          </div>
+        ),
         accessor: "del",
-        Cell: () =>  <Button btnType="DangerSmall" >DELETE</Button>,
+        Cell: () => <Button btnType="DangerSmall">DELETE</Button>,
         width: 90,
         filterable: false
       }
     ];
 
     let data = [...this.props.passedData];
-
+    console.log("{TABLE DATA: ]",JSON.stringify(data))
     return (
       <ReactTable
         getTdProps={(state, rowInfo, column, instance) => {

@@ -48,3 +48,17 @@
   margin-bottom: 40px;
   margin-left: 50px;
 }
+
+.Desc {
+  position: absolute;
+  display: block;
+  opacity: 0%;
+  bottom: 0px;
+  transition: opacity 0.3s ease-out;
+  width: 300px;
+  text-align: center;
+}
+.Desc:hover {
+  opacity: 100%;
+  transition: opacity 0.3s ease-out;
+}

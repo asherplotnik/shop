@@ -6,57 +6,67 @@ const addItemForm = props => {
   if (props.collSelect) {
     for (let i = 0; i < props.collSelect.length; i++) {
       options.push(
-        <option value={props.collSelect[i]}>{props.collSelect[i]}</option>
+        <option key={i} value={props.collSelect[i]}>
+          {props.collSelect[i]}
+        </option>
       );
     }
   }
-
   return (
     <div className={classes.AddItemsForm}>
-      <form id="addItemForm" onSubmit={props.addItem}>
+      <form id={props.formId} onSubmit={props.addItem}>
         <div className={classes.Font}>{props.title}</div>
         <ul className={classes.FormList}>
-          <li>
+          <li key="code">
             <label htmlFor="AddCode">CODE: </label>
-            <input defaultValue = {props.title ==="UPDATE PRODUCT" ? props.rCode : null} type="text" name="addCode" />
+            <input type="text" name="addCode" defaultValue={props.rCode} />
           </li>
-          <li>
+          <li key="collection">
             <label htmlFor="AddCollection">COLLECTION: </label>
-            <select defaultValue = {props.title ==="UPDATE PRODUCT" ? props.rCollection : null} name="addCollection"> {options} </select>
+            <select name="addCollection">
+              {" "}
+              {options} defaultValue={props.rCollection}
+            </select>
           </li>
-          <li>
+          <li key="desc">
             <label htmlFor="AddDesc">DESCRIPTION: </label>
-            <input defaultValue = {props.title ==="UPDATE PRODUCT" ? props.rDesc : null} type="text" name="addDesc" />
+            <input type="text" name="addDesc" defaultValue={props.rDesc} />
           </li>
-          <li>
+          <li key="size">
             <label htmlFor="AddSize">SIZE: </label>
-            <input defaultValue = {props.title ==="UPDATE PRODUCT" ? props.rSize : null} type="text" name="addSize" />
+            <input type="text" name="addSize" defaultValue={props.rSize} />
           </li>
-          <li>
+          <li key="price">
             <label htmlFor="AddPrice">PRICE: </label>
-            <input defaultValue = {props.title ==="UPDATE PRODUCT" ? props.rPrice : null} type="text" name="addPrice" />
+            <input type="text" name="addPrice" defaultValue={props.rPrice} />
           </li>
-          <li>
+          <li key="type">
             <label htmlFor="AddType">TYPE: </label>
-            <input defaultValue = {props.title ==="UPDATE PRODUCT" ? props.rType : null} type="text" name="addType" />
+            <input type="text" name="addType" defaultValue={props.rType} />
           </li>
-          <li>
+          <li key="imageL">
             <label htmlFor="AddImg">IMAGE: </label>
           </li>{" "}
-          <li>
-            <input type="file" name="addImg" />
+          <li key="image">
+            <input
+              type="file"
+              name="addImg"
+              required={props.title === "ADD PRODUCT" ? true : false}
+            />
           </li>
-          <li>
+          <li key="imageL2">
             <label htmlFor="AddImg2">IMAGE 2: </label>
           </li>{" "}
-          <li>
-            <input type="file" name="addImg2" />
+          <li key="image2">
+            <input
+              type="file"
+              name="addImg2"
+              required={props.title === "ADD PRODUCT" ? true : false}
+            />
           </li>{" "}
-          <li style={{opacity:"0%"}}>
-          <input type="text" name="formType" value={props.title} />
-          </li>
           <br></br>
-          <li>
+          <br></br>
+          <li key="sub">
             <input type="submit" value="SUBMIT" />
             <button type="button" onClick={props.modalClosed}>
               CANCEL

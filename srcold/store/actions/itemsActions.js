@@ -38,3 +38,20 @@ export const setCollectionSelect = col => {
     col: col
   };
 };
+export const toggleUpdateOff = col => {
+  return {
+    type: actionTypes.TOGGLE_UPDATE_OFF,
+    col: col
+  };
+};
+export const toggleAddOff = col => {
+  return {
+    type: actionTypes.TOGGLE_ADD_OFF,
+    col: col
+  };
+};
+export const bulkPressed = () => {
+  return {
+    type: actionTypes.BULK_PRESSED,
+  };
+}

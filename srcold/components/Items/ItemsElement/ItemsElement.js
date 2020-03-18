@@ -6,13 +6,19 @@ const ItemsElement = props => {
   return (
     <NavLink className={classes.NavElement} to={props.link} exact={props.exact}>
       <div className={classes.ItemsElement}>
-        <img className={classes.Image} src={props.img} alt={props.img} />
+        <div style={{height:"300px",lineHeight: "300px"}}>
+         <img className={classes.Image1} src={props.img} alt={props.img} />
+        </div>
+        <div className={classes.Txt}>{props.name}</div>
+        <div className={classes.Txt}>{props.price} BHT</div>
         <div className={classes.Desc}>
-          <div className={classes.InnerDesc}>{props.desc}</div>
+        <div style={{height:"300px",lineHeight: "300px"}}>
+          <img className={classes.Image2} src={props.img2} alt={props.img2} />
+          </div>
+          <div className={classes.Txt}>{props.name}</div>
+          <div className={classes.Txt}>{props.price} BHT</div>
         </div>
       </div>
-      <div className={classes.Txt}>{props.name}</div>
-      <div className={classes.Txt}>{props.price} BHT</div>
     </NavLink>
   );
 };

@@ -6,7 +6,7 @@ const addItemForm = props => {
   if (props.collSelect) {
     for (let i = 0; i < props.collSelect.length; i++) {
       options.push(
-        <option key={i} value={props.collSelect[i]}>
+        <option key={i} selected = {props.collSelect[i] === props.rCollection ? "selected" : ""}>
           {props.collSelect[i]}
         </option>
       );
@@ -23,9 +23,9 @@ const addItemForm = props => {
           </li>
           <li key="collection">
             <label htmlFor="AddCollection">COLLECTION: </label>
-            <select name="addCollection">
+            <select name="addCollection" >
               {" "}
-              {options} defaultValue={props.rCollection}
+              {options} 
             </select>
           </li>
           <li key="desc">
@@ -42,7 +42,14 @@ const addItemForm = props => {
           </li>
           <li key="type">
             <label htmlFor="AddType">TYPE: </label>
-            <input type="text" name="addType" defaultValue={props.rType} />
+            {/* <input type="text" name="addType" defaultValue={props.rType} /> */}
+             <select name="addType">
+               <option selected = {props.rType === "EARRINGS"? "selected" : ""}>EARRINGS</option>
+               <option selected = {props.rType === "BRACELET"? "selected" : ""}>BRACELET</option>
+               <option selected = {props.rType === "NECKLACE"? "selected" : ""}>NECKLACE</option>
+               <option selected = {props.rType === "PENDANT"? "selected" : ""}>PENDANT</option>
+               <option selected = {props.rType === "RING"? "selected" : ""}>RING</option>
+             </select> 
           </li>
           <li key="imageL">
             <label htmlFor="AddImg">IMAGE: </label>

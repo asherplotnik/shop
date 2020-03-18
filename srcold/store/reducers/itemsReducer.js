@@ -1,7 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-  itmes: [],
+  items: [],
   loading: true,
   addPressed: false,
   deletePressed: false,
@@ -16,6 +16,7 @@ const initialState = {
   pressedRecordPrice: null,
   updateToggleOn: false,
   collectionSelect: [],
+  bulkPressed: false,
   canceled: false
 };
 
@@ -46,19 +47,34 @@ const itemsReducer = (state = initialState, action) => {
       return {
         ...state,
         updatePressed: !state.updatePressed,
-        pressedRecordId: action.row.Id,
+        pressedRecordId: action.row.rowId,
         pressedRecordCode: action.row.code,
-        pressedRecordCollection: action.collection,
+        pressedRecordCollection: action.row.collection,
+        pressedRecordDesc: action.row.desc,
         pressedRecordSize: action.row.size,
-        pressedRecordType: action.row.type,
-        pressedRecordPrice: action.row.price,
-        pressedRecordDesc: action.row.desc
+        pressedRecordType: action.row.typology,
+        pressedRecordPrice: action.row.price
       };
     case actionTypes.SET_COLLECTION_SELECT:
       return {
         ...state,
         collectionSelect: action.col
       };
+    case actionTypes.TOGGLE_UPDATE_OFF:
+      return {
+        ...state,
+        updatePressed: false
+      };
+    case actionTypes.TOGGLE_ADD_OFF:
+      return {
+        ...state,
+        addPressed: false
+      };
+    case actionTypes.BULK_PRESSED:
+      return {
+        ...state,
+        bulkPressed: !state.bulkPressed
+      }  
     default:
       return state;
   }

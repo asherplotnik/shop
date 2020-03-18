@@ -32,10 +32,12 @@ class BItems extends Component {
         if (response.data === "Item exists already") {
           alert(response.data);
         }
+        document.querySelector('#updateItemForm').reset()
         this.requestQuery("SELECT * FROM items", "query");
       })
       .catch(error => {
         alert(error);
+        document.querySelector('#updateItemForm').reset()
         this.requestQuery("SELECT * FROM collections", "query");
       });
   };
@@ -53,14 +55,16 @@ class BItems extends Component {
         }
       })
       .then(response => {
-        console.log("[add collection respose] => ", response.data);
+        console.log("[add collection response] => ", response.data);
         if (response.data === "collection exists already") {
           alert(response.data);
         }
+        document.querySelector('#updateItemForm').reset()
         this.requestQuery("SELECT * FROM items", "query");
       })
       .catch(error => {
         alert(error);
+        document.querySelector('#updateItemForm').reset()
         this.requestQuery("SELECT * FROM collections", "query");
       });
   };
@@ -112,13 +116,21 @@ class BItems extends Component {
     if (!this.props.loading) {
       viewPage = (
         <React.Fragment>
-          <Modal
+          <Modal 
+            width="900px"
+            left="25%"
             show={this.props.bulkPressed}
             modalClosed={this.props.onBulkPressed} 
             >
               <form id="bulkForm">
-                <div>SELECT FILE TO UPLOAD:</div>
-                <div><input type = "file" name="bulkFile"/></div>
+                <div className={classes.Font}>SELECT FILE TO UPLOAD:</div>
+                <br></br>
+                <div ><input  type = "file" name="bulkFile"/></div>
+                <div>
+                  <p>Instructions: only excel file with the following columns: </p> 
+                  <p>CODE , COLLECTION , DESCRIPTION , SIZE , PRICE , TYPE , IMAGE , IMAGE2 </p>
+                  <img style={{border:"solid 1px black",width:"95%"}}src= "http://localhost:9000/images/bulk.jpg" alt = "bulk"/>
+                </div>
               </form>
           </Modal>
           <Modal

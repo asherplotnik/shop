@@ -34,7 +34,6 @@
   vertical-align: middle;
 }
 
-
 .Desc {
   position: absolute;
   display: block;
@@ -48,9 +47,4 @@
 .Desc:hover {
   opacity: 100%;
   transition: opacity 0.3s ease-out;
-}
-
-.InnerDesc {
-
-
 }

@@ -40,14 +40,13 @@ class Product extends Component {
           { name: "product", search: item.code }
         ];
 
-        const imagePath = item.img;
         return (
           <div key={1}>
             <div className={classes.ImageDiv}>
-              <img
-                src={imagePath}
-                alt="whatever are you satisfied from the alt"
-              />
+              <img src={item.img} alt="img" />
+              <div className={classes.Desc}>
+                <img src={item.img2} alt="img2" className={classes.Image2} />
+              </div>
             </div>
             <div className={classes.Text}>
               <p className={classes.PDesc}>{item.desc}</p>
