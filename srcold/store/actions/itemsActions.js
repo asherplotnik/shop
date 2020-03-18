@@ -50,3 +50,8 @@ export const toggleAddOff = col => {
     col: col
   };
 };
+export const bulkPressed = () => {
+  return {
+    type: actionTypes.BULK_PRESSED
+  };
+};

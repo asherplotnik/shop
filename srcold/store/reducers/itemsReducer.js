@@ -16,6 +16,7 @@ const initialState = {
   pressedRecordPrice: null,
   updateToggleOn: false,
   collectionSelect: [],
+  bulkPressed: false,
   canceled: false
 };
 
@@ -68,6 +69,11 @@ const itemsReducer = (state = initialState, action) => {
       return {
         ...state,
         addPressed: false
+      };
+    case actionTypes.BULK_PRESSED:
+      return {
+        ...state,
+        bulkPressed: !state.bulkPressed
       };
     default:
       return state;

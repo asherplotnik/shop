@@ -1,23 +1,105 @@
 import React, { Component } from "react";
-//import classes from "./ItemsTable.module.css";
+import classes from "./ItemsTable.module.css";
 import Button from "../../../../components/UI/Button/Button";
 import ReactTable from "react-table-6";
 
 class ItemsTable extends Component {
   render() {
     const columns = [
-      { Header: "ID", accessor: "id", width: 40 },
-      { Header: "CODE", accessor: "code", width: 230 },
-      { Header: "COLLECTION", accessor: "collection", width: 280 },
+      {
+        Header: "ID",
+        accessor: "id",
+        width: 40,
+        Cell: row => (
+          <div style={{ lineHeight: "70px" }}>
+            <div key={row.value} className={classes.CellStyle}>
+              {" "}
+              {row.value}{" "}
+            </div>
+          </div>
+        )
+      },
+      {
+        Header: "CODE",
+        accessor: "code",
+        width: 230,
+        Cell: row => (
+          <div style={{ lineHeight: "70px" }}>
+            <div key={row.value} className={classes.CellStyle}>
+              {" "}
+              {row.value.toUpperCase()}{" "}
+            </div>
+          </div>
+        )
+      },
+      {
+        Header: "COLLECTION",
+        accessor: "collection",
+        width: 280,
+        Cell: row => (
+          <div style={{ lineHeight: "70px" }}>
+            <div key={row.value} className={classes.CellStyle}>
+              {" "}
+              {row.value.toUpperCase()}{" "}
+            </div>
+          </div>
+        )
+      },
       {
         Header: "DESCRIPTION",
         accessor: "desc",
         width: 370,
-        filterable: false
+        filterable: false,
+        Cell: row => (
+          <div style={{ lineHeight: "70px" }}>
+            <div key={row.value} className={classes.CellStyle}>
+              {" "}
+              {row.value.toUpperCase()}{" "}
+            </div>
+          </div>
+        )
       },
-      { Header: "SIZE", accessor: "size", width: 90, filterable: false },
-      { Header: "PRICE", accessor: "price", width: 90, filterable: false },
-      { Header: "TYPE", accessor: "type", width: 90 },
+      {
+        Header: "SIZE",
+        accessor: "size",
+        width: 90,
+        filterable: false,
+        Cell: row => (
+          <div style={{ lineHeight: "70px" }}>
+            <div key={row.value} className={classes.CellStyle}>
+              {" "}
+              {row.value.toUpperCase()}{" "}
+            </div>
+          </div>
+        )
+      },
+      {
+        Header: "PRICE",
+        accessor: "price",
+        width: 90,
+        filterable: false,
+        Cell: row => (
+          <div style={{ lineHeight: "70px" }}>
+            <div key={row.value} className={classes.CellStyle}>
+              {" "}
+              {row.value}{" "}
+            </div>
+          </div>
+        )
+      },
+      {
+        Header: "TYPE",
+        accessor: "type",
+        width: 90,
+        Cell: row => (
+          <div style={{ lineHeight: "70px" }}>
+            <div key={row.value} className={classes.CellStyle}>
+              {" "}
+              {row.value.toUpperCase()}{" "}
+            </div>
+          </div>
+        )
+      },
       {
         Header: "IMAGE",
         accessor: "img",

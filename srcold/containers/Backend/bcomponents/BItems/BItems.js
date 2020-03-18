@@ -113,6 +113,17 @@ class BItems extends Component {
       viewPage = (
         <React.Fragment>
           <Modal
+            show={this.props.bulkPressed}
+            modalClosed={this.props.onBulkPressed}
+          >
+            <form id="bulkForm">
+              <div>SELECT FILE TO UPLOAD:</div>
+              <div>
+                <input type="file" name="bulkFile" />
+              </div>
+            </form>
+          </Modal>
+          <Modal
             show={this.props.deletePressed}
             modalClosed={this.props.onDeletePressed}
           >
@@ -155,6 +166,9 @@ class BItems extends Component {
             <Button btnType="NavySmall" clicked={this.props.onAddPressed}>
               ADD PRODUCT
             </Button>
+            <Button btnType="NavySmall" clicked={this.props.onBulkPressed}>
+              ADD FROM FILE
+            </Button>
           </div>
           <ItemsTable
             pressedDelete={this.props.onDeletePressed}
@@ -184,6 +198,7 @@ const mapStateToProps = state => {
     pressedRecordSize: state.pressedRecordSize,
     pressedRecordType: state.pressedRecordType,
     pressedRecordPrice: state.pressedRecordPrice,
+    bulkPressed: state.bulkPressed,
     collectionSelect: state.collectionSelect
   };
 };
@@ -197,7 +212,8 @@ const mapDispatchToProps = dispatch => {
     onUpdatePressed: row => dispatch(actions.updatePressed(row)),
     onSetCollectionSelect: col => dispatch(actions.setCollectionSelect(col)),
     onToggleUpdateOff: () => dispatch(actions.toggleUpdateOff()),
-    onToggleAddOff: () => dispatch(actions.toggleAddOff())
+    onToggleAddOff: () => dispatch(actions.toggleAddOff()),
+    onBulkPressed: () => dispatch(actions.bulkPressed())
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(BItems);

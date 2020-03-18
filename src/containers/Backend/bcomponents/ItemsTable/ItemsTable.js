@@ -213,7 +213,7 @@ class ItemsTable extends Component {
     ];
 
     let data = [...this.props.passedData];
-
+    console.log("{TABLE DATA: ]", JSON.stringify(data));
     return (
       <ReactTable
         getTdProps={(state, rowInfo, column, instance) => {

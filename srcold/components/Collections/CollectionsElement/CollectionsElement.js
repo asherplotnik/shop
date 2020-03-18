@@ -6,11 +6,9 @@ const CollectionsElement = props => {
   return (
     <NavLink className={classes.NavElement} to={props.link} exact={props.exact}>
       <div className={classes.CollectionsElement}>
-        <img
-          className={classes.Image}
-          src={"http://localhost:9000/images/" + props.name + ".jpg"}
-          alt={props.img}
-        />
+        <div style={{ height: "300px", lineHeight: "300px" }}>
+          <img className={classes.Image} src={props.img} alt={props.img} />
+        </div>
       </div>
       <div className={classes.Txt}>{props.name}</div>
     </NavLink>
