@@ -42,7 +42,6 @@ const addItemForm = props => {
           </li>
           <li key="type">
             <label htmlFor="AddType">TYPE: </label>
-            {/* <input type="text" name="addType" defaultValue={props.rType} /> */}
             <select name="addType">
               <option selected={props.rType === "EARRINGS" ? "selected" : ""}>
                 EARRINGS

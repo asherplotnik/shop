@@ -155,7 +155,7 @@ class ItemsTable extends Component {
         filterable: false,
         Cell: row => (
           <img
-            src={row.value}
+            src={"http://localhost:9000/images/" + row.value}
             alt={row.value}
             style={{ width: "100px", height: "100px" }}
           />
@@ -172,7 +172,7 @@ class ItemsTable extends Component {
         accessor: "img2",
         Cell: row => (
           <img
-            src={row.value}
+            src={"http://localhost:9000/images/" + row.value}
             alt={row.value}
             style={{ width: "100px", height: "100px" }}
           />
@@ -213,7 +213,6 @@ class ItemsTable extends Component {
     ];
 
     let data = [...this.props.passedData];
-    console.log("{TABLE DATA: ]", JSON.stringify(data));
     return (
       <ReactTable
         getTdProps={(state, rowInfo, column, instance) => {

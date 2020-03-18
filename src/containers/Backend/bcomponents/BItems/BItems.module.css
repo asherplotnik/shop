@@ -36,7 +36,8 @@
   font-family: "BenchNine", sans-serif;
   font-size: x-large;
 }
-.Font input {
-  border: "dotted black 1px";
-  padding: "2px";
+
+.FontInput {
+  border: dotted black 1px;
+  padding: 2px;
 }

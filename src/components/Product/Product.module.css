@@ -62,3 +62,7 @@
   opacity: 100%;
   transition: opacity 0.3s ease-out;
 }
+
+.ImageDiv img {
+  max-width: 300px;
+}

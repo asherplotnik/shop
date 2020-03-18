@@ -9,6 +9,7 @@ import Spinner from "../../../../components/UI/Spinner/Spinner";
 import AddItemForm from "../AddItemForm/AddItemForm";
 import Modal from "../../../../components/UI/Modal/Modal";
 import ModalConfirm from "../../../../components/UI/Modal/modalContents/modalConfirm/ModalConfirm";
+import BulkForm from "../BulkForm/BulkForm";
 
 class BItems extends Component {
   componentDidMount() {
@@ -16,6 +17,26 @@ class BItems extends Component {
     this.collectionQuery();
   }
 
+  onBulkConfirmed = async e => {
+    e.preventDefault();
+    this.props.onBulkPressed();
+    const bulkForm = document.querySelector("#bulkForm");
+    const formData = new FormData(bulkForm);
+    axios
+      .post("http://localhost:9000/API/bulkUpload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(response => {
+        console.log(response.data);
+        this.requestQuery("SELECT * FROM items", "query");
+      })
+      .catch(error => {
+        alert(error);
+        this.requestQuery("SELECT * FROM collections", "query");
+      });
+  };
   onAddItemForm = async e => {
     e.preventDefault();
     const addItemForm = document.querySelector("#addItemForm");
@@ -122,27 +143,10 @@ class BItems extends Component {
             show={this.props.bulkPressed}
             modalClosed={this.props.onBulkPressed}
           >
-            <form id="bulkForm">
-              <div className={classes.Font}>SELECT FILE TO UPLOAD:</div>
-              <br></br>
-              <div>
-                <input type="file" name="bulkFile" />
-              </div>
-              <div>
-                <p>
-                  Instructions: only excel file with the following columns:{" "}
-                </p>
-                <p>
-                  CODE , COLLECTION , DESCRIPTION , SIZE , PRICE , TYPE , IMAGE
-                  , IMAGE2{" "}
-                </p>
-                <img
-                  style={{ border: "solid 1px black", width: "95%" }}
-                  src="http://localhost:9000/images/bulk.jpg"
-                  alt="bulk"
-                />
-              </div>
-            </form>
+            <BulkForm
+              bulkConfirmed={this.onBulkConfirmed}
+              modalClosed={this.props.onBulkPressed}
+            />
           </Modal>
           <Modal
             show={this.props.deletePressed}
