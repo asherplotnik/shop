@@ -58,7 +58,8 @@ const BulkForm = props => {
         <br></br>
       </div>
       <div>
-        <label for="zipFile" >ZIPPED IMAGE FOLDER FILE:(.jpg ONLY)</label>
+        <label for="zipFile" >ZIPPED IMAGE FOLDER FILE:(.jpg ONLY)y
+        </label>
         <input
           className={classes.FontInput}
           type="file"
