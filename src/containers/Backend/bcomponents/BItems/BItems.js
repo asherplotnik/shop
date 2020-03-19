@@ -19,8 +19,8 @@ class BItems extends Component {
 
   onBulkConfirmed = async e => {
     e.preventDefault();
-    this.props.onBulkPressed();
     const bulkForm = document.querySelector("#bulkForm");
+    this.props.onBulkPressed();
     const formData = new FormData(bulkForm);
     axios
       .post("http://localhost:9000/API/bulkUpload", formData, {
@@ -37,6 +37,7 @@ class BItems extends Component {
         this.requestQuery("SELECT * FROM collections", "query");
       });
   };
+
   onAddItemForm = async e => {
     e.preventDefault();
     const addItemForm = document.querySelector("#addItemForm");
