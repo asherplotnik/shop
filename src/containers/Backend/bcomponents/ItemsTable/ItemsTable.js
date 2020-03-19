@@ -53,7 +53,7 @@ class ItemsTable extends Component {
           </div>
         ),
         accessor: "collection",
-        width: 280,
+        width: 230,
         Cell: row => (
           <div style={{ lineHeight: "70px" }}>
             <div key={row.value} className={classes.CellStyle}>
@@ -72,7 +72,7 @@ class ItemsTable extends Component {
           </div>
         ),
         accessor: "desc",
-        width: 370,
+        width: 330,
         filterable: false,
         Cell: row => (
           <div style={{ lineHeight: "70px" }}>
@@ -157,7 +157,7 @@ class ItemsTable extends Component {
           <img
             src={"http://localhost:9000/images/" + row.value}
             alt={row.value}
-            style={{ width: "100px", height: "100px" }}
+            style={{ width: "100px" }}
           />
         )
       },
@@ -174,7 +174,7 @@ class ItemsTable extends Component {
           <img
             src={"http://localhost:9000/images/" + row.value}
             alt={row.value}
-            style={{ width: "100px", height: "100px" }}
+            style={{ width: "100px" }}
           />
         ),
         width: 100,

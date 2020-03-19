@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import classes from "./bulkForm.module.css";
 const BulkForm = props => {
-  
   const [ExcelfileUploaded, setExcelFileUploaded] = useState(0);
   const [ZipfileUploaded, setZipFileUploaded] = useState(0);
 
@@ -27,7 +26,6 @@ const BulkForm = props => {
     }
   };
 
-  
   return (
     <form id="bulkForm" onSubmit={props.bulkConfirmed}>
       <div id="testD" className={classes.Font}>
@@ -35,7 +33,7 @@ const BulkForm = props => {
       </div>
       <br></br>
       <div>
-        <label for="bulkExcelFile" >EXCEL FILE:</label>
+        <label htmlFor="bulkExcelFile">EXCEL FILE:</label>
         <input
           className={classes.FontInput}
           type="file"
@@ -54,12 +52,11 @@ const BulkForm = props => {
           src="http://localhost:9000/images/bulk.jpg"
           alt="bulk"
         />{" "}
-        <br></br> 
+        <br></br>
         <br></br>
       </div>
       <div>
-        <label for="zipFile" >ZIPPED IMAGE FOLDER FILE:(.jpg ONLY)y
-        </label>
+        <label htmlFor="zipFile">ZIPPED IMAGE FOLDER FILE:(.jpg ONLY)</label>
         <input
           className={classes.FontInput}
           type="file"
@@ -80,6 +77,14 @@ const BulkForm = props => {
           disabled={!ExcelfileUploaded || !ZipfileUploaded}
           type="submit"
         />
+        <span style={{ opacity: "0%" }}>________</span>
+        <button
+          className={classes.Font}
+          type="button"
+          onClick={props.modalClosed}
+        >
+          CANCEL
+        </button>
       </div>
     </form>
   );
