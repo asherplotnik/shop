@@ -4,15 +4,17 @@ import Spinner from "../UI/Spinner/Spinner";
 import classes from "./Product.module.css";
 import PathLine from "../UI/PathLine/PathLine";
 import Button from "../UI/Button/Button";
+import ReactTable from "react-table-6";
 
 class Product extends Component {
   state = {
-    product: []
+    product: [],
+    stock: []
   };
+
   fetchProduct = () => {
     const selectedProduct = this.props.location.search.substr(1);
     const sql = "SELECT * FROM items WHERE code = '" + selectedProduct + "'";
-    console.log(sql);
     const sqlQuery = { sql: sql };
     axios
       .post("http://localhost:9000/API/query", sqlQuery)
@@ -25,12 +27,39 @@ class Product extends Component {
         this.setState({ loading: false });
         console.log(error);
       });
+
+    const sqlStock =
+      "SELECT * FROM stock WHERE code = '" + selectedProduct + "'";
+    const sqlStockQuery = { sql: sqlStock };
+    axios
+      .post("http://localhost:9000/API/query", sqlStockQuery)
+      .then(response => {
+        this.setState({ stock: response.data });
+      })
+      .catch(error => {
+        this.setState({ loading: false });
+        console.log(error);
+      });
   };
   componentDidMount() {
     this.fetchProduct();
   }
   render() {
+    const stockColumns = [
+      {
+        Header: <strong className={classes.StockColumns}>IN STOCK</strong>,
+        accessor: "qty",
+        Cell: row => <span className={classes.StockColumns}>{row.value}</span>,
+        width: 130
+      },
+      {
+        Header: <strong className={classes.StockColumns}>#</strong>,
+        accessor: "variation",
+        Cell: row => <span className={classes.StockColumns}>{row.value}</span>
+      }
+    ];
     let currentPath = [{ name: "", search: "" }];
+
     let viewPage = <Spinner />;
     if (this.state.loading === false) {
       const jsxMap = this.state.product.map(item => {
@@ -63,6 +92,20 @@ class Product extends Component {
               <hr className={classes.HrClass} />
               <Button btnType="Success">ADD</Button>
             </div>
+            <div className={classes.Stock}>
+              <ReactTable
+                style={{ border: "1px solid #b6e4f5" }}
+                columns={stockColumns}
+                data={
+                  this.state.stock.length >= 1
+                    ? this.state.stock
+                    : [{ qty: 0, variation: "-" }]
+                }
+                defaultPageSize={50}
+                minRows={1}
+                showPagination={false}
+              />
+            </div>
           </div>
         );
       });
@@ -71,9 +114,11 @@ class Product extends Component {
           <div className={classes.PathName}>
             <PathLine currentPath={currentPath} />
           </div>
-          <div className={classes.Wrapper}>
-            <div>{jsxMap}</div>
-          </div>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <div className={classes.Wrapper}>{jsxMap}</div>
         </React.Fragment>
       );
     }

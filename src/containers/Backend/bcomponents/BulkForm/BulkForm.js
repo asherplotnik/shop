@@ -33,14 +33,16 @@ const BulkForm = props => {
       </div>
       <br></br>
       <div>
-        <label htmlFor="bulkExcelFile">EXCEL FILE:</label>
-        <input
-          className={classes.FontInput}
-          type="file"
-          name="bulkExcelFile"
-          id="bulkExcelFile"
-          onChange={checkExcelValidity}
-        />
+        <strong>
+          <label htmlFor="bulkExcelFile">EXCEL FILE:</label>
+          <input
+            className={classes.FontInput}
+            type="file"
+            name="bulkExcelFile"
+            id="bulkExcelFile"
+            onChange={checkExcelValidity}
+          />
+        </strong>
       </div>
       <div>
         <p>Instructions: only excel file with the following columns: </p>
@@ -56,14 +58,16 @@ const BulkForm = props => {
         <br></br>
       </div>
       <div>
-        <label htmlFor="zipFile">ZIPPED IMAGE FOLDER FILE:(.jpg ONLY)</label>
-        <input
-          className={classes.FontInput}
-          type="file"
-          name="zipFile"
-          id="zipFile"
-          onChange={checkZipValidity}
-        />
+        <strong>
+          <label htmlFor="zipFile">ZIPPED IMAGES FILE:(.jpg ONLY)</label>
+          <input
+            className={classes.FontInput}
+            type="file"
+            name="zipFile"
+            id="zipFile"
+            onChange={checkZipValidity}
+          />
+        </strong>
       </div>
       <div>
         <p>Instructions: only excel file with the following columns: </p>

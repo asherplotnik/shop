@@ -2,6 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   items: [],
+  stock: [],
   loading: true,
   addPressed: false,
   deletePressed: false,
@@ -26,6 +27,11 @@ const itemsReducer = (state = initialState, action) => {
       return {
         ...state,
         items: action.items
+      };
+    case actionTypes.SET_STOCK:
+      return {
+        ...state,
+        stock: action.stock
       };
     case actionTypes.SET_LOADING_FALSE:
       return {

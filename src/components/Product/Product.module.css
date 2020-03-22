@@ -11,6 +11,7 @@
 }
 
 .Text {
+  padding: 10px;
   vertical-align: top;
   display: inline-block;
   position: relative;
@@ -18,6 +19,12 @@
   left: 80px;
 }
 
+.Stock {
+  padding-top: 10px;
+  position: relative;
+  left: 50px;
+  width: 302px;
+}
 .HrClass {
   margin: 0;
   background-color: #b6e4f5;
@@ -65,4 +72,8 @@
 
 .ImageDiv img {
   max-width: 300px;
+}
+
+.StockColumns {
+  font-family: "Lexend Tera", sans-serif;
 }

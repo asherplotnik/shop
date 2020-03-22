@@ -7,6 +7,13 @@ export const setItems = items => {
   };
 };
 
+export const setStock = stock => {
+  return {
+    type: actionTypes.SET_STOCK,
+    stock: stock
+  };
+};
+
 export const setLoadingFalse = () => {
   return {
     type: actionTypes.SET_LOADING_FALSE
@@ -52,6 +59,6 @@ export const toggleAddOff = col => {
 };
 export const bulkPressed = () => {
   return {
-    type: actionTypes.BULK_PRESSED,
+    type: actionTypes.BULK_PRESSED
   };
-}
+};

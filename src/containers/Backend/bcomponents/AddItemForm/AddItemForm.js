@@ -8,7 +8,7 @@ const addItemForm = props => {
       options.push(
         <option
           key={i}
-          // selected={props.collSelect[i] === props.rCollection ? "selected" : ""}
+          selected={props.collSelect[i] === props.rCollection ? "selected" : ""}
         >
           {props.collSelect[i]}
         </option>
@@ -26,10 +26,7 @@ const addItemForm = props => {
           </li>
           <li key="collection">
             <label htmlFor="AddCollection">COLLECTION: </label>
-            <select name="addCollection" defaultValue={props.rCollection}>
-              {" "}
-              {options}
-            </select>
+            <select name="addCollection"> {options}</select>
           </li>
           <li key="desc">
             <label htmlFor="AddDesc">DESCRIPTION: </label>
@@ -44,15 +41,24 @@ const addItemForm = props => {
             <input type="text" name="addPrice" defaultValue={props.rPrice} />
           </li>
           <li key="type">
-            <label htmlFor="AddType" defaultValue={props.rType}>
-              TYPE:{" "}
-            </label>
+            <label htmlFor="AddType">TYPE: </label>
             <select name="addType">
-              <option>EARRINGS</option>
-              <option>BRACELET</option>
-              <option> NECKLACE</option>
-              <option> PENDANT</option>
-              <option> RING</option>
+              <option selected={props.rType === "EARRINGS" ? true : false}>
+                EARRINGS
+              </option>
+              <option selected={props.rType === "BRACELET" ? true : false}>
+                BRACELET
+              </option>
+              <option selected={props.rType === "NECKLACE" ? true : false}>
+                NECKLACE
+              </option>
+              <option selected={props.rType === "PENDANT" ? true : false}>
+                PENDANT
+              </option>
+              <option selected={props.rType === "RING" ? true : false}>
+                {" "}
+                RING
+              </option>
             </select>
           </li>
           <li key="imageL">

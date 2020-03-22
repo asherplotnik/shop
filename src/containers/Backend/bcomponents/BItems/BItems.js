@@ -13,6 +13,7 @@ import BulkForm from "../BulkForm/BulkForm";
 
 class BItems extends Component {
   componentDidMount() {
+    this.requestStock();
     this.requestQuery("SELECT * FROM items", "query");
     this.collectionQuery();
   }
@@ -78,7 +79,7 @@ class BItems extends Component {
       })
       .then(response => {
         console.log("[add collection response] => ", response.data);
-        if (response.data === "collection exists already") {
+        if (response.data === "Item exists already") {
           alert(response.data);
         }
         document.querySelector("#updateItemForm").reset();
@@ -111,7 +112,6 @@ class BItems extends Component {
     axios
       .post("http://localhost:9000/API/" + act, sqlQuery)
       .then(response => {
-        console.log("[response.data] => ", response.data);
         if (act === "query") {
           this.props.setItems(response.data);
           this.props.setLoadingFalse();
@@ -123,6 +123,18 @@ class BItems extends Component {
       .catch(error => {
         console.log(error);
         this.setState({ loading: false, deletePressed: false });
+      });
+  };
+
+  requestStock = () => {
+    const sqlQuery = { sql: "SELECT * FROM stock" };
+    axios
+      .post("http://localhost:9000/API/query", sqlQuery)
+      .then(response => {
+        this.props.setStock(response.data);
+      })
+      .catch(error => {
+        console.log(error);
       });
   };
 
@@ -200,6 +212,7 @@ class BItems extends Component {
             pressedDelete={this.props.onDeletePressed}
             pressedUpdate={this.props.onUpdatePressed}
             passedData={this.props.itemsData}
+            passedStock={this.props.stockData}
           />
           ;
         </React.Fragment>
@@ -213,6 +226,7 @@ class BItems extends Component {
 const mapStateToProps = state => {
   return {
     itemsData: state.items,
+    stockData: state.stock,
     loading: state.loading,
     addPressed: state.addPressed,
     deletePressed: state.deletePressed,
@@ -232,6 +246,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     setItems: passedData => dispatch(actions.setItems(passedData)),
+    setStock: passedData => dispatch(actions.setStock(passedData)),
     setLoadingFalse: () => dispatch(actions.setLoadingFalse()),
     onAddPressed: () => dispatch(actions.addPressed()),
     onDeletePressed: rowId => dispatch(actions.deletePressed(rowId)),

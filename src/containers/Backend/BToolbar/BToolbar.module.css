@@ -8,6 +8,8 @@
 }
 
 .Toolbar {
+  font-family: "BenchNine", sans-serif;
+  font-size: 25px;
   justify-content: space-between;
   background-color: #ccc;
   height: 80px;

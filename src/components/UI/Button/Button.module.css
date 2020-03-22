@@ -39,6 +39,16 @@
   font-family: "BenchNine", sans-serif;
   font-size: 1.1em;
 }
+
+.SuccessTiny {
+  color: white;
+  background-color: #87d9f6;
+  border-radius: 8px;
+  font-family: "BenchNine", sans-serif;
+  font-size: 1.1em;
+  padding: 0px 8px 0px 0px;
+  margin: 0px;
+}
 .NavySmall {
   color: white;
   background-color: navy;
@@ -53,6 +63,15 @@
   border-radius: 8px;
   font-family: "BenchNine", sans-serif;
   font-size: 1.1em;
+}
+.DangerTiny {
+  color: white;
+  background-color: #944317;
+  border-radius: 8px;
+  font-family: "BenchNine", sans-serif;
+  font-size: 1.1em;
+  padding: 0px 8px 0px 0px;
+  margin: 0px;
 }
 
 .Button:disabled {

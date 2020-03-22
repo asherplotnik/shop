@@ -30,6 +30,7 @@ class BCollections extends Component {
       updatePressed: false,
       loading: false
     });
+    document.querySelector("#updateCollecionForm").reset();
     this.requestQuery("SELECT * FROM collections", "query");
   };
 
@@ -39,6 +40,7 @@ class BCollections extends Component {
       deletePressed: false,
       loading: false
     });
+    document.querySelector("#addCollecionForm").reset();
     this.requestQuery("SELECT * FROM collections", "query");
   };
 
@@ -89,9 +91,11 @@ class BCollections extends Component {
           loading: false
         });
         this.requestQuery("SELECT * FROM collections", "query");
+        document.querySelector("#addCollecionForm").reset();
       })
       .catch(error => {
         alert(error);
+        document.querySelector("#addCollecionForm").reset();
         this.setState({ loading: false, deletePressed: false });
         this.requestQuery("SELECT * FROM collections", "query");
       });
@@ -153,7 +157,7 @@ class BCollections extends Component {
         accessor: "id",
         width: 40,
         Cell: row => (
-          <div style={{ lineHeight: "70px" }}>
+          <div style={{ lineHeight: "100px" }}>
             <div key={row.value} className={classes.CellStyle}>
               {" "}
               {row.value}{" "}
@@ -172,7 +176,7 @@ class BCollections extends Component {
         accessor: "name",
         width: 250,
         Cell: row => (
-          <div style={{ lineHeight: "70px" }}>
+          <div style={{ lineHeight: "100px" }}>
             <div key={row.value} className={classes.CellStyle}>
               {" "}
               {row.value.toUpperCase()}{" "}
@@ -191,7 +195,7 @@ class BCollections extends Component {
         accessor: "desc",
         width: 400,
         Cell: row => (
-          <div style={{ lineHeight: "70px" }}>
+          <div style={{ lineHeight: "100px" }}>
             <div key={row.value} className={classes.CellStyle}>
               {" "}
               {row.value.toUpperCase()}{" "}
@@ -227,9 +231,11 @@ class BCollections extends Component {
         ),
         accessor: "upt",
         Cell: () => (
-          <Button id="updateButton" btnType="SuccessSmall">
-            UPDATE
-          </Button>
+          <div style={{ marginTop: "20px" }}>
+            <Button id="updateButton" btnType="SuccessSmall">
+              UPDATE
+            </Button>
+          </div>
         ),
         width: 100
       },
@@ -242,14 +248,18 @@ class BCollections extends Component {
           </div>
         ),
         accessor: "del",
-        Cell: () => <Button btnType="DangerSmall">DELETE</Button>,
+        Cell: () => (
+          <div style={{ marginTop: "20px" }}>
+            <Button btnType="DangerSmall">DELETE</Button>
+          </div>
+        ),
         width: 100
       }
     ];
 
     return (
       <ReactTable
-        className="-highlight -striped"
+        className="-highlight "
         data={data}
         columns={columns}
         defaultPageSize={10}

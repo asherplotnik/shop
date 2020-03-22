@@ -3,21 +3,31 @@ import classes from "./BNavigationItems.module.css";
 import NavigationItem from "../../../../components/Navigation/NavigationItems/NavigationItem/NavigationItem";
 const bNavigationItems = props => (
   <ul className={classes.BNavigationItems}>
-    <NavigationItem link="/backend" exact>
-      HOME
-    </NavigationItem>
-    <NavigationItem link="/backend/collections" exact>
-      COLLECTIONS
-    </NavigationItem>
-    <NavigationItem link="/backend/items" exact>
-      ITEMS
-    </NavigationItem>
-    <NavigationItem link="/backend/stock" exact>
-      STOCK
-    </NavigationItem>
-    <NavigationItem link="/backend/users" exact>
-      USERS
-    </NavigationItem>
+    <div style={{ margin: "0px 20px 0px 20px" }}>
+      <NavigationItem link="/backend" exact>
+        HOME
+      </NavigationItem>
+    </div>
+    <div style={{ margin: "0px 20px 0px 20px" }}>
+      <NavigationItem link="/backend/collections" exact>
+        COLLECTIONS
+      </NavigationItem>
+    </div>
+    <div style={{ margin: "0px 20px 0px 20px" }}>
+      <NavigationItem link="/backend/items" exact>
+        ITEMS
+      </NavigationItem>
+    </div>
+    <div style={{ margin: "0px 20px 0px 20px" }}>
+      <NavigationItem link="/backend/stock" exact>
+        STOCK
+      </NavigationItem>{" "}
+    </div>
+    <div style={{ margin: "0px 20px 0px 20px" }}>
+      <NavigationItem link="/backend/users" exact>
+        USERS
+      </NavigationItem>
+    </div>
   </ul>
 );
 
