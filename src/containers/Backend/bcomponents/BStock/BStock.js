@@ -13,6 +13,7 @@ import AddTransForm from "../AddTransForm/AddTransForm";
 
 class BStock extends Component {
   state = {
+    illegal: false,
     drop: [],
     stock: [],
     transactions: [],
@@ -56,12 +57,12 @@ class BStock extends Component {
         }
       })
       .then(response => {
-        if (response.data === "ILLIGAL ACTION") {
-          alert("ILLIGAL ACTION");
-        }
-        console.log("[add transaction respose] => ", response.data);
         document.querySelector("#addTransForm").reset();
         this.requestTransactions(this.state.val);
+        this.requestStock(this.state.val);
+        if (response.data === "ILLEGAL ACTION") {
+          this.setState({ illegal: true });
+        }
       })
       .catch(error => {
         alert(error);
@@ -70,33 +71,47 @@ class BStock extends Component {
       });
   };
 
-  onDeletePressed = rId => {
+  onDeletePressed = row => {
     this.setState(prevState => {
       return {
         pressedDelete: !prevState.pressedDelete,
-        pressedRecordId: rId
+        pressedRecordId: row.rowId,
+        pressedRecordInout: row.inout,
+        pressedRecordCode: row.code,
+        pressedRecordVariation: row.variation,
+        pressedRecordQty: row.qty
       };
     });
   };
 
-  requestDelete = (sql, act) => {
-    const sqlQuery = { sql: sql };
-    axios
-      .post("http://localhost:9000/API/delete", sqlQuery)
-      .then(response => {
-        this.requestTransactions(this.state.val);
-        this.onDeletePressed();
-      })
-      .catch(error => {
-        console.log(error);
-        this.onDeletePressed();
-      });
+  onToggleDelete = () => {
+    this.setState({ pressedDelete: false });
   };
 
   onDeleteHandler = () => {
-    this.requestDelete(
-      "delete from transactions where id = " + this.state.pressedRecordId
-    );
+    let sql =
+      "delete from transactions where id = " + this.state.pressedRecordId;
+    const sqlQuery = {
+      sql: sql,
+      code: this.state.pressedRecordCode,
+      qty: this.state.pressedRecordQty,
+      variation: this.state.pressedRecordVariation,
+      inout: this.state.pressedRecordInout
+    };
+    axios
+      .post("http://localhost:9000/API/deleteTransaction", sqlQuery)
+      .then(response => {
+        this.requestTransactions(this.state.val);
+        this.requestStock(this.state.val);
+        this.onToggleDelete();
+        if (response.data === "ILLEGAL ACTION") {
+          this.setState({ illegal: true });
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        this.onToggleDelete();
+      });
   };
 
   requestDrop = () => {
@@ -176,6 +191,9 @@ class BStock extends Component {
     });
   };
 
+  onIllegalClose = () => {
+    this.setState({ illegal: false });
+  };
   onUpdateHandler = row => {
     this.setState({
       pressedRecordId: row.rowId,
@@ -263,6 +281,14 @@ class BStock extends Component {
     }
     return (
       <div className={classes.WrapperFlex}>
+        <Modal show={this.state.illegal} modalClosed={this.onIllegalClose}>
+          <div>ILLEGAL ACTION</div>
+          <div>
+            <Button clicked={this.onIllegalClose} btnType="DangerSmall">
+              Ok
+            </Button>
+          </div>
+        </Modal>
         <Modal
           show={this.state.pressedDelete}
           modalClosed={this.onDeletePressed}

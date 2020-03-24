@@ -31,14 +31,6 @@ const addTransForm = props => {
               <option selected={props.rType === 0 ? true : false}>OUT</option>
             </select>
           </li>
-          <li key="transdate">
-            <label htmlFor="addTransdate">DATE: </label>
-            <input
-              type="datetime-local"
-              name="addTransdate"
-              defaultValue={props.rTransdate}
-            />
-          </li>
           <li key="NOTE">
             <label htmlFor="addINote">NOTE: </label>
             <input type="text" name="addNote" defaultValue={props.rNote} />

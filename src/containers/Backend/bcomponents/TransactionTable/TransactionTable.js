@@ -36,7 +36,11 @@ const transactionTable = props => {
     {
       Header: <strong className={classes.CellStyle}>DATE</strong>,
       accessor: "transdate",
-      Cell: row => <span className={classes.CellStyle}>{row.value}</span>,
+      Cell: row => (
+        <span className={classes.CellStyle}>
+          {row.value.slice(0, row.value.length - 25)}
+        </span>
+      ),
       width: 199
     },
     {
@@ -99,7 +103,14 @@ const transactionTable = props => {
             };
             if (rowInfo !== undefined) {
               if (e.target.innerHTML === "DELETE") {
-                props.pressedDelete(rowInfo.original.id);
+                props.pressedDelete(rowDetails);
+                rowDetails.rowId = rowInfo.original.id;
+                rowDetails.code = rowInfo.original.code;
+                rowDetails.qty = rowInfo.original.qty;
+                rowDetails.variation = rowInfo.original.variation;
+                rowDetails.inout = rowInfo.original.inout;
+                rowDetails.transdate = rowInfo.original.transdate;
+                rowDetails.note = rowInfo.original.note;
               }
               if (e.target.innerHTML === "UPDATE") {
                 rowDetails.rowId = rowInfo.original.id;
@@ -114,7 +125,7 @@ const transactionTable = props => {
               // console.log("A Td Element was clicked!");
               // console.log("it produced this event:", e.target.innerHTML);
               // console.log("It was in this column:", column.Header);
-              console.log("It was in this row:", rowInfo);
+              // console.log("It was in this row:", rowInfo);
               // console.log("It was in this table instance:", instance);
               if (handleOriginal) {
                 handleOriginal();
