@@ -8,6 +8,9 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import TransactionTable from "../TransactionTable/TransactionTable";
 import Modal from "../../../../components/UI/Modal/Modal";
 import ModalConfirm from "../../../../components/UI/Modal/modalContents/modalConfirm/ModalConfirm";
+import Button from "../../../../components/UI/Button/Button";
+import AddTransForm from "../AddTransForm/AddTransForm";
+
 class BStock extends Component {
   state = {
     drop: [],
@@ -16,8 +19,9 @@ class BStock extends Component {
     loadingDrop: true,
     loadingStock: true,
     loadingTransactions: true,
-    val: "",
+    val: null,
     image: "",
+    addEntryPressed: false,
     pressedDelete: false,
     pressedUpdate: false,
     pressedRecordId: null,
@@ -32,6 +36,69 @@ class BStock extends Component {
   componentDidMount() {
     this.requestDrop();
   }
+
+  onAddEntryPressed = () => {
+    this.setState(prevState => {
+      return {
+        addEntryPressed: !prevState.addEntryPressed
+      };
+    });
+  };
+  onAddTransaction = e => {
+    e.preventDefault();
+    const formData = new FormData(document.querySelector("#addTransForm"));
+    formData.append("addCode", this.state.val);
+    this.onAddEntryPressed();
+    axios
+      .post("http://localhost:9000/API/uploadTransForm", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(response => {
+        if (response.data === "ILLIGAL ACTION") {
+          alert("ILLIGAL ACTION");
+        }
+        console.log("[add transaction respose] => ", response.data);
+        document.querySelector("#addTransForm").reset();
+        this.requestTransactions(this.state.val);
+      })
+      .catch(error => {
+        alert(error);
+        document.querySelector("#addTransForm").reset();
+        this.requestTransactions(this.state.val);
+      });
+  };
+
+  onDeletePressed = rId => {
+    this.setState(prevState => {
+      return {
+        pressedDelete: !prevState.pressedDelete,
+        pressedRecordId: rId
+      };
+    });
+  };
+
+  requestDelete = (sql, act) => {
+    const sqlQuery = { sql: sql };
+    axios
+      .post("http://localhost:9000/API/delete", sqlQuery)
+      .then(response => {
+        this.requestTransactions(this.state.val);
+        this.onDeletePressed();
+      })
+      .catch(error => {
+        console.log(error);
+        this.onDeletePressed();
+      });
+  };
+
+  onDeleteHandler = () => {
+    this.requestDelete(
+      "delete from transactions where id = " + this.state.pressedRecordId
+    );
+  };
+
   requestDrop = () => {
     const sqlQuery = { sql: "select code from items " };
     axios
@@ -101,23 +168,12 @@ class BStock extends Component {
     this.requestTransactions(val);
   };
 
-  onDeletePressed = () => {
-    this.setState(prevState => {
-      return {
-        pressedDelete: !prevState.pressedDelete
-      };
-    });
-  };
   onUpdatePressed = row => {
     this.setState(prevState => {
       return {
         pressedUpdate: !prevState.pressedUpdate
       };
     });
-  };
-
-  onDeleteHandler = rId => {
-    this.requestQuery("delete from transactions where id = " + rId, "delete");
   };
 
   onUpdateHandler = row => {
@@ -216,6 +272,17 @@ class BStock extends Component {
             deleteConfirmed={this.onDeleteHandler}
           />
         </Modal>
+        <Modal
+          show={this.state.addEntryPressed}
+          modalClosed={this.onAddEntryPressed}
+        >
+          <AddTransForm
+            formId="addTransForm"
+            addTransaction={this.onAddTransaction}
+            title="ENTER TRANSACTION"
+            modalClosed={this.onAddEntryPressed}
+          />
+        </Modal>
         <div>
           <div className={classes.EnterCode}>ENTER CODE</div>
           <div className={classes.QueryDiv}>{viewDrop}</div>
@@ -230,7 +297,18 @@ class BStock extends Component {
             />
           </div>
         </div>
-        <div className={classes.Trans}>{viewTrans}</div>
+        <div>
+          <div className={classes.NewEntry}>
+            <Button
+              clicked={this.onAddEntryPressed}
+              disabled={this.state.val === null}
+              btnType="Success"
+            >
+              ADD ENTRY:
+            </Button>
+          </div>
+          <div className={classes.Trans}>{viewTrans}</div>
+        </div>
       </div>
     );
   }

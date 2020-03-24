@@ -53,3 +53,10 @@
   display: block;
   max-width: 400px;
 }
+
+.NewEntry {
+  box-sizing: border-box;
+  padding-top: 9px;
+  text-align: left;
+  height: 73px;
+}

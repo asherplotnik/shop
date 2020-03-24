@@ -38,7 +38,7 @@ const addItemForm = props => {
           </li>
           <li key="price">
             <label htmlFor="AddPrice">PRICE: </label>
-            <input type="text" name="addPrice" defaultValue={props.rPrice} />
+            <input type="number" name="addPrice" defaultValue={props.rPrice} />
           </li>
           <li key="type">
             <label htmlFor="AddType">TYPE: </label>

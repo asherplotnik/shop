@@ -1,0 +1,60 @@
+import React from "react";
+import classes from "./AddTransForm.module.css";
+
+const addTransForm = props => {
+  return (
+    <div className={classes.AddTransForm}>
+      <form id={props.formId} onSubmit={props.addTransaction}>
+        <div className={classes.Font}>{props.title}</div>
+        <ul className={classes.FormList}>
+          <li key="variation">
+            <label htmlFor="addVariation">VARIATION: </label>
+            <input
+              type="text"
+              name="addVariation"
+              defaultValue={props.rVariation}
+            />
+          </li>
+          <li key="qty">
+            <label htmlFor="addQty">QUANTITY: </label>
+            <input
+              type="number"
+              name="addQty"
+              pattern="0-9"
+              defaultValue={props.rQty}
+            />
+          </li>
+          <li key="inout">
+            <label htmlFor="addInout">IN / OUT: </label>
+            <select name="addInout">
+              <option selected={props.rType === 1 ? true : false}>IN</option>
+              <option selected={props.rType === 0 ? true : false}>OUT</option>
+            </select>
+          </li>
+          <li key="transdate">
+            <label htmlFor="addTransdate">DATE: </label>
+            <input
+              type="datetime-local"
+              name="addTransdate"
+              defaultValue={props.rTransdate}
+            />
+          </li>
+          <li key="NOTE">
+            <label htmlFor="addINote">NOTE: </label>
+            <input type="text" name="addNote" defaultValue={props.rNote} />
+          </li>
+          <br></br>
+          <br></br>
+          <li key="sub">
+            <input type="submit" value="SUBMIT" />
+            <button type="button" onClick={props.modalClosed}>
+              CANCEL
+            </button>
+          </li>
+        </ul>
+      </form>
+    </div>
+  );
+};
+
+export default addTransForm;
