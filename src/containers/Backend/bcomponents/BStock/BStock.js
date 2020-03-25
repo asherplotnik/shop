@@ -45,6 +45,45 @@ class BStock extends Component {
       };
     });
   };
+
+  onToggleUpdate = () => {
+    this.setState(prevState => {
+      return {
+        pressedUpdate: !prevState.pressedUpdate
+      };
+    });
+  };
+
+  onUpdateTransaction = e => {
+    e.preventDefault();
+    const formData = new FormData(document.querySelector("#updateTransForm"));
+    formData.append("addCode", this.state.val);
+    formData.append("oldVariation", this.state.pressedRecordVariation);
+    formData.append("oldQty", this.state.pressedRecordQty);
+    formData.append("oldInout", this.state.pressedRecordInout);
+    formData.append("addId", this.state.pressedRecordId);
+    this.onToggleUpdate();
+    axios
+      .post("http://localhost:9000/API/updateTransForm", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(response => {
+        document.querySelector("#updateTransForm").reset();
+        this.requestTransactions(this.state.val);
+        this.requestStock(this.state.val);
+        if (response.data === "ILLEGAL ACTION") {
+          this.setState({ illegal: true });
+        }
+      })
+      .catch(error => {
+        alert(error);
+        document.querySelector("#updateTransForm").reset();
+        this.requestTransactions(this.state.val);
+      });
+  };
+
   onAddTransaction = e => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#addTransForm"));
@@ -186,7 +225,13 @@ class BStock extends Component {
   onUpdatePressed = row => {
     this.setState(prevState => {
       return {
-        pressedUpdate: !prevState.pressedUpdate
+        pressedUpdate: !prevState.pressedUpdate,
+        pressedRecordId: row.rowId,
+        pressedRecordInout: row.inout,
+        pressedRecordCode: row.code,
+        pressedRecordVariation: row.variation,
+        pressedRecordQty: row.qty,
+        pressedRecordNote: row.note
       };
     });
   };
@@ -194,6 +239,7 @@ class BStock extends Component {
   onIllegalClose = () => {
     this.setState({ illegal: false });
   };
+
   onUpdateHandler = row => {
     this.setState({
       pressedRecordId: row.rowId,
@@ -204,10 +250,6 @@ class BStock extends Component {
       pressedRecordTransdate: row.transdate,
       pressedRecordNote: row.note
     });
-    // this.requestQuery(
-    // "delete from transactions where id = " + rId,
-    // "delete"
-    // );
   };
 
   stockTable = () => {
@@ -307,6 +349,22 @@ class BStock extends Component {
             addTransaction={this.onAddTransaction}
             title="ENTER TRANSACTION"
             modalClosed={this.onAddEntryPressed}
+          />
+        </Modal>
+        <Modal
+          show={this.state.pressedUpdate}
+          modalClosed={this.onUpdatePressed}
+        >
+          <AddTransForm
+            formId="updateTransForm"
+            addTransaction={this.onUpdateTransaction}
+            title="UPDATE TRANSACTION"
+            rCode={this.state.pressedRecordCode}
+            rQty={this.state.pressedRecordQty}
+            rVariation={this.state.pressedRecordVariation}
+            rInout={this.state.pressedRecordInout}
+            rNote={this.state.pressedRecordNote}
+            modalClosed={this.onUpdatePressed}
           />
         </Modal>
         <div>

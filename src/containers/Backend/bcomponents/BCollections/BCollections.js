@@ -122,6 +122,12 @@ class BCollections extends Component {
 
   deleteRecordHandler = () => {
     this.requestQuery(
+      "UPDATE items set collection = 'HIDDEN' WHERE collection = '" +
+        this.state.pressedRecordName +
+        "'",
+      "delete" //will not delete. only will make the sql command
+    );
+    this.requestQuery(
       "DELETE FROM collections WHERE id = " + this.state.pressedRecordId,
       "delete"
     );
@@ -277,6 +283,7 @@ class BCollections extends Component {
                     return {
                       deletePressed: !prevState.deletePressed,
                       pressedRecordId: rowInfo.original.id,
+                      pressedRecordName: rowInfo.original.name,
                       pressedRecordColl: column.Header
                     };
                   });

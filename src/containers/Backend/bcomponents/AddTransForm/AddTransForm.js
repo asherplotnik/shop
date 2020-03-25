@@ -20,15 +20,16 @@ const addTransForm = props => {
             <input
               type="number"
               name="addQty"
-              pattern="0-9"
+              min="1"
+              step="1"
               defaultValue={props.rQty}
             />
           </li>
           <li key="inout">
             <label htmlFor="addInout">IN / OUT: </label>
             <select name="addInout">
-              <option selected={props.rType === 1 ? true : false}>IN</option>
-              <option selected={props.rType === 0 ? true : false}>OUT</option>
+              <option selected={props.rInout === 1 ? true : false}>IN</option>
+              <option selected={props.rInout === 0 ? true : false}>OUT</option>
             </select>
           </li>
           <li key="NOTE">

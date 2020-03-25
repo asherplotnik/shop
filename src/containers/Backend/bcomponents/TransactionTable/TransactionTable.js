@@ -103,7 +103,6 @@ const transactionTable = props => {
             };
             if (rowInfo !== undefined) {
               if (e.target.innerHTML === "DELETE") {
-                props.pressedDelete(rowDetails);
                 rowDetails.rowId = rowInfo.original.id;
                 rowDetails.code = rowInfo.original.code;
                 rowDetails.qty = rowInfo.original.qty;
@@ -111,6 +110,7 @@ const transactionTable = props => {
                 rowDetails.inout = rowInfo.original.inout;
                 rowDetails.transdate = rowInfo.original.transdate;
                 rowDetails.note = rowInfo.original.note;
+                props.pressedDelete(rowDetails);
               }
               if (e.target.innerHTML === "UPDATE") {
                 rowDetails.rowId = rowInfo.original.id;
