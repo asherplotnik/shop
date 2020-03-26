@@ -7,6 +7,7 @@ class AddForm extends Component {
     const updateCollecionForm = document.querySelector("#updateCollecionForm");
     const formData = new FormData(updateCollecionForm);
     formData.append("collectionId", this.props.updateState.pressedRecordId);
+    formData.append("collPrev", this.props.updateState.pressedRecordName);
     axios
       .post("http://localhost:9000/API/updateCollectionForm", formData, {
         headers: {

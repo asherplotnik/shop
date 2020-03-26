@@ -3,8 +3,17 @@ import classes from "./ItemsElement.module.css";
 import { NavLink } from "react-router-dom";
 
 const ItemsElement = props => {
+  let appear = classes.NavElement;
+  if (!props.show) {
+    appear = classes.Hide;
+  }
+  if (props.search === "") {
+    if (props.keyP < props.start || props.keyP > props.end) {
+      appear = classes.Hide;
+    }
+  }
   return (
-    <NavLink className={classes.NavElement} to={props.link} exact={props.exact}>
+    <NavLink className={appear} to={props.link} exact={props.exact}>
       <div className={classes.ItemsElement}>
         <div style={{ height: "300px", lineHeight: "300px" }}>
           <img

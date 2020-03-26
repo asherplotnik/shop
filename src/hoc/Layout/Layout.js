@@ -18,15 +18,17 @@ class Layout extends Component {
   };
   render() {
     return (
-      <React.Fragment>
-        <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
-        <SideDrawer
-          open={this.state.showSideDrawer}
-          closed={this.sideDrawerClosedHandler}
-        />
-        <main className={classes.Content}>{this.props.children}</main>
-        <Footer />
-      </React.Fragment>
+      <div style={{ textAlign: "center" }}>
+        <div className={classes.Layout}>
+          <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
+          <SideDrawer
+            open={this.state.showSideDrawer}
+            closed={this.sideDrawerClosedHandler}
+          />
+          <main className={classes.Content}>{this.props.children}</main>
+          <Footer />
+        </div>
+      </div>
     );
   }
 }

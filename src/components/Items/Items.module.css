@@ -1,7 +1,6 @@
 .Items {
-  width: 80%;
+  width: 100%;
   display: inline-block;
-
 }
 
 .Wrapper {
@@ -12,4 +11,45 @@
   text-align: left;
   margin-bottom: 40px;
   margin-left: 50px;
+}
+
+.Search {
+  text-align: left;
+  margin-left: 50px;
+  color: rgb(179, 178, 178);
+}
+
+.Search input {
+  text-align: left;
+  color: rgb(179, 178, 178);
+}
+
+.Button {
+  color: #09b6f5;
+  font-size: large;
+  background-color: transparent;
+  border: none;
+  margin-left: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.Button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+.Button:hover {
+  font-weight: bolder;
+}
+
+.SpanD {
+  margin-left: 20px;
+  margin-right: 20px;
+  color: #ccc;
+}
+
+.Span {
+  margin-left: 20px;
+  margin-right: 20px;
+  color: #09b6f5;
 }
