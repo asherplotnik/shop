@@ -4,13 +4,19 @@
   list-style: none;
   display: flex;
   flex-flow: column;
-  align-items: center;
   height: 100%;
+}
+
+.Cart {
+  width: 50px;
 }
 
 @media (min-width: 500px) {
   .NavigationItems {
     flex-flow: row;
     align-items: center;
+  }
+  .Cart {
+    width: 50px;
   }
 }

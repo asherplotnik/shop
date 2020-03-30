@@ -9,6 +9,7 @@ import Items from "./components/Items/Items";
 import Product from "./components/Product/Product";
 import Backend from "./containers/Backend/Backend";
 import { Route, Switch } from "react-router-dom";
+import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 
 class App extends Component {
   render() {
@@ -24,6 +25,7 @@ class App extends Component {
               <Route path="/about" exact component={About} />
               <Route path="/items" exact component={Items} />
               <Route path="/product" exact component={Product} />
+              <Route path="/shoppingcart" exact component={ShoppingCart} />
             </Layout>
           </Switch>
         </Switch>

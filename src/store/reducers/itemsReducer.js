@@ -18,6 +18,7 @@ const initialState = {
   updateToggleOn: false,
   collectionSelect: [],
   bulkPressed: false,
+  asher: null,
   canceled: false
 };
 

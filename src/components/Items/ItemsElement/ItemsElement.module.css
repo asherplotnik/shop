@@ -19,8 +19,11 @@
   border: solid 1px #09b6f5;
 }
 
-.Txt {
-  margin-bottom: 10px;
+.Txt1 {
+  height: 43px;
+}
+.Txt2 {
+  margin-bottom: 5px;
 }
 
 .Image1 {
@@ -51,4 +54,15 @@
 
 .Hide {
   display: none;
+}
+
+.TextWrap {
+  height: 75px;
+}
+
+.Front {
+  display: block;
+  bottom: 0px;
+  width: 300px;
+  text-align: center;
 }

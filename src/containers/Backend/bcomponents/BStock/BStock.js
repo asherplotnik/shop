@@ -41,7 +41,8 @@ class BStock extends Component {
   onAddEntryPressed = () => {
     this.setState(prevState => {
       return {
-        addEntryPressed: !prevState.addEntryPressed
+        addEntryPressed: !prevState.addEntryPressed,
+        loadingTransactions: !prevState.loadingTransactions
       };
     });
   };
@@ -89,6 +90,7 @@ class BStock extends Component {
     const formData = new FormData(document.querySelector("#addTransForm"));
     formData.append("addCode", this.state.val);
     this.onAddEntryPressed();
+
     axios
       .post("http://localhost:9000/API/uploadTransForm", formData, {
         headers: {
@@ -207,8 +209,8 @@ class BStock extends Component {
     axios
       .post("http://localhost:9000/API/query", sqlQuery)
       .then(response => {
-        this.setState({ transactions: response.data });
         this.setState({ loadingTransactions: false });
+        this.setState({ transactions: response.data });
       })
       .catch(error => {
         console.log(error);

@@ -5,12 +5,21 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware, compose } from "redux";
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import itemsReducer from "./store/reducers/itemsReducer";
+import cartReducer from "./store/reducers/cartReducer";
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers =
+  process.env.NODE_ENV === "development"
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    : null || compose;
 
-const store = createStore(itemsReducer, composeEnhancers(applyMiddleware()));
+const rootReducer = combineReducers({
+  itemsReducer: itemsReducer,
+  cartReducer: cartReducer
+});
+
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware()));
 const app = (
   <Provider store={store}>
     <BrowserRouter>

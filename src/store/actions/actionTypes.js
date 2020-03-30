@@ -8,3 +8,5 @@ export const TOGGLE_ADD_OFF = "TOGGLE_ADD_OFF";
 export const TOGGLE_UPDATE_OFF = "TOGGLE_UPDATE_OFF";
 export const BULK_PRESSED = "BULK_PRESSED";
 export const SET_STOCK = "SET_STOCK";
+export const ADD_TO_CART = "ADD_TO_CART";
+export const DELETE_ENTRY = "DELETE_ENTRY";

@@ -15,15 +15,19 @@ const ItemsElement = props => {
   return (
     <NavLink className={appear} to={props.link} exact={props.exact}>
       <div className={classes.ItemsElement}>
-        <div style={{ height: "300px", lineHeight: "300px" }}>
-          <img
-            className={classes.Image1}
-            src={"http://localhost:9000/images/" + props.img}
-            alt={props.img}
-          />
+        <div className={classes.Front}>
+          <div style={{ height: "300px", lineHeight: "300px" }}>
+            <img
+              className={classes.Image1}
+              src={"http://localhost:9000/images/" + props.img}
+              alt={props.img}
+            />
+          </div>
+          <div className={classes.TextWrap}>
+            <div className={classes.Txt1}>{props.name}</div>
+            <div className={classes.Txt2}>{props.price} BHT</div>
+          </div>
         </div>
-        <div className={classes.Txt}>{props.name}</div>
-        <div className={classes.Txt}>{props.price} BHT</div>
         <div className={classes.Desc}>
           <div style={{ height: "300px", lineHeight: "300px" }}>
             <img
@@ -32,8 +36,10 @@ const ItemsElement = props => {
               alt={props.img2}
             />
           </div>
-          <div className={classes.Txt}>{props.name}</div>
-          <div className={classes.Txt}>{props.price} BHT</div>
+          <div className={classes.TextWrap}>
+            <div className={classes.Txt1}>{props.name}</div>
+            <div className={classes.Txt2}>{props.price} BHT</div>
+          </div>
         </div>
       </div>
     </NavLink>

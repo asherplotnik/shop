@@ -53,3 +53,11 @@
   margin-right: 20px;
   color: #09b6f5;
 }
+
+.Input {
+  border: none;
+  border-bottom: #b6e4f5 solid 1px;
+  padding: 8px 15px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}

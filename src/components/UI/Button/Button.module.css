@@ -89,3 +89,11 @@
 .Button :hover {
   color: teal;
 }
+
+.ShoppingTable {
+  color: #5accf5;
+  font-family: "BenchNine", sans-serif;
+  font-size: 1.115em;
+  padding: 0px 8px 0px 0px;
+  margin: 0px;
+}

@@ -19,6 +19,14 @@ const sideDrawer = props => {
         <nav>
           <NavigationItems />
         </nav>
+        <div className={classes.Cart0}>
+          <div className={classes.Cart2}>
+            <img src="http://localhost:9000/images/cart2.png" alt="cart" />
+          </div>
+          <div className={classes.Cart}>
+            <img src="http://localhost:9000/images/cart.png" alt="cart" />
+          </div>
+        </div>
       </div>
     </React.Fragment>
   );

@@ -268,6 +268,7 @@ class BCollections extends Component {
         className="-highlight "
         data={data}
         columns={columns}
+        minRows={1}
         defaultPageSize={10}
         getTdProps={(state, rowInfo, column, instance) => {
           return {

@@ -4,4 +4,5 @@
 }
 .Content {
   margin-top: 35px;
+  min-height: 70vh;
 }

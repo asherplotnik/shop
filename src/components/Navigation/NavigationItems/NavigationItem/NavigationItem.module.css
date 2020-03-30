@@ -5,7 +5,8 @@
   width: 100%;
 }
 
-.NavigationItem a {
+.NavigationItem a,
+.NavigationItem img {
   color: black;
   text-decoration: none;
   width: 100%;
@@ -20,6 +21,9 @@
 .NavigationItem a.active {
   color: #3990af;
   transition: color 0.4s ease-out;
+}
+.Cart {
+  width: 50px;
 }
 
 @media (min-width: 500px) {

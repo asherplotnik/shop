@@ -4,7 +4,7 @@ import classes from "./BItems.module.css";
 import Button from "../../../../components/UI/Button/Button";
 import axios from "axios";
 import { connect } from "react-redux";
-import * as actions from "../../../../store/actions/itemsActions";
+import * as actions from "../../../../store/actions/index";
 import Spinner from "../../../../components/UI/Spinner/Spinner";
 import AddItemForm from "../AddItemForm/AddItemForm";
 import Modal from "../../../../components/UI/Modal/Modal";
@@ -225,21 +225,21 @@ class BItems extends Component {
 
 const mapStateToProps = state => {
   return {
-    itemsData: state.items,
-    stockData: state.stock,
-    loading: state.loading,
-    addPressed: state.addPressed,
-    deletePressed: state.deletePressed,
-    updatePressed: state.updatePressed,
-    pressedRecordId: state.pressedRecordId,
-    pressedRecordCode: state.pressedRecordCode,
-    pressedRecordCollection: state.pressedRecordCollection,
-    pressedRecordDesc: state.pressedRecordDesc,
-    pressedRecordSize: state.pressedRecordSize,
-    pressedRecordType: state.pressedRecordType,
-    pressedRecordPrice: state.pressedRecordPrice,
-    bulkPressed: state.bulkPressed,
-    collectionSelect: state.collectionSelect
+    itemsData: state.itemsReducer.items,
+    stockData: state.itemsReducer.stock,
+    loading: state.itemsReducer.loading,
+    addPressed: state.itemsReducer.addPressed,
+    deletePressed: state.itemsReducer.deletePressed,
+    updatePressed: state.itemsReducer.updatePressed,
+    pressedRecordId: state.itemsReducer.pressedRecordId,
+    pressedRecordCode: state.itemsReducer.pressedRecordCode,
+    pressedRecordCollection: state.itemsReducer.pressedRecordCollection,
+    pressedRecordDesc: state.itemsReducer.pressedRecordDesc,
+    pressedRecordSize: state.itemsReducer.pressedRecordSize,
+    pressedRecordType: state.itemsReducer.pressedRecordType,
+    pressedRecordPrice: state.itemsReducer.pressedRecordPrice,
+    bulkPressed: state.itemsReducer.bulkPressed,
+    collectionSelect: state.itemsReducer.collectionSelect
   };
 };
 

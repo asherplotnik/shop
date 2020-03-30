@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css?family=Lexend+Tera|Monda:700|BenchNine:700&display=swap");
+
+.Font select,
+.Font input,
+.Font {
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}
+.Title {
+  font-family: "BenchNine", sans-serif;
+}
+
+.StockColumns {
+  font-family: "Lexend Tera", sans-serif;
+}
+
+.Flist {
+  list-style: none;
+  width: 400px;
+  margin: 0px;
+}
+.Flist li {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+}

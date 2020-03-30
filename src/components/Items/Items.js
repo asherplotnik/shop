@@ -109,6 +109,7 @@ class Items extends Component {
           <div className={classes.Search}>
             SEARCH:{" "}
             <input
+              className={classes.Input}
               type="text"
               onChange={this.updateSearch}
               value={this.state.search}

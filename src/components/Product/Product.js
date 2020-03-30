@@ -5,11 +5,40 @@ import classes from "./Product.module.css";
 import PathLine from "../UI/PathLine/PathLine";
 import Button from "../UI/Button/Button";
 import ReactTable from "react-table-6";
+import Modal from "../UI/Modal/Modal";
+import AddToCartForm from "../AddToCartForm/AddToCartForm";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions/index";
 
 class Product extends Component {
   state = {
     product: [],
-    stock: []
+    stock: [],
+    addToCartPressed: false
+  };
+
+  confirmForm = entry => {
+    this.onAddToCartPressed();
+    let arr = [...this.props.entries];
+    //const formData = new FormData(document.querySelector("#addToCart"));
+    arr.push({
+      code: this.state.product[0].code,
+      variation: entry.selectedVar,
+      quantity: entry.quantity,
+      price: this.state.product[0].price,
+      img: this.state.product[0].img,
+      desc: this.state.product[0].desc,
+      total: entry.quantity * this.state.product[0].price
+    });
+    this.props.onAddToCart(arr);
+  };
+
+  onAddToCartPressed = () => {
+    this.setState(prevState => {
+      return {
+        addToCartPressed: !prevState.addToCartPressed
+      };
+    });
   };
 
   fetchProduct = () => {
@@ -90,7 +119,13 @@ class Product extends Component {
               <hr className={classes.HrClass} />
               <p className={classes.PPrice}>Price: {item.price} BHT</p>
               <hr className={classes.HrClass} />
-              <Button btnType="Success">ADD</Button>
+              <Button
+                disabled={this.state.stock.length === 0}
+                clicked={this.onAddToCartPressed}
+                btnType="Success"
+              >
+                ADD TO CART
+              </Button>
             </div>
             <div className={classes.Stock}>
               <ReactTable
@@ -111,11 +146,19 @@ class Product extends Component {
       });
       viewPage = (
         <React.Fragment>
+          <Modal
+            show={this.state.addToCartPressed}
+            modalClosed={this.onAddToCartPressed}
+          >
+            <AddToCartForm
+              cancel={this.onAddToCartPressed}
+              stock={this.state.stock}
+              confirmForm={this.confirmForm}
+            />
+          </Modal>
           <div className={classes.PathName}>
             <PathLine currentPath={currentPath} />
           </div>
-          <br></br>
-          <br></br>
           <br></br>
           <br></br>
           <div className={classes.Wrapper}>{jsxMap}</div>
@@ -127,4 +170,15 @@ class Product extends Component {
   }
 }
 
-export default Product;
+const mapsStateToProps = state => {
+  return {
+    entries: state.cartReducer.entries
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddToCart: passedData => dispatch(actions.addToCart(passedData))
+  };
+};
+
+export default connect(mapsStateToProps, mapDispatchToProps)(Product);
