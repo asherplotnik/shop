@@ -10,3 +10,6 @@ export const BULK_PRESSED = "BULK_PRESSED";
 export const SET_STOCK = "SET_STOCK";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const DELETE_ENTRY = "DELETE_ENTRY";
+export const SIGN_IN_SUCCESS = "SIGN_IN_SUCCESS";
+export const SIGN_IN_FAIL = "SIGN_IN_FAIL";
+export const LOGOUT = "LOGOUT";

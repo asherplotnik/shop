@@ -5,12 +5,21 @@ import NavigationItems from "../NavigationItems/NavigationItems";
 import DrawerToggle from "../SideDrawer/DrawerToggle/DrawerToggle";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
+import * as actions from "../../../store/actions/index";
 const toolbar = props => {
   const onPressedCart = () => {
-    props.history.push("shoppingcart");
+    props.history.push("/shoppingcart");
   };
+
+  const onPressedLogin = () => {
+    if (props.token !== null) {
+      props.onLogout();
+    }
+    props.history.push("auth");
+  };
+
   let showCart = classes.Hide;
-  if (props.entries.length > 0) {
+  if (props.entries.length > 0 && props.token !== null) {
     showCart = classes.Cart0;
   }
   return (
@@ -23,26 +32,36 @@ const toolbar = props => {
               <Logo />
             </div>
             <nav className={classes.DesktopOnly}>
-              <NavigationItems />
+              <NavigationItems
+                showBackend={props.userId === "5SWzg9kY3ngZTS8TlWUqE7vrNOk2"}
+              />
             </nav>
           </div>
-          <div
-            onClick={onPressedCart}
-            className={[showCart, classes.DesktopOnly].join(" ")}
-          >
-            <div onClick={onPressedCart} className={classes.Cart2}>
-              <img
-                onClick={onPressedCart}
-                src="http://localhost:9000/images/cart2.png"
-                alt="cart"
-              />
-            </div>
-            <div onClick={onPressedCart} className={classes.Cart}>
-              <img
-                onClick={onPressedCart}
-                src="http://localhost:9000/images/cart.png"
-                alt="cart"
-              />
+          <div style={{ display: "flex" }}>
+            <p
+              onClick={onPressedLogin}
+              style={{ margin: "20px", cursor: "pointer" }}
+            >
+              {props.token === null ? "LOGIN" : "LOGOUT"}
+            </p>
+            <div
+              onClick={onPressedCart}
+              className={[showCart, classes.DesktopOnly].join(" ")}
+            >
+              <div onClick={onPressedCart} className={classes.Cart2}>
+                <img
+                  onClick={onPressedCart}
+                  src="http://localhost:9000/images/cart2.png"
+                  alt="cart"
+                />
+              </div>
+              <div onClick={onPressedCart} className={classes.Cart}>
+                <img
+                  onClick={onPressedCart}
+                  src="http://localhost:9000/images/cart.png"
+                  alt="cart"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -54,7 +73,18 @@ const toolbar = props => {
 
 const mapStateToProps = state => {
   return {
-    entries: state.cartReducer.entries
+    entries: state.cartReducer.entries,
+    token: state.authReducer.token,
+    userId: state.authReducer.userId
   };
 };
-export default connect(mapStateToProps)(withRouter(toolbar));
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogout: () => dispatch(actions.logout())
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(toolbar));

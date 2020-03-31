@@ -4,28 +4,33 @@ import NavigationItem from "../../../../components/Navigation/NavigationItems/Na
 const bNavigationItems = props => (
   <ul className={classes.BNavigationItems}>
     <div style={{ margin: "0px 20px 0px 20px" }}>
-      <NavigationItem link="/backend" exact>
+      <NavigationItem show={true} link="/backend" exact>
         HOME
       </NavigationItem>
     </div>
     <div style={{ margin: "0px 20px 0px 20px" }}>
-      <NavigationItem link="/backend/collections" exact>
+      <NavigationItem show={true} link="/backend/collections" exact>
         COLLECTIONS
       </NavigationItem>
     </div>
     <div style={{ margin: "0px 20px 0px 20px" }}>
-      <NavigationItem link="/backend/items" exact>
+      <NavigationItem show={true} link="/backend/items" exact>
         ITEMS
       </NavigationItem>
     </div>
     <div style={{ margin: "0px 20px 0px 20px" }}>
-      <NavigationItem link="/backend/stock" exact>
+      <NavigationItem show={true} link="/backend/stock" exact>
         STOCK
       </NavigationItem>{" "}
     </div>
     <div style={{ margin: "0px 20px 0px 20px" }}>
-      <NavigationItem link="/backend/users" exact>
+      <NavigationItem show={true} link="/backend/users" exact>
         USERS
+      </NavigationItem>
+    </div>
+    <div style={{ margin: "0px 20px 0px 20px" }}>
+      <NavigationItem show={true} link="/" exact>
+        SHOP
       </NavigationItem>
     </div>
   </ul>

@@ -10,8 +10,14 @@ import Product from "./components/Product/Product";
 import Backend from "./containers/Backend/Backend";
 import { Route, Switch } from "react-router-dom";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
+import Auth from "./components/Auth/Auth";
+import { connect } from "react-redux";
+import * as actions from "./store/actions/index";
 
 class App extends Component {
+  componentDidMount() {
+    this.props.onTryAutoSignup();
+  }
   render() {
     return (
       <div className={classes.App}>
@@ -26,6 +32,7 @@ class App extends Component {
               <Route path="/items" exact component={Items} />
               <Route path="/product" exact component={Product} />
               <Route path="/shoppingcart" exact component={ShoppingCart} />
+              <Route path="/auth" exact component={Auth} />
             </Layout>
           </Switch>
         </Switch>
@@ -34,4 +41,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    onTryAutoSignup: () => dispatch(actions.authCheckState())
+  };
+};
+
+export default connect(null, mapDispatchToProps)(App);

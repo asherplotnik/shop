@@ -8,6 +8,8 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import itemsReducer from "./store/reducers/itemsReducer";
 import cartReducer from "./store/reducers/cartReducer";
+import authReducer from "./store/reducers/authReducer";
+import thunk from "redux-thunk";
 
 const composeEnhancers =
   process.env.NODE_ENV === "development"
@@ -16,10 +18,14 @@ const composeEnhancers =
 
 const rootReducer = combineReducers({
   itemsReducer: itemsReducer,
-  cartReducer: cartReducer
+  cartReducer: cartReducer,
+  authReducer: authReducer
 });
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware()));
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
 const app = (
   <Provider store={store}>
     <BrowserRouter>

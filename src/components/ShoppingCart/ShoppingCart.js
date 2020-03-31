@@ -3,11 +3,16 @@ import classes from "./ShoppingCart.module.css";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import Button from "../UI/Button/Button";
+import { withRouter } from "react-router";
+
 const shoppingCart = props => {
   const onDeletePressed = index => {
     const arr = [...props.entries];
     arr.splice(index, 1);
     props.deleteEntry(arr);
+    if (arr.length === 0) {
+      props.history.push("/");
+    }
   };
 
   const shoppingHead = (
@@ -106,4 +111,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(shoppingCart);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(shoppingCart));

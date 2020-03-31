@@ -12,3 +12,10 @@ export {
 } from "./itemsActions";
 
 export { addToCart, deleteEntry } from "./cartActions";
+
+export {
+  signInSuccess,
+  signInFail,
+  logout,
+  authCheckState
+} from "./authActions";
