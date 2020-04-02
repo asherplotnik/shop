@@ -8,14 +8,12 @@ const itemsTable = props => {
     {
       Header: <strong className={classes.Stock}>QUANTITY</strong>,
       accessor: "qty",
-      Cell: row => <span className={classes.Stock}>{row.value}</span>,
-      width: 150
+      Cell: row => <span className={classes.Stock}>{row.value}</span>
     },
     {
       Header: <strong className={classes.Stock}>VARIATION</strong>,
       accessor: "variation",
-      Cell: row => <span className={classes.Stock}>{row.value}</span>,
-      width: 150
+      Cell: row => <span className={classes.Stock}>{row.value}</span>
     }
   ];
 
@@ -29,7 +27,6 @@ const itemsTable = props => {
         </div>
       ),
       accessor: "id",
-      width: 40,
       Cell: row => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
@@ -48,7 +45,6 @@ const itemsTable = props => {
         </div>
       ),
       accessor: "code",
-      width: 230,
       Cell: row => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
@@ -67,7 +63,6 @@ const itemsTable = props => {
         </div>
       ),
       accessor: "collection",
-      width: 230,
       Cell: row => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
@@ -86,7 +81,6 @@ const itemsTable = props => {
         </div>
       ),
       accessor: "desc",
-      width: 330,
       filterable: false,
       Cell: row => (
         <div style={{ lineHeight: "100px" }}>
@@ -106,7 +100,6 @@ const itemsTable = props => {
         </div>
       ),
       accessor: "size",
-      width: 90,
       filterable: false,
       Cell: row => (
         <div style={{ lineHeight: "100px" }}>
@@ -126,7 +119,6 @@ const itemsTable = props => {
         </div>
       ),
       accessor: "price",
-      width: 90,
       filterable: false,
       Cell: row => (
         <div style={{ lineHeight: "100px" }}>
@@ -146,7 +138,6 @@ const itemsTable = props => {
         </div>
       ),
       accessor: "type",
-      width: 90,
       Cell: row => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
@@ -165,7 +156,6 @@ const itemsTable = props => {
         </div>
       ),
       accessor: "img",
-      width: 100,
       filterable: false,
       Cell: row => (
         <div style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
@@ -197,7 +187,6 @@ const itemsTable = props => {
           />
         </div>
       ),
-      width: 100,
       filterable: false
     },
     {
@@ -233,7 +222,6 @@ const itemsTable = props => {
           <Button btnType="DangerSmall">DELETE</Button>
         </div>
       ),
-      width: 90,
       filterable: false
     }
   ];

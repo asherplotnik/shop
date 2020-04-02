@@ -8,8 +8,8 @@ import { withRouter } from "react-router";
 class Auth extends Component {
   state = {
     signIn: true,
-    massage: <br></br>,
-    messageClass: classes.messageOff
+    message: <br className={classes.MessageOff}></br>,
+    messageClass: null
   };
 
   onLogOut = () => {
@@ -75,7 +75,8 @@ class Auth extends Component {
           email: data.get("email"),
           phone: data.get("phone"),
           address: data.get("address"),
-          level: "normal"
+          level: "normal",
+          password: data.get("password")
         };
         const sqlQuery = {
           sql:
@@ -91,6 +92,8 @@ class Auth extends Component {
             response.data.localId +
             "','" +
             userInfo.level +
+            "','" +
+            userInfo.password +
             "')"
         };
         axios
@@ -117,12 +120,21 @@ class Auth extends Component {
     } else {
       const formData = new FormData(document.querySelector("#signup"));
       if (formData.get("password") === formData.get("confirm")) {
-        const formData = new FormData(document.querySelector("#signup"));
-        this.onSignUp(formData);
+        if (/\D/.test(formData.get("phone")) === false) {
+          const formData = new FormData(document.querySelector("#signup"));
+          this.onSignUp(formData);
+        } else {
+          this.setState({
+            message: <p className={classes.MessageOn}>PHONE NUMBER INVALID</p>,
+            messageClass: "phone"
+          });
+        }
       } else {
         this.setState({
-          massage: "CONFIRMED PASSWORD INCORRECT!",
-          messageClass: classes.MessageOn
+          message: (
+            <p className={classes.MessageOn}>CONFIRMED PASSWORD INCORRECT!</p>
+          ),
+          messageClass: "password"
         });
       }
     }
@@ -130,6 +142,9 @@ class Auth extends Component {
 
   switchSign = () => {
     this.setState(prevState => {
+      this.setState({
+        message: <br></br>
+      });
       return {
         signIn: !prevState.signIn
       };
@@ -161,7 +176,7 @@ class Auth extends Component {
             </li>
           </ul>
         </form>
-        <p className={this.state.messageClass}>{this.state.massage}</p>
+        <p>{this.state.message}</p>
       </div>
     );
 
@@ -189,7 +204,16 @@ class Auth extends Component {
               </li>
               <li className={classes.FormList}>
                 <label htmlFor="phone">PHONE:</label>
-                <input name="phone" type="text" required />
+                <input
+                  className={
+                    this.state.messageClass === "phone"
+                      ? classes.MessageOn
+                      : classes.MessageOff
+                  }
+                  name="phone"
+                  type="text"
+                  required
+                />
               </li>
               <li className={classes.FormList}>
                 <label htmlFor="email">EMAIL:</label>
@@ -202,7 +226,11 @@ class Auth extends Component {
               <li>
                 <label htmlFor="confirm">CONFIRM PASSWORD:</label>
                 <input
-                  className={this.state.messageClass}
+                  className={
+                    this.state.messageClass === "password"
+                      ? classes.MessageOn
+                      : classes.MessageOff
+                  }
                   name="confirm"
                   type="password"
                   minLength="6"
@@ -216,7 +244,7 @@ class Auth extends Component {
               </li>
             </ul>
           </form>
-          <p className={this.state.messageClass}>{this.state.massage}</p>
+          {this.state.message}
         </div>
       );
     return (

@@ -1,0 +1,14 @@
+.CellStyle {
+  vertical-align: middle;
+  font-family: "BenchNine", sans-serif;
+  font-size: 20px;
+}
+
+.CellStyleButton {
+  vertical-align: middle;
+}
+.HeaderStyle {
+  vertical-align: middle;
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}
