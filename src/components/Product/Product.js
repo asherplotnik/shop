@@ -20,7 +20,6 @@ class Product extends Component {
   confirmForm = entry => {
     this.onAddToCartPressed();
     let arr = [...this.props.entries];
-    //const formData = new FormData(document.querySelector("#addToCart"));
     arr.push({
       code: this.state.product[0].code,
       variation: entry.selectedVar,
@@ -172,7 +171,8 @@ class Product extends Component {
 
 const mapsStateToProps = state => {
   return {
-    entries: state.cartReducer.entries
+    entries: state.cartReducer.entries,
+    token: state.authReducer.token
   };
 };
 const mapDispatchToProps = dispatch => {

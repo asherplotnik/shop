@@ -29,6 +29,11 @@ const bNavigationItems = props => (
       </NavigationItem>
     </div>
     <div style={{ margin: "0px 20px 0px 20px" }}>
+      <NavigationItem show={true} link="/backend/orders" exact>
+        ORDERS
+      </NavigationItem>
+    </div>
+    <div style={{ margin: "0px 20px 0px 20px" }}>
       <NavigationItem show={true} link="/" exact>
         SHOP
       </NavigationItem>

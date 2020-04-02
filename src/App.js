@@ -11,6 +11,8 @@ import Backend from "./containers/Backend/Backend";
 import { Route, Switch } from "react-router-dom";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import Auth from "./components/Auth/Auth";
+import Checkout from "./components/Checkout/Checkout";
+import Restricted from "./components/Restricted/Restricted";
 import { connect } from "react-redux";
 import * as actions from "./store/actions/index";
 
@@ -19,10 +21,14 @@ class App extends Component {
     this.props.onTryAutoSignup();
   }
   render() {
+    let backend = Restricted;
+    if (this.props.isAuth) {
+      backend = Backend;
+    }
     return (
       <div className={classes.App}>
         <Switch>
-          <Route path="/backend" component={Backend} />
+          <Route path="/backend" component={backend} />
           <Switch>
             <Layout>
               <Route path="/" exact component={Home} />
@@ -31,8 +37,10 @@ class App extends Component {
               <Route path="/about" exact component={About} />
               <Route path="/items" exact component={Items} />
               <Route path="/product" exact component={Product} />
-              <Route path="/shoppingcart" exact component={ShoppingCart} />
+              <Route path="/shoppingcart" component={ShoppingCart} />
               <Route path="/auth" exact component={Auth} />
+              <Route path="/checkout" exact component={Checkout} />
+              <Route path="/restricted" exact component={Restricted} />
             </Layout>
           </Switch>
         </Switch>
@@ -41,10 +49,17 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    isAuth: state.authReducer.userId === "5SWzg9kY3ngZTS8TlWUqE7vrNOk2",
+    logedOut: state.authReducer.token === null
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     onTryAutoSignup: () => dispatch(actions.authCheckState())
   };
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

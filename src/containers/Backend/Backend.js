@@ -6,6 +6,7 @@ import BStock from "./bcomponents/BStock/BStock";
 import BUsers from "./bcomponents/BUsers/BUsers";
 import BLayout from "./bcomponents/BLayout/BLayout";
 import BHome from "./bcomponents/BHome/BHome";
+import BOrders from "./bcomponents/BOrders/BOrders";
 class Backend extends Component {
   state = {};
   render() {
@@ -18,6 +19,7 @@ class Backend extends Component {
             <Route path="/backend/items" component={BItems} />
             <Route path="/backend/stock" component={BStock} />
             <Route path="/backend/users" component={BUsers} />
+            <Route path="/backend/orders" component={BOrders} />
           </BLayout>
         </Switch>
       </React.Fragment>

@@ -19,7 +19,7 @@ const toolbar = props => {
   };
 
   let showCart = classes.Hide;
-  if (props.entries.length > 0 && props.token !== null) {
+  if (props.entries.length > 0) {
     showCart = classes.Cart0;
   }
   return (

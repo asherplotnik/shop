@@ -1,6 +1,6 @@
 import React from "react";
 import ReactTable from "react-table-6";
-import classes from "./AddCartToForm.module.css";
+import classes from "./AddToCartForm.module.css";
 import Button from "../UI/Button/Button";
 const AddToCartForm = props => {
   const stockColumns = [
@@ -67,7 +67,7 @@ const AddToCartForm = props => {
             <li>
               {" "}
               <label htmlFor="quantity">ENTER QUANTITY:</label>{" "}
-              <input type="number" name="quantity" min="1" step="1" />
+              <input type="number" name="quantity" min="1" step="1" required />
             </li>
             <li>
               {" "}

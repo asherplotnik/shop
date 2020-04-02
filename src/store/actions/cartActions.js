@@ -12,3 +12,9 @@ export const deleteEntry = entries => {
     entries: entries
   };
 };
+
+export const clearCart = () => {
+  return {
+    type: actionTypes.CLEAR_CART
+  };
+};

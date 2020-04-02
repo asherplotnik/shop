@@ -11,7 +11,7 @@ export {
   bulkPressed
 } from "./itemsActions";
 
-export { addToCart, deleteEntry } from "./cartActions";
+export { addToCart, deleteEntry, clearCart } from "./cartActions";
 
 export {
   signInSuccess,

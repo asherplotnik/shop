@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import Button from "../UI/Button/Button";
 import { withRouter } from "react-router";
+import ShoppingTable from "../ShoppingTable/ShoppingTable";
 
 const shoppingCart = props => {
   const onDeletePressed = index => {
@@ -15,93 +16,47 @@ const shoppingCart = props => {
     }
   };
 
-  const shoppingHead = (
-    <tr>
-      <th
-        style={{
-          fontSize: "x-large",
-          width: "100px",
-          borderBottom: "solid 1px #b6e4f5"
-        }}
-      >
-        IMAGE
-      </th>
-      <th className={classes.Th}>CODE</th>
-      <th className={classes.Th}>DESCRIPTION</th>
-      <th className={classes.Th}>#</th>
-      <th className={classes.Th}>QUANTITY</th>
-      <th className={classes.Th}>PRICE</th>
-      <th className={classes.Th}>TOTAL</th>
-      <th className={classes.Th}></th>
-    </tr>
-  );
-  const shoppingBody = props.entries.map((entry, index) => {
-    return (
-      <tr key={index}>
-        <td className={classes.Td}>
-          <img
-            src={"http://localhost:9000/images/" + entry.img}
-            alt={entry.img}
-            className={classes.Img}
-          />
-        </td>
-        <td className={classes.Td}>
-          <span>{entry.code}</span>
-        </td>
-        <td className={classes.Td}>
-          <span>{entry.desc}</span>
-        </td>
-        <td className={classes.Td}>
-          <span>{entry.variation}</span>
-        </td>
-        <td className={classes.Td}>
-          <span>{entry.quantity}</span>
-        </td>
-        <td className={classes.Td}>
-          <span>{entry.price}</span>
-        </td>
-        <td className={classes.Td}>
-          <span>{entry.total}</span>
-        </td>
-        <td className={classes.Td}>
-          <Button
-            clicked={() => onDeletePressed(index)}
-            btnType="ShoppingTable"
-          >
-            REMOVE
-          </Button>
-        </td>
-      </tr>
-    );
-  });
-  const shoppingTable = [];
-  shoppingTable.push(shoppingHead);
-  shoppingTable.push(shoppingBody);
+  const redirectCheckout = () => {
+    if (props.token === null) {
+      props.history.push("/auth");
+    } else {
+      props.history.push("/checkout");
+    }
+  };
+
   let subtotal = 0;
   props.entries.map(entry => (subtotal = subtotal + entry.total));
-  const selectedItems = (
-    <table style={{ borderCollapse: "collapse" }}>{shoppingTable}</table>
-  );
 
-  return (
-    <div className={classes.Wrapper}>
-      <h1>SHOPPING CART</h1>
-      {selectedItems}
-      <br></br>
-      <p>
-        SUBTOTAL: {subtotal}
-        <span style={{ opacity: "0%" }}>{"___"}</span>
-        <Button disabled={props.entries.length === 0} btnType="SuccessSmall">
-          CONTINUE TO CHECKOUT
+  let viewPage = <h1 className={classes.Message}> SHOPPING CART IS EMPTY </h1>;
+  if (props.entries.length > 0) {
+    viewPage = (
+      <div className={classes.Wrapper}>
+        <h1>SHOPPING CART</h1>
+        <ShoppingTable
+          entries={props.entries}
+          onDeletePressed={onDeletePressed}
+        />
+        <br></br>
+        <p style={{ marginLeft: "40px" }}>SUBTOTAL: {subtotal}</p>
+        <Button
+          clicked={redirectCheckout}
+          // disabled={props.token === null}
+          btnType="SuccessSmall"
+        >
+          {props.token === null
+            ? "PLEASE LOGIN BEFORE CHECKOUT"
+            : "CONTINUE TO CHECKOUT"}
         </Button>
-      </p>
-    </div>
-  );
+      </div>
+    );
+  }
+  return viewPage;
 };
 
 const mapStateToProps = state => {
   return {
-    entries: state.cartReducer.entries
+    entries: state.cartReducer.entries,
+    token: state.authReducer.token
   };
 };
 

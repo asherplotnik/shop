@@ -12,6 +12,10 @@ class Auth extends Component {
     messageClass: classes.messageOff
   };
 
+  onLogOut = () => {
+    this.props.history.push("/");
+  };
+
   onSignIn = (email, password) => {
     const authData = {
       email: email,
@@ -33,7 +37,11 @@ class Auth extends Component {
           response.data.idToken,
           response.data.localId
         );
-        this.props.history.push("/");
+        if (this.props.entries.length > 0) {
+          this.props.history.push("/checkout");
+        } else {
+          this.props.history.push("/");
+        }
       })
       .catch(err => {
         this.props.onSignInFail(err.response.data.error);
@@ -128,6 +136,9 @@ class Auth extends Component {
     });
   };
   render() {
+    if (this.props.token !== null) {
+      this.onLogOut();
+    }
     let form = (
       <div className={classes.Auth}>
         <form id="signin" onSubmit={this.onSub} className={classes.Form}>
@@ -232,9 +243,10 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     token: state.authReducer.token,
-    userId: state.authReducer.userId,
-    error: state.authReducer.error,
-    loading: state.authReducer.loading
+    // userId: state.authReducer.userId,
+    // error: state.authReducer.error,
+    // loading: state.authReducer.loading,
+    entries: state.cartReducer.entries
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Auth));
