@@ -9,6 +9,7 @@ import Modal from "../UI/Modal/Modal";
 import AddToCartForm from "../AddToCartForm/AddToCartForm";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
+import { withRouter } from "react-router-dom";
 
 class Product extends Component {
   state = {
@@ -17,6 +18,9 @@ class Product extends Component {
     addToCartPressed: false
   };
 
+  goToCart = () => {
+    this.props.history.push("/shoppingcart");
+  };
   confirmForm = entry => {
     this.onAddToCartPressed();
     let arr = [...this.props.entries];
@@ -118,13 +122,30 @@ class Product extends Component {
               <hr className={classes.HrClass} />
               <p className={classes.PPrice}>Price: {item.price} BHT</p>
               <hr className={classes.HrClass} />
-              <Button
-                disabled={this.state.stock.length === 0}
-                clicked={this.onAddToCartPressed}
-                btnType="Success"
-              >
-                ADD TO CART
-              </Button>
+              <div style={{ display: "flex" }}>
+                <Button
+                  disabled={this.state.stock.length === 0}
+                  clicked={this.onAddToCartPressed}
+                  btnType="Success"
+                >
+                  ADD TO CART
+                </Button>
+                <div
+                  className={
+                    this.props.entries.length === 0
+                      ? classes.Hide
+                      : classes.Show
+                  }
+                >
+                  <Button
+                    disabled={this.props.entries.length === 0}
+                    clicked={this.goToCart}
+                    btnType="GotoCart"
+                  >
+                    GO TO CART
+                  </Button>
+                </div>
+              </div>
             </div>
             <div className={classes.Stock}>
               <ReactTable
@@ -181,4 +202,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapsStateToProps, mapDispatchToProps)(Product);
+export default connect(
+  mapsStateToProps,
+  mapDispatchToProps
+)(withRouter(Product));

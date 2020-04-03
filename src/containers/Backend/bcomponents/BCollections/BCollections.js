@@ -235,10 +235,14 @@ class BCollections extends Component {
             </div>
           </div>
         ),
-        accessor: "upt",
-        Cell: () => (
+        accessor: "name",
+        Cell: row => (
           <div style={{ marginTop: "20px" }}>
-            <Button id="updateButton" btnType="SuccessSmall">
+            <Button
+              disabled={row.value === "HIDDEN" || this.state.inputFileToggleOn}
+              id="updateButton"
+              btnType="SuccessSmall"
+            >
               UPDATE
             </Button>
           </div>
@@ -253,10 +257,15 @@ class BCollections extends Component {
             </div>
           </div>
         ),
-        accessor: "del",
-        Cell: () => (
+        accessor: "name",
+        Cell: row => (
           <div style={{ marginTop: "20px" }}>
-            <Button btnType="DangerSmall">DELETE</Button>
+            <Button
+              disabled={row.value === "HIDDEN" || this.state.inputFileToggleOn}
+              btnType="DangerSmall"
+            >
+              DELETE
+            </Button>
           </div>
         ),
         width: 100

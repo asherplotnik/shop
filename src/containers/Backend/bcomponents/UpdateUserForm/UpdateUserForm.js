@@ -3,7 +3,7 @@ import classes from "./UpdateUserForm.module.css";
 
 const updateUserForm = props => {
   return (
-    <div className={classes.UdateUserForm}>
+    <div className={classes.UpdateUserForm}>
       <form id="userupdate" onSubmit={props.update}>
         <div className={classes.Font}>UPDATE USER DETAILS</div>
         <ul className={classes.FormList}>

@@ -4,7 +4,7 @@ import Button from "../UI/Button/Button";
 const shoppingTable = props => {
   const shoppingHead = (
     <thead>
-      <tr>
+      <tr key={"head"}>
         <th
           style={{
             fontSize: "x-large",

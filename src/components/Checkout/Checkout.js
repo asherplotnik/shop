@@ -11,6 +11,8 @@ import { withRouter } from "react-router-dom";
 import * as actions from "../../store/actions/index";
 class Checkout extends Component {
   state = {
+    sTotal: 0,
+    addressPressed: false,
     loading: true,
     user: {
       userId: this.props.userId,
@@ -24,6 +26,34 @@ class Checkout extends Component {
     },
     responseDetails: [],
     paymentMethod: "-"
+  };
+
+  componentWillMount() {
+    let subtotal = 0;
+    this.props.entries.map(entry => (subtotal = subtotal + entry.total));
+    const subAmount = num => {
+      return num + Math.floor(Math.random() * 100) / 100;
+    };
+    this.setState({ sTotal: subAmount(subtotal) });
+  }
+
+  onAddressPressed = () => {
+    this.setState(prevState => {
+      return { addressPressed: !prevState.addressPressed };
+    });
+  };
+
+  onChangeAddress = e => {
+    e.preventDefault();
+    const formData = new FormData(document.querySelector("#changeaddress"));
+    this.setState(prevState => ({
+      ...prevState,
+      user: {
+        ...prevState.user,
+        address: formData.get("address")
+      },
+      addressPressed: !prevState.addressPressed
+    }));
   };
 
   onConfirmedPressed = () => {
@@ -44,9 +74,14 @@ class Checkout extends Component {
     formData.append("address", this.state.user.address);
     formData.append("email", this.state.user.email);
     formData.append("amount", document.getElementById("amount").innerHTML);
-    formData.append("order", JSON.stringify(this.props.entries));
-    formData.append("acc", "ccp");
-    formData.append("wiredate", Date.now());
+    formData.append("orderdetails", JSON.stringify(this.props.entries));
+    formData.append("accwire", "ccp");
+    formData.append(
+      "datewire",
+      Date()
+        .toString()
+        .substring(0, Date().toString().length - 25)
+    );
     axios
       .post("http://localhost:9000/API/creditcardtest", formData, {
         headers: {
@@ -91,9 +126,6 @@ class Checkout extends Component {
   paymentSelection = e => {
     this.setState({ paymentMethod: e.target.value });
   };
-  subAmount = num => {
-    return num + Math.floor(Math.random() * 100) / 100;
-  };
 
   loadUser = () => {
     const sqlQuery = {
@@ -109,6 +141,7 @@ class Checkout extends Component {
               username: row.username.toUpperCase(),
               email: row.email.toUpperCase(),
               address: row.address.toUpperCase(),
+              phone: row.phone,
               userId: this.props.userId
             }
           });
@@ -126,8 +159,6 @@ class Checkout extends Component {
     this.loadUser();
   }
   render() {
-    let subtotal = 0;
-    this.props.entries.map(entry => (subtotal = subtotal + entry.total));
     let paymentEl = null;
     if (this.state.paymentMethod === "BANK TRANSFER") {
       paymentEl = (
@@ -137,8 +168,8 @@ class Checkout extends Component {
           onSubmit={this.wireSubmit}
         >
           <p>
-            PLEASE DEPOSITE <span id="amount">{this.subAmount(subtotal)}</span>{" "}
-            BAHT TO THE FOLLOWING BANK ACCOUNT
+            PLEASE DEPOSITE <span id="amount">{this.state.sTotal}</span> BAHT TO
+            THE FOLLOWING BANK ACCOUNT
           </p>
           <p>KBANK 020-360-4440 ACC NAME:ASHER PLOTNIK</p>
           <p>ONCE FINISHED, PLEASE ENTER THE DETAILS BELOW:</p>
@@ -149,7 +180,7 @@ class Checkout extends Component {
           </p>
           <p>
             <label htmlFor="accwire">last 3 digits of your bank account</label>
-            <input type="text" name="accwire" />
+            <input type="number" name="accwire" />
           </p>
           <div style={{ textAlign: "center" }}>
             <Button btnType="SuccessSmall" type="submit">
@@ -161,56 +192,70 @@ class Checkout extends Component {
     }
     if (this.state.paymentMethod === "CREDIT CARD") {
       paymentEl = (
-        <PaymentForm subTotal={subtotal} submitCard={this.sendCard} />
+        <PaymentForm subTotal={this.state.sTotal} submitCard={this.sendCard} />
       );
     }
     let viewPage = <Spinner />;
     if (!this.state.loading) {
-      viewPage = this.state.responseDetails.map(row => {
-        return (
-          <React.Fragment>
-            <div className={classes.Checkout}>
-              <div className={classes.Container}>
-                <ul className={classes.Ul}>
-                  <li key="name">
-                    <p>NAME: {row.username.toUpperCase()}</p>
-                  </li>
-                  <li key="email">
-                    <p>EMAIL: {row.email.toUpperCase()}</p>
-                  </li>
-                  <li key="address">
-                    <p>SHIPPING ADDRESS: {row.address.toUpperCase()}</p>
-                  </li>
-                  <li key="phone">
-                    <p>PHONE: {row.phone.toUpperCase()}</p>
-                  </li>
-                </ul>
-                <br></br>
-                <div className={classes.Shop}>
-                  <ShoppingTable entries={this.props.entries} />
-                  <p style={{ textAlign: "left" }}>SUBTOTAL: {subtotal} BAHT</p>
-                </div>
-              </div>
-              <div className={classes.Container}>
-                <div>
-                  <p>SELECT PAYMENT METHOD:</p>
-                  <select
-                    onChange={this.paymentSelection}
-                    value={this.state.paymentMethod}
-                    className={classes.Select}
-                  >
-                    <option>-</option>
-                    <option>BANK TRANSFER</option>
-                    <option>CREDIT CARD</option>
-                  </select>
-                </div>
-                <br></br>
-                {paymentEl}
+      viewPage = (
+        <React.Fragment>
+          <div className={classes.Checkout}>
+            <div className={classes.Container}>
+              <ul className={classes.Ul}>
+                <li key="name">
+                  <p>NAME: {this.state.user.username.toUpperCase()}</p>
+                </li>
+                <li key="email">
+                  <p>EMAIL: {this.state.user.email.toUpperCase()}</p>
+                </li>
+                <li key="address">
+                  <div className={classes.WrapAddress}>
+                    <p className={classes.Address}>
+                      SHIPPING ADDRESS: <br></br>
+                      {this.state.user.address.toUpperCase()}{" "}
+                    </p>
+                    <div className={classes.ButtonAddress}>
+                      <Button
+                        clicked={this.onAddressPressed}
+                        btnType="DangerSmall"
+                      >
+                        Change Shipping Address
+                      </Button>
+                    </div>
+                  </div>
+                </li>
+                <li key="phone">
+                  <p>PHONE: {this.state.user.phone.toUpperCase()}</p>
+                </li>
+              </ul>
+              <br></br>
+              <div className={classes.Shop}>
+                <ShoppingTable entries={this.props.entries} />
+                <p style={{ textAlign: "left" }}>
+                  SUBTOTAL: {this.state.sTotal} BAHT
+                </p>
               </div>
             </div>
-          </React.Fragment>
-        );
-      });
+            <div className={classes.Container}>
+              <div>
+                <p>SELECT PAYMENT METHOD:</p>
+                <select
+                  autoFocus
+                  onChange={this.paymentSelection}
+                  value={this.state.paymentMethod}
+                  className={classes.Select}
+                >
+                  <option>-</option>
+                  <option>BANK TRANSFER</option>
+                  <option>CREDIT CARD</option>
+                </select>
+              </div>
+              <br></br>
+              {paymentEl}
+            </div>
+          </div>
+        </React.Fragment>
+      );
     }
     return (
       <React.Fragment>
@@ -230,6 +275,29 @@ class Checkout extends Component {
               OK
             </Button>
           </div>
+        </Modal>
+        <Modal
+          show={this.state.addressPressed}
+          modalClosed={this.onAddressPressed}
+        >
+          <form
+            className={classes.Font}
+            id="changeaddress"
+            onSubmit={this.onChangeAddress}
+          >
+            <p>
+              <label htmlFor="address">PLEASE ENTER NEW ADDRESS:</label>
+            </p>
+            <textarea
+              style={{ resize: "none" }}
+              rows="5"
+              cols="50"
+              name="address"
+              required
+            />
+            <br></br>
+            <input type="submit" value="SUBMIT"></input>
+          </form>
         </Modal>
         <h2 className={classes.Header}>CHECKOUT</h2>
         {viewPage}

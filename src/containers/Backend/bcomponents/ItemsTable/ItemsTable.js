@@ -20,10 +20,8 @@ const itemsTable = props => {
   const columns = [
     {
       Header: (
-        <div>
-          <div key="ID" className={classes.HeaderStyle}>
-            ID
-          </div>
+        <div key="ID" className={classes.HeaderStyle}>
+          ID
         </div>
       ),
       accessor: "id",
@@ -277,7 +275,7 @@ const itemsTable = props => {
       className="-highlight "
       data={props.passedData}
       columns={columns}
-      defaultPageSize={6}
+      defaultPageSize={5}
       filterable
       SubComponent={row => {
         return (

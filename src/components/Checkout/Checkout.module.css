@@ -45,3 +45,23 @@
   font-size: x-large;
   padding: 3px;
 }
+
+.Address {
+  max-width: 300px;
+}
+
+.WrapAddress {
+  display: flex;
+  align-items: center;
+}
+
+.ButtonAddress {
+  margin-left: 20px;
+  display: inline;
+}
+
+.Font input,
+.Font {
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}

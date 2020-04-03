@@ -3,8 +3,12 @@ import Logo from "../../UI/Logo/Logo";
 import NavigationItems from "../NavigationItems/NavigationItems";
 import classes from "./SideDrawer.module.css";
 import Backdrop from "../../UI/Backdrop/Backdrop";
+import { withRouter } from "react-router";
 
 const sideDrawer = props => {
+  const onPressedCart = () => {
+    props.history.push("/shoppingcart");
+  };
   let attachedClasses = [classes.SideDrawer, classes.Close];
   if (props.open) {
     attachedClasses = [classes.SideDrawer, classes.Open];
@@ -19,8 +23,8 @@ const sideDrawer = props => {
         <nav>
           <NavigationItems />
         </nav>
-        <div className={classes.Cart0}>
-          <div className={classes.Cart2}>
+        <div onClick={onPressedCart} className={classes.Cart0}>
+          <div onClick={onPressedCart} className={classes.Cart2}>
             <img src="http://localhost:9000/images/cart2.png" alt="cart" />
           </div>
           <div className={classes.Cart}>
@@ -31,4 +35,4 @@ const sideDrawer = props => {
     </React.Fragment>
   );
 };
-export default sideDrawer;
+export default withRouter(sideDrawer);

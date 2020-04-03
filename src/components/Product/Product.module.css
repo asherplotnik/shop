@@ -77,3 +77,12 @@
 .StockColumns {
   font-family: "Lexend Tera", sans-serif;
 }
+
+.Hide {
+  display: none;
+}
+
+.Show {
+  margin-left: 15px;
+  display: block;
+}
