@@ -13,18 +13,6 @@ class Checkout extends Component {
   state = {
     sTotal: 0,
     addressPressed: false,
-    loading: true,
-    user: {
-      userId: this.props.userId,
-      username: "",
-      phone: "",
-      address: "",
-      email: "",
-      amount: 0,
-      confirmed: false,
-      confirmationNo: null
-    },
-    responseDetails: [],
     paymentMethod: "-"
   };
 
@@ -37,14 +25,8 @@ class Checkout extends Component {
   onChangeAddress = e => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#changeaddress"));
-    this.setState(prevState => ({
-      ...prevState,
-      user: {
-        ...prevState.user,
-        address: formData.get("address")
-      },
-      addressPressed: !prevState.addressPressed
-    }));
+    this.props.changeAddress(formData.get("address"));
+    this.onAddressPressed();
   };
 
   onConfirmedPressed = () => {
@@ -92,10 +74,10 @@ class Checkout extends Component {
   wireSubmit = e => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#banktransfer"));
-    formData.append("userId", this.state.user.userId);
-    formData.append("username", this.state.user.username);
-    formData.append("address", this.state.user.address);
-    formData.append("email", this.state.user.email);
+    formData.append("userId", this.props.reduxUser.userId);
+    formData.append("username", this.props.reduxUser.username);
+    formData.append("address", this.props.reduxUser.address);
+    formData.append("email", this.props.reduxUser.email);
     formData.append("amount", document.getElementById("amount").innerHTML);
     formData.append("order", JSON.stringify(this.props.entries));
     axios
@@ -118,35 +100,7 @@ class Checkout extends Component {
     this.setState({ paymentMethod: e.target.value });
   };
 
-  loadUser = () => {
-    const sqlQuery = {
-      sql: "SELECT * FROM users WHERE userId = '" + this.props.userId + "'"
-    };
-    axios
-      .post("http://localhost:9000/API/query", sqlQuery)
-      .then(response => {
-        this.setState({ responseDetails: response.data });
-        this.state.responseDetails.map(row => {
-          this.setState({
-            user: {
-              username: row.username.toUpperCase(),
-              email: row.email.toUpperCase(),
-              address: row.address.toUpperCase(),
-              phone: row.phone,
-              userId: this.props.userId
-            }
-          });
-          return null;
-        });
-        this.setState({ loading: false });
-      })
-      .catch(err => {
-        this.setState({ loading: false });
-        console.log("SERVER ERROR:", err);
-      });
-  };
   componentDidMount() {
-    this.loadUser();
     let subtotal = 0;
     this.props.entries.map(entry => (subtotal = subtotal + entry.total));
     const subAmount = num => {
@@ -193,67 +147,65 @@ class Checkout extends Component {
       );
     }
     let viewPage = <Spinner />;
-    if (!this.state.loading) {
-      viewPage = (
-        <React.Fragment>
-          <div className={classes.Checkout}>
-            <div className={classes.Container}>
-              <ul className={classes.Ul}>
-                <li key="name">
-                  <p>NAME: {this.state.user.username.toUpperCase()}</p>
-                </li>
-                <li key="email">
-                  <p>EMAIL: {this.state.user.email.toUpperCase()}</p>
-                </li>
-                <li key="address">
-                  <div className={classes.WrapAddress}>
-                    <p className={classes.Address}>
-                      SHIPPING ADDRESS: <br></br>
-                      {this.state.user.address.toUpperCase()}{" "}
-                    </p>
-                    <div className={classes.ButtonAddress}>
-                      <Button
-                        clicked={this.onAddressPressed}
-                        btnType="DangerSmall"
-                      >
-                        Change Shipping Address
-                      </Button>
-                    </div>
+    viewPage = (
+      <React.Fragment>
+        <div className={classes.Checkout}>
+          <div className={classes.Container}>
+            <ul className={classes.Ul}>
+              <li key="name">
+                <p>NAME: {this.props.reduxUser.username.toUpperCase()}</p>
+              </li>
+              <li key="email">
+                <p>EMAIL: {this.props.reduxUser.email.toUpperCase()}</p>
+              </li>
+              <li key="address">
+                <div className={classes.WrapAddress}>
+                  <p className={classes.Address}>
+                    SHIPPING ADDRESS: <br></br>
+                    {this.props.reduxUser.address.toUpperCase()}{" "}
+                  </p>
+                  <div className={classes.ButtonAddress}>
+                    <Button
+                      clicked={this.onAddressPressed}
+                      btnType="DangerSmall"
+                    >
+                      Change Shipping Address
+                    </Button>
                   </div>
-                </li>
-                <li key="phone">
-                  <p>PHONE: {this.state.user.phone.toUpperCase()}</p>
-                </li>
-              </ul>
-              <br></br>
-              <div className={classes.Shop}>
-                <ShoppingTable entries={this.props.entries} />
-                <p style={{ textAlign: "left" }}>
-                  SUBTOTAL: {this.state.sTotal} BAHT
-                </p>
-              </div>
-            </div>
-            <div className={classes.Container}>
-              <div>
-                <p>SELECT PAYMENT METHOD:</p>
-                <select
-                  autoFocus
-                  onChange={this.paymentSelection}
-                  value={this.state.paymentMethod}
-                  className={classes.Select}
-                >
-                  <option>-</option>
-                  <option>BANK TRANSFER</option>
-                  <option>CREDIT CARD</option>
-                </select>
-              </div>
-              <br></br>
-              {paymentEl}
+                </div>
+              </li>
+              <li key="phone">
+                <p>PHONE: {this.props.reduxUser.phone.toUpperCase()}</p>
+              </li>
+            </ul>
+            <br></br>
+            <div className={classes.Shop}>
+              <ShoppingTable entries={this.props.entries} />
+              <p style={{ textAlign: "left" }}>
+                SUBTOTAL: {this.state.sTotal} BAHT
+              </p>
             </div>
           </div>
-        </React.Fragment>
-      );
-    }
+          <div className={classes.Container}>
+            <div>
+              <p>SELECT PAYMENT METHOD:</p>
+              <select
+                autoFocus
+                onChange={this.paymentSelection}
+                value={this.state.paymentMethod}
+                className={classes.Select}
+              >
+                <option>-</option>
+                <option>BANK TRANSFER</option>
+                <option>CREDIT CARD</option>
+              </select>
+            </div>
+            <br></br>
+            {paymentEl}
+          </div>
+        </div>
+      </React.Fragment>
+    );
     return (
       <React.Fragment>
         <Modal
@@ -264,7 +216,7 @@ class Checkout extends Component {
             {" CONFIRMATION REFERENCE :#" + this.state.confirmationNo}
           </div>
           <div className={classes.Conf}>
-            {"AN EMAIL WAS SENT TO YOU AT: " + this.state.user.email}
+            {"AN EMAIL WAS SENT TO YOU AT: " + this.props.reduxUser.email}
           </div>
           <div className={classes.Conf}>THANK YOU</div>
           <div className={classes.Conf}>
@@ -305,6 +257,7 @@ class Checkout extends Component {
 
 const mapStateToProps = state => {
   return {
+    reduxUser: state.authReducer.user,
     userId: state.authReducer.userId,
     entries: state.cartReducer.entries
   };
@@ -312,7 +265,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onClearCart: () => dispatch(actions.clearCart())
+    onClearCart: () => dispatch(actions.clearCart()),
+    changeAddress: address => dispatch(actions.changeAddress(address))
   };
 };
 

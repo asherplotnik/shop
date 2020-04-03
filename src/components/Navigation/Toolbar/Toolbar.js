@@ -34,8 +34,11 @@ const toolbar = props => {
             <nav className={classes.DesktopOnly}>
               <NavigationItems
                 showBackend={
-                  // props.userId === "5SWzg9kY3ngZTS8TlWUqE7vrNOk2" ||
-                  props.level === "admin"
+                  props.user === null
+                    ? false
+                    : props.user.level === "admin"
+                    ? true
+                    : false
                 }
                 showAccount={props.tokem !== null}
               />
@@ -80,7 +83,7 @@ const mapStateToProps = state => {
     entries: state.cartReducer.entries,
     token: state.authReducer.token,
     userId: state.authReducer.userId,
-    level: state.authReducer.level
+    user: state.authReducer.user
   };
 };
 

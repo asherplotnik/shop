@@ -17,5 +17,6 @@ export {
   signInSuccess,
   signInFail,
   logout,
-  authCheckState
+  authCheckState,
+  changeAddress
 } from "./authActions";

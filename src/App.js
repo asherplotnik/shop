@@ -53,7 +53,12 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.authReducer.level === "admin",
+    isAuth:
+      state.authReducer.user === null
+        ? false
+        : state.authReducer.user.level === "admin"
+        ? true
+        : false,
     logedOut: state.authReducer.token === null
   };
 };

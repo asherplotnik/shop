@@ -50,14 +50,14 @@ class Auth extends Component {
               };
               return null;
             });
-            localStorage.setItem("level", user.level);
+            localStorage.setItem("user", user);
             localStorage.setItem("token", response.data.idToken);
             localStorage.setItem("expirationDate", expirationDate);
             localStorage.setItem("userId", response.data.localId);
             this.props.onSignInSuccess(
               response.data.idToken,
               response.data.localId,
-              user.level
+              user
             );
             if (this.props.entries.length > 0) {
               this.props.history.push("/checkout");
@@ -133,8 +133,9 @@ class Auth extends Component {
           .catch(error => {
             console.log(error);
           });
-
-        this.props.history.push("/");
+        this.setState({ signIn: true });
+        this.props.onSignOut();
+        this.props.history.push("/Auth");
       })
       .catch(err => {
         this.props.onSignInFail(err.response.data.error);
@@ -291,9 +292,10 @@ class Auth extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSignInSuccess: (token, userId, level) =>
-      dispatch(actions.signInSuccess(token, userId, level)),
-    onSignInFail: data => dispatch(actions.signInFail(data))
+    onSignInSuccess: (token, userId, user) =>
+      dispatch(actions.signInSuccess(token, userId, user)),
+    onSignInFail: data => dispatch(actions.signInFail(data)),
+    onSignOut: () => dispatch(actions.logout())
   };
 };
 

@@ -14,3 +14,4 @@ export const SIGN_IN_SUCCESS = "SIGN_IN_SUCCESS";
 export const SIGN_IN_FAIL = "SIGN_IN_FAIL";
 export const LOGOUT = "LOGOUT";
 export const CLEAR_CART = "CLEAR_CART";
+export const CHANGE_ADDRESS = "CHANGE_ADDRESS";
