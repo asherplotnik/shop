@@ -30,18 +30,44 @@ class Auth extends Component {
         const expirationDate = new Date(
           new Date().getTime() + response.data.expiresIn * 1000
         );
-        localStorage.setItem("token", response.data.idToken);
-        localStorage.setItem("expirationDate", expirationDate);
-        localStorage.setItem("userId", response.data.localId);
-        this.props.onSignInSuccess(
-          response.data.idToken,
-          response.data.localId
-        );
-        if (this.props.entries.length > 0) {
-          this.props.history.push("/checkout");
-        } else {
-          this.props.history.push("/");
-        }
+        const sqlQuery = {
+          sql:
+            "SELECT * FROM users WHERE userId = '" + response.data.localId + "'"
+        };
+        axios
+          .post("http://localhost:9000/API/query", sqlQuery)
+          .then(response => {
+            let user = {};
+            response.data.map(row => {
+              user = {
+                id: row.id,
+                username: row.username,
+                email: row.email,
+                address: row.address,
+                phone: row.phone,
+                userId: row.userId,
+                level: row.level
+              };
+              return null;
+            });
+            localStorage.setItem("level", user.level);
+            localStorage.setItem("token", response.data.idToken);
+            localStorage.setItem("expirationDate", expirationDate);
+            localStorage.setItem("userId", response.data.localId);
+            this.props.onSignInSuccess(
+              response.data.idToken,
+              response.data.localId,
+              user.level
+            );
+            if (this.props.entries.length > 0) {
+              this.props.history.push("/checkout");
+            } else {
+              this.props.history.push("/");
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          });
       })
       .catch(err => {
         this.props.onSignInFail(err.response.data.error);
@@ -66,9 +92,12 @@ class Auth extends Component {
         localStorage.setItem("token", response.data.idToken);
         localStorage.setItem("expirationDate", expirationDate);
         localStorage.setItem("userId", response.data.localId);
+        localStorage.setItem("level", "normal");
+
         this.props.onSignInSuccess(
           response.data.idToken,
-          response.data.localId
+          response.data.localId,
+          "normal"
         );
         const userInfo = {
           username: data.get("username"),
@@ -262,8 +291,8 @@ class Auth extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSignInSuccess: (token, userId) =>
-      dispatch(actions.signInSuccess(token, userId)),
+    onSignInSuccess: (token, userId, level) =>
+      dispatch(actions.signInSuccess(token, userId, level)),
     onSignInFail: data => dispatch(actions.signInFail(data))
   };
 };
@@ -271,9 +300,6 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     token: state.authReducer.token,
-    // userId: state.authReducer.userId,
-    // error: state.authReducer.error,
-    // loading: state.authReducer.loading,
     entries: state.cartReducer.entries
   };
 };

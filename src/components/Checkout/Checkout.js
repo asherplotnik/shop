@@ -28,15 +28,6 @@ class Checkout extends Component {
     paymentMethod: "-"
   };
 
-  componentWillMount() {
-    let subtotal = 0;
-    this.props.entries.map(entry => (subtotal = subtotal + entry.total));
-    const subAmount = num => {
-      return num + Math.floor(Math.random() * 100) / 100;
-    };
-    this.setState({ sTotal: subAmount(subtotal) });
-  }
-
   onAddressPressed = () => {
     this.setState(prevState => {
       return { addressPressed: !prevState.addressPressed };
@@ -147,7 +138,6 @@ class Checkout extends Component {
           });
           return null;
         });
-
         this.setState({ loading: false });
       })
       .catch(err => {
@@ -157,7 +147,14 @@ class Checkout extends Component {
   };
   componentDidMount() {
     this.loadUser();
+    let subtotal = 0;
+    this.props.entries.map(entry => (subtotal = subtotal + entry.total));
+    const subAmount = num => {
+      return num + Math.floor(Math.random() * 100) / 100;
+    };
+    this.setState({ sTotal: subAmount(subtotal) });
   }
+
   render() {
     let paymentEl = null;
     if (this.state.paymentMethod === "BANK TRANSFER") {

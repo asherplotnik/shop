@@ -21,7 +21,18 @@ const updateUserForm = props => {
           </li>
           <li key="level">
             <label htmlFor="level">LEVEL: </label>
-            <input type="text" name="level" defaultValue={props.level} />
+            <select name="level">
+              <option
+                key="1"
+                selected={props.level === "normal" ? true : false}
+              >
+                normal
+              </option>
+              <option key="2" selected={props.level === "admin" ? true : false}>
+                admin
+              </option>
+            </select>
+            {/* <input type="text" name="level" defaultValue={props.level} /> */}
           </li>
           <li key="submit">
             <input type="submit" value="SUBMIT" />

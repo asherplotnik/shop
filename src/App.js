@@ -11,6 +11,7 @@ import Backend from "./containers/Backend/Backend";
 import { Route, Switch } from "react-router-dom";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import Auth from "./components/Auth/Auth";
+import Profile from "./components/Profile/Profile";
 import Checkout from "./components/Checkout/Checkout";
 import Restricted from "./components/Restricted/Restricted";
 import { connect } from "react-redux";
@@ -37,6 +38,7 @@ class App extends Component {
               <Route path="/about" exact component={About} />
               <Route path="/items" exact component={Items} />
               <Route path="/product" exact component={Product} />
+              <Route path="/profile" exact component={Profile} />
               <Route path="/shoppingcart" component={ShoppingCart} />
               <Route path="/auth" exact component={Auth} />
               <Route path="/checkout" exact component={Checkout} />
@@ -51,7 +53,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.authReducer.userId === "5SWzg9kY3ngZTS8TlWUqE7vrNOk2",
+    isAuth: state.authReducer.level === "admin",
     logedOut: state.authReducer.token === null
   };
 };

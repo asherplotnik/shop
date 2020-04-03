@@ -3,7 +3,8 @@ const initialState = {
   token: null,
   userId: null,
   error: null,
-  loading: false
+  loading: false,
+  level: null
 };
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -11,7 +12,8 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         token: action.token,
-        userId: action.userId
+        userId: action.userId,
+        level: action.level
       };
     case actionTypes.SIGN_IN_FAIL:
       return {

@@ -1,9 +1,10 @@
 import * as actionTypes from "./actionTypes";
-export const signInSuccess = (token, userId) => {
+export const signInSuccess = (token, userId, level) => {
   return {
     type: actionTypes.SIGN_IN_SUCCESS,
     token: token,
-    userId: userId
+    userId: userId,
+    level: level
   };
 };
 
@@ -15,6 +16,7 @@ export const signInFail = data => {
 };
 
 export const logout = () => {
+  localStorage.removeItem("level");
   localStorage.removeItem("token");
   localStorage.removeItem("expirationDate");
   localStorage.removeItem("userId");
@@ -42,7 +44,8 @@ export const authCheckState = () => {
         dispatch(logout());
       } else {
         const userId = localStorage.getItem("userId");
-        dispatch(signInSuccess(token, userId));
+        const level = localStorage.getItem("level");
+        dispatch(signInSuccess(token, userId, level));
         dispatch(
           checkAuthTimeout(
             (expirationDate.getTime() - new Date().getTime()) / 1000

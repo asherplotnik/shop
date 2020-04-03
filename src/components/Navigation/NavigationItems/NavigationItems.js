@@ -15,6 +15,9 @@ const navigationItems = props => (
     <NavigationItem show={true} link="/about" exact>
       ABOUT US
     </NavigationItem>
+    <NavigationItem show={props.showAccount} link="/profile" exact>
+      ABOUT YOU
+    </NavigationItem>
     <NavigationItem show={props.showBackend} link="/backend" exact>
       BACK END
     </NavigationItem>

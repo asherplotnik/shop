@@ -33,7 +33,11 @@ const toolbar = props => {
             </div>
             <nav className={classes.DesktopOnly}>
               <NavigationItems
-                showBackend={props.userId === "5SWzg9kY3ngZTS8TlWUqE7vrNOk2"}
+                showBackend={
+                  // props.userId === "5SWzg9kY3ngZTS8TlWUqE7vrNOk2" ||
+                  props.level === "admin"
+                }
+                showAccount={props.tokem !== null}
               />
             </nav>
           </div>
@@ -75,7 +79,8 @@ const mapStateToProps = state => {
   return {
     entries: state.cartReducer.entries,
     token: state.authReducer.token,
-    userId: state.authReducer.userId
+    userId: state.authReducer.userId,
+    level: state.authReducer.level
   };
 };
 
