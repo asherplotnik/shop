@@ -5,6 +5,7 @@ import Modal from "../UI/Modal/Modal";
 import { connect } from "react-redux";
 import axios from "axios";
 import * as actions from "../../store/actions/index";
+import ProfileTable from "../ProfileTable/ProfileTable";
 
 class Profile extends Component {
   state = {
@@ -98,8 +99,40 @@ class Profile extends Component {
       }
     }
   };
-  changeEmailHandler = () => {};
-  changePasswordHandler = () => {};
+  changeEmailHandler = (e) => {
+    e.preventDefault();
+  };
+  changePasswordHandler = (e) => {
+    e.preventDefault();
+    const formData = new FormData(document.querySelector("#passwordForm"));
+    if (formData.get("password") === formData.get("confirm")) {
+      const authData = {
+        idToken: this.props.token,
+        password: formData.get("password"),
+        returnSecureToken: true,
+      };
+      let url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDTc2IWZVm8QxfLyelchjJSuTbSvF-U3s0";
+      axios.post(url, authData).then((response) => {
+        console.log("password Changed", response);
+        const sqlQuery = {
+          sql:
+            "UPDATE users SET password = '" +
+            formData.get("password") +
+            "' WHERE userId= '" +
+            this.props.userId +
+            "'",
+        };
+        console.log("before update", sqlQuery);
+        axios
+          .post("http://localhost:9000/API/update", sqlQuery)
+          .then((response) => {
+            console.log("after update", sqlQuery);
+            this.onChangePasswordPressed();
+          });
+      });
+    }
+  };
 
   onChangeDetailsPressed = () => {
     this.setState((prevState) => {
@@ -130,7 +163,7 @@ class Profile extends Component {
               <ul className={classes.FormList}>
                 <li key="f">
                   <label htmlFor="username">NAME:</label>
-                  <input name="username" />
+                  <input type="text" name="username" />
                 </li>
                 <li key="g">
                   <label htmlFor="phone">PHONE:</label>
@@ -158,59 +191,93 @@ class Profile extends Component {
             </form>
           </div>
         </Modal>
-        <Modal
-          show={this.state.changeEmailPressed}
-          modalClosed={this.onChangeEmailPressed}
-        ></Modal>
+
         <Modal
           show={this.state.changePasswordPressed}
           modalClosed={this.onChangePasswordPressed}
+        >
+          <div className={classes.Modal}>
+            <form id="passwordForm" onSubmit={this.changePasswordHandler}>
+              <p className={classes.Font}>CHANGE PASSWORD:</p>
+              <ul className={classes.FormList}>
+                <li key="i">
+                  <label htmlFor="password">NEW PASSWORD:</label>
+                  <input type="password" name="password" />
+                </li>
+                <li key="j">
+                  <label htmlFor="confirm">CONFIRM PASSWORD:</label>
+                  <input type="password" name="confirm" />
+                </li>
+              </ul>
+              {this.state.message}
+              <input className={classes.Font} type="submit" value="SUBMIT" />
+              <span style={{ opacity: "0%" }}>_____</span>
+              <button
+                className={classes.Font}
+                onClick={this.onChangePasswordPressed}
+              >
+                CANCEL
+              </button>
+            </form>
+          </div>
+        </Modal>
+        <Modal
+          show={this.state.changeEmailPressed}
+          modalClosed={this.onChangeEmaildPressed}
         ></Modal>
         <div className={classes.Page}>
-          <h1>MY DETAILS</h1>
-          <div className={classes.DetailsWrapper}>
+          <h1>YOUR DETAILS</h1>
+          <div className={classes.Divider}>
             <div>
-              <ul className={classes.List}>
-                <li key="a">NAME: {this.props.user.username}</li>
-                <li key="b">PHONE: {this.props.user.phone}</li>
-                <li key="c">ADDRESS: {this.props.user.address}</li>
-              </ul>
-            </div>
-            <div className={classes.Buttons}>
-              <Button
-                btnType="SuccessSmall"
-                clicked={this.onChangeDetailsPressed}
-              >
-                CHANGE DETAILS
-              </Button>
-            </div>
-          </div>
-          <br></br>
-          <br></br>
-          <div className={classes.DetailsWrapper}>
-            <div>
-              <ul className={classes.List}>
-                <li key="d">EMAIL: {this.props.user.email}</li>
-                <li key="e">PASSWORD: •••••••••• </li>
-              </ul>
-            </div>
-            <div className={classes.Buttons}>
-              <div>
-                <Button
-                  btnType="SuccessSmall"
-                  clicked={this.onChangeEmailPressed}
-                >
-                  CHANGE EMAIL
-                </Button>
+              <div className={classes.DetailsWrapper}>
+                <div className={classes.DetailList}>
+                  <ul className={classes.List}>
+                    <li key="a">NAME: {this.props.user.username}</li>
+                    <li key="b">PHONE: {this.props.user.phone}</li>
+                    <li key="c">ADDRESS: {this.props.user.address}</li>
+                  </ul>
+                </div>
+                <div className={classes.Buttons}>
+                  <Button
+                    btnType="SuccessSmall"
+                    clicked={this.onChangeDetailsPressed}
+                  >
+                    CHANGE DETAILS
+                  </Button>
+                </div>
               </div>
-              <div>
-                <Button
-                  btnType="SuccessSmall"
-                  clicked={this.onChangePasswordPressed}
-                >
-                  CHANGE PASSWORD
-                </Button>
+              <br></br>
+              <br></br>
+              <div className={classes.DetailsWrapper}>
+                <div className={classes.DetailList}>
+                  <ul className={classes.List}>
+                    <li key="d">EMAIL: {this.props.user.email}</li>
+                    <li key="e">PASSWORD: •••••••••• </li>
+                  </ul>
+                </div>
+                <div className={classes.Buttons}>
+                  <div>
+                    <Button
+                      btnType="SuccessSmall"
+                      clicked={this.onChangeEmailPressed}
+                    >
+                      CHANGE EMAIL
+                    </Button>
+                  </div>
+                  <div>
+                    <Button
+                      btnType="SuccessSmall"
+                      clicked={this.onChangePasswordPressed}
+                    >
+                      CHANGE PASSWORD
+                    </Button>
+                  </div>
+                </div>
               </div>
+            </div>
+            <div className={classes.TableDiv}>
+              <h2 className={classes.Header}>YOUR ORDERS</h2>
+              <ProfileTable userId={this.props.userId} />
             </div>
           </div>
         </div>

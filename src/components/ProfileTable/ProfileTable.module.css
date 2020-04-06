@@ -15,12 +15,7 @@
   font-size: x-large;
 }
 
-.UpdateDeleteForm {
-  display: inline-flex;
-  width: 350px;
-}
-
-.Font {
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
+.OrderDetails {
+  font-family: sans-serif;
+  font-size: large;
 }

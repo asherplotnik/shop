@@ -18,16 +18,16 @@ const BUsers = () => {
     fetchUsers();
   }, []);
 
-  const onUpdatePressed = row => {
+  const onUpdatePressed = (row) => {
     setShowUpdate(!showUpdate);
     setPressedUser(row);
   };
-  const onDeletePressed = rId => {
+  const onDeletePressed = (rId) => {
     setShowDelete(!showDelete);
     setPressedUser({ id: rId });
   };
 
-  const updateUser = e => {
+  const updateUser = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#userupdate"));
     formData.append("id", pressedUser.id);
@@ -38,44 +38,44 @@ const BUsers = () => {
       axios
         .post("http://localhost:9000/API/updateUser", formData, {
           headers: {
-            "Content-Type": "multipart/form-data"
-          }
+            "Content-Type": "multipart/form-data",
+          },
         })
-        .then(response => {
+        .then((response) => {
           document.querySelector("#userupdate").reset();
           fetchUsers();
         })
-        .catch(error => {
+        .catch((error) => {
           alert(error);
           document.querySelector("#updateItemForm").reset();
           fetchUsers();
         });
     }
   };
-  const removeUser = id => {
+  const removeUser = (id) => {
     const sqlQuery = { sql: "SELECT * FROM users WHERE id ='" + id + "'" };
     setLoading(true);
     axios
       .post("http://localhost:9000/API/query", sqlQuery)
-      .then(response => {
+      .then((response) => {
         let myUser = {};
-        response.data.map(row => {
+        response.data.map((row) => {
           myUser = {
             email: row.email,
-            password: row.password
+            password: row.password,
           };
           return null;
         });
         const authData = {
           email: myUser.email,
           password: myUser.password,
-          returnSecureToken: true
+          returnSecureToken: true,
         };
         let url =
           "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDTc2IWZVm8QxfLyelchjJSuTbSvF-U3s0";
         axios
           .post(url, authData)
-          .then(response => {
+          .then((response) => {
             const idToken = response.data.idToken;
             const removeReq = { idToken: idToken };
             axios
@@ -83,40 +83,40 @@ const BUsers = () => {
                 "https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyDTc2IWZVm8QxfLyelchjJSuTbSvF-U3s0",
                 removeReq
               )
-              .then(response => {
+              .then((response) => {
                 console.log(response);
                 deleteUser();
               })
-              .catch(error => {
+              .catch((error) => {
                 console.log("delete error:", JSON.stringify(error));
                 alert("delete error:", error);
                 return false;
               });
           })
-          .catch(error => {
+          .catch((error) => {
             console.log("signin error:", JSON.stringify(error));
             alert("signin error:", error);
             return false;
           });
       })
-      .catch(error => {
+      .catch((error) => {
         alert("search user error:", error.message);
         return false;
       });
   };
   const deleteUser = () => {
     const sqlQuery = {
-      sql: "DELETE FROM users WHERE id ='" + pressedUser.id + "'"
+      sql: "DELETE FROM users WHERE id ='" + pressedUser.id + "'",
     };
     setLoading(true);
     axios
       .post("http://localhost:9000/API/update", sqlQuery)
-      .then(response => {
+      .then((response) => {
         fetchUsers();
         setShowDelete(!showDelete);
         console.log(response.data);
       })
-      .catch(err => {
+      .catch((err) => {
         fetchUsers();
         console.log(err);
       });
@@ -127,10 +127,10 @@ const BUsers = () => {
     setLoading(true);
     axios
       .post("http://localhost:9000/API/query", sqlQuery)
-      .then(response => {
+      .then((response) => {
         setLoading(false);
         setUsers(
-          response.data.map(row => {
+          response.data.map((row) => {
             return {
               id: row.id,
               userId: row.userId,
@@ -138,12 +138,12 @@ const BUsers = () => {
               email: row.email,
               address: row.address,
               phone: row.phone,
-              level: row.level
+              level: row.level,
             };
           })
         );
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -158,12 +158,12 @@ const BUsers = () => {
         </div>
       ),
       accessor: "id",
-      Cell: row => (
+      Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
           {row.value}{" "}
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -172,12 +172,12 @@ const BUsers = () => {
         </div>
       ),
       accessor: "username",
-      Cell: row => (
+      Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
           {row.value.toUpperCase()}{" "}
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -188,12 +188,12 @@ const BUsers = () => {
         </div>
       ),
       accessor: "email",
-      Cell: row => (
+      Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
           {row.value.toUpperCase()}{" "}
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -205,12 +205,12 @@ const BUsers = () => {
       ),
       accessor: "address",
       filterable: false,
-      Cell: row => (
+      Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
           {row.value.toUpperCase()}{" "}
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -220,12 +220,12 @@ const BUsers = () => {
       ),
       accessor: "phone",
       filterable: false,
-      Cell: row => (
+      Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
           {row.value}{" "}
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -237,12 +237,12 @@ const BUsers = () => {
       ),
       accessor: "userId",
       filterable: false,
-      Cell: row => (
+      Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
           {row.value}{" "}
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -253,12 +253,12 @@ const BUsers = () => {
         </div>
       ),
       accessor: "level",
-      Cell: row => (
+      Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
           {row.value.toUpperCase()}{" "}
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -274,7 +274,7 @@ const BUsers = () => {
           </Button>
         </div>
       ),
-      filterable: false
+      filterable: false,
     },
     {
       Header: (
@@ -288,8 +288,8 @@ const BUsers = () => {
           <Button btnType="DangerTiny">DELETE</Button>
         </div>
       ),
-      filterable: false
-    }
+      filterable: false,
+    },
   ];
   let usersTable = <Spinner />;
   if (loading === false) {
@@ -309,7 +309,7 @@ const BUsers = () => {
                 address: null,
                 phone: null,
                 userId: null,
-                level: null
+                level: null,
               };
               if (rowInfo !== undefined) {
                 if (e.target.innerHTML === "DELETE") {
@@ -334,7 +334,7 @@ const BUsers = () => {
                   handleOriginal();
                 }
               }
-            }
+            },
           };
         }}
       />
@@ -343,7 +343,7 @@ const BUsers = () => {
   return (
     <React.Fragment>
       <Modal show={showDelete} modalClosed={onDeletePressed}>
-        <div>are you sure?</div>
+        <div class={classes.Font}>are you sure?</div>
         <div>
           <Button
             btnType="SuccessSmall"

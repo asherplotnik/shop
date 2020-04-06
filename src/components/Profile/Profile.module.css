@@ -2,8 +2,7 @@
 .DetailsWrapper {
   font-family: "BenchNine", sans-serif;
   font-size: x-large;
-  width: 50%;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: space-between;
   text-align: left;
@@ -14,19 +13,20 @@
 .List {
   list-style: none;
 }
-.List li {
-}
+
 .List input {
   margin: 10px;
   font-size: large;
 }
 .Header {
-  text-decoration: underline;
+  line-height: 0.2em;
+  font-size: x-large;
 }
 
 .Buttons {
   text-align: right;
   display: block;
+  margin: 20px;
 }
 
 .Page {
@@ -72,4 +72,17 @@
 .MessageOff {
   background-color: transparent;
   border: none;
+}
+.DetailList {
+  width: 50%;
+}
+
+.TableDiv {
+  border: 1px solid #b6e4f5;
+  border-radius: 10px;
+  width: 100%;
+  margin-left: 6px;
+}
+.Divider {
+  display: flex;
 }
