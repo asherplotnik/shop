@@ -8,7 +8,7 @@ export {
   setCollectionSelect,
   toggleUpdateOff,
   toggleAddOff,
-  bulkPressed
+  bulkPressed,
 } from "./itemsActions";
 
 export { addToCart, deleteEntry, clearCart } from "./cartActions";
@@ -18,5 +18,7 @@ export {
   signInFail,
   logout,
   authCheckState,
-  changeAddress
+  changeAddress,
+  changePhone,
+  changeUserName,
 } from "./authActions";

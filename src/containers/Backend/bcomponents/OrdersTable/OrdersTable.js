@@ -3,43 +3,43 @@ import classes from "./OrdersTable.module.css";
 import Button from "../../../../components/UI/Button/Button";
 import ReactTable from "react-table-6";
 
-const OrdersTable = props => {
+const OrdersTable = (props) => {
   const orderDetailsColumns = [
     {
       Header: <strong className={classes.OrderDetails}>ID</strong>,
       accessor: "id",
-      Cell: row => <span className={classes.OrderDetails}>{row.value}</span>
+      Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },
     {
       Header: <strong className={classes.OrderDetails}>ORDER ID</strong>,
       accessor: "orderid",
-      Cell: row => <span className={classes.OrderDetails}>{row.value}</span>
+      Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },
     {
       Header: <strong className={classes.OrderDetails}>CODE</strong>,
       accessor: "code",
-      Cell: row => <span className={classes.OrderDetails}>{row.value}</span>
+      Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },
     {
       Header: <strong className={classes.OrderDetails}>VARIATION</strong>,
       accessor: "variation",
-      Cell: row => <span className={classes.OrderDetails}>{row.value}</span>
+      Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },
     {
       Header: <strong className={classes.OrderDetails}>QUANTITY</strong>,
       accessor: "quantity",
-      Cell: row => <span className={classes.OrderDetails}>{row.value}</span>
+      Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },
     {
       Header: <strong className={classes.OrderDetails}>PRICE</strong>,
       accessor: "price",
-      Cell: row => <span className={classes.OrderDetails}>{row.value}</span>
+      Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },
     {
       Header: <strong className={classes.OrderDetails}>TOTAL</strong>,
       accessor: "total",
-      Cell: row => <span className={classes.OrderDetails}>{row.value}</span>
-    }
+      Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
+    },
   ];
 
   const columns = [
@@ -49,14 +49,14 @@ const OrdersTable = props => {
           ID
         </div>
       ),
-      accessor: "id",
+      accessor: "orderId",
       width: 40,
-      Cell: row => (
+      Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
           {row.value}{" "}
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -66,12 +66,12 @@ const OrdersTable = props => {
       ),
       accessor: "userId",
       width: 240,
-      Cell: row => (
+      Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
           {row.value}
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -80,12 +80,12 @@ const OrdersTable = props => {
         </div>
       ),
       accessor: "username",
-      Cell: row => (
+      Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
           {row.value.toUpperCase()}{" "}
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -95,12 +95,12 @@ const OrdersTable = props => {
       ),
       accessor: "email",
       filterable: false,
-      Cell: row => (
+      Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
           {row.value.toUpperCase()}{" "}
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -110,12 +110,12 @@ const OrdersTable = props => {
       ),
       accessor: "address",
       filterable: false,
-      Cell: row => (
+      Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
           {row.value.toUpperCase()}{" "}
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -125,12 +125,12 @@ const OrdersTable = props => {
       ),
       accessor: "wiredate",
       filterable: false,
-      Cell: row => (
+      Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
           {row.value}{" "}
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -139,12 +139,12 @@ const OrdersTable = props => {
         </div>
       ),
       accessor: "acc",
-      Cell: row => (
+      Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
           {row.value}
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -153,12 +153,12 @@ const OrdersTable = props => {
         </div>
       ),
       accessor: "status",
-      Cell: row => (
+      Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
           {row.value}
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -167,12 +167,12 @@ const OrdersTable = props => {
         </div>
       ),
       accessor: "tracking",
-      Cell: row => (
+      Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
           {row.value}
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -189,7 +189,7 @@ const OrdersTable = props => {
         </div>
       ),
       width: 90,
-      filterable: false
+      filterable: false,
     },
     {
       Header: (
@@ -203,11 +203,11 @@ const OrdersTable = props => {
           <Button btnType="DangerTiny">DELETE</Button>
         </div>
       ),
-      filterable: false
-    }
+      filterable: false,
+    },
   ];
 
-  const makeSubComp = row => {
+  const makeSubComp = (row) => {
     const subTable = [];
     let subTotal = 0;
     for (let i = 0; i < props.orderDetails.length; i++) {
@@ -220,7 +220,7 @@ const OrdersTable = props => {
           variation: props.orderDetails[i].variation,
           quantity: props.orderDetails[i].quantity,
           price: props.orderDetails[i].price,
-          total: props.orderDetails[i].quantity * props.orderDetails[i].price
+          total: props.orderDetails[i].quantity * props.orderDetails[i].price,
         };
         subTable.push(currentRow);
         subTotal = subTotal + currentRow.total;
@@ -233,7 +233,7 @@ const OrdersTable = props => {
       variation: null,
       quantity: null,
       price: null,
-      total: "Sub Total: " + subTotal
+      total: "Sub Total: " + subTotal,
     });
     return subTable;
   };
@@ -251,7 +251,7 @@ const OrdersTable = props => {
               wiredate: null,
               acc: null,
               status: null,
-              tracking: null
+              tracking: null,
             };
             if (rowInfo !== undefined) {
               if (e.target.innerHTML === "DELETE") {
@@ -278,7 +278,7 @@ const OrdersTable = props => {
                 handleOriginal();
               }
             }
-          }
+          },
         };
       }}
       className="-highlight "
@@ -286,7 +286,7 @@ const OrdersTable = props => {
       columns={columns}
       defaultPageSize={19}
       filterable
-      SubComponent={row => {
+      SubComponent={(row) => {
         return (
           <ReactTable
             style={{ border: "1px solid black" }}

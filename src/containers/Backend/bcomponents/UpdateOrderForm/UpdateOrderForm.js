@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./UpdateOrderForm.module.css";
 
-const updateOrderForm = props => {
+const updateOrderForm = (props) => {
   return (
     <div className={classes.UpdateOrderForm}>
       <form id="orderupdate" onSubmit={props.update}>
@@ -36,30 +36,42 @@ const updateOrderForm = props => {
             <select name="status">
               <option
                 key="1"
-                selected={props.status === "cc payment" ? true : false}
+                selected={
+                  // props.status === "wait approve cc payment" ? true : false
+                  true
+                }
               >
-                cc payment
+                wait approve cc payment
               </option>
               <option
                 key="2"
-                selected={props.status === "bank transfer" ? true : false}
+                selected={
+                  props.status === "wait approve bank transfer" ? true : false
+                }
               >
-                bank transfer
+                wait approve bank transfer
               </option>
               <option
                 key="3"
-                selected={props.status === "processing shipment" ? true : false}
+                selected={props.status === "confirmed payment" ? true : false}
               >
-                processing shipment
+                confirmed payment
               </option>
               <option
                 key="4"
+                // selected={props.status === "special issue" ? true : false}
+                selected={false}
+              >
+                special issue
+              </option>
+              <option
+                key="5"
                 selected={props.status === "shipped" ? true : false}
               >
                 shipped
               </option>
               <option
-                key="5"
+                key="6"
                 selected={props.status === "canceled" ? true : false}
               >
                 canceled

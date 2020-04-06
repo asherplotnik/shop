@@ -6,7 +6,7 @@ import DrawerToggle from "../SideDrawer/DrawerToggle/DrawerToggle";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/index";
-const toolbar = props => {
+const toolbar = (props) => {
   const onPressedCart = () => {
     props.history.push("/shoppingcart");
   };
@@ -40,7 +40,7 @@ const toolbar = props => {
                     ? true
                     : false
                 }
-                showAccount={props.tokem !== null}
+                showAccount={props.token !== null}
               />
             </nav>
           </div>
@@ -78,18 +78,18 @@ const toolbar = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     entries: state.cartReducer.entries,
     token: state.authReducer.token,
     userId: state.authReducer.userId,
-    user: state.authReducer.user
+    user: state.authReducer.user,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onLogout: () => dispatch(actions.logout())
+    onLogout: () => dispatch(actions.logout()),
   };
 };
 export default connect(

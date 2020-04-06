@@ -9,7 +9,7 @@ class Auth extends Component {
   state = {
     signIn: true,
     message: <br className={classes.MessageOff}></br>,
-    messageClass: null
+    messageClass: null,
   };
 
   onLogOut = () => {
@@ -20,25 +20,27 @@ class Auth extends Component {
     const authData = {
       email: email,
       password: password,
-      returnSecureToken: true
+      returnSecureToken: true,
     };
     let url =
       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDTc2IWZVm8QxfLyelchjJSuTbSvF-U3s0";
     axios
       .post(url, authData)
-      .then(response => {
+      .then((response) => {
         const expirationDate = new Date(
           new Date().getTime() + response.data.expiresIn * 1000
         );
         const sqlQuery = {
           sql:
-            "SELECT * FROM users WHERE userId = '" + response.data.localId + "'"
+            "SELECT * FROM users WHERE userId = '" +
+            response.data.localId +
+            "'",
         };
         axios
           .post("http://localhost:9000/API/query", sqlQuery)
-          .then(response => {
+          .then((res) => {
             let user = {};
-            response.data.map(row => {
+            res.data.map((row) => {
               user = {
                 id: row.id,
                 username: row.username,
@@ -46,14 +48,19 @@ class Auth extends Component {
                 address: row.address,
                 phone: row.phone,
                 userId: row.userId,
-                level: row.level
+                level: row.level,
               };
               return null;
             });
+            localStorage.setItem("userName", user.username);
+            localStorage.setItem("userEmail", user.email);
+            localStorage.setItem("userAddress", user.address);
+            localStorage.setItem("userPhone", user.phone);
+            localStorage.setItem("userLevel", user.level);
             localStorage.setItem("user", user);
+            localStorage.setItem("userId", response.data.localId);
             localStorage.setItem("token", response.data.idToken);
             localStorage.setItem("expirationDate", expirationDate);
-            localStorage.setItem("userId", response.data.localId);
             this.props.onSignInSuccess(
               response.data.idToken,
               response.data.localId,
@@ -65,27 +72,27 @@ class Auth extends Component {
               this.props.history.push("/");
             }
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
           });
       })
-      .catch(err => {
+      .catch((err) => {
         this.props.onSignInFail(err.response.data.error);
         alert("INVALID EMAIL OR PASSWORD!");
       });
   };
 
-  onSignUp = data => {
+  onSignUp = (data) => {
     const authData = {
       email: data.get("email"),
       password: data.get("password"),
-      returnSecureToken: true
+      returnSecureToken: true,
     };
     let url =
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDTc2IWZVm8QxfLyelchjJSuTbSvF-U3s0";
     axios
       .post(url, authData)
-      .then(response => {
+      .then((response) => {
         const expirationDate = new Date(
           new Date().getTime() + response.data.expiresIn * 1000
         );
@@ -105,7 +112,7 @@ class Auth extends Component {
           phone: data.get("phone"),
           address: data.get("address"),
           level: "normal",
-          password: data.get("password")
+          password: data.get("password"),
         };
         const sqlQuery = {
           sql:
@@ -123,60 +130,78 @@ class Auth extends Component {
             userInfo.level +
             "','" +
             userInfo.password +
-            "')"
+            "')",
         };
         axios
           .post("http://localhost:9000/API/update", sqlQuery)
-          .then(response => {
+          .then((response) => {
             return response.data;
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
           });
         this.setState({ signIn: true });
         this.props.onSignOut();
         this.props.history.push("/Auth");
       })
-      .catch(err => {
+      .catch((err) => {
         this.props.onSignInFail(err.response.data.error);
         alert(err.response.data.error.message.replace("_", " "));
       });
   };
-  onSub = event => {
+  onSub = (event) => {
     event.preventDefault();
     if (this.state.signIn) {
       const formData = new FormData(document.querySelector("#signin"));
       this.onSignIn(formData.get("email"), formData.get("password"));
     } else {
       const formData = new FormData(document.querySelector("#signup"));
-      if (formData.get("password") === formData.get("confirm")) {
-        if (/\D/.test(formData.get("phone")) === false) {
-          const formData = new FormData(document.querySelector("#signup"));
-          this.onSignUp(formData);
-        } else {
-          this.setState({
-            message: <p className={classes.MessageOn}>PHONE NUMBER INVALID</p>,
-            messageClass: "phone"
-          });
-        }
-      } else {
+      if (
+        formData.get("password").includes("'") ||
+        formData.get("address").includes("'") ||
+        formData.get("email").includes("'") ||
+        formData.get("username").includes("'")
+      ) {
         this.setState({
           message: (
-            <p className={classes.MessageOn}>CONFIRMED PASSWORD INCORRECT!</p>
+            <p className={classes.MessageOn}>
+              PLEASE AVOID USING ANY QUOTE SIGN{" "}
+            </p>
           ),
-          messageClass: "password"
+          messageClass: "quote",
         });
+      } else {
+        if (formData.get("password") === formData.get("confirm")) {
+          if (/\D/.test(formData.get("phone")) === false) {
+            const formData = new FormData(document.querySelector("#signup"));
+            this.onSignUp(formData);
+          } else {
+            this.setState({
+              message: (
+                <p className={classes.MessageOn}>PHONE NUMBER INVALID</p>
+              ),
+              messageClass: "phone",
+            });
+          }
+        } else {
+          this.setState({
+            message: (
+              <p className={classes.MessageOn}>CONFIRMED PASSWORD INCORRECT!</p>
+            ),
+            messageClass: "password",
+          });
+        }
       }
     }
   };
 
   switchSign = () => {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       this.setState({
-        message: <br></br>
+        message: <br></br>,
       });
       return {
-        signIn: !prevState.signIn
+        signIn: !prevState.signIn,
       };
     });
   };
@@ -199,12 +224,11 @@ class Auth extends Component {
               <label htmlFor="password">PASSWORD:</label>
               <input name="password" type="password" minLength="6" required />
             </li>
-            <li>
-              <Button btnType="SuccessSmall" type="submit">
-                SUBMIT
-              </Button>
-            </li>
           </ul>
+          <br></br>
+          <Button btnType="SuccessSmall" type="submit">
+            SUBMIT
+          </Button>
         </form>
         <p>{this.state.message}</p>
       </div>
@@ -267,12 +291,10 @@ class Auth extends Component {
                   required
                 />
               </li>
-              <li>
-                <Button btnType="SuccessSmall" type="submit">
-                  SUBMIT
-                </Button>
-              </li>
             </ul>
+            <Button btnType="SuccessSmall" type="submit">
+              SUBMIT
+            </Button>
           </form>
           {this.state.message}
         </div>
@@ -290,19 +312,19 @@ class Auth extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     onSignInSuccess: (token, userId, user) =>
       dispatch(actions.signInSuccess(token, userId, user)),
-    onSignInFail: data => dispatch(actions.signInFail(data)),
-    onSignOut: () => dispatch(actions.logout())
+    onSignInFail: (data) => dispatch(actions.signInFail(data)),
+    onSignOut: () => dispatch(actions.logout()),
   };
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.authReducer.token,
-    entries: state.cartReducer.entries
+    entries: state.cartReducer.entries,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Auth));

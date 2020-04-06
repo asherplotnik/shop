@@ -5,7 +5,7 @@ export function makeShittyTable(obj) {
   let table = {};
   let firstLine = {};
   let keysArr = [];
-  let akey = obj.slice(0, 1).map(keys => {
+  let akey = obj.slice(0, 1).map((keys) => {
     for (let i = 0; i < Object.getOwnPropertyNames(keys).length; i++) {
       keysArr[i] = Object.getOwnPropertyNames(keys)[i];
     }
@@ -13,12 +13,12 @@ export function makeShittyTable(obj) {
   });
   firstLine = (
     <tr>
-      {keysArr.map(aKey => (
+      {keysArr.map((aKey) => (
         <th key={akey}>{aKey}</th>
       ))}
     </tr>
   );
-  let rows = this.state.collections.map(row => {
+  let rows = obj.map((row) => {
     let rowArr = [];
     for (let i = 0; i < keysArr.length; i++) {
       rowArr.push(<td key={i}>{row[keysArr[i]]}</td>);
@@ -33,22 +33,22 @@ export function requestQuery(sql, action) {
   const sqlQuery = { sql: sql };
   axios
     .post("http://localhost:9000/API/" + action, sqlQuery)
-    .then(response => {
+    .then((response) => {
       console.log("[response.data] => ", response.data);
       if (action === "query") {
         this.setState({
           loading: false,
-          collections: response.data
+          collections: response.data,
         });
       } else if (action === "delete") {
         this.setState({
           loading: false,
           deletePressed: false,
-          canceled: true
+          canceled: true,
         });
       }
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
       this.setState({ loading: false, deletePressed: false });
     });

@@ -10,14 +10,14 @@ class PaymentForm extends Component {
     expiry: "",
     focus: "",
     name: "",
-    number: ""
+    number: "",
   };
 
-  handleInputFocus = e => {
+  handleInputFocus = (e) => {
     this.setState({ focus: e.target.name });
   };
 
-  handleInputChange = e => {
+  handleInputChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
@@ -82,7 +82,7 @@ class PaymentForm extends Component {
         <div style={{ textAlign: "center" }}>
           TOTAL AMOUNT IN THAI BAHT:
           <div id="amount">{this.props.subTotal}</div>
-          <Button btnType="Success" type="submit">
+          <Button btnType="SuccessSmall" type="submit">
             SUBMIT
           </Button>
         </div>

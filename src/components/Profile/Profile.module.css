@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
+.DetailsWrapper {
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+  width: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  border: 1px solid #b6e4f5;
+  border-radius: 10px;
+}
+
+.List {
+  list-style: none;
+}
+.List li {
+}
+.List input {
+  margin: 10px;
+  font-size: large;
+}
+.Header {
+  text-decoration: underline;
+}
+
+.Buttons {
+  text-align: right;
+  display: block;
+}
+
+.Page {
+  font-family: "BenchNine", sans-serif;
+  display: block;
+}
+
+.FormList {
+  list-style: none;
+  padding: 3px;
+  width: 350px;
+}
+.FormList li {
+  display: flex;
+  padding: 3px;
+  justify-content: space-between;
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}
+.FormList input {
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}
+
+.Modal {
+  display: inline-flex;
+  width: 350px;
+}
+
+.Font {
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+  margin: 10px;
+}
+
+.MessageOn {
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+  font-weight: bold;
+  background-color: salmon;
+  border: 1px solid red;
+}
+.MessageOff {
+  background-color: transparent;
+  border: none;
+}

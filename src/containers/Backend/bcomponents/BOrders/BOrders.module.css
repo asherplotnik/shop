@@ -1,3 +1,8 @@
 .H1 {
   color: black;
 }
+
+.Buttons {
+  display: flex;
+  justify-content: space-between;
+}

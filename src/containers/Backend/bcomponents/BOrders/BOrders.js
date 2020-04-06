@@ -6,8 +6,12 @@ import OrdersTable from "../OrdersTable/OrdersTable";
 import Modal from "../../../../components/UI/Modal/Modal";
 import ModalConfirm from "../../../../components/UI/Modal/modalContents/modalConfirm/ModalConfirm";
 import UpdateOrderForm from "../UpdateOrderForm/UpdateOrderForm";
-
+import IssueReceipt from "../IssueReceipt/IssueReceipt";
+import classes from "./BOrders.module.css";
+import Button from "../../../../components/UI/Button/Button";
 const BOrders = () => {
+  let [confirmed, setConfirmed] = useState(false);
+  let [shipped, setShipped] = useState(null);
   let [orders, setOrders] = useState([]);
   let [orderDetails, setOrderDetails] = useState([]);
   let [loadingOrders, setLoadingOrders] = useState(true);
@@ -20,34 +24,80 @@ const BOrders = () => {
     fetchOrderDetails();
   }, []);
 
-  const onUpdatePressed = row => {
+  const toggleShipped = () => {
+    setShipped(null);
+  };
+  const toggleConfirmed = () => {
+    setConfirmed(false);
+  };
+
+  const onUpdatePressed = (row) => {
     setShowUpdate(!showUpdate);
     setPressedOrder(row);
   };
 
-  const onUpdateHandler = e => {
+  const sendShippedEmail = () => {
+    console.log("arrived sendShippedEmail");
+    const formData = new FormData();
+    const emailBody =
+      "THANK YOU FOR YOUR PURCHASE. YOUR TRACKING NUMBER IS: " +
+      shipped +
+      "\n FOR ORDER #" +
+      pressedOrder.id;
+    formData.append("email", pressedOrder.email);
+    formData.append(
+      "subject",
+      "INDY COLLECTION SHIPPMENT TRACKING NUMBER FOR ORDER #" + shipped
+    );
+    formData.append("body", emailBody);
+    axios
+      .post("http://localhost:9000/email/sendEmail", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    toggleShipped();
+  };
+
+  const onUpdateHandler = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#orderupdate"));
     formData.append("id", pressedOrder.id);
+
     setShowUpdate(!showUpdate);
     axios
       .post("http://localhost:9000/API/updateOrder", formData, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       })
-      .then(response => {
+      .then((response) => {
         document.querySelector("#orderupdate").reset();
         fetchOrders();
+        let status = formData.get("status");
+        if (status === "confirmed payment") {
+          setConfirmed(true);
+        } else if (
+          status === "shipped" &&
+          formData.get("tracking").trim() !== ""
+        ) {
+          setShipped(formData.get("tracking"));
+        }
       })
-      .catch(error => {
+      .catch((error) => {
         alert(error);
         document.querySelector("#orderupdate").reset();
         fetchOrders();
       });
   };
 
-  const onDeletePressed = rId => {
+  const onDeletePressed = (rId) => {
     setShowDelete(!showDelete);
     setPressedOrder({ id: rId });
   };
@@ -65,10 +115,10 @@ const BOrders = () => {
     setLoadingOrders(true);
     axios
       .post("http://localhost:9000/API/query", sqlQuery)
-      .then(response => {
+      .then((response) => {
         setLoadingOrders(false);
         setOrders(
-          response.data.map(row => {
+          response.data.map((row) => {
             return {
               id: row.id,
               userId: row.userId,
@@ -78,12 +128,12 @@ const BOrders = () => {
               wiredate: row.wiredate,
               acc: row.acc,
               status: row.status,
-              tracking: row.tracking
+              tracking: row.tracking,
             };
           })
         );
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -93,14 +143,14 @@ const BOrders = () => {
     const sqlQuery = { sql: sql };
     axios
       .post("http://localhost:9000/API/" + act, sqlQuery)
-      .then(response => {
+      .then((response) => {
         if (act === "delete") {
           fetchOrders();
           setLoadingOrders(false);
           onDeletePressed();
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         setLoadingOrders(false);
         onDeletePressed();
@@ -108,14 +158,14 @@ const BOrders = () => {
   };
 
   const fetchOrderDetails = () => {
-    const sqlQuery = { sql: "SELECT * FROM orderdetails" };
+    let sqlQuery = { sql: "SELECT * FROM orderdetails" };
     setLoadingOrders(true);
     axios
       .post("http://localhost:9000/API/query", sqlQuery)
-      .then(response => {
+      .then((response) => {
         setLoadingOrders(false);
         setOrderDetails(
-          response.data.map(row => {
+          response.data.map((row) => {
             return {
               id: row.id,
               userId: row.userId,
@@ -123,15 +173,21 @@ const BOrders = () => {
               code: row.code,
               variation: row.variation,
               quantity: row.quantity,
-              price: row.price
+              price: row.price,
             };
           })
         );
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
+  let issuer = null;
+  if (confirmed) {
+    issuer = (
+      <IssueReceipt order={pressedOrder} modalClosed={toggleConfirmed} />
+    );
+  }
   let viewOrders = <Spinner />;
   if (!loadingOrders) {
     viewOrders = (
@@ -152,6 +208,27 @@ const BOrders = () => {
             modalClosed={onUpdatePressed}
             update={onUpdateHandler}
           />
+        </Modal>
+        <Modal show={shipped !== null} modalClosed={toggleShipped}>
+          <div>
+            <p>SEND TRACKING NUMBER: {}</p>
+          </div>
+          <div className={classes.Buttons}>
+            <Button clicked={sendShippedEmail} btnType="SuccessSmall">
+              SEND
+            </Button>
+            <Button clicked={toggleShipped} btnType="DangerSmall">
+              DON'T SEND
+            </Button>
+          </div>
+        </Modal>
+        <Modal
+          show={confirmed}
+          modalClosed={toggleConfirmed}
+          left="calc(50% - 450px)"
+          width="900px"
+        >
+          {issuer}
         </Modal>
         <OrdersTable
           orders={orders}

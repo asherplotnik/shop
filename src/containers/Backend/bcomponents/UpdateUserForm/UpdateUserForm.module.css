@@ -7,6 +7,7 @@
 .FormList {
   list-style: none;
   padding: 3px;
+  width: 350px;
 }
 .FormList li {
   display: flex;

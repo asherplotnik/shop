@@ -15,3 +15,5 @@ export const SIGN_IN_FAIL = "SIGN_IN_FAIL";
 export const LOGOUT = "LOGOUT";
 export const CLEAR_CART = "CLEAR_CART";
 export const CHANGE_ADDRESS = "CHANGE_ADDRESS";
+export const CHANGE_PHONE = "CHCHANGE_PHONENGE_DETAILS";
+export const CHANGE_USERNAME = "CHANGE_USERNAME";

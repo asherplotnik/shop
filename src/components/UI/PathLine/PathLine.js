@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./PathLine.module.css";
 import { NavLink } from "react-router-dom";
-const PathLine = props => {
+const PathLine = (props) => {
   const current = props.currentPath.map((pathElement, index) => {
     const link = "/" + pathElement.name + "?" + pathElement.search;
     return (
@@ -11,7 +11,7 @@ const PathLine = props => {
             ? pathElement.name.toUpperCase()
             : pathElement.search.toUpperCase()}
         </NavLink>
-        <strong className={classes.Strong}>{" >> "}</strong>
+        <span className={classes.Strong}>{" >> "}</span>
       </React.Fragment>
     );
   });

@@ -65,3 +65,14 @@
   font-family: "BenchNine", sans-serif;
   font-size: x-large;
 }
+
+.Show {
+  opacity: 100%;
+}
+.Hide {
+  opacity: 0%;
+}
+
+.Logo {
+  height: 70px;
+}

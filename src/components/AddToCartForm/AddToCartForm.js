@@ -2,25 +2,25 @@ import React from "react";
 import ReactTable from "react-table-6";
 import classes from "./AddToCartForm.module.css";
 import Button from "../UI/Button/Button";
-const AddToCartForm = props => {
+const AddToCartForm = (props) => {
   const stockColumns = [
     {
       Header: <strong className={classes.StockColumns}>IN STOCK</strong>,
       accessor: "qty",
-      Cell: row => <span className={classes.StockColumns}>{row.value}</span>,
-      width: 130
+      Cell: (row) => <span className={classes.StockColumns}>{row.value}</span>,
+      width: 130,
     },
     {
       Header: <strong className={classes.StockColumns}>#</strong>,
       accessor: "variation",
-      Cell: row => <span className={classes.StockColumns}>{row.value}</span>
-    }
+      Cell: (row) => <span className={classes.StockColumns}>{row.value}</span>,
+    },
   ];
   let option = props.stock.map((row, index) => {
     return <option key={index}>{row.variation}</option>;
   });
 
-  const checkValidity = e => {
+  const checkValidity = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#addToCart"));
     const qty = formData.get("quantity");
@@ -67,7 +67,14 @@ const AddToCartForm = props => {
             <li>
               {" "}
               <label htmlFor="quantity">ENTER QUANTITY:</label>{" "}
-              <input type="number" name="quantity" min="1" step="1" required />
+              <input
+                type="number"
+                name="quantity"
+                min="1"
+                step="1"
+                defaultValue="1"
+                required
+              />
             </li>
             <li>
               {" "}

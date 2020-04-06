@@ -2,27 +2,32 @@ import React, { Component } from "react";
 import classes from "./Checkout.module.css";
 import axios from "axios";
 import { connect } from "react-redux";
-import Spinner from "../UI/Spinner/Spinner";
 import Button from "../UI/Button/Button";
 import ShoppingTable from "../ShoppingTable/ShoppingTable";
 import PaymentForm from "../PaymentForm/PaymentForm";
 import Modal from "../UI/Modal/Modal";
 import { withRouter } from "react-router-dom";
 import * as actions from "../../store/actions/index";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import Logo from "../UI/Logo/Logo";
+
 class Checkout extends Component {
   state = {
     sTotal: 0,
     addressPressed: false,
-    paymentMethod: "-"
+    paymentMethod: "-",
+    confirmed: null,
+    confirmationNo: null,
   };
 
   onAddressPressed = () => {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return { addressPressed: !prevState.addressPressed };
     });
   };
 
-  onChangeAddress = e => {
+  onChangeAddress = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#changeaddress"));
     this.props.changeAddress(formData.get("address"));
@@ -30,22 +35,65 @@ class Checkout extends Component {
   };
 
   onConfirmedPressed = () => {
-    this.setState(prevState => {
-      return {
-        confirmed: !prevState.confirmed,
-        confirmationNo: null
-      };
+    this.setState({
+      confirmed: false,
+      confirmationNo: null,
     });
     this.props.onClearCart();
     this.props.history.push("/");
   };
-  sendCard = e => {
+
+  sendCheckoutEmail = (payment, confNo) => {
+    const emailBody =
+      "THANK YOU FOR YOUR PURCHASE. PLEASE SEE ATTACHED ORDER CONFIRMATION";
+    html2canvas(document.querySelector("#attachment")).then((canvas) => {
+      const imgData = canvas.toDataURL("image/jpeg");
+      const pdf = new jsPDF();
+      pdf.addImage(
+        imgData,
+        "JPEG",
+        35,
+        5,
+        135,
+        90 + this.props.entries.length * 15
+      );
+      // pdf.save("download.pdf");
+      const blobFile = pdf.output("blob");
+      const formData = new FormData();
+      formData.append("email", this.props.reduxUser.email);
+      formData.append("subject", "ORDER CONFIRMATION #" + confNo);
+      formData.append("body", emailBody);
+      // formData.append("entries", this.props.entries)
+      // formData.append("username", this.props.reduxUser.username)
+      // formData.append("phone", this.props.reduxUser.phone)
+      // formData.append("address", this.props.reduxUser.address)
+      // formData.append("amount", this.state.sTotal)
+      // formData.append("confNo", confNo)
+      // formData.append("payment", payment)
+      formData.append("attachment", blobFile, "attachment.pdf");
+      axios
+        .post("http://localhost:9000/email/sendEmail", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+  };
+
+  sendCard = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#creditcardform"));
-    formData.append("userId", this.state.user.userId);
-    formData.append("username", this.state.user.username);
-    formData.append("address", this.state.user.address);
-    formData.append("email", this.state.user.email);
+
+    formData.append("userId", this.props.reduxUser.userId);
+    formData.append("username", this.props.reduxUser.username);
+    formData.append("address", this.props.reduxUser.address);
+    formData.append("email", this.props.reduxUser.email);
     formData.append("amount", document.getElementById("amount").innerHTML);
     formData.append("orderdetails", JSON.stringify(this.props.entries));
     formData.append("accwire", "ccp");
@@ -58,23 +106,24 @@ class Checkout extends Component {
     axios
       .post("http://localhost:9000/API/creditcardtest", formData, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       })
-      .then(response => {
-        console.log("[checkout wire respons] => ", response.data);
+      .then((response) => {
         document.querySelector("#creditcardform").reset();
         this.setState({ confirmed: true, confirmationNo: response.data });
+        this.sendCheckoutEmail("ccp", this.state.confirmationNo);
       })
-      .catch(error => {
+      .catch((error) => {
         alert(error);
         document.querySelector("#creditcardform").reset();
       });
   };
-  wireSubmit = e => {
+  wireSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#banktransfer"));
-    formData.append("userId", this.props.reduxUser.userId);
+    formData.append("userId", this.props.userId);
+    console.log(this.props.userId);
     formData.append("username", this.props.reduxUser.username);
     formData.append("address", this.props.reduxUser.address);
     formData.append("email", this.props.reduxUser.email);
@@ -83,27 +132,27 @@ class Checkout extends Component {
     axios
       .post("http://localhost:9000/API/checkoutwire", formData, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       })
-      .then(response => {
-        console.log("[checkout wire respons] => ", response.data);
+      .then((response) => {
         document.querySelector("#banktransfer").reset();
         this.setState({ confirmed: true, confirmationNo: response.data });
+        this.sendCheckoutEmail("tt", this.state.confirmationNo);
       })
-      .catch(error => {
+      .catch((error) => {
         alert(error);
         document.querySelector("#banktransfer").reset();
       });
   };
-  paymentSelection = e => {
+  paymentSelection = (e) => {
     this.setState({ paymentMethod: e.target.value });
   };
 
   componentDidMount() {
     let subtotal = 0;
-    this.props.entries.map(entry => (subtotal = subtotal + entry.total));
-    const subAmount = num => {
+    this.props.entries.map((entry) => (subtotal = subtotal + entry.total));
+    const subAmount = (num) => {
       return num + Math.floor(Math.random() * 100) / 100;
     };
     this.setState({ sTotal: subAmount(subtotal) });
@@ -131,7 +180,7 @@ class Checkout extends Component {
           </p>
           <p>
             <label htmlFor="accwire">last 3 digits of your bank account</label>
-            <input type="number" name="accwire" />
+            <input type="number" name="accwire" required />
           </p>
           <div style={{ textAlign: "center" }}>
             <Button btnType="SuccessSmall" type="submit">
@@ -146,46 +195,55 @@ class Checkout extends Component {
         <PaymentForm subTotal={this.state.sTotal} submitCard={this.sendCard} />
       );
     }
-    let viewPage = <Spinner />;
-    viewPage = (
+    let showConf =
+      this.state.confirmationNo === null ? classes.Hide : classes.Show;
+
+    let attachment = (
+      <div className={classes.Container}>
+        <div id="attachment">
+          <div className={classes.Logo}>
+            <Logo />
+          </div>
+          <div style={{ textAlign: "center" }}>
+            <h3>
+              ORDER CONFIRMATION
+              <span className={showConf}> #{this.state.confirmationNo}</span>
+            </h3>
+            <h3> INDY COLLECTION </h3>
+          </div>
+          <ul className={classes.Ul}>
+            <li key="name">
+              <p>NAME: {this.props.reduxUser.username.toUpperCase()}</p>
+            </li>
+            <li key="email">
+              <p>EMAIL: {this.props.reduxUser.email.toUpperCase()}</p>
+            </li>
+            <li key="address">
+              <div className={classes.WrapAddress}>
+                <p className={classes.Address}>
+                  SHIPPING ADDRESS: <br></br>
+                  {this.props.reduxUser.address.toUpperCase()}{" "}
+                </p>
+              </div>
+            </li>
+            <li key="phone">
+              <p>PHONE: {this.props.reduxUser.phone.toUpperCase()}</p>
+            </li>
+          </ul>
+          <br></br>
+          <div className={classes.Shop}>
+            <ShoppingTable entries={this.props.entries} />
+            <p style={{ textAlign: "left" }}>
+              SUBTOTAL: {this.state.sTotal} BAHT
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+    let viewPage = (
       <React.Fragment>
         <div className={classes.Checkout}>
-          <div className={classes.Container}>
-            <ul className={classes.Ul}>
-              <li key="name">
-                <p>NAME: {this.props.reduxUser.username.toUpperCase()}</p>
-              </li>
-              <li key="email">
-                <p>EMAIL: {this.props.reduxUser.email.toUpperCase()}</p>
-              </li>
-              <li key="address">
-                <div className={classes.WrapAddress}>
-                  <p className={classes.Address}>
-                    SHIPPING ADDRESS: <br></br>
-                    {this.props.reduxUser.address.toUpperCase()}{" "}
-                  </p>
-                  <div className={classes.ButtonAddress}>
-                    <Button
-                      clicked={this.onAddressPressed}
-                      btnType="DangerSmall"
-                    >
-                      Change Shipping Address
-                    </Button>
-                  </div>
-                </div>
-              </li>
-              <li key="phone">
-                <p>PHONE: {this.props.reduxUser.phone.toUpperCase()}</p>
-              </li>
-            </ul>
-            <br></br>
-            <div className={classes.Shop}>
-              <ShoppingTable entries={this.props.entries} />
-              <p style={{ textAlign: "left" }}>
-                SUBTOTAL: {this.state.sTotal} BAHT
-              </p>
-            </div>
-          </div>
+          {attachment}
           <div className={classes.Container}>
             <div>
               <p>SELECT PAYMENT METHOD:</p>
@@ -199,6 +257,11 @@ class Checkout extends Component {
                 <option>BANK TRANSFER</option>
                 <option>CREDIT CARD</option>
               </select>
+              <div className={classes.ButtonAddress}>
+                <Button clicked={this.onAddressPressed} btnType="DangerSmall">
+                  Change Shipping Address
+                </Button>
+              </div>
             </div>
             <br></br>
             {paymentEl}
@@ -217,6 +280,9 @@ class Checkout extends Component {
           </div>
           <div className={classes.Conf}>
             {"AN EMAIL WAS SENT TO YOU AT: " + this.props.reduxUser.email}
+          </div>
+          <div className={classes.Conf}>
+            IF YOU CAN'T SEE THE EMAIL PLEASE LOOK AT THE SPAM FOLDER
           </div>
           <div className={classes.Conf}>THANK YOU</div>
           <div className={classes.Conf}>
@@ -255,18 +321,18 @@ class Checkout extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     reduxUser: state.authReducer.user,
     userId: state.authReducer.userId,
-    entries: state.cartReducer.entries
+    entries: state.cartReducer.entries,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     onClearCart: () => dispatch(actions.clearCart()),
-    changeAddress: address => dispatch(actions.changeAddress(address))
+    changeAddress: (address) => dispatch(actions.changeAddress(address)),
   };
 };
 

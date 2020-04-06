@@ -4,7 +4,7 @@ const initialState = {
   userId: null,
   error: null,
   loading: false,
-  user: null
+  user: null,
 };
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -13,23 +13,40 @@ const authReducer = (state = initialState, action) => {
         ...state,
         token: action.token,
         userId: action.userId,
-        user: action.user
+        user: action.user,
       };
     case actionTypes.SIGN_IN_FAIL:
       return {
         ...state,
-        error: action.data
+        error: action.data,
       };
     case actionTypes.CHANGE_ADDRESS:
       return {
         ...state,
-        user: { ...state.user, address: action.address }
+        user: { ...state.user, address: action.address },
       };
+    case actionTypes.CHANGE_PHONE:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          phone: action.phone,
+        },
+      };
+    case actionTypes.CHANGE_USERNAME:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          username: action.username,
+        },
+      };
+
     case actionTypes.LOGOUT:
       return {
         ...state,
         token: null,
-        userId: null
+        userId: null,
       };
     default:
       return state;
