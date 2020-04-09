@@ -1,4 +1,3 @@
-//import classes from "./BOrders.module.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Spinner from "../../../../components/UI/Spinner/Spinner";
@@ -11,6 +10,7 @@ import classes from "./BOrders.module.css";
 import Button from "../../../../components/UI/Button/Button";
 const BOrders = () => {
   let [confirmed, setConfirmed] = useState(false);
+  let [canceled, setCanceled] = useState(false);
   let [shipped, setShipped] = useState(null);
   let [orders, setOrders] = useState([]);
   let [orderDetails, setOrderDetails] = useState([]);
@@ -29,6 +29,9 @@ const BOrders = () => {
   };
   const toggleConfirmed = () => {
     setConfirmed(false);
+  };
+  const toggleCanceled = () => {
+    setCanceled(false);
   };
 
   const onUpdatePressed = (row) => {
@@ -65,12 +68,10 @@ const BOrders = () => {
     toggleShipped();
   };
 
-  const onUpdateHandler = (e) => {
-    e.preventDefault();
+  const onCancelHandler = () => {
+    const sqlQuery = { sql: pressedOrder.id };
     const formData = new FormData(document.querySelector("#orderupdate"));
     formData.append("id", pressedOrder.id);
-
-    setShowUpdate(!showUpdate);
     axios
       .post("http://localhost:9000/API/updateOrder", formData, {
         headers: {
@@ -80,21 +81,48 @@ const BOrders = () => {
       .then((response) => {
         document.querySelector("#orderupdate").reset();
         fetchOrders();
-        let status = formData.get("status");
-        if (status === "confirmed payment") {
-          setConfirmed(true);
-        } else if (
-          status === "shipped" &&
-          formData.get("tracking").trim() !== ""
-        ) {
-          setShipped(formData.get("tracking"));
-        }
-      })
-      .catch((error) => {
-        alert(error);
-        document.querySelector("#orderupdate").reset();
-        fetchOrders();
+        axios
+          .post("http://localhost:9000/API/cancelOrder", sqlQuery)
+          .then((response) => {
+            console.log(response);
+            toggleCanceled();
+          });
       });
+  };
+
+  const onUpdateHandler = (e) => {
+    e.preventDefault();
+    const formData = new FormData(document.querySelector("#orderupdate"));
+    formData.append("id", pressedOrder.id);
+    setShowUpdate(!showUpdate);
+    let status = formData.get("status");
+    if (status === "canceled") {
+      setCanceled(true);
+    } else {
+      axios
+        .post("http://localhost:9000/API/updateOrder", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          document.querySelector("#orderupdate").reset();
+          fetchOrders();
+          if (status === "confirmed payment") {
+            setConfirmed(true);
+          } else if (
+            status === "shipped" &&
+            formData.get("tracking").trim() !== ""
+          ) {
+            setShipped(formData.get("tracking"));
+          }
+        })
+        .catch((error) => {
+          alert(error);
+          document.querySelector("#orderupdate").reset();
+          fetchOrders();
+        });
+    }
   };
 
   const onDeletePressed = (rId) => {
@@ -149,6 +177,11 @@ const BOrders = () => {
           setLoadingOrders(false);
           onDeletePressed();
         }
+        if (act === "update") {
+          fetchOrders();
+          setLoadingOrders(false);
+          toggleCanceled();
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -195,7 +228,7 @@ const BOrders = () => {
         <Modal show={showDelete} modalClosed={onDeletePressed}>
           <ModalConfirm
             modalClosed={onDeletePressed}
-            deleteConfirmed={onDeleteHandler}
+            confirmed={onDeleteHandler}
           />
         </Modal>
         <Modal show={showUpdate} modalClosed={onUpdatePressed}>
@@ -211,7 +244,7 @@ const BOrders = () => {
         </Modal>
         <Modal show={shipped !== null} modalClosed={toggleShipped}>
           <div>
-            <p>SEND TRACKING NUMBER: {}</p>
+            <p>SEND TRACKING NUMBER: {shipped}</p>
           </div>
           <div className={classes.Buttons}>
             <Button clicked={sendShippedEmail} btnType="SuccessSmall">
@@ -230,6 +263,27 @@ const BOrders = () => {
         >
           {issuer}
         </Modal>
+        <Modal show={canceled} modalClosed={toggleCanceled}>
+          <div>
+            <div>
+              <p>ARE YOU SURE? TRANSACTIONS OF THIS ORDER WILL BE DELETED!</p>
+              <p>AFTER CANCEL YOU WON'T BE ABLE TO CHANGE STATUS AGAIN?</p>
+            </div>
+            <div className={classes.Cont}>
+              <div>
+                <Button btnType="Success" clicked={onCancelHandler}>
+                  YES
+                </Button>
+              </div>
+              <p style={{ color: "transparent" }}> {"-------"}</p>
+              <div>
+                <Button btnType="Danger" clicked={toggleCanceled}>
+                  NO
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Modal>
         <OrdersTable
           orders={orders}
           orderDetails={orderDetails}
@@ -241,4 +295,5 @@ const BOrders = () => {
   }
   return viewOrders;
 };
+
 export default BOrders;

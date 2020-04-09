@@ -21,24 +21,24 @@ class BCollections extends Component {
     pressedRecordDesc: null,
     inputFileToggleOn: false,
     updateToggleOn: false,
-    canceled: false
+    canceled: false,
   };
 
-  updateFormCallBack = parm => {
+  updateFormCallBack = (parm) => {
     this.setState({
       updateToggleOn: false,
       updatePressed: false,
-      loading: false
+      loading: false,
     });
     document.querySelector("#updateCollecionForm").reset();
     this.requestQuery("SELECT * FROM collections", "query");
   };
 
-  addFormCallBack = parm => {
+  addFormCallBack = (parm) => {
     this.setState({
       inputFileToggleOn: false,
       deletePressed: false,
-      loading: false
+      loading: false,
     });
     document.querySelector("#addCollecionForm").reset();
     this.requestQuery("SELECT * FROM collections", "query");
@@ -48,28 +48,28 @@ class BCollections extends Component {
     const sqlQuery = { sql: sql };
     axios
       .post("http://localhost:9000/API/" + action, sqlQuery)
-      .then(response => {
+      .then((response) => {
         console.log("[response.data] => ", response.data);
         if (action === "query") {
           this.setState({
             loading: false,
-            collections: response.data
+            collections: response.data,
           });
         } else if (action === "delete") {
           this.setState({
             loading: false,
             deletePressed: false,
-            canceled: true
+            canceled: true,
           });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         this.setState({ loading: false, deletePressed: false });
       });
   };
 
-  onAddCollecionForm = async e => {
+  onAddCollecionForm = async (e) => {
     e.preventDefault();
 
     const addCollecionForm = document.querySelector("#addCollecionForm");
@@ -77,10 +77,10 @@ class BCollections extends Component {
     axios
       .post("http://localhost:9000/API/uploadCollectionForm", formData, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       })
-      .then(response => {
+      .then((response) => {
         console.log("[add collection respose] => ", response.data);
         if (response.data === "collection exists already") {
           alert(response.data);
@@ -88,12 +88,12 @@ class BCollections extends Component {
         this.setState({
           inputFileToggleOn: false,
           deletePressed: false,
-          loading: false
+          loading: false,
         });
         this.requestQuery("SELECT * FROM collections", "query");
         document.querySelector("#addCollecionForm").reset();
       })
-      .catch(error => {
+      .catch((error) => {
         alert(error);
         document.querySelector("#addCollecionForm").reset();
         this.setState({ loading: false, deletePressed: false });
@@ -116,7 +116,7 @@ class BCollections extends Component {
       deletePressed: false,
       canceled: true,
       pressedRecordId: null,
-      pressedRecordColl: null
+      pressedRecordColl: null,
     });
   };
 
@@ -133,18 +133,18 @@ class BCollections extends Component {
     );
   };
   addInputHandler = () => {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return {
         inputFileToggleOn: !prevState.inputFileToggleOn,
-        canceled: true
+        canceled: true,
       };
     });
   };
 
-  makeNiceTable = collData => {
+  makeNiceTable = (collData) => {
     let data = [...collData];
     let keysArr = [];
-    data.slice(0, 1).map(keys => {
+    data.slice(0, 1).map((keys) => {
       for (let i = 0; i < Object.getOwnPropertyNames(keys).length; i++) {
         keysArr[i] = Object.getOwnPropertyNames(keys)[i];
       }
@@ -162,14 +162,14 @@ class BCollections extends Component {
         ),
         accessor: "id",
         width: 40,
-        Cell: row => (
+        Cell: (row) => (
           <div style={{ lineHeight: "100px" }}>
             <div key={row.value} className={classes.CellStyle}>
               {" "}
               {row.value}{" "}
             </div>
           </div>
-        )
+        ),
       },
       {
         Header: (
@@ -181,14 +181,14 @@ class BCollections extends Component {
         ),
         accessor: "name",
         width: 250,
-        Cell: row => (
+        Cell: (row) => (
           <div style={{ lineHeight: "100px" }}>
             <div key={row.value} className={classes.CellStyle}>
               {" "}
               {row.value.toUpperCase()}{" "}
             </div>
           </div>
-        )
+        ),
       },
       {
         Header: (
@@ -200,14 +200,14 @@ class BCollections extends Component {
         ),
         accessor: "desc",
         width: 400,
-        Cell: row => (
+        Cell: (row) => (
           <div style={{ lineHeight: "100px" }}>
             <div key={row.value} className={classes.CellStyle}>
               {" "}
               {row.value.toUpperCase()}{" "}
             </div>
           </div>
-        )
+        ),
       },
       {
         Header: (
@@ -218,14 +218,14 @@ class BCollections extends Component {
           </div>
         ),
         accessor: "img",
-        Cell: row => (
+        Cell: (row) => (
           <img
             src={row.value}
             alt={row.value}
             style={{ width: "100px", height: "100px" }}
           />
         ),
-        width: 100
+        width: 100,
       },
       {
         Header: (
@@ -236,7 +236,7 @@ class BCollections extends Component {
           </div>
         ),
         accessor: "name",
-        Cell: row => (
+        Cell: (row) => (
           <div style={{ marginTop: "20px" }}>
             <Button
               disabled={row.value === "HIDDEN" || this.state.inputFileToggleOn}
@@ -247,7 +247,7 @@ class BCollections extends Component {
             </Button>
           </div>
         ),
-        width: 100
+        width: 100,
       },
       {
         Header: (
@@ -258,7 +258,7 @@ class BCollections extends Component {
           </div>
         ),
         accessor: "name",
-        Cell: row => (
+        Cell: (row) => (
           <div style={{ marginTop: "20px" }}>
             <Button
               disabled={row.value === "HIDDEN" || this.state.inputFileToggleOn}
@@ -268,8 +268,8 @@ class BCollections extends Component {
             </Button>
           </div>
         ),
-        width: 100
-      }
+        width: 100,
+      },
     ];
 
     return (
@@ -289,12 +289,12 @@ class BCollections extends Component {
                   e.target.innerHTML === "DELETE" &&
                   !this.state.inputFileToggleOn
                 ) {
-                  this.setState(prevState => {
+                  this.setState((prevState) => {
                     return {
                       deletePressed: !prevState.deletePressed,
                       pressedRecordId: rowInfo.original.id,
                       pressedRecordName: rowInfo.original.name,
-                      pressedRecordColl: column.Header
+                      pressedRecordColl: column.Header,
                     };
                   });
                 }
@@ -302,14 +302,14 @@ class BCollections extends Component {
                   e.target.innerHTML === "UPDATE" &&
                   !this.state.inputFileToggleOn
                 ) {
-                  this.setState(prevState => {
+                  this.setState((prevState) => {
                     return {
                       updateToggleOn: !prevState.updateToggleOn,
                       canceled: true,
                       pressedRecordId: rowInfo.original.id,
                       pressedRecordColl: column.Header,
                       pressedRecordName: rowInfo.original.name,
-                      pressedRecordDesc: rowInfo.original.desc
+                      pressedRecordDesc: rowInfo.original.desc,
                     };
                   });
                 }
@@ -321,7 +321,7 @@ class BCollections extends Component {
                   handleOriginal();
                 }
               }
-            }
+            },
           };
         }}
       />
@@ -347,7 +347,7 @@ class BCollections extends Component {
           >
             <ModalConfirm
               modalClosed={this.cancelDeleteHandler}
-              deleteConfirmed={this.deleteRecordHandler}
+              confirmed={this.deleteRecordHandler}
             />
           </Modal>
           <div className={classes.Wrapper}>

@@ -18,7 +18,7 @@ class BItems extends Component {
     this.collectionQuery();
   }
 
-  onBulkConfirmed = async e => {
+  onBulkConfirmed = async (e) => {
     e.preventDefault();
     const bulkForm = document.querySelector("#bulkForm");
     this.props.onBulkPressed();
@@ -26,20 +26,20 @@ class BItems extends Component {
     axios
       .post("http://localhost:9000/API/bulkUpload", formData, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       })
-      .then(response => {
+      .then((response) => {
         console.log(response.data);
         this.requestQuery("SELECT * FROM items", "query");
       })
-      .catch(error => {
+      .catch((error) => {
         alert(error);
         this.requestQuery("SELECT * FROM collections", "query");
       });
   };
 
-  onAddItemForm = async e => {
+  onAddItemForm = async (e) => {
     e.preventDefault();
     const addItemForm = document.querySelector("#addItemForm");
     const formData = new FormData(addItemForm);
@@ -47,10 +47,10 @@ class BItems extends Component {
     axios
       .post("http://localhost:9000/API/uploadItemForm", formData, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       })
-      .then(response => {
+      .then((response) => {
         console.log("[add collection respose] => ", response.data);
         if (response.data === "Item exists already") {
           alert(response.data);
@@ -58,14 +58,14 @@ class BItems extends Component {
         document.querySelector("#updateItemForm").reset();
         this.requestQuery("SELECT * FROM items", "query");
       })
-      .catch(error => {
+      .catch((error) => {
         alert(error);
         document.querySelector("#updateItemForm").reset();
         this.requestQuery("SELECT * FROM collections", "query");
       });
   };
 
-  onUpdateItemForm = async e => {
+  onUpdateItemForm = async (e) => {
     e.preventDefault();
     const itemForm = document.querySelector("#updateItemForm");
     const formData = new FormData(itemForm);
@@ -74,10 +74,10 @@ class BItems extends Component {
     axios
       .post("http://localhost:9000/API/updateItemForm", formData, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       })
-      .then(response => {
+      .then((response) => {
         console.log("[add collection response] => ", response.data);
         if (response.data === "Item exists already") {
           alert(response.data);
@@ -85,7 +85,7 @@ class BItems extends Component {
         document.querySelector("#updateItemForm").reset();
         this.requestQuery("SELECT * FROM items", "query");
       })
-      .catch(error => {
+      .catch((error) => {
         alert(error);
         document.querySelector("#updateItemForm").reset();
         this.requestQuery("SELECT * FROM collections", "query");
@@ -96,13 +96,13 @@ class BItems extends Component {
     const sqlQuery = { sql: "SELECT name FROM collections" };
     axios
       .post("http://localhost:9000/API/query", sqlQuery)
-      .then(response => {
-        let arr = response.data.map(el => {
+      .then((response) => {
+        let arr = response.data.map((el) => {
           return el.name;
         });
         this.props.onSetCollectionSelect(arr);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -111,7 +111,7 @@ class BItems extends Component {
     const sqlQuery = { sql: sql };
     axios
       .post("http://localhost:9000/API/" + act, sqlQuery)
-      .then(response => {
+      .then((response) => {
         if (act === "query") {
           this.props.setItems(response.data);
           this.props.setLoadingFalse();
@@ -120,7 +120,7 @@ class BItems extends Component {
           this.props.onDeletePressed();
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         this.setState({ loading: false, deletePressed: false });
       });
@@ -130,10 +130,10 @@ class BItems extends Component {
     const sqlQuery = { sql: "SELECT * FROM stock" };
     axios
       .post("http://localhost:9000/API/query", sqlQuery)
-      .then(response => {
+      .then((response) => {
         this.props.setStock(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -167,7 +167,7 @@ class BItems extends Component {
           >
             <ModalConfirm
               modalClosed={this.props.onDeletePressed}
-              deleteConfirmed={this.onDeleteHandler}
+              confirmed={this.onDeleteHandler}
             />
           </Modal>
           <Modal
@@ -223,7 +223,7 @@ class BItems extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     itemsData: state.itemsReducer.items,
     stockData: state.itemsReducer.stock,
@@ -239,22 +239,22 @@ const mapStateToProps = state => {
     pressedRecordType: state.itemsReducer.pressedRecordType,
     pressedRecordPrice: state.itemsReducer.pressedRecordPrice,
     bulkPressed: state.itemsReducer.bulkPressed,
-    collectionSelect: state.itemsReducer.collectionSelect
+    collectionSelect: state.itemsReducer.collectionSelect,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    setItems: passedData => dispatch(actions.setItems(passedData)),
-    setStock: passedData => dispatch(actions.setStock(passedData)),
+    setItems: (passedData) => dispatch(actions.setItems(passedData)),
+    setStock: (passedData) => dispatch(actions.setStock(passedData)),
     setLoadingFalse: () => dispatch(actions.setLoadingFalse()),
     onAddPressed: () => dispatch(actions.addPressed()),
-    onDeletePressed: rowId => dispatch(actions.deletePressed(rowId)),
-    onUpdatePressed: row => dispatch(actions.updatePressed(row)),
-    onSetCollectionSelect: col => dispatch(actions.setCollectionSelect(col)),
+    onDeletePressed: (rowId) => dispatch(actions.deletePressed(rowId)),
+    onUpdatePressed: (row) => dispatch(actions.updatePressed(row)),
+    onSetCollectionSelect: (col) => dispatch(actions.setCollectionSelect(col)),
     onToggleUpdateOff: () => dispatch(actions.toggleUpdateOff()),
     onToggleAddOff: () => dispatch(actions.toggleAddOff()),
-    onBulkPressed: () => dispatch(actions.bulkPressed())
+    onBulkPressed: () => dispatch(actions.bulkPressed()),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(BItems);

@@ -15,13 +15,13 @@ class Product extends Component {
   state = {
     product: [],
     stock: [],
-    addToCartPressed: false
+    addToCartPressed: false,
   };
 
   goToCart = () => {
     this.props.history.push("/shoppingcart");
   };
-  confirmForm = entry => {
+  confirmForm = (entry) => {
     this.onAddToCartPressed();
     let arr = [...this.props.entries];
     arr.push({
@@ -31,15 +31,22 @@ class Product extends Component {
       price: this.state.product[0].price,
       img: this.state.product[0].img,
       desc: this.state.product[0].desc,
-      total: entry.quantity * this.state.product[0].price
+      total: entry.quantity * this.state.product[0].price,
     });
     this.props.onAddToCart(arr);
+    let a = [...this.state.stock];
+    for (let i = 0; i < a.length; i++) {
+      if (a[i].variation === entry.selectedVar) {
+        a[i].qty = a[i].qty - entry.quantity;
+      }
+    }
+    this.setState({ stock: [...a] });
   };
 
   onAddToCartPressed = () => {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return {
-        addToCartPressed: !prevState.addToCartPressed
+        addToCartPressed: !prevState.addToCartPressed,
       };
     });
   };
@@ -50,12 +57,12 @@ class Product extends Component {
     const sqlQuery = { sql: sql };
     axios
       .post("http://localhost:9000/API/query", sqlQuery)
-      .then(response => {
+      .then((response) => {
         console.log("[product] => ", response.data);
         this.setState({ loading: false });
         this.setState({ product: response.data });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ loading: false });
         console.log(error);
       });
@@ -65,42 +72,59 @@ class Product extends Component {
     const sqlStockQuery = { sql: sqlStock };
     axios
       .post("http://localhost:9000/API/query", sqlStockQuery)
-      .then(response => {
-        this.setState({ stock: response.data });
+      .then((response) => {
+        let a = [...response.data];
+        for (let i = 0; i < a.length; i++) {
+          console.log(a.length);
+          for (let j = 0; j < this.props.entries.length; j++) {
+            if (
+              this.state.product[0].code === this.props.entries[j].code &&
+              a[i].variation === this.props.entries[j].variation
+            ) {
+              a[i].qty = a[i].qty - this.props.entries[j].quantity;
+            }
+          }
+        }
+        this.setState({ stock: [...a] });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ loading: false });
         console.log(error);
       });
   };
+
   componentDidMount() {
     this.fetchProduct();
   }
+
   render() {
     const stockColumns = [
       {
-        Header: <strong className={classes.StockColumns}>IN STOCK</strong>,
-        accessor: "qty",
-        Cell: row => <span className={classes.StockColumns}>{row.value}</span>,
-        width: 130
-      },
-      {
         Header: <strong className={classes.StockColumns}>#</strong>,
         accessor: "variation",
-        Cell: row => <span className={classes.StockColumns}>{row.value}</span>
-      }
+        Cell: (row) => (
+          <span className={classes.StockColumns}>{row.value}</span>
+        ),
+      },
+      {
+        Header: <strong className={classes.StockColumns}>IN STOCK</strong>,
+        accessor: "qty",
+        Cell: (row) => (
+          <span className={classes.StockColumns}>{row.value}</span>
+        ),
+        width: 152,
+      },
     ];
     let currentPath = [{ name: "", search: "" }];
 
     let viewPage = <Spinner />;
     if (this.state.loading === false) {
-      const jsxMap = this.state.product.map(item => {
+      const jsxMap = this.state.product.map((item) => {
         currentPath = [
           { name: "collections", search: "" },
           { name: "items", search: item.collection },
-          { name: "product", search: item.code }
+          { name: "product", search: item.code },
         ];
-
         return (
           <div key={1}>
             <div className={classes.ImageDiv}>
@@ -190,15 +214,15 @@ class Product extends Component {
   }
 }
 
-const mapsStateToProps = state => {
+const mapsStateToProps = (state) => {
   return {
     entries: state.cartReducer.entries,
-    token: state.authReducer.token
+    token: state.authReducer.token,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onAddToCart: passedData => dispatch(actions.addToCart(passedData))
+    onAddToCart: (passedData) => dispatch(actions.addToCart(passedData)),
   };
 };
 

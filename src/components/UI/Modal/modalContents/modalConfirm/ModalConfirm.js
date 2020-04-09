@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../../../Button/Button";
 import classes from "./ModalConfirm.module.css";
-const modalConfirm = props => {
+const modalConfirm = (props) => {
   return (
     <div>
       <div>
@@ -9,7 +9,7 @@ const modalConfirm = props => {
       </div>
       <div className={classes.Cont}>
         <div>
-          <Button btnType="Success" clicked={props.deleteConfirmed}>
+          <Button btnType="Success" clicked={props.confirmed}>
             YES
           </Button>
         </div>

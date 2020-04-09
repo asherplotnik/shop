@@ -101,6 +101,60 @@ class Profile extends Component {
   };
   changeEmailHandler = (e) => {
     e.preventDefault();
+    const formData = new FormData(document.querySelector("#emailForm"));
+    if (formData.get("email") === formData.get("confirm")) {
+      axios
+        .post("http://localhost:9000/API/query", {
+          sql:
+            "SELECT * FROM users WHERE email = '" + formData.get("email") + "'",
+        })
+        .then((response) => {
+          const arr = [];
+          response.data.map((el) => {
+            arr.push(el.email);
+            return null;
+          });
+          if (arr.length === 0) {
+            const authData = {
+              idToken: this.props.token,
+              email: formData.get("email"),
+              returnSecureToken: true,
+            };
+            let url =
+              "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDTc2IWZVm8QxfLyelchjJSuTbSvF-U3s0";
+            axios.post(url, authData).then((response) => {
+              console.log("password Changed", response);
+              const sqlQuery = {
+                sql:
+                  "UPDATE users SET email = '" +
+                  formData.get("email") +
+                  "' WHERE userId= '" +
+                  this.props.userId +
+                  "'",
+              };
+              axios
+                .post("http://localhost:9000/API/update", sqlQuery)
+                .then((response) => {
+                  console.log("after update", sqlQuery);
+                  this.onChangePasswordPressed();
+                });
+            });
+          } else {
+            this.setState({
+              message: (
+                <p className={classes.MessageOn}>EMAIL EXISTS ALREADY!</p>
+              ),
+              messageClass: "confirm",
+            });
+          }
+          this.onChangeEmailPressed();
+        });
+    } else {
+      this.setState({
+        message: <p className={classes.MessageOn}>CONFIRMED EMAIL WRONG!</p>,
+        messageClass: "confirm",
+      });
+    }
   };
   changePasswordHandler = (e) => {
     e.preventDefault();
@@ -123,7 +177,6 @@ class Profile extends Component {
             this.props.userId +
             "'",
         };
-        console.log("before update", sqlQuery);
         axios
           .post("http://localhost:9000/API/update", sqlQuery)
           .then((response) => {
@@ -193,6 +246,36 @@ class Profile extends Component {
         </Modal>
 
         <Modal
+          show={this.state.changeEmailPressed}
+          modalClosed={this.onChangeEmailPressed}
+        >
+          <div className={classes.Modal}>
+            <form id="emailForm" onSubmit={this.changeEmailHandler}>
+              <p className={classes.Font}>CHANGE EMAIL:</p>
+              <ul className={classes.FormList}>
+                <li key="i">
+                  <label htmlFor="email">NEW EMAIL:</label>
+                  <input type="email" name="email" />
+                </li>
+                <li key="j">
+                  <label htmlFor="confirm">CONFIRM EMAIL:</label>
+                  <input type="email" name="confirm" />
+                </li>
+              </ul>
+              {this.state.message}
+              <input className={classes.Font} type="submit" value="SUBMIT" />
+              <span style={{ opacity: "0%" }}>_____</span>
+              <button
+                className={classes.Font}
+                onClick={this.onChangePasswordPressed}
+              >
+                CANCEL
+              </button>
+            </form>
+          </div>
+        </Modal>
+
+        <Modal
           show={this.state.changePasswordPressed}
           modalClosed={this.onChangePasswordPressed}
         >
@@ -221,10 +304,6 @@ class Profile extends Component {
             </form>
           </div>
         </Modal>
-        <Modal
-          show={this.state.changeEmailPressed}
-          modalClosed={this.onChangeEmaildPressed}
-        ></Modal>
         <div className={classes.Page}>
           <h1>YOUR DETAILS</h1>
           <div className={classes.Divider}>

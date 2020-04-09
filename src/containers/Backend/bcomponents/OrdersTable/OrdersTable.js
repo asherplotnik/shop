@@ -49,7 +49,7 @@ const OrdersTable = (props) => {
           ID
         </div>
       ),
-      accessor: "orderId",
+      accessor: "id",
       width: 40,
       Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
@@ -180,11 +180,11 @@ const OrdersTable = (props) => {
           UPDATE
         </div>
       ),
-      accessor: "upt",
-      Cell: () => (
+      accessor: "status",
+      Cell: (row) => (
         <div>
           <Button id="updateButton" btnType="SuccessTiny">
-            UPDATE
+            {row.value === "canceled" ? "DISABLED" : "UPDATE"}
           </Button>
         </div>
       ),
@@ -278,6 +278,14 @@ const OrdersTable = (props) => {
                 handleOriginal();
               }
             }
+          },
+          style: {
+            background:
+              rowInfo !== undefined
+                ? rowInfo.original.status === "canceled"
+                  ? "#ccc"
+                  : "transparent"
+                : "transparent",
           },
         };
       }}

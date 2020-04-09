@@ -45,7 +45,7 @@ class Checkout extends Component {
 
   sendCheckoutEmail = (payment, confNo) => {
     const emailBody =
-      "THANK YOU FOR YOUR PURCHASE. PLEASE SEE ATTACHED ORDER CONFIRMATION";
+      "<text> THANK YOU FOR YOUR PURCHASE. PLEASE SEE ATTACHED ORDER CONFIRMATION.</text> <br></br> <text> WE WILL REVIEW YOUR PAYMENT SHORTLY, AND SEND YOU A RECEIPT. </text><br></br> <text>  ONCE WE SENT THE PARCELL WE WILL NOTIFY YOU WITH THE TRACKING NUMBER. THANK YOU. </text>";
     html2canvas(document.querySelector("#attachment")).then((canvas) => {
       const imgData = canvas.toDataURL("image/jpeg");
       const pdf = new jsPDF();
@@ -89,13 +89,13 @@ class Checkout extends Component {
   sendCard = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#creditcardform"));
-
     formData.append("userId", this.props.reduxUser.userId);
     formData.append("username", this.props.reduxUser.username);
     formData.append("address", this.props.reduxUser.address);
     formData.append("email", this.props.reduxUser.email);
     formData.append("amount", document.getElementById("amount").innerHTML);
-    formData.append("orderdetails", JSON.stringify(this.props.entries));
+    formData.append("order", JSON.stringify(this.props.entries));
+    formData.append("status", "wait approve cc payment");
     formData.append("accwire", "ccp");
     formData.append(
       "datewire",
@@ -104,7 +104,7 @@ class Checkout extends Component {
         .substring(0, Date().toString().length - 25)
     );
     axios
-      .post("http://localhost:9000/API/creditcardtest", formData, {
+      .post("http://localhost:9000/API/checkoutwire", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -128,6 +128,7 @@ class Checkout extends Component {
     formData.append("address", this.props.reduxUser.address);
     formData.append("email", this.props.reduxUser.email);
     formData.append("amount", document.getElementById("amount").innerHTML);
+    formData.append("status", "wait approve bank transfer");
     formData.append("order", JSON.stringify(this.props.entries));
     axios
       .post("http://localhost:9000/API/checkoutwire", formData, {

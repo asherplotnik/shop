@@ -31,7 +31,7 @@ class BStock extends Component {
     pressedRecordVariation: null,
     pressedRecordInout: null,
     pressedRecordTransdate: null,
-    pressedRecordNote: null
+    pressedRecordNote: null,
   };
 
   componentDidMount() {
@@ -39,23 +39,23 @@ class BStock extends Component {
   }
 
   onAddEntryPressed = () => {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return {
         addEntryPressed: !prevState.addEntryPressed,
-        loadingTransactions: !prevState.loadingTransactions
+        loadingTransactions: !prevState.loadingTransactions,
       };
     });
   };
 
   onToggleUpdate = () => {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return {
-        pressedUpdate: !prevState.pressedUpdate
+        pressedUpdate: !prevState.pressedUpdate,
       };
     });
   };
 
-  onUpdateTransaction = e => {
+  onUpdateTransaction = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#updateTransForm"));
     formData.append("addCode", this.state.val);
@@ -67,10 +67,10 @@ class BStock extends Component {
     axios
       .post("http://localhost:9000/API/updateTransForm", formData, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       })
-      .then(response => {
+      .then((response) => {
         document.querySelector("#updateTransForm").reset();
         this.requestTransactions(this.state.val);
         this.requestStock(this.state.val);
@@ -78,14 +78,14 @@ class BStock extends Component {
           this.setState({ illegal: true });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         alert(error);
         document.querySelector("#updateTransForm").reset();
         this.requestTransactions(this.state.val);
       });
   };
 
-  onAddTransaction = e => {
+  onAddTransaction = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#addTransForm"));
     formData.append("addCode", this.state.val);
@@ -94,10 +94,10 @@ class BStock extends Component {
     axios
       .post("http://localhost:9000/API/uploadTransForm", formData, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       })
-      .then(response => {
+      .then((response) => {
         document.querySelector("#addTransForm").reset();
         this.requestTransactions(this.state.val);
         this.requestStock(this.state.val);
@@ -105,22 +105,22 @@ class BStock extends Component {
           this.setState({ illegal: true });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         alert(error);
         document.querySelector("#addTransForm").reset();
         this.requestTransactions(this.state.val);
       });
   };
 
-  onDeletePressed = row => {
-    this.setState(prevState => {
+  onDeletePressed = (row) => {
+    this.setState((prevState) => {
       return {
         pressedDelete: !prevState.pressedDelete,
         pressedRecordId: row.rowId,
         pressedRecordInout: row.inout,
         pressedRecordCode: row.code,
         pressedRecordVariation: row.variation,
-        pressedRecordQty: row.qty
+        pressedRecordQty: row.qty,
       };
     });
   };
@@ -137,11 +137,11 @@ class BStock extends Component {
       code: this.state.pressedRecordCode,
       qty: this.state.pressedRecordQty,
       variation: this.state.pressedRecordVariation,
-      inout: this.state.pressedRecordInout
+      inout: this.state.pressedRecordInout,
     };
     axios
       .post("http://localhost:9000/API/deleteTransaction", sqlQuery)
-      .then(response => {
+      .then((response) => {
         this.requestTransactions(this.state.val);
         this.requestStock(this.state.val);
         this.onToggleDelete();
@@ -149,7 +149,7 @@ class BStock extends Component {
           this.setState({ illegal: true });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         this.onToggleDelete();
       });
@@ -159,73 +159,73 @@ class BStock extends Component {
     const sqlQuery = { sql: "select code from items " };
     axios
       .post("http://localhost:9000/API/query", sqlQuery)
-      .then(response => {
+      .then((response) => {
         this.setState({ drop: response.data });
         this.setState({ loadingDrop: false });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         this.setState({ loadingDrop: false });
       });
   };
 
-  requestStock = val => {
+  requestStock = (val) => {
     const sqlQuery = {
-      sql: "SELECT * FROM stock WHERE code = '" + val + "'"
+      sql: "SELECT * FROM stock WHERE code = '" + val + "'",
     };
     axios
       .post("http://localhost:9000/API/query", sqlQuery)
-      .then(response => {
+      .then((response) => {
         this.setState({ stock: response.data });
         this.setState({ loadingStock: false });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         this.setState({ loadingStock: false });
       });
   };
 
-  checkImageName = val => {
+  checkImageName = (val) => {
     const sqlQuery = {
-      sql: "SELECT img FROM items WHERE code = '" + val + "'"
+      sql: "SELECT img FROM items WHERE code = '" + val + "'",
     };
     axios
       .post("http://localhost:9000/API/query", sqlQuery)
-      .then(response => {
+      .then((response) => {
         console.log("http://localhost:9000/images/" + response.data[0].img);
         this.setState({
-          image: "http://localhost:9000/images/" + response.data[0].img
+          image: "http://localhost:9000/images/" + response.data[0].img,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
 
-  requestTransactions = val => {
+  requestTransactions = (val) => {
     const sqlQuery = {
-      sql: "SELECT * FROM transactions WHERE code = '" + val + "'"
+      sql: "SELECT * FROM transactions WHERE code = '" + val + "'",
     };
     axios
       .post("http://localhost:9000/API/query", sqlQuery)
-      .then(response => {
+      .then((response) => {
         this.setState({ loadingTransactions: false });
         this.setState({ transactions: response.data });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         this.setState({ loadingTransactions: false });
       });
   };
 
-  callRequestStock = val => {
+  callRequestStock = (val) => {
     this.setState({ loadingStock: true });
     this.requestStock(val);
     this.requestTransactions(val);
   };
 
-  onUpdatePressed = row => {
-    this.setState(prevState => {
+  onUpdatePressed = (row) => {
+    this.setState((prevState) => {
       return {
         pressedUpdate: !prevState.pressedUpdate,
         pressedRecordId: row.rowId,
@@ -233,7 +233,7 @@ class BStock extends Component {
         pressedRecordCode: row.code,
         pressedRecordVariation: row.variation,
         pressedRecordQty: row.qty,
-        pressedRecordNote: row.note
+        pressedRecordNote: row.note,
       };
     });
   };
@@ -242,7 +242,7 @@ class BStock extends Component {
     this.setState({ illegal: false });
   };
 
-  onUpdateHandler = row => {
+  onUpdateHandler = (row) => {
     this.setState({
       pressedRecordId: row.rowId,
       pressedRecordCode: row.code,
@@ -250,7 +250,7 @@ class BStock extends Component {
       pressedRecordVariation: row.variation,
       pressedRecordInout: row.inout,
       pressedRecordTransdate: row.transdate,
-      pressedRecordNote: row.note
+      pressedRecordNote: row.note,
     });
   };
 
@@ -259,15 +259,15 @@ class BStock extends Component {
       {
         Header: <strong className={classes.Stock}>QUANTITY</strong>,
         accessor: "qty",
-        Cell: row => <span className={classes.Stock}>{row.value}</span>,
-        width: 199
+        Cell: (row) => <span className={classes.Stock}>{row.value}</span>,
+        width: 199,
       },
       {
         Header: <strong className={classes.Stock}>VARIATION</strong>,
         accessor: "variation",
-        Cell: row => <span className={classes.Stock}>{row.value}</span>,
-        width: 199
-      }
+        Cell: (row) => <span className={classes.Stock}>{row.value}</span>,
+        width: 199,
+      },
     ];
     return (
       <div className={classes.OutputDiv}>
@@ -284,7 +284,7 @@ class BStock extends Component {
   };
 
   render() {
-    let option = this.state.drop.map(row => {
+    let option = this.state.drop.map((row) => {
       return row.code;
     });
     let viewDrop = <Spinner />;
@@ -300,12 +300,12 @@ class BStock extends Component {
             this.checkImageName(newValue);
           }}
           options={option}
-          getOptionLabel={option => option}
+          getOptionLabel={(option) => option}
           className={classes.Auto}
           autoComplete
           autoHighlight
           includeInputInList
-          renderInput={params => (
+          renderInput={(params) => (
             <TextField {...params} label="" variant="outlined" />
           )}
         />
@@ -339,7 +339,7 @@ class BStock extends Component {
         >
           <ModalConfirm
             modalClosed={this.onDeletePressed}
-            deleteConfirmed={this.onDeleteHandler}
+            confirmed={this.onDeleteHandler}
           />
         </Modal>
         <Modal

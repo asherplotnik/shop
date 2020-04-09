@@ -3,51 +3,55 @@ import classes from "./TransactionTable.module.css";
 import Button from "../../../../components/UI/Button/Button";
 import ReactTable from "react-table-6";
 
-const transactionTable = props => {
+const transactionTable = (props) => {
   const transColumns = [
     {
       Header: <strong className={classes.CellStyle}>ID</strong>,
       accessor: "id",
-      Cell: row => <span className={classes.CellStyle}>{row.value}</span>,
-      width: 80
+      Cell: (row) => <span className={classes.CellStyle}>{row.value}</span>,
+      width: 80,
     },
     {
       Header: <strong className={classes.CellStyle}>VARIATION</strong>,
       accessor: "variation",
-      Cell: row => <span className={classes.CellStyle}>{row.value}</span>,
-      width: 110
+      Cell: (row) => <span className={classes.CellStyle}>{row.value}</span>,
     },
     {
       Header: <strong className={classes.CellStyle}>QUANTITY</strong>,
       accessor: "qty",
-      Cell: row => <span className={classes.CellStyle}>{row.value}</span>,
-      width: 110
+      Cell: (row) => <span className={classes.CellStyle}>{row.value}</span>,
+      width: 110,
     },
     {
       Header: <strong className={classes.CellStyle}>IN/OUT</strong>,
       accessor: "inout",
-      Cell: row => (
+      Cell: (row) => (
         <span className={classes.CellStyle}>
           {row.value === 1 ? "IN" : "OUT"}
         </span>
       ),
-      width: 130
     },
     {
       Header: <strong className={classes.CellStyle}>DATE</strong>,
       accessor: "transdate",
-      Cell: row => (
+      width: 250,
+      Cell: (row) => (
         <span className={classes.CellStyle}>
           {row.value.slice(0, row.value.length - 25)}
         </span>
       ),
-      width: 199
     },
     {
       Header: <strong className={classes.CellStyle}>NOTE</strong>,
       accessor: "note",
-      Cell: row => <span className={classes.CellStyle}>{row.value}</span>,
-      width: 180
+      width: 350,
+      Cell: (row) => <span className={classes.CellStyle}>{row.value}</span>,
+    },
+    {
+      Header: <strong className={classes.CellStyle}>ORDER ID</strong>,
+      accessor: "orderId",
+      width: 80,
+      Cell: (row) => <span className={classes.CellStyle}>{row.value}</span>,
     },
 
     {
@@ -69,7 +73,7 @@ const transactionTable = props => {
         </Button>
       ),
       width: 90,
-      filterable: false
+      filterable: false,
     },
     {
       Header: (
@@ -84,8 +88,8 @@ const transactionTable = props => {
         </Button>
       ),
       width: 90,
-      filterable: false
-    }
+      filterable: false,
+    },
   ];
   return (
     <ReactTable
@@ -99,7 +103,7 @@ const transactionTable = props => {
               variation: null,
               inout: null,
               transdate: null,
-              note: null
+              note: null,
             };
             if (rowInfo !== undefined) {
               if (e.target.innerHTML === "DELETE") {
@@ -131,7 +135,7 @@ const transactionTable = props => {
                 handleOriginal();
               }
             }
-          }
+          },
         };
       }}
       className="-highlight"

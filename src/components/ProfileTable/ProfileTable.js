@@ -126,6 +126,21 @@ const ProfileTable = (props) => {
   const columns = [
     {
       Header: (
+        <div key="orderid" className={classes.HeaderStyle}>
+          ORDER ID
+        </div>
+      ),
+      width: 90,
+      accessor: "id",
+      Cell: (row) => (
+        <div key={row.value} className={classes.CellStyle}>
+          {" "}
+          {row.value}{" "}
+        </div>
+      ),
+    },
+    {
+      Header: (
         <div key="wiredate" className={classes.HeaderStyle}>
           PAYMENT DATE
         </div>
@@ -186,6 +201,7 @@ const ProfileTable = (props) => {
     viewTable = (
       <ReactTable
         data={orders}
+        style={{ borderRadius: "5px" }}
         columns={columns}
         defaultPageSize={50}
         minRows={1}
@@ -193,7 +209,7 @@ const ProfileTable = (props) => {
         SubComponent={(row) => {
           return (
             <ReactTable
-              style={{ border: "1px solid black" }}
+              style={{ border: "1px solid black", borderRadius: "5px" }}
               columns={orderDetailsColumns}
               data={makeSubComp(row)}
               defaultPageSize={50}
