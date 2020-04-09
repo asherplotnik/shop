@@ -12,15 +12,15 @@ class Items extends Component {
     Items: [],
     search: "",
     pageRangeStart: 0,
-    pageRangeEnd: 11
+    pageRangeEnd: 11,
   };
 
   changePageBack = () => {
     if (this.state.pageRangeStart > 0) {
-      this.setState(prevState => {
+      this.setState((prevState) => {
         return { pageRangeStart: prevState.pageRangeStart - 12 };
       });
-      this.setState(prevState => {
+      this.setState((prevState) => {
         return { pageRangeEnd: prevState.pageRangeEnd - 12 };
       });
     }
@@ -28,14 +28,14 @@ class Items extends Component {
 
   changePageForward = () => {
     if (this.state.pageRangeEnd < TOPITEM) {
-      this.setState(prevState => {
+      this.setState((prevState) => {
         return {
-          pageRangeStart: prevState.pageRangeStart + 12
+          pageRangeStart: prevState.pageRangeStart + 12,
         };
       });
-      this.setState(prevState => {
+      this.setState((prevState) => {
         return {
-          pageRangeEnd: prevState.pageRangeEnd + 12
+          pageRangeEnd: prevState.pageRangeEnd + 12,
         };
       });
     }
@@ -47,12 +47,12 @@ class Items extends Component {
     const sqlQuery = { sql: sql };
     axios
       .post("http://localhost:9000/API/query", sqlQuery)
-      .then(response => {
+      .then((response) => {
         console.log("[sql] => ", response.data);
         this.setState({ loading: false });
         this.setState({ Items: response.data });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ loading: false });
         console.log(error);
       });
@@ -62,7 +62,7 @@ class Items extends Component {
     this.fetchItems();
   }
 
-  updateSearch = event => {
+  updateSearch = (event) => {
     this.setState({ search: event.target.value.toUpperCase() });
   };
 
@@ -73,7 +73,7 @@ class Items extends Component {
       const jsxMap = this.state.Items.map((item, index) => {
         currentPath = [
           { name: "collections", search: "" },
-          { name: "items", search: item.collection }
+          { name: "items", search: item.collection },
         ];
         const link = { pathname: "/product", search: item.code };
         const imagePath = item.img;

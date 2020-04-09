@@ -43,6 +43,8 @@ class BItems extends Component {
     e.preventDefault();
     const addItemForm = document.querySelector("#addItemForm");
     const formData = new FormData(addItemForm);
+    let t = formData.get("addTrending");
+    if (t === "true")  {formData.set("addTrending", 1)} else {formData.set("addTrending", 0)}
     this.props.onToggleAddOff();
     axios
       .post("http://localhost:9000/API/uploadItemForm", formData, {
@@ -69,6 +71,8 @@ class BItems extends Component {
     e.preventDefault();
     const itemForm = document.querySelector("#updateItemForm");
     const formData = new FormData(itemForm);
+    let t = formData.get("addTrending");
+    if (t === "true")  {formData.set("addTrending", 1)} else {formData.set("addTrending", 0)}
     this.props.onToggleUpdateOff();
     formData.append("itemId", this.props.pressedRecordId);
     axios
@@ -114,6 +118,7 @@ class BItems extends Component {
       .then((response) => {
         if (act === "query") {
           this.props.setItems(response.data);
+          console.log(response.data)
           this.props.setLoadingFalse();
         } else if (act === "delete") {
           this.requestQuery("select * from items", "query");
@@ -196,6 +201,7 @@ class BItems extends Component {
               rSize={this.props.pressedRecordSize}
               rType={this.props.pressedRecordType}
               rPrice={this.props.pressedRecordPrice}
+              rTrending={this.props.pressedRecordTrending}
               addItem={this.onUpdateItemForm}
               modalClosed={this.props.onUpdatePressed}
             />
@@ -238,6 +244,7 @@ const mapStateToProps = (state) => {
     pressedRecordSize: state.itemsReducer.pressedRecordSize,
     pressedRecordType: state.itemsReducer.pressedRecordType,
     pressedRecordPrice: state.itemsReducer.pressedRecordPrice,
+    pressedRecordTrending: state.itemsReducer.pressedRecordTrending,
     bulkPressed: state.itemsReducer.bulkPressed,
     collectionSelect: state.itemsReducer.collectionSelect,
   };

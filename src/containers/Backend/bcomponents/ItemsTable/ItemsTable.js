@@ -47,7 +47,7 @@ const itemsTable = props => {
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
             {" "}
-            {row.value.toUpperCase()}{" "}
+            {row.value.toUpperCase()}
           </div>
         </div>
       )
@@ -141,6 +141,23 @@ const itemsTable = props => {
           <div key={row.value} className={classes.CellStyle}>
             {" "}
             {row.value.toUpperCase()}{" "}
+          </div>
+        </div>
+      )
+    },
+    {
+      Header: (
+        <div>
+          <div key="TRENDING" className={classes.HeaderStyle}>
+          TREND(1/0)
+          </div>
+        </div>
+      ),
+      accessor: "trending",
+      Cell: row => (
+        <div style={{ lineHeight: "100px" }}>
+          <div key={row.value} className={classes.CellStyle}>
+            {row.value === 1 ? "TRENDING" : ""}
           </div>
         </div>
       )
@@ -244,7 +261,8 @@ const itemsTable = props => {
               desc: null,
               size: null,
               type: null,
-              price: null
+              price: null,
+              trending: null
             };
             if (rowInfo !== undefined) {
               if (e.target.innerHTML === "DELETE") {
@@ -258,6 +276,7 @@ const itemsTable = props => {
                 rowDetails.size = rowInfo.original.size;
                 rowDetails.typology = rowInfo.original.type;
                 rowDetails.price = rowInfo.original.price;
+                rowDetails.trending = rowInfo.original.trendning;
                 props.pressedUpdate(rowDetails);
               }
               // console.log("A Td Element was clicked!");

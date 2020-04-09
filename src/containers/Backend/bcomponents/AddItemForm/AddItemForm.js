@@ -61,6 +61,18 @@ const addItemForm = props => {
               </option>
             </select>
           </li>
+
+          <li key="trending">
+            <label htmlFor="AddTrending">TRENDING: </label>
+            <select name="addTrending">
+              <option selected={props.rTrending === 1 ? true : false}>
+                true
+              </option>
+              <option selected={props.rTrending === 0 ? true : false}>
+                false
+              </option>
+            </select>
+          </li>
           <li key="imageL">
             <label htmlFor="AddImg">IMAGE: </label>
           </li>{" "}
