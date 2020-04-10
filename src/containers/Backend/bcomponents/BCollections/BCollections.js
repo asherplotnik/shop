@@ -220,7 +220,7 @@ class BCollections extends Component {
         accessor: "img",
         Cell: (row) => (
           <img
-            src={row.value}
+            src={"http://localhost:9000/images/" + row.value}
             alt={row.value}
             style={{ width: "100px", height: "100px" }}
           />
@@ -290,12 +290,14 @@ class BCollections extends Component {
                   !this.state.inputFileToggleOn
                 ) {
                   this.setState((prevState) => {
-                    return {
-                      deletePressed: !prevState.deletePressed,
-                      pressedRecordId: rowInfo.original.id,
-                      pressedRecordName: rowInfo.original.name,
-                      pressedRecordColl: column.Header,
-                    };
+                    if (rowInfo.original.name !== "HIDDEN") {
+                      return {
+                        deletePressed: !prevState.deletePressed,
+                        pressedRecordId: rowInfo.original.id,
+                        pressedRecordName: rowInfo.original.name,
+                        pressedRecordColl: column.Header,
+                      };
+                    }
                   });
                 }
                 if (
@@ -303,14 +305,16 @@ class BCollections extends Component {
                   !this.state.inputFileToggleOn
                 ) {
                   this.setState((prevState) => {
-                    return {
-                      updateToggleOn: !prevState.updateToggleOn,
-                      canceled: true,
-                      pressedRecordId: rowInfo.original.id,
-                      pressedRecordColl: column.Header,
-                      pressedRecordName: rowInfo.original.name,
-                      pressedRecordDesc: rowInfo.original.desc,
-                    };
+                    if (rowInfo.original.name !== "HIDDEN") {
+                      return {
+                        updateToggleOn: !prevState.updateToggleOn,
+                        canceled: true,
+                        pressedRecordId: rowInfo.original.id,
+                        pressedRecordColl: column.Header,
+                        pressedRecordName: rowInfo.original.name,
+                        pressedRecordDesc: rowInfo.original.desc,
+                      };
+                    }
                   });
                 }
                 console.log("It was in this column:", column.Header);

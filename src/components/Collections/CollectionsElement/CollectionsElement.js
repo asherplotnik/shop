@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./CollectionsElement.module.css";
 import { NavLink } from "react-router-dom";
 
-const CollectionsElement = props => {
+const CollectionsElement = (props) => {
   let show = classes.NavElement;
   if (props.name === "HIDDEN") {
     show = classes.Hide;
@@ -11,7 +11,11 @@ const CollectionsElement = props => {
     <NavLink className={show} to={props.link} exact={props.exact}>
       <div className={classes.CollectionsElement}>
         <div style={{ height: "300px", lineHeight: "300px" }}>
-          <img className={classes.Image} src={props.img} alt={props.img} />
+          <img
+            className={classes.Image}
+            src={"http://localhost:9000/images/" + props.img}
+            alt={props.img}
+          />
         </div>
       </div>
       <div className={classes.Txt}>{props.name}</div>
