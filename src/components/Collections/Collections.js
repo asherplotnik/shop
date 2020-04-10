@@ -8,7 +8,7 @@ import PathLine from "../UI/PathLine/PathLine";
 class Collections extends Component {
   state = {
     loading: true,
-    collections: []
+    collections: [],
   };
 
   fetchCollections = () => {
@@ -16,11 +16,11 @@ class Collections extends Component {
     const sqlQuery = { sql: sql };
     axios
       .post("http://localhost:9000/API/query", sqlQuery)
-      .then(response => {
+      .then((response) => {
         this.setState({ loading: false });
         this.setState({ collections: response.data });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ loading: false });
         console.log(error);
       });
@@ -33,7 +33,7 @@ class Collections extends Component {
     let currentPath = [{ name: "collections", search: "" }];
     let viewPage = <Spinner />;
     if (this.state.loading === false) {
-      const jsxMap = this.state.collections.map(collection => {
+      const jsxMap = this.state.collections.map((collection) => {
         const link = { pathname: "/items", search: collection.name };
         return (
           <CollectionsElement
