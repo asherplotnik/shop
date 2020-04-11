@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./AddTransForm.module.css";
 
-const addTransForm = props => {
+const addTransForm = (props) => {
   return (
     <div className={classes.AddTransForm}>
       <form id={props.formId} onSubmit={props.addTransaction}>
@@ -28,8 +28,12 @@ const addTransForm = props => {
           <li key="inout">
             <label htmlFor="addInout">IN / OUT: </label>
             <select name="addInout">
-              <option selected={props.rInout === 1 ? true : false}>IN</option>
-              <option selected={props.rInout === 0 ? true : false}>OUT</option>
+              <option selected={props.rInout === true ? true : false}>
+                IN
+              </option>
+              <option selected={props.rInout === false ? true : false}>
+                OUT
+              </option>
             </select>
           </li>
           <li key="NOTE">

@@ -27,7 +27,7 @@ const transactionTable = (props) => {
       accessor: "inout",
       Cell: (row) => (
         <span className={classes.CellStyle}>
-          {row.value === 1 ? "IN" : "OUT"}
+          {row.value === true ? "IN" : "OUT"}
         </span>
       ),
     },

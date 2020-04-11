@@ -30,7 +30,9 @@ class BItems extends Component {
         },
       })
       .then((response) => {
-        console.log(response.data);
+        if (response.data === "ERROR: FILE DO NOT FILL THE REQUIREMENTS") {
+          alert(response.data);
+        }
         this.requestQuery("SELECT * FROM items", "query");
       })
       .catch((error) => {
@@ -43,8 +45,6 @@ class BItems extends Component {
     e.preventDefault();
     const addItemForm = document.querySelector("#addItemForm");
     const formData = new FormData(addItemForm);
-    let t = formData.get("addTrending");
-    if (t === "true")  {formData.set("addTrending", 1)} else {formData.set("addTrending", 0)}
     this.props.onToggleAddOff();
     axios
       .post("http://localhost:9000/API/uploadItemForm", formData, {
@@ -72,7 +72,11 @@ class BItems extends Component {
     const itemForm = document.querySelector("#updateItemForm");
     const formData = new FormData(itemForm);
     let t = formData.get("addTrending");
-    if (t === "true")  {formData.set("addTrending", 1)} else {formData.set("addTrending", 0)}
+    if (t === "true") {
+      formData.set("addTrending", 1);
+    } else {
+      formData.set("addTrending", 0);
+    }
     this.props.onToggleUpdateOff();
     formData.append("itemId", this.props.pressedRecordId);
     axios
@@ -118,7 +122,7 @@ class BItems extends Component {
       .then((response) => {
         if (act === "query") {
           this.props.setItems(response.data);
-          console.log(response.data)
+          console.log(response.data);
           this.props.setLoadingFalse();
         } else if (act === "delete") {
           this.requestQuery("select * from items", "query");

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import classes from "./bulkForm.module.css";
-const BulkForm = props => {
+const BulkForm = (props) => {
   const [ExcelfileUploaded, setExcelFileUploaded] = useState(0);
   const [ZipfileUploaded, setZipFileUploaded] = useState(0);
 
   const checkExcelValidity = () => {
     if (document.getElementById("bulkExcelFile").value.slice(-5) === ".xlsx") {
-      setExcelFileUploaded(prevState => {
+      setExcelFileUploaded((prevState) => {
         return { ExcelfileUploaded: !prevState.ExcelfileUploaded };
       });
     } else {
@@ -17,7 +17,7 @@ const BulkForm = props => {
 
   const checkZipValidity = () => {
     if (document.getElementById("zipFile").value.slice(-4) === ".zip") {
-      setZipFileUploaded(prevState => {
+      setZipFileUploaded((prevState) => {
         return { ZipfileUploaded: !prevState.ZipfileUploaded };
       });
     } else {
@@ -47,7 +47,8 @@ const BulkForm = props => {
       <div>
         <p>Instructions: only excel file with the following columns: </p>
         <p>
-          CODE , COLLECTION , DESCRIPTION , SIZE , PRICE , TYPE , IMAGE , IMAGE2{" "}
+          CODE , COLLECTION , DESCRIPTION , SIZE , PRICE , TYPE, TRENDING, IMAGE
+          , IMAGE2{" "}
         </p>
         <img
           style={{ border: "solid 1px black", width: "95%" }}
@@ -70,10 +71,6 @@ const BulkForm = props => {
         </strong>
       </div>
       <div>
-        <p>Instructions: only excel file with the following columns: </p>
-        <p>
-          CODE , COLLECTION , DESCRIPTION , SIZE , PRICE , TYPE , IMAGE , IMAGE2{" "}
-        </p>
         <input
           className={classes.Font}
           name="bulk"
