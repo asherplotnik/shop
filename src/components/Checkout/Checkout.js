@@ -11,6 +11,7 @@ import * as actions from "../../store/actions/index";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import Logo from "../UI/Logo/Logo";
+import { serverAddress } from "../../assets/helper";
 
 class Checkout extends Component {
   state = {
@@ -63,16 +64,9 @@ class Checkout extends Component {
       formData.append("email", this.props.reduxUser.email);
       formData.append("subject", "ORDER CONFIRMATION #" + confNo);
       formData.append("body", emailBody);
-      // formData.append("entries", this.props.entries)
-      // formData.append("username", this.props.reduxUser.username)
-      // formData.append("phone", this.props.reduxUser.phone)
-      // formData.append("address", this.props.reduxUser.address)
-      // formData.append("amount", this.state.sTotal)
-      // formData.append("confNo", confNo)
-      // formData.append("payment", payment)
       formData.append("attachment", blobFile, "attachment.pdf");
       axios
-        .post("http://localhost:9000/email/sendEmail", formData, {
+        .post(serverAddress + "email/sendEmail", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -104,7 +98,7 @@ class Checkout extends Component {
         .substring(0, Date().toString().length - 25)
     );
     axios
-      .post("http://localhost:9000/API/checkoutwire", formData, {
+      .post(serverAddress + "API/checkoutwire", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -131,7 +125,7 @@ class Checkout extends Component {
     formData.append("status", "wait approve bank transfer");
     formData.append("order", JSON.stringify(this.props.entries));
     axios
-      .post("http://localhost:9000/API/checkoutwire", formData, {
+      .post(serverAddress + "API/checkoutwire", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

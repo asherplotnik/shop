@@ -4,8 +4,9 @@ import NavigationItems from "../NavigationItems/NavigationItems";
 import classes from "./SideDrawer.module.css";
 import Backdrop from "../../UI/Backdrop/Backdrop";
 import { withRouter } from "react-router";
+import { serverAddress } from "../../../assets/helper";
 
-const sideDrawer = props => {
+const sideDrawer = (props) => {
   const onPressedCart = () => {
     props.history.push("/shoppingcart");
   };
@@ -25,10 +26,10 @@ const sideDrawer = props => {
         </nav>
         <div onClick={onPressedCart} className={classes.Cart0}>
           <div onClick={onPressedCart} className={classes.Cart2}>
-            <img src="http://localhost:9000/images/cart2.png" alt="cart" />
+            <img src={serverAddress + "/images/cart2.png"} alt="cart" />
           </div>
           <div className={classes.Cart}>
-            <img src="http://localhost:9000/images/cart.png" alt="cart" />
+            <img src={serverAddress + "/images/cart.png"} alt="cart" />
           </div>
         </div>
       </div>

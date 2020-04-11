@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./NavigationItems.module.css";
 import NavigationItem from "./NavigationItem/NavigationItem";
-const navigationItems = props => (
+const navigationItems = (props) => (
   <ul className={classes.NavigationItems}>
     <NavigationItem show={true} link="/" exact>
       HOME
@@ -18,7 +18,12 @@ const navigationItems = props => (
     <NavigationItem show={props.showAccount} link="/profile" exact>
       ABOUT YOU
     </NavigationItem>
-    <NavigationItem show={props.showBackend} link="/backend" exact>
+    <NavigationItem
+      bStyle={{ backgroundColor: "rgb(235, 232, 232)" }}
+      show={props.showBackend}
+      link="/backend"
+      exact
+    >
       BACK END
     </NavigationItem>
   </ul>

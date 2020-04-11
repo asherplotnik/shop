@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Montez&family=Roboto:ital,wght@1,300&display=swap");
+.Wrapper {
+  display: inline-block;
+  width: 85%;
+}
+.FirstHeader {
+  font-family: "Montez", cursive;
+  font-size: 4em;
+  margin-bottom: 0px;
+}
+
+.FirstDiv {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  text-align: left;
+  padding: 50px;
+  align-items: center;
+}
+
+.FirstDiv img {
+  height: 350px;
+}
+
+.SecondDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  text-align: right;
+  padding: 50px;
+  font-size: x-large;
+}
+
+.SecondDiv img {
+  height: 350px;
+  border: white solid 8px;
+}
+.ThirdDiv {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  text-align: left;
+  padding: 50px;
+}
+
+.ThirdDiv img {
+  border: white solid 8px;
+  height: 350px;
+}
+.Pdiv {
+  width: 45%;
+  font-size: x-large;
+  font-family: "Roboto", sans-serif;
+  margin-bottom: 0px;
+  text-align: left;
+}

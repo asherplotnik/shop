@@ -1,9 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import classes from "./NavigationItem.module.css";
-const navigationItem = props => (
+const navigationItem = (props) => (
   <li className={props.show ? classes.NavigationItem : classes.Hide}>
     <NavLink
+      style={props.bStyle}
       to={props.link}
       exact={props.exact}
       activeClassName={classes.active}

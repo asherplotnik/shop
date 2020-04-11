@@ -32,7 +32,7 @@ export function makeShittyTable(obj) {
 export function requestQuery(sql, action) {
   const sqlQuery = { sql: sql };
   axios
-    .post("http://localhost:9000/API/" + action, sqlQuery)
+    .post(serverAddress + "API/" + action, sqlQuery)
     .then((response) => {
       console.log("[response.data] => ", response.data);
       if (action === "query") {
@@ -53,3 +53,8 @@ export function requestQuery(sql, action) {
       this.setState({ loading: false, deletePressed: false });
     });
 }
+
+export const local = "http://localhost:9000/";
+export const heroku = "https://indyapi.herokuapp.com/";
+
+export const serverAddress = local;

@@ -1,0 +1,74 @@
+.HrClass {
+  margin: 0;
+  background-color: #b6e4f5;
+  border: none;
+  height: 1px;
+}
+.Toolbar {
+  height: 80px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 90;
+  justify-content: space-between;
+}
+
+.Left {
+  align-items: center;
+  display: flex;
+  height: 80px;
+}
+
+.Toolbar nav {
+  height: 100%;
+}
+
+.Logo {
+  height: 80%;
+}
+
+.Cart0 {
+  position: relative;
+}
+.Cart {
+  width: 50px;
+}
+.Cart img {
+  width: 50px;
+}
+
+.Cart2 img {
+  width: 50px;
+}
+.Cart2 {
+  position: absolute;
+  width: 50px;
+  opacity: 0%;
+  transition: opacity 0.2s ease-out;
+}
+.Cart2:hover {
+  position: absolute;
+  width: 50px;
+  opacity: 100%;
+  transition: opacity 0.2s ease-out;
+  cursor: pointer;
+}
+
+@media (max-width: 499px) {
+  .Logo,
+  .HrClass,
+  .DesktopOnly {
+    display: none;
+  }
+  .Toolbar {
+    justify-content: space-between;
+  }
+}
+
+.Hide {
+  display: none;
+}

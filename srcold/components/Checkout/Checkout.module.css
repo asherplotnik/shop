@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css?family=Lexend+Tera|Monda:700|BenchNine:700&display=swap");
+.Container {
+  font-family: "BenchNine", sans-serif;
+  text-align: left;
+  border: 1px solid #b6e4f5;
+  margin-left: 20px;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: large;
+}
+
+.Header {
+  color: teal;
+  font-family: "BenchNine", sans-serif;
+  text-align: left;
+  margin-left: 20px;
+}
+
+.Ul {
+  list-style: none;
+}
+
+.Form p {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Shop {
+  font-family: "BenchNine", sans-serif;
+  margin-left: 20px;
+  text-align: center;
+}
+.Checkout {
+  display: flex;
+}
+
+.Select {
+  font-size: large;
+  padding: 5px;
+}
+
+.Conf {
+  line-height: 1.2em;
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+  padding: 3px;
+}
+
+.Address {
+  max-width: 300px;
+}
+
+.WrapAddress {
+  display: flex;
+  align-items: center;
+}
+
+.ButtonAddress {
+  margin-left: 20px;
+  display: inline;
+}
+
+.Font input,
+.Font {
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}
+
+.Show {
+  opacity: 100%;
+}
+.Hide {
+  opacity: 0%;
+}
+
+.Logo {
+  height: 70px;
+}

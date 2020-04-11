@@ -49,7 +49,7 @@ const transactionTable = (props) => {
     },
     {
       Header: <strong className={classes.CellStyle}>ORDER ID</strong>,
-      accessor: "orderId",
+      accessor: "orderid",
       width: 80,
       Cell: (row) => <span className={classes.CellStyle}>{row.value}</span>,
     },

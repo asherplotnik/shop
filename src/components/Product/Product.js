@@ -10,6 +10,7 @@ import AddToCartForm from "../AddToCartForm/AddToCartForm";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import { withRouter } from "react-router-dom";
+import { serverAddress } from "../../assets/helper";
 
 class Product extends Component {
   state = {
@@ -56,7 +57,7 @@ class Product extends Component {
     const sql = "SELECT * FROM items WHERE code = '" + selectedProduct + "'";
     const sqlQuery = { sql: sql };
     axios
-      .post("http://localhost:9000/API/query", sqlQuery)
+      .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
         console.log("[product] => ", response.data);
         this.setState({ loading: false });
@@ -71,7 +72,7 @@ class Product extends Component {
       "SELECT * FROM stock WHERE code = '" + selectedProduct + "'";
     const sqlStockQuery = { sql: sqlStock };
     axios
-      .post("http://localhost:9000/API/query", sqlStockQuery)
+      .post(serverAddress + "API/query", sqlStockQuery)
       .then((response) => {
         let a = [...response.data];
         for (let i = 0; i < a.length; i++) {
@@ -128,10 +129,10 @@ class Product extends Component {
         return (
           <div key={1}>
             <div className={classes.ImageDiv}>
-              <img src={"http://localhost:9000/images/" + item.img} alt="img" />
+              <img src={serverAddress + "/images/" + item.img} alt="img" />
               <div className={classes.Desc}>
                 <img
-                  src={"http://localhost:9000/images/" + item.img2}
+                  src={serverAddress + "/images/" + item.img2}
                   alt="img2"
                   className={classes.Image2}
                 />
@@ -140,7 +141,7 @@ class Product extends Component {
             <div className={classes.Text}>
               <p className={classes.PDesc}>{item.desc}</p>
               <hr className={classes.HrClass} />
-              <p className={classes.PName}>Code: {item.code}</p>
+              <p className={classes.PName}>รหัส: {item.code}</p>
               <hr className={classes.HrClass} />
               <p className={classes.PSize}>Size: {item.size}</p>
               <hr className={classes.HrClass} />

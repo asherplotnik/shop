@@ -1,7 +1,8 @@
 import React from "react";
 import classes from "./ShoppingTable.module.css";
 import Button from "../UI/Button/Button";
-const shoppingTable = props => {
+import { serverAddress } from "../../assets/helper";
+const shoppingTable = (props) => {
   const shoppingHead = (
     <thead>
       <tr key={"head"}>
@@ -9,7 +10,7 @@ const shoppingTable = props => {
           style={{
             fontSize: "x-large",
             width: "100px",
-            borderBottom: "solid 1px #b6e4f5"
+            borderBottom: "solid 1px #b6e4f5",
           }}
         >
           IMAGE
@@ -32,7 +33,7 @@ const shoppingTable = props => {
       <tr key={index}>
         <td className={classes.Td}>
           <img
-            src={"http://localhost:9000/images/" + entry.img}
+            src={serverAddress + "/images/" + entry.img}
             alt={entry.img}
             className={classes.Img}
           />
@@ -71,7 +72,7 @@ const shoppingTable = props => {
   shoppingTable.push(shoppingHead);
   shoppingTable.push(<tbody>{shoppingBody}</tbody>);
   let subtotal = 0;
-  props.entries.map(entry => (subtotal = subtotal + entry.total));
+  props.entries.map((entry) => (subtotal = subtotal + entry.total));
   const selectedItems = <table className={classes.Tb}>{shoppingTable}</table>;
   return selectedItems;
 };

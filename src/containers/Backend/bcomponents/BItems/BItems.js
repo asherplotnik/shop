@@ -10,6 +10,7 @@ import AddItemForm from "../AddItemForm/AddItemForm";
 import Modal from "../../../../components/UI/Modal/Modal";
 import ModalConfirm from "../../../../components/UI/Modal/modalContents/modalConfirm/ModalConfirm";
 import BulkForm from "../BulkForm/BulkForm";
+import { serverAddress } from "../../../../assets/helper";
 
 class BItems extends Component {
   componentDidMount() {
@@ -24,15 +25,13 @@ class BItems extends Component {
     this.props.onBulkPressed();
     const formData = new FormData(bulkForm);
     axios
-      .post("http://localhost:9000/API/bulkUpload", formData, {
+      .post(serverAddress + "API/bulkUpload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {
-        if (response.data === "ERROR: FILE DO NOT FILL THE REQUIREMENTS") {
-          alert(response.data);
-        }
+        console.log(response.data);
         this.requestQuery("SELECT * FROM items", "query");
       })
       .catch((error) => {
@@ -47,7 +46,7 @@ class BItems extends Component {
     const formData = new FormData(addItemForm);
     this.props.onToggleAddOff();
     axios
-      .post("http://localhost:9000/API/uploadItemForm", formData, {
+      .post(serverAddress + "API/uploadItemForm", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -71,16 +70,10 @@ class BItems extends Component {
     e.preventDefault();
     const itemForm = document.querySelector("#updateItemForm");
     const formData = new FormData(itemForm);
-    let t = formData.get("addTrending");
-    if (t === "true") {
-      formData.set("addTrending", 1);
-    } else {
-      formData.set("addTrending", 0);
-    }
     this.props.onToggleUpdateOff();
     formData.append("itemId", this.props.pressedRecordId);
     axios
-      .post("http://localhost:9000/API/updateItemForm", formData, {
+      .post(serverAddress + "API/updateItemForm", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -103,7 +96,7 @@ class BItems extends Component {
   collectionQuery = () => {
     const sqlQuery = { sql: "SELECT name FROM collections" };
     axios
-      .post("http://localhost:9000/API/query", sqlQuery)
+      .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
         let arr = response.data.map((el) => {
           return el.name;
@@ -118,7 +111,7 @@ class BItems extends Component {
   requestQuery = (sql, act) => {
     const sqlQuery = { sql: sql };
     axios
-      .post("http://localhost:9000/API/" + act, sqlQuery)
+      .post(serverAddress + "API/" + act, sqlQuery)
       .then((response) => {
         if (act === "query") {
           this.props.setItems(response.data);
@@ -138,7 +131,7 @@ class BItems extends Component {
   requestStock = () => {
     const sqlQuery = { sql: "SELECT * FROM stock" };
     axios
-      .post("http://localhost:9000/API/query", sqlQuery)
+      .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
         this.props.setStock(response.data);
       })

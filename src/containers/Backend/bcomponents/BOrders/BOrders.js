@@ -8,6 +8,7 @@ import UpdateOrderForm from "../UpdateOrderForm/UpdateOrderForm";
 import IssueReceipt from "../IssueReceipt/IssueReceipt";
 import classes from "./BOrders.module.css";
 import Button from "../../../../components/UI/Button/Button";
+import { serverAddress } from "../../../../assets/helper";
 const BOrders = () => {
   let [confirmed, setConfirmed] = useState(false);
   let [canceled, setCanceled] = useState(false);
@@ -50,11 +51,11 @@ const BOrders = () => {
     formData.append("email", pressedOrder.email);
     formData.append(
       "subject",
-      "INDY COLLECTION SHIPPMENT TRACKING NUMBER FOR ORDER #" + shipped
+      "INDY COLLECTION SHIPPMENT TRACKING NUMBER FOR ORDER #" + pressedOrder.id
     );
     formData.append("body", emailBody);
     axios
-      .post("http://localhost:9000/email/sendEmail", formData, {
+      .post(serverAddress + "email/sendEmail", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -73,7 +74,7 @@ const BOrders = () => {
     const formData = new FormData(document.querySelector("#orderupdate"));
     formData.append("id", pressedOrder.id);
     axios
-      .post("http://localhost:9000/API/updateOrder", formData, {
+      .post(serverAddress + "API/updateOrder", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -82,7 +83,7 @@ const BOrders = () => {
         document.querySelector("#orderupdate").reset();
         fetchOrders();
         axios
-          .post("http://localhost:9000/API/cancelOrder", sqlQuery)
+          .post(serverAddress + "API/cancelOrder", sqlQuery)
           .then((response) => {
             console.log(response);
             toggleCanceled();
@@ -100,7 +101,7 @@ const BOrders = () => {
       setCanceled(true);
     } else {
       axios
-        .post("http://localhost:9000/API/updateOrder", formData, {
+        .post(serverAddress + "API/updateOrder", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -142,7 +143,7 @@ const BOrders = () => {
     const sqlQuery = { sql: "SELECT * FROM pending" };
     setLoadingOrders(true);
     axios
-      .post("http://localhost:9000/API/query", sqlQuery)
+      .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
         setLoadingOrders(false);
         setOrders(
@@ -170,7 +171,7 @@ const BOrders = () => {
     setLoadingOrders(true);
     const sqlQuery = { sql: sql };
     axios
-      .post("http://localhost:9000/API/" + act, sqlQuery)
+      .post(serverAddress + "API/" + act, sqlQuery)
       .then((response) => {
         if (act === "delete") {
           fetchOrders();
@@ -194,7 +195,7 @@ const BOrders = () => {
     let sqlQuery = { sql: "SELECT * FROM orderdetails" };
     setLoadingOrders(true);
     axios
-      .post("http://localhost:9000/API/query", sqlQuery)
+      .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
         setLoadingOrders(false);
         setOrderDetails(

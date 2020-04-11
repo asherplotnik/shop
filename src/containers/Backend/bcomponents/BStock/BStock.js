@@ -10,6 +10,7 @@ import Modal from "../../../../components/UI/Modal/Modal";
 import ModalConfirm from "../../../../components/UI/Modal/modalContents/modalConfirm/ModalConfirm";
 import Button from "../../../../components/UI/Button/Button";
 import AddTransForm from "../AddTransForm/AddTransForm";
+import { serverAddress } from "../../../../assets/helper";
 
 class BStock extends Component {
   state = {
@@ -65,7 +66,7 @@ class BStock extends Component {
     formData.append("addId", this.state.pressedRecordId);
     this.onToggleUpdate();
     axios
-      .post("http://localhost:9000/API/updateTransForm", formData, {
+      .post(serverAddress + "API/updateTransForm", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -92,7 +93,7 @@ class BStock extends Component {
     this.onAddEntryPressed();
 
     axios
-      .post("http://localhost:9000/API/uploadTransForm", formData, {
+      .post(serverAddress + "API/uploadTransForm", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -140,7 +141,7 @@ class BStock extends Component {
       inout: this.state.pressedRecordInout,
     };
     axios
-      .post("http://localhost:9000/API/deleteTransaction", sqlQuery)
+      .post(serverAddress + "API/deleteTransaction", sqlQuery)
       .then((response) => {
         this.requestTransactions(this.state.val);
         this.requestStock(this.state.val);
@@ -158,7 +159,7 @@ class BStock extends Component {
   requestDrop = () => {
     const sqlQuery = { sql: "select code from items " };
     axios
-      .post("http://localhost:9000/API/query", sqlQuery)
+      .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
         this.setState({ drop: response.data });
         this.setState({ loadingDrop: false });
@@ -174,7 +175,7 @@ class BStock extends Component {
       sql: "SELECT * FROM stock WHERE code = '" + val + "'",
     };
     axios
-      .post("http://localhost:9000/API/query", sqlQuery)
+      .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
         this.setState({ stock: response.data });
         this.setState({ loadingStock: false });
@@ -190,11 +191,11 @@ class BStock extends Component {
       sql: "SELECT img FROM items WHERE code = '" + val + "'",
     };
     axios
-      .post("http://localhost:9000/API/query", sqlQuery)
+      .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
-        console.log("http://localhost:9000/images/" + response.data[0].img);
+        console.log(serverAddress + "/images/" + response.data[0].img);
         this.setState({
-          image: "http://localhost:9000/images/" + response.data[0].img,
+          image: serverAddress + "/images/" + response.data[0].img,
         });
       })
       .catch((error) => {
@@ -207,7 +208,7 @@ class BStock extends Component {
       sql: "SELECT * FROM transactions WHERE code = '" + val + "'",
     };
     axios
-      .post("http://localhost:9000/API/query", sqlQuery)
+      .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
         this.setState({ loadingTransactions: false });
         this.setState({ transactions: response.data });

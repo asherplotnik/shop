@@ -1,0 +1,23 @@
+.Form {
+  display: flex;
+}
+
+.Inputs {
+  display: block;
+  padding: 5px;
+}
+
+.CrNum {
+  font-size: large;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  width: 225px;
+}
+.Cr {
+  font-size: large;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  width: 100px;
+}

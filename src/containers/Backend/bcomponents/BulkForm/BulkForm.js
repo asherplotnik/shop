@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import classes from "./bulkForm.module.css";
+import { serverAddress } from "../../../../assets/helper";
 const BulkForm = (props) => {
   const [ExcelfileUploaded, setExcelFileUploaded] = useState(0);
   const [ZipfileUploaded, setZipFileUploaded] = useState(0);
@@ -47,12 +48,11 @@ const BulkForm = (props) => {
       <div>
         <p>Instructions: only excel file with the following columns: </p>
         <p>
-          CODE , COLLECTION , DESCRIPTION , SIZE , PRICE , TYPE, TRENDING, IMAGE
-          , IMAGE2{" "}
+          CODE , COLLECTION , DESCRIPTION , SIZE , PRICE , TYPE , IMAGE , IMAGE2
         </p>
         <img
           style={{ border: "solid 1px black", width: "95%" }}
-          src="http://localhost:9000/images/bulk.jpg"
+          src={serverAddress + "/images/bulk.jpg"}
           alt="bulk"
         />{" "}
         <br></br>
@@ -90,5 +90,4 @@ const BulkForm = (props) => {
     </form>
   );
 };
-
 export default BulkForm;

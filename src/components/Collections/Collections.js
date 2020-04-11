@@ -5,6 +5,7 @@ import classes from "./Collections.module.css";
 import axios from "axios";
 import Spinner from "../UI/Spinner/Spinner";
 import PathLine from "../UI/PathLine/PathLine";
+import { serverAddress } from "../../assets/helper";
 class Collections extends Component {
   state = {
     loading: true,
@@ -15,7 +16,7 @@ class Collections extends Component {
     const sql = "SELECT * FROM collections";
     const sqlQuery = { sql: sql };
     axios
-      .post("http://localhost:9000/API/query", sqlQuery)
+      .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
         this.setState({ loading: false });
         this.setState({ collections: response.data });

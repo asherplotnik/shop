@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./CollectionsElement.module.css";
 import { NavLink } from "react-router-dom";
+import { serverAddress } from "../../../assets/helper";
 
 const CollectionsElement = (props) => {
   let show = classes.NavElement;
@@ -13,7 +14,7 @@ const CollectionsElement = (props) => {
         <div style={{ height: "300px", lineHeight: "300px" }}>
           <img
             className={classes.Image}
-            src={"http://localhost:9000/images/" + props.img}
+            src={serverAddress + "images/" + props.img}
             alt={props.img}
           />
         </div>

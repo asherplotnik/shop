@@ -4,6 +4,7 @@ import classes from "./Trending.module.css";
 import axios from "axios";
 import Spinner from "../UI/Spinner/Spinner";
 import PathLine from "../UI/PathLine/PathLine";
+import { serverAddress } from "../../assets/helper";
 let TOPITEM;
 class Trending extends Component {
   state = {
@@ -44,7 +45,7 @@ class Trending extends Component {
     const sql = "SELECT * FROM Items WHERE trending = true ";
     const sqlQuery = { sql: sql };
     axios
-      .post("http://localhost:9000/API/query", sqlQuery)
+      .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
         console.log("[sql] => ", response.data);
         this.setState({ loading: false });

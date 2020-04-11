@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import * as actions from "../../store/actions/index";
 import ProfileTable from "../ProfileTable/ProfileTable";
+import { serverAddress } from "../../assets/helper";
 
 class Profile extends Component {
   state = {
@@ -75,7 +76,7 @@ class Profile extends Component {
           console.log("[ SQL]", sql);
           const sqlQuery = { sql: sql };
           axios
-            .post("http://localhost:9000/API/update", sqlQuery)
+            .post(serverAddress + "API/update", sqlQuery)
             .then((response) => {
               if (userName !== "") {
                 this.props.onChangeUserName(formData.get("username"));
@@ -104,7 +105,7 @@ class Profile extends Component {
     const formData = new FormData(document.querySelector("#emailForm"));
     if (formData.get("email") === formData.get("confirm")) {
       axios
-        .post("http://localhost:9000/API/query", {
+        .post(serverAddress + "API/query", {
           sql:
             "SELECT * FROM users WHERE email = '" + formData.get("email") + "'",
         })
@@ -133,7 +134,7 @@ class Profile extends Component {
                   "'",
               };
               axios
-                .post("http://localhost:9000/API/update", sqlQuery)
+                .post(serverAddress + "API/update", sqlQuery)
                 .then((response) => {
                   console.log("after update", sqlQuery);
                   this.onChangePasswordPressed();
@@ -177,12 +178,10 @@ class Profile extends Component {
             this.props.userId +
             "'",
         };
-        axios
-          .post("http://localhost:9000/API/update", sqlQuery)
-          .then((response) => {
-            console.log("after update", sqlQuery);
-            this.onChangePasswordPressed();
-          });
+        axios.post(serverAddress + "API/update", sqlQuery).then((response) => {
+          console.log("after update", sqlQuery);
+          this.onChangePasswordPressed();
+        });
       });
     }
   };
@@ -216,11 +215,19 @@ class Profile extends Component {
               <ul className={classes.FormList}>
                 <li key="f">
                   <label htmlFor="username">NAME:</label>
-                  <input type="text" name="username" />
+                  <input
+                    type="text"
+                    defaultValue={this.props.user.username}
+                    name="username"
+                  />
                 </li>
                 <li key="g">
                   <label htmlFor="phone">PHONE:</label>
-                  <input type="text" name="phone" />
+                  <input
+                    defaultValue={this.props.user.phone}
+                    type="text"
+                    name="phone"
+                  />
                 </li>
                 <li key="h">
                   <label htmlFor="address">ADDRESS:</label>
@@ -229,6 +236,7 @@ class Profile extends Component {
                     rows="4"
                     cols="30"
                     name="address"
+                    defaultValue={this.props.user.address}
                   />
                 </li>
               </ul>

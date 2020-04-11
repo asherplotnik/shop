@@ -1,0 +1,32 @@
+.NavElement {
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+}
+
+.NavElement:hover {
+  color: #3990af;
+  transition: color 0.3s ease-out;
+}
+.CollectionsElement {
+  margin: 5px;
+  border: solid 1px #b6e4f5;
+}
+
+.CollectionsElement:hover {
+  border: solid 1px #0586b4;
+}
+
+.Txt {
+  margin-bottom: 10px;
+  font-size: larger;
+}
+
+.Image {
+  max-height: 300px;
+  width: 300px;
+}
+
+.Hide {
+  display: none;
+}

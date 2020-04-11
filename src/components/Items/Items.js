@@ -5,6 +5,7 @@ import classes from "./Items.module.css";
 import axios from "axios";
 import Spinner from "../UI/Spinner/Spinner";
 import PathLine from "../UI/PathLine/PathLine";
+import { serverAddress } from "../../assets/helper";
 let TOPITEM;
 class Items extends Component {
   state = {
@@ -46,7 +47,7 @@ class Items extends Component {
     console.log("[ ----items]", sql);
     const sqlQuery = { sql: sql };
     axios
-      .post("http://localhost:9000/API/query", sqlQuery)
+      .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
         console.log("[sql] => ", response.data);
         this.setState({ loading: false });

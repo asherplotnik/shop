@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap");
+.PathCss {
+  text-decoration: none;
+  color: rgb(179, 178, 178);
+}
+
+.PathCss:hover,
+.PathCss:active,
+.PathCss.active {
+  color: black;
+}
+
+.Strong {
+  font-family: "Kanit", sans-serif;
+  color: black;
+  font-size: large;
+}

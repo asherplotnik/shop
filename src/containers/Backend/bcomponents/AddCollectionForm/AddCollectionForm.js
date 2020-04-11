@@ -2,27 +2,28 @@ import React, { Component } from "react";
 import Button from "../../../../components/UI/Button/Button";
 import classes from "./AddCollectionForm.module.css";
 import axios from "axios";
+import { serverAddress } from "../../../../assets/helper";
 
 class AddForm extends Component {
-  onAddCollecionForm = async e => {
+  onAddCollecionForm = async (e) => {
     e.preventDefault();
 
     const addCollecionForm = document.querySelector("#addCollecionForm");
     const formData = new FormData(addCollecionForm);
     axios
-      .post("http://localhost:9000/API/uploadCollectionForm", formData, {
+      .post(serverAddress + "API/uploadCollectionForm", formData, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       })
-      .then(response => {
+      .then((response) => {
         console.log("[add collection respose] => ", response.data);
         if (response.data === "collection exists already") {
           alert(response.data);
         }
         this.props.addForm();
       })
-      .catch(error => {
+      .catch((error) => {
         alert(error);
         this.props.addForm();
       });

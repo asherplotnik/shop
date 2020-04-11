@@ -1,0 +1,14 @@
+.Collections {
+  width: 100%;
+  display: inline-block;
+}
+
+.Wrapper {
+  text-align: center;
+}
+
+.PathName {
+  text-align: left;
+  margin-bottom: 40px;
+  margin-left: 50px;
+}

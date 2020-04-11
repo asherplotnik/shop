@@ -2,19 +2,20 @@ import React from "react";
 import classes from "./ItemsTable.module.css";
 import Button from "../../../../components/UI/Button/Button";
 import ReactTable from "react-table-6";
+import { serverAddress } from "../../../../assets/helper";
 
-const itemsTable = props => {
+const itemsTable = (props) => {
   const stockColumns = [
     {
       Header: <strong className={classes.Stock}>QUANTITY</strong>,
       accessor: "qty",
-      Cell: row => <span className={classes.Stock}>{row.value}</span>
+      Cell: (row) => <span className={classes.Stock}>{row.value}</span>,
     },
     {
       Header: <strong className={classes.Stock}>VARIATION</strong>,
       accessor: "variation",
-      Cell: row => <span className={classes.Stock}>{row.value}</span>
-    }
+      Cell: (row) => <span className={classes.Stock}>{row.value}</span>,
+    },
   ];
 
   const columns = [
@@ -25,14 +26,14 @@ const itemsTable = props => {
         </div>
       ),
       accessor: "id",
-      Cell: row => (
+      Cell: (row) => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
             {" "}
             {row.value}{" "}
           </div>
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -43,14 +44,14 @@ const itemsTable = props => {
         </div>
       ),
       accessor: "code",
-      Cell: row => (
+      Cell: (row) => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
             {" "}
             {row.value.toUpperCase()}
           </div>
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -61,14 +62,14 @@ const itemsTable = props => {
         </div>
       ),
       accessor: "collection",
-      Cell: row => (
+      Cell: (row) => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
             {" "}
             {row.value.toUpperCase()}{" "}
           </div>
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -80,14 +81,14 @@ const itemsTable = props => {
       ),
       accessor: "desc",
       filterable: false,
-      Cell: row => (
+      Cell: (row) => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
             {" "}
             {row.value.toUpperCase()}{" "}
           </div>
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -99,14 +100,14 @@ const itemsTable = props => {
       ),
       accessor: "size",
       filterable: false,
-      Cell: row => (
+      Cell: (row) => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
             {" "}
             {row.value.toUpperCase()}{" "}
           </div>
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -118,14 +119,14 @@ const itemsTable = props => {
       ),
       accessor: "price",
       filterable: false,
-      Cell: row => (
+      Cell: (row) => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
             {" "}
             {row.value}{" "}
           </div>
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -136,31 +137,31 @@ const itemsTable = props => {
         </div>
       ),
       accessor: "type",
-      Cell: row => (
+      Cell: (row) => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
             {" "}
             {row.value.toUpperCase()}{" "}
           </div>
         </div>
-      )
+      ),
     },
     {
       Header: (
         <div>
           <div key="TRENDING" className={classes.HeaderStyle}>
-          TREND(1/0)
+            TREND(1/0)
           </div>
         </div>
       ),
       accessor: "trending",
-      Cell: row => (
+      Cell: (row) => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
             {row.value === 1 ? "TRENDING" : ""}
           </div>
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -172,16 +173,16 @@ const itemsTable = props => {
       ),
       accessor: "img",
       filterable: false,
-      Cell: row => (
+      Cell: (row) => (
         <div style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
           <img
-            src={"http://localhost:9000/images/" + row.value}
+            src={serverAddress + "/images/" + row.value}
             alt={row.value}
             style={{ width: "100px" }}
             className={classes.CellStyle}
           />
         </div>
-      )
+      ),
     },
     {
       Header: (
@@ -192,17 +193,17 @@ const itemsTable = props => {
         </div>
       ),
       accessor: "img2",
-      Cell: row => (
+      Cell: (row) => (
         <div style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
           <img
-            src={"http://localhost:9000/images/" + row.value}
+            src={serverAddress + "/images/" + row.value}
             alt={row.value}
             style={{ width: "100px" }}
             className={classes.CellStyle}
           />
         </div>
       ),
-      filterable: false
+      filterable: false,
     },
     {
       Header: (
@@ -221,7 +222,7 @@ const itemsTable = props => {
         </div>
       ),
       width: 90,
-      filterable: false
+      filterable: false,
     },
     {
       Header: (
@@ -237,10 +238,10 @@ const itemsTable = props => {
           <Button btnType="DangerSmall">DELETE</Button>
         </div>
       ),
-      filterable: false
-    }
+      filterable: false,
+    },
   ];
-  const makeSubComp = row => {
+  const makeSubComp = (row) => {
     const subTable = [];
     for (let i = 0; i < props.passedStock.length; i++) {
       if (props.passedStock[i].code === row.original.code) {
@@ -262,7 +263,7 @@ const itemsTable = props => {
               size: null,
               type: null,
               price: null,
-              trending: null
+              trending: null,
             };
             if (rowInfo !== undefined) {
               if (e.target.innerHTML === "DELETE") {
@@ -288,7 +289,7 @@ const itemsTable = props => {
                 handleOriginal();
               }
             }
-          }
+          },
         };
       }}
       className="-highlight "
@@ -296,7 +297,7 @@ const itemsTable = props => {
       columns={columns}
       defaultPageSize={5}
       filterable
-      SubComponent={row => {
+      SubComponent={(row) => {
         return (
           <ReactTable
             style={{ border: "1px solid black" }}

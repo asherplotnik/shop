@@ -6,6 +6,7 @@ import DrawerToggle from "../SideDrawer/DrawerToggle/DrawerToggle";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/index";
+import { serverAddress } from "../../../assets/helper";
 const toolbar = (props) => {
   const onPressedCart = () => {
     props.history.push("/shoppingcart");
@@ -58,14 +59,14 @@ const toolbar = (props) => {
               <div onClick={onPressedCart} className={classes.Cart2}>
                 <img
                   onClick={onPressedCart}
-                  src="http://localhost:9000/images/cart2.png"
+                  src={serverAddress + "/images/cart2.png"}
                   alt="cart"
                 />
               </div>
               <div onClick={onPressedCart} className={classes.Cart}>
                 <img
                   onClick={onPressedCart}
-                  src="http://localhost:9000/images/cart.png"
+                  src={serverAddress + "/images/cart.png"}
                   alt="cart"
                 />
               </div>

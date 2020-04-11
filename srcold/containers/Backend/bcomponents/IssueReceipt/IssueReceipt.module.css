@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
+
+.CellStyle {
+  vertical-align: middle;
+  font-family: "BenchNine", sans-serif;
+  font-size: 20px;
+}
+
+.CellStyleButton {
+  vertical-align: middle;
+  font-family: "BenchNine", sans-serif;
+}
+.HeaderStyle {
+  vertical-align: middle;
+  font-family: "BenchNine", sans-serif;
+  font-size: large;
+}
+
+.OrderDetails {
+  font-size: large;
+}
+
+.List {
+  list-style: none;
+  font-size: large;
+  text-align: left;
+}
+.Wrapper {
+  font-family: "BenchNine", sans-serif;
+  width: 900;
+  text-transform: uppercase;
+}
+.Wrapper h1 {
+  margin-bottom: 40px;
+}
+
+.Logo {
+  position: absolute;
+  text-align: left;
+  height: 70px;
+}

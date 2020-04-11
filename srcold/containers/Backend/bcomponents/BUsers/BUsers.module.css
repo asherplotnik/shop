@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
+
+.CellStyle {
+  vertical-align: middle;
+  font-family: "BenchNine", sans-serif;
+  font-size: 20px;
+}
+
+.CellStyleButton {
+  vertical-align: middle;
+}
+.HeaderStyle {
+  vertical-align: middle;
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}
+
+.UpdateDeleteForm {
+  display: inline-flex;
+  width: 350px;
+}
+
+.Font {
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}

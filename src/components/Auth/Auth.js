@@ -5,6 +5,7 @@ import Button from "../UI/Button/Button";
 import classes from "./Auth.module.css";
 import * as actions from "../../store/actions/index";
 import { withRouter } from "react-router";
+import { serverAddress } from "../../assets/helper";
 class Auth extends Component {
   state = {
     signIn: true,
@@ -37,7 +38,7 @@ class Auth extends Component {
             "'",
         };
         axios
-          .post("http://localhost:9000/API/query", sqlQuery)
+          .post(serverAddress + "API/query", sqlQuery)
           .then((res) => {
             let user = {};
             res.data.map((row) => {
@@ -133,7 +134,7 @@ class Auth extends Component {
             "')",
         };
         axios
-          .post("http://localhost:9000/API/update", sqlQuery)
+          .post(serverAddress + "API/update", sqlQuery)
           .then((response) => {
             return response.data;
           })
