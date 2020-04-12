@@ -1,23 +1,20 @@
-@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
-.Ul {
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
-  list-style: none;
-  text-align: left;
+.ShowAbout {
+  width: 80%;
+  display: inline-block;
+}
+.Border {
+  border: 1px solid rgb(235, 232, 232);
+  border-radius: 5px;
+  box-shadow: 0 2px 3px #ccc;
+  width: 60%;
   padding: 5px;
 }
-
-.Ul li {
-  display: flex;
-  justify-content: space-between;
+.Buttons {
+  text-align: left;
+  margin: 30px;
+  width: 80%;
+  display: inline-block;
 }
-
-.Ul input,
-.Ul button {
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
-}
-
-.Ul button {
-  margin: 0px 40px 0px 40px;
+.Wrapper {
+  display: block;
 }

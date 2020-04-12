@@ -117,7 +117,7 @@ class Auth extends Component {
         };
         const sqlQuery = {
           sql:
-            "INSERT INTO users VALUES (null,'" +
+            "INSERT INTO users  (username, email, address, phone, userid, level, password) VALUES('" +
             userInfo.username +
             "','" +
             userInfo.email +

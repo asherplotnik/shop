@@ -13,11 +13,13 @@ const About = () => {
   }, []);
 
   const fetchData = () => {
-    axios.get(serverAddress + "API/queryAboutUs").then((response) => {
-      setContent(response.data);
-      setLoading(false);
-      console.log(response.data);
-    });
+    axios
+      .post(serverAddress + "API/queryJson", { sql: "about.json" })
+      .then((response) => {
+        setContent(response.data);
+        setLoading(false);
+        console.log(response.data);
+      });
   };
   let viewPage = <Spinner />;
   if (!loading) {
