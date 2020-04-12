@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
+.Scroll {
+  height: 77vh;
+  overflow: auto;
+}
+.Img {
+  height: 80px;
+}
+
+.Row {
+  display: flex;
+  align-items: center;
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}
+
+.Hr {
+  margin: 0px 20px;
+  border: transparent;
+  height: 1px;
+  background-color: rgb(231, 231, 231);
+}
+.Row button,
+.Row input {
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}
+.Row div {
+  margin: 5px;
+  width: 170px;
+}
+.AddImgDiv {
+  text-align: left;
+  margin-left: 15px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+}
+.AddImgInputHide {
+  display: none;
+}
+.AddImgInputShow {
+  display: block;
+}
+.AddImgInputShow input,
+.AddImgInputShow button {
+  margin-left: 20px;
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}
+
+.AddImgInputShow button:disabled {
+  cursor: not-allowed;
+}
+
+.CustomFileInput::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.CustomFileInput::before {
+  content: "UPDATE IMAGE";
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  padding: 2px 5px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: x-large;
+}
+.CustomFileInput:hover::before {
+  border-color: black;
+}
+.CustomFileInput:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.CustomInput::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.CustomInput::before {
+  content: "SELECT IMAGE";
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  padding: 2px 5px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: x-large;
+}
+.CustomInput:hover::before {
+  border-color: black;
+}
+.CustomInput:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}

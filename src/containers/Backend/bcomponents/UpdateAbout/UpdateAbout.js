@@ -15,14 +15,14 @@ const UpdateAbout = (props) => {
               name="mainTitle"
             />
           </li>
-          <br></br>
+          <br className={classes.Br}></br>
           <li>
             <label htmlFor="firstImage">FIRST IMAGE:</label>
           </li>
           <li>
             <input type="file" name="firstImage" />
           </li>
-          <br></br>
+          <br className={classes.Br}></br>
           <li>
             <label htmlFor="firstParagraph">FIRST PARAGRAPH:</label>
           </li>
@@ -36,14 +36,14 @@ const UpdateAbout = (props) => {
               required
             />
           </li>
-          <br></br>
+          <br className={classes.Br}></br>
           <li>
             <label htmlFor="secondImage">SECOND IMAGE:</label>
           </li>
           <li>
             <input type="file" name="secondImage" />
           </li>
-          <br></br>
+          <br className={classes.Br}></br>
           <li>
             <label htmlFor="secondParagraph">SECOND PARAGRAPH:</label>
           </li>
@@ -57,14 +57,14 @@ const UpdateAbout = (props) => {
               required
             />
           </li>
-          <br></br>
+          <br className={classes.Br}></br>
           <li>
             <label htmlFor="thirdImage">THIRD IMAGE:</label>
           </li>
           <li>
             <input type="file" name="thirdImage" />
           </li>
-          <br></br>
+          <br className={classes.Br}></br>
           <li>
             <label htmlFor="thirdParagraph">THIRD PARAGRAPH:</label>
           </li>
@@ -78,7 +78,7 @@ const UpdateAbout = (props) => {
               required
             />
           </li>
-          <br></br>
+          <br className={classes.Br}></br>
 
           <button type="submit">SUBMIT</button>
           <button type="button" onClick={props.onUpdateAbout}>

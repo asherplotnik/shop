@@ -5,10 +5,14 @@ import axios from "axios";
 import { serverAddress } from "../../../../assets/helper";
 import Spinner from "../../../../components/UI/Spinner/Spinner";
 import UpdateAbout from "../UpdateAbout/UpdateAbout";
+import UpdateSlide from "../UpdateSlide/UpdateSlide";
 const BHome = (props) => {
   let [updateAboutPressed, setUpdateAboutPressed] = useState(false);
-  let [content, setContent] = useState(null);
-  let [loading, setLoading] = useState(true);
+  let [updateSlidePressed, setUpdateSlidePressed] = useState(false);
+  let [aboutContent, setAboutContent] = useState(null);
+  let [slideContent, setSlideContent] = useState(null);
+  let [loadingAbout, setLoadingAbout] = useState(true);
+  let [loadingSlide, setLoadingSlide] = useState(true);
 
   useEffect(() => {
     fetchData();
@@ -18,9 +22,14 @@ const BHome = (props) => {
     axios
       .post(serverAddress + "API/queryJson", { sql: "about.json" })
       .then((response) => {
-        setContent(response.data);
-        setLoading(false);
-        console.log(response.data);
+        setAboutContent(response.data);
+        setLoadingAbout(false);
+      });
+    axios
+      .post(serverAddress + "API/queryJson", { sql: "slide.json" })
+      .then((response) => {
+        setSlideContent(response.data);
+        setLoadingSlide(false);
       });
   };
 
@@ -39,35 +48,52 @@ const BHome = (props) => {
       .catch((error) => {
         console.log(error);
       });
-    setUpdateAboutPressed();
+    onUpdateAbout();
   };
   const onUpdateAbout = () => {
+    setUpdateSlidePressed(false);
     setUpdateAboutPressed(!updateAboutPressed);
   };
+  const onUpdateSlide = () => {
+    setUpdateAboutPressed(false);
+    setUpdateSlidePressed(!updateSlidePressed);
+  };
   let viewPage = <Spinner />;
-  let viewUpdateAbout = null;
+  let viewSubComponent = null;
+  if (updateSlidePressed) {
+    viewSubComponent = (
+      <div className={classes.Show}>
+        <div className={classes.Border}>
+          <UpdateSlide content={slideContent} />;
+        </div>
+      </div>
+    );
+  }
   if (updateAboutPressed) {
-    viewUpdateAbout = (
-      <div className={classes.ShowAbout}>
+    viewSubComponent = (
+      <div className={classes.Show}>
         <div className={classes.Border}>
           <UpdateAbout
             onUpdateAbout={onUpdateAbout}
             updateAboutHandler={updateAboutHandler}
-            content={content}
+            content={aboutContent}
           />
         </div>
       </div>
     );
   }
-  if (!loading) {
+  if (!loadingAbout && !loadingSlide) {
     viewPage = (
       <div className={classes.Wrapper}>
         <div className={classes.Buttons}>
           <Button clicked={onUpdateAbout} btnType="Success">
             Update About Us
           </Button>
+          <Button clicked={onUpdateSlide} btnType="Success">
+            Update slide
+          </Button>
         </div>
-        {viewUpdateAbout}
+        {viewSubComponent}
       </div>
     );
   }
