@@ -141,7 +141,7 @@ class Product extends Component {
             <div className={classes.Text}>
               <p className={classes.PDesc}>{item.desc}</p>
               <hr className={classes.HrClass} />
-              <p className={classes.PName}>รหัส: {item.code}</p>
+              <p className={classes.PName}>Code: {item.code}</p>
               <hr className={classes.HrClass} />
               <p className={classes.PSize}>Size: {item.size}</p>
               <hr className={classes.HrClass} />

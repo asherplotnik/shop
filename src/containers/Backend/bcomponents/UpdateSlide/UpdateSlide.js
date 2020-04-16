@@ -81,7 +81,8 @@ const UpdateSlide = (props) => {
     }
   };
 
-  const onRemoveImage = (index) => {
+  const onRemoveImage = (event, index) => {
+    event.preventDefault();
     let t = [...slideList];
     t.splice(index, 1);
     setSlideList([...t]);
@@ -108,7 +109,9 @@ const UpdateSlide = (props) => {
             />
           </div>
           <div style={{ marginLeft: "120px" }}>
-            <button onClick={() => onRemoveImage(index)}>Remove</button>
+            <button onClick={(event) => onRemoveImage(event, index)}>
+              Remove
+            </button>
           </div>
         </div>
         <hr className={classes.Hr}></hr>
