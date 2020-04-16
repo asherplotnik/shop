@@ -17,6 +17,7 @@ class Trending extends Component {
 
   changePageBack = () => {
     if (this.state.pageRangeStart > 0) {
+      window.scrollTo(0, 0);
       this.setState((prevState) => {
         return { pageRangeStart: prevState.pageRangeStart - 12 };
       });
@@ -28,6 +29,7 @@ class Trending extends Component {
 
   changePageForward = () => {
     if (this.state.pageRangeEnd < TOPITEM) {
+      window.scrollTo(0, 0);
       this.setState((prevState) => {
         return {
           pageRangeStart: prevState.pageRangeStart + 12,

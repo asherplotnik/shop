@@ -23,20 +23,22 @@ const Slide = () => {
   if (!loading) {
     let arr = images.map((row) => {
       return {
-        original: serverAddress + "images/slide/" + row.original,
-        thumbnail: serverAddress + "images/slide/" + row.thumbnail,
+        original: serverAddress + "images/" + row.original,
+        thumbnail: serverAddress + "images/" + row.thumbnail,
       };
     });
     viewPage = (
-      <div style={{ display: "inline-block" }}>
-        <div style={{ width: "100%" }}>
+      <div>
+        <div>
           <ImageGallery
             items={arr}
+            showNav={true}
             showPlayButton={false}
             showThumbnails={false}
             showFullscreenButton={false}
             autoPlay={true}
-            slideDuration={600}
+            slideDuration={2000}
+            slideInterval={2000}
           />
         </div>
       </div>

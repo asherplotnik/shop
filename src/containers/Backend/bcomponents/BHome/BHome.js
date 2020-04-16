@@ -64,7 +64,7 @@ const BHome = (props) => {
     viewSubComponent = (
       <div className={classes.Show}>
         <div className={classes.Border}>
-          <UpdateSlide content={slideContent} />;
+          <UpdateSlide onUpdateSlide={onUpdateSlide} content={slideContent} />
         </div>
       </div>
     );
