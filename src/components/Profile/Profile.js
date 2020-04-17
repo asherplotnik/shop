@@ -314,7 +314,7 @@ class Profile extends Component {
         </Modal>
         <div className={classes.Page}>
           <h1>YOUR DETAILS</h1>
-          <div className={classes.Divider}>
+          <div className={[classes.Divider, classes.Trans]}>
             <div>
               <div className={classes.DetailsWrapper}>
                 <div className={classes.DetailList}>
