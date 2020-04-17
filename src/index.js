@@ -11,10 +11,11 @@ import cartReducer from "./store/reducers/cartReducer";
 import authReducer from "./store/reducers/authReducer";
 import thunk from "redux-thunk";
 
-const composeEnhancers = compose;
-// process.env.NODE_ENV === "development"
-//   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-//   : null || compose;
+//const composeEnhancers = compose;
+const composeEnhancers =
+  process.env.NODE_ENV === "development"
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    : null || compose;
 
 const rootReducer = combineReducers({
   itemsReducer: itemsReducer,

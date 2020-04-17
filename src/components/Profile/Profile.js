@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "../UI/Button/Button";
+import Spinner from "../UI/Spinner/Spinner";
 import classes from "./Profile.module.css";
 import Modal from "../UI/Modal/Modal";
 import { connect } from "react-redux";
@@ -17,6 +18,9 @@ class Profile extends Component {
     messageClass: null,
   };
 
+  componentDidMount() {
+    this.props.onTryAutoSignup();
+  }
   changeDetailsHandler = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#detailsForm"));
@@ -203,173 +207,177 @@ class Profile extends Component {
   };
 
   render() {
-    return (
-      <div className={classes.Trans}>
-        <Modal
-          show={this.state.changeDetailsPressed}
-          modalClosed={this.onChangeDetailsPressed}
-        >
-          <div className={classes.Modal}>
-            <form id="detailsForm" onSubmit={this.changeDetailsHandler}>
-              <p className={classes.Font}>CHANGE DETAILS:</p>
-              <ul className={classes.FormList}>
-                <li key="f">
-                  <label htmlFor="username">NAME:</label>
-                  <input
-                    type="text"
-                    defaultValue={this.props.user.username}
-                    name="username"
-                  />
-                </li>
-                <li key="g">
-                  <label htmlFor="phone">PHONE:</label>
-                  <input
-                    defaultValue={this.props.user.phone}
-                    type="text"
-                    name="phone"
-                  />
-                </li>
-                <li key="h">
-                  <label htmlFor="address">ADDRESS:</label>
-                  <textarea
-                    style={{ resize: "none" }}
-                    rows="4"
-                    cols="30"
-                    name="address"
-                    defaultValue={this.props.user.address}
-                  />
-                </li>
-              </ul>
-              {this.state.message}
-              <input className={classes.Font} type="submit" value="SUBMIT" />
-              <span style={{ opacity: "0%" }}>_____</span>
-              <button
-                className={classes.Font}
-                onClick={this.onChangeDetailsPressed}
-              >
-                CANCEL
-              </button>
-            </form>
-          </div>
-        </Modal>
-
-        <Modal
-          show={this.state.changeEmailPressed}
-          modalClosed={this.onChangeEmailPressed}
-        >
-          <div className={classes.Modal}>
-            <form id="emailForm" onSubmit={this.changeEmailHandler}>
-              <p className={classes.Font}>CHANGE EMAIL:</p>
-              <ul className={classes.FormList}>
-                <li key="i">
-                  <label htmlFor="email">NEW EMAIL:</label>
-                  <input type="email" name="email" />
-                </li>
-                <li key="j">
-                  <label htmlFor="confirm">CONFIRM EMAIL:</label>
-                  <input type="email" name="confirm" />
-                </li>
-              </ul>
-              {this.state.message}
-              <input className={classes.Font} type="submit" value="SUBMIT" />
-              <span style={{ opacity: "0%" }}>_____</span>
-              <button
-                className={classes.Font}
-                onClick={this.onChangePasswordPressed}
-              >
-                CANCEL
-              </button>
-            </form>
-          </div>
-        </Modal>
-
-        <Modal
-          show={this.state.changePasswordPressed}
-          modalClosed={this.onChangePasswordPressed}
-        >
-          <div className={classes.Modal}>
-            <form id="passwordForm" onSubmit={this.changePasswordHandler}>
-              <p className={classes.Font}>CHANGE PASSWORD:</p>
-              <ul className={classes.FormList}>
-                <li key="i">
-                  <label htmlFor="password">NEW PASSWORD:</label>
-                  <input type="password" name="password" />
-                </li>
-                <li key="j">
-                  <label htmlFor="confirm">CONFIRM PASSWORD:</label>
-                  <input type="password" name="confirm" />
-                </li>
-              </ul>
-              {this.state.message}
-              <input className={classes.Font} type="submit" value="SUBMIT" />
-              <span style={{ opacity: "0%" }}>_____</span>
-              <button
-                className={classes.Font}
-                onClick={this.onChangePasswordPressed}
-              >
-                CANCEL
-              </button>
-            </form>
-          </div>
-        </Modal>
-        <div className={classes.Page}>
-          <h1>YOUR DETAILS</h1>
-          <div className={[classes.Divider, classes.Trans].join(" ")}>
-            <div>
-              <div className={classes.DetailsWrapper}>
-                <div className={classes.DetailList}>
-                  <ul className={classes.List}>
-                    <li key="a">NAME: {this.props.user.username}</li>
-                    <li key="b">PHONE: {this.props.user.phone}</li>
-                    <li key="c">ADDRESS: {this.props.user.address}</li>
-                  </ul>
-                </div>
-                <div className={classes.Buttons}>
-                  <Button
-                    btnType="SuccessSmall"
-                    clicked={this.onChangeDetailsPressed}
-                  >
-                    CHANGE DETAILS
-                  </Button>
-                </div>
-              </div>
-              <br></br>
-              <br></br>
-              <div className={classes.DetailsWrapper}>
-                <div className={classes.DetailList}>
-                  <ul className={classes.List}>
-                    <li key="d">EMAIL: {this.props.user.email}</li>
-                    <li key="e">PASSWORD: •••••••••• </li>
-                  </ul>
-                </div>
-                <div className={classes.Buttons}>
-                  <div>
-                    <Button
-                      btnType="SuccessSmall"
-                      clicked={this.onChangeEmailPressed}
-                    >
-                      CHANGE EMAIL
-                    </Button>
-                  </div>
-                  <div>
-                    <Button
-                      btnType="SuccessSmall"
-                      clicked={this.onChangePasswordPressed}
-                    >
-                      CHANGE PASSWORD
-                    </Button>
-                  </div>
-                </div>
-              </div>
+    let viewPage = <Spinner />;
+    if (this.props.token !== null) {
+      viewPage = (
+        <div className={classes.Trans}>
+          <Modal
+            show={this.state.changeDetailsPressed}
+            modalClosed={this.onChangeDetailsPressed}
+          >
+            <div className={classes.Modal}>
+              <form id="detailsForm" onSubmit={this.changeDetailsHandler}>
+                <p className={classes.Font}>CHANGE DETAILS:</p>
+                <ul className={classes.FormList}>
+                  <li key="f">
+                    <label htmlFor="username">NAME:</label>
+                    <input
+                      type="text"
+                      defaultValue={this.props.user.username}
+                      name="username"
+                    />
+                  </li>
+                  <li key="g">
+                    <label htmlFor="phone">PHONE:</label>
+                    <input
+                      defaultValue={this.props.user.phone}
+                      type="text"
+                      name="phone"
+                    />
+                  </li>
+                  <li key="h">
+                    <label htmlFor="address">ADDRESS:</label>
+                    <textarea
+                      style={{ resize: "none" }}
+                      rows="4"
+                      cols="30"
+                      name="address"
+                      defaultValue={this.props.user.address}
+                    />
+                  </li>
+                </ul>
+                {this.state.message}
+                <input className={classes.Font} type="submit" value="SUBMIT" />
+                <span style={{ opacity: "0%" }}>_____</span>
+                <button
+                  className={classes.Font}
+                  onClick={this.onChangeDetailsPressed}
+                >
+                  CANCEL
+                </button>
+              </form>
             </div>
-            <div className={classes.TableDiv}>
-              <h2 className={classes.Header}>YOUR ORDERS</h2>
-              <ProfileTable userId={this.props.userId} />
+          </Modal>
+
+          <Modal
+            show={this.state.changeEmailPressed}
+            modalClosed={this.onChangeEmailPressed}
+          >
+            <div className={classes.Modal}>
+              <form id="emailForm" onSubmit={this.changeEmailHandler}>
+                <p className={classes.Font}>CHANGE EMAIL:</p>
+                <ul className={classes.FormList}>
+                  <li key="i">
+                    <label htmlFor="email">NEW EMAIL:</label>
+                    <input type="email" name="email" />
+                  </li>
+                  <li key="j">
+                    <label htmlFor="confirm">CONFIRM EMAIL:</label>
+                    <input type="email" name="confirm" />
+                  </li>
+                </ul>
+                {this.state.message}
+                <input className={classes.Font} type="submit" value="SUBMIT" />
+                <span style={{ opacity: "0%" }}>_____</span>
+                <button
+                  className={classes.Font}
+                  onClick={this.onChangePasswordPressed}
+                >
+                  CANCEL
+                </button>
+              </form>
+            </div>
+          </Modal>
+
+          <Modal
+            show={this.state.changePasswordPressed}
+            modalClosed={this.onChangePasswordPressed}
+          >
+            <div className={classes.Modal}>
+              <form id="passwordForm" onSubmit={this.changePasswordHandler}>
+                <p className={classes.Font}>CHANGE PASSWORD:</p>
+                <ul className={classes.FormList}>
+                  <li key="i">
+                    <label htmlFor="password">NEW PASSWORD:</label>
+                    <input type="password" name="password" />
+                  </li>
+                  <li key="j">
+                    <label htmlFor="confirm">CONFIRM PASSWORD:</label>
+                    <input type="password" name="confirm" />
+                  </li>
+                </ul>
+                {this.state.message}
+                <input className={classes.Font} type="submit" value="SUBMIT" />
+                <span style={{ opacity: "0%" }}>_____</span>
+                <button
+                  className={classes.Font}
+                  onClick={this.onChangePasswordPressed}
+                >
+                  CANCEL
+                </button>
+              </form>
+            </div>
+          </Modal>
+          <div className={classes.Page}>
+            <h1>YOUR DETAILS</h1>
+            <div className={[classes.Divider, classes.Trans].join(" ")}>
+              <div>
+                <div className={classes.DetailsWrapper}>
+                  <div className={classes.DetailList}>
+                    <ul className={classes.List}>
+                      <li key="a">NAME: {this.props.user.username}</li>
+                      <li key="b">PHONE: {this.props.user.phone}</li>
+                      <li key="c">ADDRESS: {this.props.user.address}</li>
+                    </ul>
+                  </div>
+                  <div className={classes.Buttons}>
+                    <Button
+                      btnType="SuccessSmall"
+                      clicked={this.onChangeDetailsPressed}
+                    >
+                      CHANGE DETAILS
+                    </Button>
+                  </div>
+                </div>
+                <br></br>
+                <br></br>
+                <div className={classes.DetailsWrapper}>
+                  <div className={classes.DetailList}>
+                    <ul className={classes.List}>
+                      <li key="d">EMAIL: {this.props.user.email}</li>
+                      <li key="e">PASSWORD: •••••••••• </li>
+                    </ul>
+                  </div>
+                  <div className={classes.Buttons}>
+                    <div>
+                      <Button
+                        btnType="SuccessSmall"
+                        clicked={this.onChangeEmailPressed}
+                      >
+                        CHANGE EMAIL
+                      </Button>
+                    </div>
+                    <div>
+                      <Button
+                        btnType="SuccessSmall"
+                        clicked={this.onChangePasswordPressed}
+                      >
+                        CHANGE PASSWORD
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className={classes.TableDiv}>
+                <h2 className={classes.Header}>YOUR ORDERS</h2>
+                <ProfileTable userId={this.props.userId} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
+    return viewPage;
   }
 }
 
@@ -386,6 +394,7 @@ const mapDispatchToProps = (dispatch) => {
     onChangeAddress: (address) => dispatch(actions.changeAddress(address)),
     onChangePhone: (phone) => dispatch(actions.changePhone(phone)),
     onChangeUserName: (username) => dispatch(actions.changeUserName(username)),
+    onTryAutoSignup: () => dispatch(actions.authCheckState()),
   };
 };
 

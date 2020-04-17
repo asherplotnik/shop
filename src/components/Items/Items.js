@@ -44,7 +44,9 @@ class Items extends Component {
     }
   };
   fetchItems = () => {
-    const selectedColl = this.props.location.search.substr(1);
+    let selectedColl = this.props.location.search.substr(1);
+    selectedColl = selectedColl.replace(/%20/g, " ");
+    console.log(selectedColl);
     const sql = "SELECT * FROM Items WHERE collection = '" + selectedColl + "'";
     console.log("[ ----items]", sql);
     const sqlQuery = { sql: sql };

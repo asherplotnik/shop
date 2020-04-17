@@ -53,7 +53,8 @@ class Product extends Component {
   };
 
   fetchProduct = () => {
-    const selectedProduct = this.props.location.search.substr(1);
+    let selectedProduct = this.props.location.search.substr(1);
+    selectedProduct = selectedProduct.replace(/%20/g, " ");
     const sql = "SELECT * FROM items WHERE code = '" + selectedProduct + "'";
     const sqlQuery = { sql: sql };
     axios
