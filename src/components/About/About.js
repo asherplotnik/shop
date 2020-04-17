@@ -14,11 +14,12 @@ const About = () => {
 
   const fetchData = () => {
     axios
-      .post(serverAddress + "API/queryJson", { sql: "about.json" })
+      .post(serverAddress + "API/query", {
+        sql: "SELECT content FROM about WHERE id = 1",
+      })
       .then((response) => {
-        setContent(response.data);
+        setContent(JSON.parse(response.data[0].content));
         setLoading(false);
-        console.log(response.data);
       });
   };
   let viewPage = <Spinner />;

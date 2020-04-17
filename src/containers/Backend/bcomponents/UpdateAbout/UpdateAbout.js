@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./UpdateAbout.module.css";
 const UpdateAbout = (props) => {
+  console.log(props.content);
   return (
     <div>
       <form id="updateAboutUs" onSubmit={props.updateAboutHandler}>

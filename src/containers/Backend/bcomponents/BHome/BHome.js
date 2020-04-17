@@ -18,15 +18,18 @@ const BHome = (props) => {
 
   const fetchData = () => {
     axios
-      .post(serverAddress + "API/queryJson", { sql: "about.json" })
+      .post(serverAddress + "API/query", {
+        sql: "SELECT content FROM about WHERE id = 1",
+      })
       .then((response) => {
-        setAboutContent(response.data);
+        setAboutContent(JSON.parse(response.data[0].content));
         setLoadingAbout(false);
       });
   };
 
   const updateAboutHandler = (e) => {
     e.preventDefault();
+    setLoadingAbout(true);
     const formData = new FormData(document.querySelector("#updateAboutUs"));
     axios
       .post(serverAddress + "API/updateAboutUs", formData, {
@@ -35,12 +38,12 @@ const BHome = (props) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
+        setAboutContent(JSON.parse(response.data[0].content));
+        setLoadingAbout(false);
       })
       .catch((error) => {
         console.log(error);
       });
-    onUpdateAbout();
   };
   const onUpdateAbout = () => {
     setUpdateSlidePressed(false);
