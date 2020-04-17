@@ -10,9 +10,7 @@ const BHome = (props) => {
   let [updateAboutPressed, setUpdateAboutPressed] = useState(false);
   let [updateSlidePressed, setUpdateSlidePressed] = useState(false);
   let [aboutContent, setAboutContent] = useState(null);
-  let [slideContent, setSlideContent] = useState(null);
   let [loadingAbout, setLoadingAbout] = useState(true);
-  let [loadingSlide, setLoadingSlide] = useState(true);
 
   useEffect(() => {
     fetchData();
@@ -24,12 +22,6 @@ const BHome = (props) => {
       .then((response) => {
         setAboutContent(response.data);
         setLoadingAbout(false);
-      });
-    axios
-      .post(serverAddress + "API/queryJson", { sql: "slide.json" })
-      .then((response) => {
-        setSlideContent(response.data);
-        setLoadingSlide(false);
       });
   };
 
@@ -64,7 +56,7 @@ const BHome = (props) => {
     viewSubComponent = (
       <div className={classes.Show}>
         <div className={classes.Border}>
-          <UpdateSlide onUpdateSlide={onUpdateSlide} content={slideContent} />
+          <UpdateSlide onUpdateSlide={onUpdateSlide} />
         </div>
       </div>
     );
@@ -82,7 +74,7 @@ const BHome = (props) => {
       </div>
     );
   }
-  if (!loadingAbout && !loadingSlide) {
+  if (!loadingAbout) {
     viewPage = (
       <div className={classes.Wrapper}>
         <div className={classes.Buttons}>

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { serverAddress } from "../../../../assets/helper";
 import classes from "./UpdateSlide.module.css";
 import Button from "../../../../components/UI/Button/Button";
 import Spinner from "../../../../components/UI/Spinner/Spinner";
-const UpdateSlide = (props) => {
-  let [slideList, setSlideList] = useState(props.content);
+const UpdateSlide = () => {
+  let [slideList, setSlideList] = useState([]);
   let [addNewImgPressed, setAddNewImagePressed] = useState(false);
   let [loadingSlide, setLoadingSlide] = useState(false);
   const onSetAddNewImagePressed = () => {
@@ -16,6 +16,9 @@ const UpdateSlide = (props) => {
       const newFileName = event.target.files[0].name;
       let formData = new FormData();
       formData.append("imageFile", event.target.files[0]);
+      formData.append("original", newFileName);
+      formData.append("action", "insert");
+      setLoadingSlide(true);
       axios
         .post(serverAddress + "API/uploadSlideImage", formData, {
           headers: {
@@ -25,71 +28,65 @@ const UpdateSlide = (props) => {
         .then((response) => {
           if (response.data !== "no file sent") {
             console.log(response.data);
-            let t = [...slideList];
-            t.push({ original: newFileName, thumbnail: newFileName });
+            let t = response.data;
             setSlideList([...t]);
+            setLoadingSlide(false);
           }
         })
         .catch((err) => console.log(err));
     }
   };
-  const updateSlideHandler = () => {
+
+  const updateSlideList = (event, rowId) => {
+    if (event.target.files.length > 0) {
+      const newFileName = event.target.files[0].name;
+      let formData = new FormData();
+      formData.append("imageFile", event.target.files[0]);
+      formData.append("id", rowId);
+      formData.append("original", newFileName);
+      formData.append("action", "update");
+      setLoadingSlide(true);
+      axios
+        .post(serverAddress + "API/uploadSlideImage", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          if (response.data !== "no file sent") {
+            console.log(response.data);
+            let t = response.data;
+            setSlideList([...t]);
+            setLoadingSlide(false);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  const onRemoveImage = (event, rowId) => {
+    event.preventDefault();
     let formData = new FormData();
-    formData.append("fileName", "slide.json");
-    formData.append("content", JSON.stringify(slideList));
+    formData.append("id", rowId);
+    formData.append("action", "delete");
     setLoadingSlide(true);
     axios
-      .post(serverAddress + "API/updateJson", formData, {
+      .post(serverAddress + "API/uploadSlideImage", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {
-        console.log("updatejson...", response);
-        axios
-          .post(serverAddress + "API/queryJson", { sql: "slide.json" })
-          .then((res) => {
-            setSlideList(res.data);
-            console.log(res);
-            setLoadingSlide(false);
-          });
+        console.log(response);
+        let t = response.data;
+        setSlideList([...t]);
+        setLoadingSlide(false);
       })
       .catch((err) => console.log(err));
   };
-
-  const updateSlideList = (event, rowIndex) => {
-    if (event.target.files.length > 0) {
-      const newFileName = event.target.files[0].name;
-      let formData = new FormData();
-      formData.append("imageFile", event.target.files[0]);
-      axios
-        .post(serverAddress + "API/uploadSlideImage", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          if (response.data !== "no file sent") {
-            console.log(response.data);
-
-            let t = [...slideList];
-            t[rowIndex] = { original: newFileName, thumbnail: newFileName };
-            setSlideList([...t]);
-          }
-        })
-        .catch((err) => console.log(err));
-    }
-  };
-
-  const onRemoveImage = (event, index) => {
-    event.preventDefault();
-    let t = [...slideList];
-    t.splice(index, 1);
-    setSlideList([...t]);
-  };
-  let listEl = slideList.map((row, index) => {
+  let listEl = slideList.map((row) => {
     return (
-      <div key={index}>
+      <div key={row.id}>
         <div className={classes.Row}>
           <div>
             <img
@@ -101,15 +98,15 @@ const UpdateSlide = (props) => {
           </div>
           <div>
             <input
-              name={"image" + index}
-              id={"image" + index}
+              name={"image" + row.id}
+              id={"image" + row.id}
               type="file"
               className={classes.CustomFileInput}
-              onChange={(event) => updateSlideList(event, index)}
+              onChange={(event) => updateSlideList(event, row.id)}
             />
           </div>
           <div style={{ marginLeft: "120px" }}>
-            <button onClick={(event) => onRemoveImage(event, index)}>
+            <button onClick={(event) => onRemoveImage(event, row.id)}>
               Remove
             </button>
           </div>
@@ -118,18 +115,6 @@ const UpdateSlide = (props) => {
       </div>
     );
   });
-  const slideForm = (
-    <form id="updateSlideForm">
-      {listEl}
-      <input
-        className={classes.Row}
-        style={{ display: "inline-block", marginTop: "10px" }}
-        type="button"
-        onClick={updateSlideHandler}
-        value="submit"
-      />
-    </form>
-  );
   let viewPage = <Spinner />;
   if (!loadingSlide) {
     viewPage = (
@@ -154,10 +139,18 @@ const UpdateSlide = (props) => {
             />
           </div>
         </div>
-        {slideForm}
+        {listEl}
       </div>
     );
   }
+  useEffect(() => {
+    let sqlQuery = { sql: "SELECT * FROM slide" };
+    setLoadingSlide(true);
+    axios.post(serverAddress + "API/query", sqlQuery).then((response) => {
+      setSlideList(response.data);
+      setLoadingSlide(false);
+    });
+  }, []);
   return viewPage;
 };
 

@@ -7,7 +7,7 @@ import Spinner from "../../UI/Spinner/Spinner";
 const Slide = () => {
   const fetchImages = () => {
     axios
-      .post(serverAddress + "API/queryJson", { sql: "slide.json" })
+      .post(serverAddress + "API/query", { sql: "SELECT * FROM slide" })
       .then((response) => {
         setImages(response.data);
         setLoading(false);
