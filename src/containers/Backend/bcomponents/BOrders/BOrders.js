@@ -225,7 +225,7 @@ const BOrders = () => {
   let viewOrders = <Spinner />;
   if (!loadingOrders) {
     viewOrders = (
-      <React.Fragment>
+      <div className={classes.Trans}>
         <Modal show={showDelete} modalClosed={onDeletePressed}>
           <ModalConfirm
             modalClosed={onDeletePressed}
@@ -291,7 +291,7 @@ const BOrders = () => {
           pressedDelete={onDeletePressed}
           pressedUpdate={onUpdatePressed}
         />
-      </React.Fragment>
+      </div>
     );
   }
   return viewOrders;

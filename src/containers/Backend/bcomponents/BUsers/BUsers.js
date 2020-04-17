@@ -342,7 +342,7 @@ const BUsers = () => {
     );
   }
   return (
-    <React.Fragment>
+    <div className={classes.Trans}>
       <Modal show={showDelete} modalClosed={onDeletePressed}>
         <div class={classes.Font}>are you sure?</div>
         <div>
@@ -369,7 +369,7 @@ const BUsers = () => {
         ></UpdateUserForm>
       </Modal>
       {usersTable}
-    </React.Fragment>
+    </div>
   );
 };
 

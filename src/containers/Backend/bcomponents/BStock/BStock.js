@@ -271,7 +271,7 @@ class BStock extends Component {
       },
     ];
     return (
-      <div className={classes.OutputDiv}>
+      <div className={[classes.OutputDiv, classes.Transition].join(" ")}>
         <ReactTable
           className={classes.RTable}
           columns={stockColumns}
@@ -317,15 +317,17 @@ class BStock extends Component {
     if (!this.state.loadingTransactions) {
       viewStock = this.stockTable();
       viewTrans = (
-        <TransactionTable
-          pressedDelete={this.onDeletePressed}
-          pressedUpdate={this.onUpdatePressed}
-          transactions={this.state.transactions}
-        />
+        <div className={classes.Transition}>
+          <TransactionTable
+            pressedDelete={this.onDeletePressed}
+            pressedUpdate={this.onUpdatePressed}
+            transactions={this.state.transactions}
+          />
+        </div>
       );
     }
     return (
-      <div className={classes.WrapperFlex}>
+      <div className={[classes.WrapperFlex, classes.Transition].join(" ")}>
         <Modal show={this.state.illegal} modalClosed={this.onIllegalClose}>
           <div>ILLEGAL ACTION</div>
           <div>

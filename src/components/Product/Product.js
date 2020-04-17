@@ -127,7 +127,7 @@ class Product extends Component {
           { name: "product", search: item.code },
         ];
         return (
-          <div key={1}>
+          <div className={classes.Trans} key={1}>
             <div className={classes.ImageDiv}>
               <img src={serverAddress + "/images/" + item.img} alt="img" />
               <div className={classes.Desc}>

@@ -211,7 +211,7 @@ class Auth extends Component {
       this.onLogOut();
     }
     let form = (
-      <div className={classes.Auth}>
+      <div className={[classes.Auth, classes.TransIn].join(" ")}>
         <form id="signin" onSubmit={this.onSub} className={classes.Form}>
           <div>
             <p>SIGN IN</p>
@@ -237,7 +237,7 @@ class Auth extends Component {
 
     if (!this.state.signIn)
       form = (
-        <div className={classes.Auth}>
+        <div className={[classes.Auth, classes.TransUp].join(" ")}>
           <form id="signup" onSubmit={this.onSub} className={classes.Form}>
             <div>
               <p>SIGN UP</p>
@@ -301,14 +301,14 @@ class Auth extends Component {
         </div>
       );
     return (
-      <React.Fragment>
+      <div className={classes.Trans}>
         {form}
         <div style={{ fontSize: "x-large" }}>
           <Button clicked={this.switchSign} btnType="NavySmall">
             {this.state.signIn ? "SIGN UP" : "SIGN IN"}
           </Button>{" "}
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

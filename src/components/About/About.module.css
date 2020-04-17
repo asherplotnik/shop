@@ -3,6 +3,23 @@
   display: inline-block;
   width: 85%;
 }
+
+.Trans {
+  animation: trans 0.3s ease-out forwards;
+}
+
+@keyframes trans {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 50%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
 .FirstHeader {
   font-family: "Montez", cursive;
   font-size: 4em;

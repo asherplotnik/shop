@@ -6,8 +6,8 @@ import Button from "../UI/Button/Button";
 import { withRouter } from "react-router";
 import ShoppingTable from "../ShoppingTable/ShoppingTable";
 
-const shoppingCart = props => {
-  const onDeletePressed = index => {
+const shoppingCart = (props) => {
+  const onDeletePressed = (index) => {
     const arr = [...props.entries];
     arr.splice(index, 1);
     props.deleteEntry(arr);
@@ -25,12 +25,12 @@ const shoppingCart = props => {
   };
 
   let subtotal = 0;
-  props.entries.map(entry => (subtotal = subtotal + entry.total));
+  props.entries.map((entry) => (subtotal = subtotal + entry.total));
 
   let viewPage = <h1 className={classes.Message}> SHOPPING CART IS EMPTY </h1>;
   if (props.entries.length > 0) {
     viewPage = (
-      <div className={classes.Wrapper}>
+      <div className={[classes.Wrapper, classes.Trans].join(" ")}>
         <h1>SHOPPING CART</h1>
         <ShoppingTable
           entries={props.entries}
@@ -53,16 +53,16 @@ const shoppingCart = props => {
   return viewPage;
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     entries: state.cartReducer.entries,
-    token: state.authReducer.token
+    token: state.authReducer.token,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    deleteEntry: entries => dispatch(actions.deleteEntry(entries))
+    deleteEntry: (entries) => dispatch(actions.deleteEntry(entries)),
   };
 };
 

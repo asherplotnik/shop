@@ -204,7 +204,7 @@ class Profile extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className={classes.Trans}>
         <Modal
           show={this.state.changeDetailsPressed}
           modalClosed={this.onChangeDetailsPressed}
@@ -368,7 +368,7 @@ class Profile extends Component {
             </div>
           </div>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

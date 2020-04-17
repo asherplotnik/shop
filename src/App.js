@@ -51,7 +51,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     isAuth:
       state.authReducer.user === null
@@ -59,13 +59,13 @@ const mapStateToProps = state => {
         : state.authReducer.user.level === "admin"
         ? true
         : false,
-    logedOut: state.authReducer.token === null
+    logedOut: state.authReducer.token === null,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onTryAutoSignup: () => dispatch(actions.authCheckState())
+    onTryAutoSignup: () => dispatch(actions.authCheckState()),
   };
 };
 

@@ -105,7 +105,7 @@ class Items extends Component {
         );
       });
       viewPage = (
-        <React.Fragment>
+        <div className={classes.Trans}>
           <div className={classes.PathName}>
             <PathLine currentPath={currentPath} />
           </div>
@@ -148,7 +148,7 @@ class Items extends Component {
               </button>
             </div>
           </div>
-        </React.Fragment>
+        </div>
       );
     }
 

@@ -151,7 +151,7 @@ class BItems extends Component {
     let viewPage = <Spinner />;
     if (!this.props.loading) {
       viewPage = (
-        <React.Fragment>
+        <div className={classes.Trans}>
           <Modal
             width="900px"
             left="25%"
@@ -218,7 +218,7 @@ class BItems extends Component {
             passedStock={this.props.stockData}
           />
           ;
-        </React.Fragment>
+        </div>
       );
     }
 

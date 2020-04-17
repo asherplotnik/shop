@@ -25,7 +25,7 @@ const About = () => {
   let viewPage = <Spinner />;
   if (!loading) {
     viewPage = (
-      <div className={classes.Wrapper}>
+      <div className={[classes.Wrapper, classes.Trans].join(" ")}>
         <div>
           <h1 className={classes.FirstHeader}>{content.mainTitle}</h1>
         </div>

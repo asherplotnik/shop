@@ -79,7 +79,7 @@ const BHome = (props) => {
   }
   if (!loadingAbout) {
     viewPage = (
-      <div className={classes.Wrapper}>
+      <div className={[classes.Wrapper, classes.Trans].join(" ")}>
         <div className={classes.Buttons}>
           <Button clicked={onUpdateAbout} btnType="Success">
             Update About Us

@@ -1,64 +1,79 @@
 .Items {
-    width: 100%;
-    display: inline-block;
+  width: 100%;
+  display: inline-block;
+}
+
+.Wrapper {
+  text-align: center;
+}
+
+.PathName {
+  text-align: left;
+  margin-bottom: 40px;
+  margin-left: 50px;
+}
+
+.Search {
+  text-align: left;
+  margin-left: 50px;
+  color: rgb(179, 178, 178);
+}
+
+.Search input {
+  text-align: left;
+  color: rgb(179, 178, 178);
+}
+
+.Button {
+  color: #09b6f5;
+  font-size: large;
+  background-color: transparent;
+  border: none;
+  margin-left: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.Button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+.Button:hover {
+  font-weight: bolder;
+}
+
+.SpanD {
+  margin-left: 20px;
+  margin-right: 20px;
+  color: #ccc;
+}
+
+.Span {
+  margin-left: 20px;
+  margin-right: 20px;
+  color: #09b6f5;
+}
+
+.Input {
+  border: none;
+  border-bottom: #b6e4f5 solid 1px;
+  padding: 8px 15px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+.Trans {
+  animation: trans 0.3s ease-out forwards;
+}
+
+@keyframes trans {
+  0% {
+    opacity: 0;
   }
-  
-  .Wrapper {
-    text-align: center;
+  50% {
+    opacity: 50%;
   }
-  
-  .PathName {
-    text-align: left;
-    margin-bottom: 40px;
-    margin-left: 50px;
+  100% {
+    opacity: 100%;
   }
-  
-  .Search {
-    text-align: left;
-    margin-left: 50px;
-    color: rgb(179, 178, 178);
-  }
-  
-  .Search input {
-    text-align: left;
-    color: rgb(179, 178, 178);
-  }
-  
-  .Button {
-    color: #09b6f5;
-    font-size: large;
-    background-color: transparent;
-    border: none;
-    margin-left: 20px;
-    margin-right: 20px;
-    cursor: pointer;
-  }
-  
-  .Button:disabled {
-    color: #ccc;
-    cursor: not-allowed;
-  }
-  .Button:hover {
-    font-weight: bolder;
-  }
-  
-  .SpanD {
-    margin-left: 20px;
-    margin-right: 20px;
-    color: #ccc;
-  }
-  
-  .Span {
-    margin-left: 20px;
-    margin-right: 20px;
-    color: #09b6f5;
-  }
-  
-  .Input {
-    border: none;
-    border-bottom: #b6e4f5 solid 1px;
-    padding: 8px 15px;
-    margin: 8px 0;
-    box-sizing: border-box;
-  }
-  
+}

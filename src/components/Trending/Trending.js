@@ -100,7 +100,7 @@ class Trending extends Component {
         );
       });
       viewPage = (
-        <React.Fragment>
+        <div className={classes.Trans}>
           <div className={classes.PathName}>
             <PathLine currentPath={currentPath} />
           </div>
@@ -143,7 +143,7 @@ class Trending extends Component {
               </button>
             </div>
           </div>
-        </React.Fragment>
+        </div>
       );
     }
 

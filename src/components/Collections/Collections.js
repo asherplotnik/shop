@@ -47,14 +47,14 @@ class Collections extends Component {
         );
       });
       viewPage = (
-        <React.Fragment>
+        <div className={classes.Trans}>
           <div className={classes.PathName}>
             <PathLine currentPath={currentPath} />
           </div>
           <div className={classes.Wrapper}>
             <div className={classes.Collections}>{jsxMap}</div>
           </div>
-        </React.Fragment>
+        </div>
       );
     }
 

@@ -3,6 +3,7 @@ import ImageGallery from "react-image-gallery";
 import { serverAddress } from "../../../assets/helper";
 import axios from "axios";
 import Spinner from "../../UI/Spinner/Spinner";
+import classes from "./Slide.module.css";
 
 const Slide = () => {
   const fetchImages = () => {
@@ -29,7 +30,7 @@ const Slide = () => {
     });
     viewPage = (
       <div>
-        <div>
+        <div className={classes.Trans}>
           <ImageGallery
             items={arr}
             showNav={true}

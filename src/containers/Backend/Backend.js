@@ -7,11 +7,12 @@ import BUsers from "./bcomponents/BUsers/BUsers";
 import BLayout from "./bcomponents/BLayout/BLayout";
 import BHome from "./bcomponents/BHome/BHome";
 import BOrders from "./bcomponents/BOrders/BOrders";
+import classes from "./Backend.module.css";
 class Backend extends Component {
   state = {};
   render() {
     return (
-      <React.Fragment>
+      <div className={classes.Trans}>
         <Switch>
           <BLayout>
             <Route path="/backend" exact component={BHome} />
@@ -22,7 +23,7 @@ class Backend extends Component {
             <Route path="/backend/orders" component={BOrders} />
           </BLayout>
         </Switch>
-      </React.Fragment>
+      </div>
     );
   }
 }

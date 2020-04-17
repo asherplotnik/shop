@@ -265,7 +265,7 @@ class Checkout extends Component {
       </React.Fragment>
     );
     return (
-      <React.Fragment>
+      <div className={classes.Trans}>
         <Modal
           show={this.state.confirmed}
           modalCLosed={this.onConfirmedPressed}
@@ -311,7 +311,7 @@ class Checkout extends Component {
         </Modal>
         <h2 className={classes.Header}>CHECKOUT</h2>
         {viewPage}
-      </React.Fragment>
+      </div>
     );
   }
 }

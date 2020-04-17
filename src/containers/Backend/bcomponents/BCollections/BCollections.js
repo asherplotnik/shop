@@ -375,7 +375,7 @@ class BCollections extends Component {
           </div>
         </React.Fragment>
       );
-      return <div>{viewPage}</div>;
+      return <div className={classes.Trans}>{viewPage}</div>;
     }
   }
 }
