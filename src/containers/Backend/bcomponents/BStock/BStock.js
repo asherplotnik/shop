@@ -10,7 +10,7 @@ import Modal from "../../../../components/UI/Modal/Modal";
 import ModalConfirm from "../../../../components/UI/Modal/modalContents/modalConfirm/ModalConfirm";
 import Button from "../../../../components/UI/Button/Button";
 import AddTransForm from "../AddTransForm/AddTransForm";
-import { serverAddress } from "../../../../assets/helper";
+import { serverAddress, gc } from "../../../../assets/helper";
 
 class BStock extends Component {
   state = {
@@ -193,9 +193,9 @@ class BStock extends Component {
     axios
       .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
-        console.log(serverAddress + "/images/" + response.data[0].img);
+        console.log(gc + "images/" + response.data[0].img);
         this.setState({
-          image: serverAddress + "/images/" + response.data[0].img,
+          image: gc + "images/" + response.data[0].img,
         });
       })
       .catch((error) => {

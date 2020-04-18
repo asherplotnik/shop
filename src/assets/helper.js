@@ -56,5 +56,5 @@ export function requestQuery(sql, action) {
 
 export const local = "http://localhost:9000/";
 export const heroku = "https://indyapi.herokuapp.com/";
-
+export const gc = "https://storage.cloud.google.com/indy-4cba2.appspot.com/";
 export const serverAddress = local;

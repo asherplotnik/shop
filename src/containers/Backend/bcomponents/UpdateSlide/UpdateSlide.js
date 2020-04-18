@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { serverAddress } from "../../../../assets/helper";
+import { serverAddress, gc } from "../../../../assets/helper";
 import classes from "./UpdateSlide.module.css";
 import Button from "../../../../components/UI/Button/Button";
 import Spinner from "../../../../components/UI/Spinner/Spinner";
@@ -91,8 +91,8 @@ const UpdateSlide = () => {
           <div>
             <img
               className={classes.Img}
-              src={serverAddress + "images/" + row.original}
-              alt={serverAddress + "images/" + row.original}
+              src={gc + "images/" + row.original}
+              alt={gc + "images/" + row.original}
             />
             <p>{row.original}</p>
           </div>

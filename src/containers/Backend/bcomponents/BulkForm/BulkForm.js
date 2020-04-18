@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classes from "./bulkForm.module.css";
-import { serverAddress } from "../../../../assets/helper";
+import { gc } from "../../../../assets/helper";
 const BulkForm = (props) => {
   const [ExcelfileUploaded, setExcelFileUploaded] = useState(0);
   const [ZipfileUploaded, setZipFileUploaded] = useState(0);
@@ -52,7 +52,7 @@ const BulkForm = (props) => {
         </p>
         <img
           style={{ border: "solid 1px black", width: "95%" }}
-          src={serverAddress + "/images/bulk.jpg"}
+          src={gc + "images/bulk.jpg"}
           alt="bulk"
         />{" "}
         <br></br>

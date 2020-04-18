@@ -72,3 +72,12 @@
 .Hide {
   display: none;
 }
+
+.Flag {
+  margin-top: 4px;
+  padding: 3px;
+  border: solid 1px transparent;
+}
+.Flag:hover {
+  cursor: pointer;
+}

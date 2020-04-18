@@ -1,5 +1,5 @@
 import React from "react";
-import { serverAddress } from "../../../../assets/helper";
+import { gc } from "../../../../assets/helper";
 import classes from "./ItemsTable.module.css";
 import Button from "../../../../components/UI/Button/Button";
 import ReactTable from "react-table-6";
@@ -176,7 +176,7 @@ const itemsTable = (props) => {
       Cell: (row) => (
         <div style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
           <img
-            src={serverAddress + "images/" + row.value}
+            src={gc + "images/" + row.value}
             alt={row.value}
             style={{ width: "100px" }}
             className={classes.CellStyle}
@@ -196,7 +196,7 @@ const itemsTable = (props) => {
       Cell: (row) => (
         <div style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
           <img
-            src={serverAddress + "images/" + row.value}
+            src={gc + "images/" + row.value}
             alt={row.value}
             style={{ width: "100px" }}
             className={classes.CellStyle}

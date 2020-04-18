@@ -22,3 +22,5 @@ export {
   changePhone,
   changeUserName,
 } from "./authActions";
+
+export { changeLang } from "./langActions";

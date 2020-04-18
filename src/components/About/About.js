@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classes from "./About.module.css";
 import axios from "axios";
-import { serverAddress } from "../../assets/helper";
+import { serverAddress, gc } from "../../assets/helper";
 import Spinner from "../UI/Spinner/Spinner";
 
 const About = () => {
@@ -31,7 +31,7 @@ const About = () => {
         </div>
         <div className={classes.FirstDiv}>
           <img
-            src={serverAddress + "images/" + content.firstImage}
+            src={gc + "images/" + content.firstImage}
             alt={content.firstImage}
           />
           <div className={classes.Pdiv}>
@@ -44,14 +44,14 @@ const About = () => {
           </div>
           <div>
             <img
-              src={serverAddress + "images/" + content.secondImage}
+              src={gc + "images/" + content.secondImage}
               alt={content.secondImage}
             />
           </div>
         </div>
         <div className={classes.ThirdDiv}>
           <img
-            src={serverAddress + "images/" + content.thirdImage}
+            src={gc + "images/" + content.thirdImage}
             alt={content.thirdImage}
           />
           <div className={classes.Pdiv}>

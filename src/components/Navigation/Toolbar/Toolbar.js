@@ -6,10 +6,29 @@ import DrawerToggle from "../SideDrawer/DrawerToggle/DrawerToggle";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/index";
-import { serverAddress } from "../../../assets/helper";
-const toolbar = (props) => {
+import { gc } from "../../../assets/helper";
+const Toolbar = (props) => {
+  const dic = {
+    login: { eng: "LOGIN", thai: "เข้าสู่ระบบ" },
+    logout: { eng: "LOGOUT", thai: "ออกจากระบบ" },
+  };
+  if (localStorage.getItem("lang") === null) {
+    localStorage.setItem("lang", props.lang);
+  } else {
+    props.setLang(localStorage.getItem("lang"));
+  }
+
   const onPressedCart = () => {
     props.history.push("/shoppingcart");
+  };
+
+  const onChangeLangPressed = () => {
+    props.setLang(props.lang === "thai" ? "eng" : "thai");
+    if (localStorage.getItem("lang") === "thai") {
+      localStorage.setItem("lang", "eng");
+    } else {
+      localStorage.setItem("lang", "thai");
+    }
   };
 
   const onPressedLogin = () => {
@@ -34,6 +53,7 @@ const toolbar = (props) => {
             </div>
             <nav className={classes.DesktopOnly}>
               <NavigationItems
+                lang={props.lang}
                 showBackend={
                   props.user === null
                     ? false
@@ -46,12 +66,27 @@ const toolbar = (props) => {
             </nav>
           </div>
           <div style={{ display: "flex" }}>
-            <p
-              onClick={onPressedLogin}
-              style={{ margin: "20px", cursor: "pointer" }}
-            >
-              {props.token === null ? "LOGIN" : "LOGOUT"}
-            </p>
+            <div className={classes.Flag} onClick={onChangeLangPressed}>
+              <img
+                style={{ width: "40px" }}
+                src={gc + "images/" + props.lang + ".png"}
+                alt={""}
+              />
+            </div>
+            <div style={{ width: "125px" }}>
+              <p
+                onClick={onPressedLogin}
+                style={{
+                  margin: "20px",
+                  cursor: "pointer",
+                  fontSize: "larger",
+                }}
+              >
+                {props.token === null
+                  ? dic.login[props.lang]
+                  : dic.logout[props.lang]}
+              </p>
+            </div>
             <div
               onClick={onPressedCart}
               className={[showCart, classes.DesktopOnly].join(" ")}
@@ -59,14 +94,14 @@ const toolbar = (props) => {
               <div onClick={onPressedCart} className={classes.Cart2}>
                 <img
                   onClick={onPressedCart}
-                  src={serverAddress + "/images/cart2.png"}
+                  src={gc + "images/cart2.png"}
                   alt="cart"
                 />
               </div>
               <div onClick={onPressedCart} className={classes.Cart}>
                 <img
                   onClick={onPressedCart}
-                  src={serverAddress + "/images/cart.png"}
+                  src={gc + "images/cart.png"}
                   alt="cart"
                 />
               </div>
@@ -85,15 +120,17 @@ const mapStateToProps = (state) => {
     token: state.authReducer.token,
     userId: state.authReducer.userId,
     user: state.authReducer.user,
+    lang: state.langReducer.lang,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onLogout: () => dispatch(actions.logout()),
+    setLang: (passedLang) => dispatch(actions.changeLang(passedLang)),
   };
 };
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(toolbar));
+)(withRouter(Toolbar));

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ImageGallery from "react-image-gallery";
-import { serverAddress } from "../../../assets/helper";
+import { serverAddress, gc } from "../../../assets/helper";
 import axios from "axios";
 import Spinner from "../../UI/Spinner/Spinner";
 import classes from "./Slide.module.css";
@@ -24,8 +24,8 @@ const Slide = () => {
   if (!loading) {
     let arr = images.map((row) => {
       return {
-        original: serverAddress + "images/" + row.original,
-        thumbnail: serverAddress + "images/" + row.thumbnail,
+        original: gc + "images/" + row.original,
+        thumbnail: gc + "images/" + row.thumbnail,
       };
     });
     viewPage = (

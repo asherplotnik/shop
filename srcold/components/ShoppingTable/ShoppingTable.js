@@ -1,5 +1,5 @@
 import React from "react";
-import { serverAddress } from "../../assets/helper";
+import { gc } from "../../assets/helper";
 import classes from "./ShoppingTable.module.css";
 import Button from "../UI/Button/Button";
 const shoppingTable = (props) => {
@@ -33,7 +33,7 @@ const shoppingTable = (props) => {
       <tr key={index}>
         <td className={classes.Td}>
           <img
-            src={serverAddress + "images/" + entry.img}
+            src={gc + "images/" + entry.img}
             alt={entry.img}
             className={classes.Img}
           />

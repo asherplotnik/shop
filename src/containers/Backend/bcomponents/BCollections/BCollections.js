@@ -9,7 +9,7 @@ import Modal from "../../../../components/UI/Modal/Modal";
 import ModalConfirm from "../../../../components/UI/Modal/modalContents/modalConfirm/ModalConfirm";
 import AddCollectionForm from "../AddCollectionForm/AddCollectionForm";
 import UpdateCollectionForm from "../UpdateCollectionForm/UpdateCollectionForm";
-import { serverAddress } from "../../../../assets/helper";
+import { serverAddress, gc } from "../../../../assets/helper";
 
 class BCollections extends Component {
   state = {
@@ -221,7 +221,7 @@ class BCollections extends Component {
         accessor: "img",
         Cell: (row) => (
           <img
-            src={serverAddress + "images/" + row.value}
+            src={gc + "images/" + row.value}
             alt={row.value}
             style={{ width: "100px", height: "100px" }}
           />

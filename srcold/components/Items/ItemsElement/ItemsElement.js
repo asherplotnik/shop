@@ -1,5 +1,5 @@
 import React from "react";
-import { serverAddress } from "../../../assets/helper";
+import { gc } from "../../../assets/helper";
 import classes from "./ItemsElement.module.css";
 import { NavLink } from "react-router-dom";
 
@@ -20,7 +20,7 @@ const ItemsElement = (props) => {
           <div style={{ height: "300px", lineHeight: "300px" }}>
             <img
               className={classes.Image1}
-              src={serverAddress + "images/" + props.img}
+              src={gc + "images/" + props.img}
               alt={props.img}
             />
           </div>
@@ -33,7 +33,7 @@ const ItemsElement = (props) => {
           <div style={{ height: "300px", lineHeight: "300px" }}>
             <img
               className={classes.Image2}
-              src={serverAddress + "images/" + props.img2}
+              src={gc + "images/" + props.img2}
               alt={props.img2}
             />
           </div>

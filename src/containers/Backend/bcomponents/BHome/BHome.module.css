@@ -1,6 +1,8 @@
+@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
 .Show {
   width: 80%;
   display: inline-block;
+  animation: trans 0.3s ease-in-out forwards;
 }
 .Border {
   border: 1px solid rgb(235, 232, 232);
@@ -9,9 +11,26 @@
   width: 60%;
   padding: 5px;
 }
+.Lang {
+  border: 1px solid rgb(235, 232, 232);
+  border-radius: 5px;
+  box-shadow: 0 2px 3px #ccc;
+  width: 435px;
+  padding: 5px;
+  text-align: left;
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}
+.Lang select {
+  border: 1px solid rgb(235, 232, 232);
+  border-radius: 5px;
+  width: 435px;
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}
 .Buttons {
   text-align: left;
-  margin-left: 30px;
+
   width: 80%;
   display: inline-block;
 }

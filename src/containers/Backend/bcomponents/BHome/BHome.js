@@ -9,6 +9,7 @@ import UpdateSlide from "../UpdateSlide/UpdateSlide";
 const BHome = (props) => {
   let [updateAboutPressed, setUpdateAboutPressed] = useState(false);
   let [updateSlidePressed, setUpdateSlidePressed] = useState(false);
+  // let [changeLangPressed, setChangeLangPressed] = useState(false);
   let [aboutContent, setAboutContent] = useState(null);
   let [loadingAbout, setLoadingAbout] = useState(true);
 
@@ -27,6 +28,18 @@ const BHome = (props) => {
       });
   };
 
+  // const onChangeLangHandler = (e) => {
+  //   e.preventDefault();
+  //   const formData = new FormData(document.querySelector("#setLang"));
+  //   const selectedLang = formData.get("lang") === "ENGLISH" ? "eng" : "thai";
+  //   axios
+  //     .post(serverAddress + "API/update", {
+  //       sql: "UPDATE about set lang = '" + selectedLang + "' WHERE id = 1",
+  //     })
+  //     .then((response) => console.log(response))
+  //     .catch((err) => console.log(err));
+  //   setChangeLangPressed(false);
+  // };
   const updateAboutHandler = (e) => {
     e.preventDefault();
     setLoadingAbout(true);
@@ -47,12 +60,21 @@ const BHome = (props) => {
   };
   const onUpdateAbout = () => {
     setUpdateSlidePressed(false);
+    // setChangeLangPressed(false);
     setUpdateAboutPressed(!updateAboutPressed);
   };
   const onUpdateSlide = () => {
     setUpdateAboutPressed(false);
+    // setChangeLangPressed(false);
     setUpdateSlidePressed(!updateSlidePressed);
   };
+
+  // const onChangeLangPressed = () => {
+  //   setUpdateAboutPressed(false);
+  //   setUpdateSlidePressed(false);
+  //   setChangeLangPressed(!changeLangPressed);
+  // };
+
   let viewPage = <Spinner />;
   let viewSubComponent = null;
   if (updateSlidePressed) {
@@ -77,6 +99,25 @@ const BHome = (props) => {
       </div>
     );
   }
+  // if (changeLangPressed) {
+  //   viewSubComponent = (
+  //     <div className={classes.Show}>
+  //       <div className={classes.Lang}>
+  //         <p>SELECT LANGUAGE: </p>
+  //         <form id="setLang" onSubmit={onChangeLangHandler}>
+  //           <select name="lang">
+  //             <option key={"1"}>ENGLISH</option>
+  //             <option key={"2"}>ไทย</option>
+  //           </select>
+  //           <br />
+  //           <div style={{ textAlign: "center" }}>
+  //             <input type="submit" value="SUBMIT" />
+  //           </div>
+  //         </form>
+  //       </div>
+  //     </div>
+  //   );
+  // }
   if (!loadingAbout) {
     viewPage = (
       <div className={[classes.Wrapper, classes.Trans].join(" ")}>
@@ -87,6 +128,9 @@ const BHome = (props) => {
           <Button clicked={onUpdateSlide} btnType="Success">
             Update slide
           </Button>
+          {/* <Button clicked={onChangeLangPressed} btnType="Success">
+            Change Language
+          </Button> */}
         </div>
         {viewSubComponent}
       </div>

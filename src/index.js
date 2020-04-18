@@ -9,6 +9,7 @@ import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import itemsReducer from "./store/reducers/itemsReducer";
 import cartReducer from "./store/reducers/cartReducer";
 import authReducer from "./store/reducers/authReducer";
+import langReducer from "./store/reducers/langReducer";
 import thunk from "redux-thunk";
 
 //const composeEnhancers = compose;
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   itemsReducer: itemsReducer,
   cartReducer: cartReducer,
   authReducer: authReducer,
+  langReducer: langReducer,
 });
 
 const store = createStore(
