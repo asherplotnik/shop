@@ -193,9 +193,9 @@ class BStock extends Component {
     axios
       .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
-        console.log(gc + "images/" + response.data[0].img);
+        console.log(gc + response.data[0].img);
         this.setState({
-          image: gc + "images/" + response.data[0].img,
+          image: gc + response.data[0].img,
         });
       })
       .catch((error) => {

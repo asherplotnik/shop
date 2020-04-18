@@ -26,10 +26,10 @@ const sideDrawer = (props) => {
         </nav>
         <div onClick={onPressedCart} className={classes.Cart0}>
           <div onClick={onPressedCart} className={classes.Cart2}>
-            <img src={gc + "images/cart2.png"} alt="cart" />
+            <img src={gc + "cart2.png"} alt="cart" />
           </div>
           <div className={classes.Cart}>
-            <img src={gc + "images/cart.png"} alt="cart" />
+            <img src={gc + "cart.png"} alt="cart" />
           </div>
         </div>
       </div>

@@ -69,7 +69,7 @@ const Toolbar = (props) => {
             <div className={classes.Flag} onClick={onChangeLangPressed}>
               <img
                 style={{ width: "40px" }}
-                src={gc + "images/" + props.lang + ".png"}
+                src={gc + props.lang + ".png"}
                 alt={""}
               />
             </div>
@@ -94,16 +94,12 @@ const Toolbar = (props) => {
               <div onClick={onPressedCart} className={classes.Cart2}>
                 <img
                   onClick={onPressedCart}
-                  src={gc + "images/cart2.png"}
+                  src={gc + "cart2.png"}
                   alt="cart"
                 />
               </div>
               <div onClick={onPressedCart} className={classes.Cart}>
-                <img
-                  onClick={onPressedCart}
-                  src={gc + "images/cart.png"}
-                  alt="cart"
-                />
+                <img onClick={onPressedCart} src={gc + "cart.png"} alt="cart" />
               </div>
             </div>
           </div>

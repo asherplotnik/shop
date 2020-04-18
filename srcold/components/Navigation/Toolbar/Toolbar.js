@@ -59,16 +59,12 @@ const toolbar = (props) => {
               <div onClick={onPressedCart} className={classes.Cart2}>
                 <img
                   onClick={onPressedCart}
-                  src={gc + "images/cart2.png"}
+                  src={gc + "cart2.png"}
                   alt="cart"
                 />
               </div>
               <div onClick={onPressedCart} className={classes.Cart}>
-                <img
-                  onClick={onPressedCart}
-                  src={gc + "images/cart.png"}
-                  alt="cart"
-                />
+                <img onClick={onPressedCart} src={gc + "cart.png"} alt="cart" />
               </div>
             </div>
           </div>

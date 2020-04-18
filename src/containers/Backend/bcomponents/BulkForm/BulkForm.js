@@ -52,7 +52,7 @@ const BulkForm = (props) => {
         </p>
         <img
           style={{ border: "solid 1px black", width: "95%" }}
-          src={gc + "images/bulk.jpg"}
+          src={gc + "bulk.jpg"}
           alt="bulk"
         />{" "}
         <br></br>

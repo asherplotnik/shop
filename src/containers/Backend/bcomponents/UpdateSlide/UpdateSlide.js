@@ -91,8 +91,8 @@ const UpdateSlide = () => {
           <div>
             <img
               className={classes.Img}
-              src={gc + "images/" + row.original}
-              alt={gc + "images/" + row.original}
+              src={gc + row.original}
+              alt={gc + row.original}
             />
             <p>{row.original}</p>
           </div>

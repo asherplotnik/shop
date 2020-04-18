@@ -24,8 +24,8 @@ const Slide = () => {
   if (!loading) {
     let arr = images.map((row) => {
       return {
-        original: gc + "images/" + row.original,
-        thumbnail: gc + "images/" + row.thumbnail,
+        original: gc + row.original,
+        thumbnail: gc + row.thumbnail,
       };
     });
     viewPage = (

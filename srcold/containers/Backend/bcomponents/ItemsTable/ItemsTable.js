@@ -176,7 +176,7 @@ const itemsTable = (props) => {
       Cell: (row) => (
         <div style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
           <img
-            src={gc + "images/" + row.value}
+            src={gc + row.value}
             alt={row.value}
             style={{ width: "100px" }}
             className={classes.CellStyle}
@@ -196,7 +196,7 @@ const itemsTable = (props) => {
       Cell: (row) => (
         <div style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
           <img
-            src={gc + "images/" + row.value}
+            src={gc + row.value}
             alt={row.value}
             style={{ width: "100px" }}
             className={classes.CellStyle}

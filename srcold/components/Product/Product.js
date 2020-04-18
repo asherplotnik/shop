@@ -129,10 +129,10 @@ class Product extends Component {
         return (
           <div key={1}>
             <div className={classes.ImageDiv}>
-              <img src={gc + "images/" + item.img} alt="img" />
+              <img src={gc + item.img} alt="img" />
               <div className={classes.Desc}>
                 <img
-                  src={gc + "images/" + item.img2}
+                  src={gc + item.img2}
                   alt="img2"
                   className={classes.Image2}
                 />

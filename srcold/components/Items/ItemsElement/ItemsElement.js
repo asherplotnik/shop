@@ -20,7 +20,7 @@ const ItemsElement = (props) => {
           <div style={{ height: "300px", lineHeight: "300px" }}>
             <img
               className={classes.Image1}
-              src={gc + "images/" + props.img}
+              src={gc + props.img}
               alt={props.img}
             />
           </div>
@@ -33,7 +33,7 @@ const ItemsElement = (props) => {
           <div style={{ height: "300px", lineHeight: "300px" }}>
             <img
               className={classes.Image2}
-              src={gc + "images/" + props.img2}
+              src={gc + props.img2}
               alt={props.img2}
             />
           </div>

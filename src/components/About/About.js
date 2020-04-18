@@ -30,10 +30,7 @@ const About = () => {
           <h1 className={classes.FirstHeader}>{content.mainTitle}</h1>
         </div>
         <div className={classes.FirstDiv}>
-          <img
-            src={gc + "images/" + content.firstImage}
-            alt={content.firstImage}
-          />
+          <img src={gc + content.firstImage} alt={content.firstImage} />
           <div className={classes.Pdiv}>
             <p>{content.firstParagraph}</p>
           </div>
@@ -43,17 +40,11 @@ const About = () => {
             <p>{content.secondParagraph}</p>
           </div>
           <div>
-            <img
-              src={gc + "images/" + content.secondImage}
-              alt={content.secondImage}
-            />
+            <img src={gc + content.secondImage} alt={content.secondImage} />
           </div>
         </div>
         <div className={classes.ThirdDiv}>
-          <img
-            src={gc + "images/" + content.thirdImage}
-            alt={content.thirdImage}
-          />
+          <img src={gc + content.thirdImage} alt={content.thirdImage} />
           <div className={classes.Pdiv}>
             <p>{content.thirdParagraph}</p>
           </div>

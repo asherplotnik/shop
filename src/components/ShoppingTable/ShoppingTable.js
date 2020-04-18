@@ -32,11 +32,7 @@ const shoppingTable = (props) => {
     return (
       <tr key={index}>
         <td className={classes.Td}>
-          <img
-            src={gc + "images/" + entry.img}
-            alt={entry.img}
-            className={classes.Img}
-          />
+          <img src={gc + entry.img} alt={entry.img} className={classes.Img} />
         </td>
         <td className={classes.Td}>
           <span>{entry.code}</span>

@@ -221,7 +221,7 @@ class BCollections extends Component {
         accessor: "img",
         Cell: (row) => (
           <img
-            src={gc + "images/" + row.value}
+            src={gc + row.value}
             alt={row.value}
             style={{ width: "100px", height: "100px" }}
           />

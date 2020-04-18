@@ -14,8 +14,8 @@ const CollectionsElement = (props) => {
         <div style={{ height: "300px", lineHeight: "300px" }}>
           <img
             className={classes.Image}
-            // src={gc + "images/" + props.img}
-            src={gc + "images/" + props.img}
+            // src={gc  + props.img}
+            src={gc + props.img}
             alt={props.img}
           />
         </div>
