@@ -134,7 +134,7 @@ const BUsers = () => {
           response.data.map((row) => {
             return {
               id: row.id,
-              userId: row.userId,
+              userId: row.userid,
               username: row.username,
               email: row.email,
               address: row.address,

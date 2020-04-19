@@ -73,7 +73,7 @@ const Toolbar = (props) => {
                 alt={""}
               />
             </div>
-            <div style={{ width: "125px" }}>
+            <div style={{ width: "150px" }}>
               <p
                 onClick={onPressedLogin}
                 style={{
