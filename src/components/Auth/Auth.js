@@ -219,11 +219,11 @@ class Auth extends Component {
           </div>
           <ul className={classes.FormList}>
             <li>
-              <label htmlFor="email">{dic.email[lang]}</label>
+              <label htmlFor="email">{dic.email[lang]} </label>
               <input name="email" type="email" required />
             </li>
             <li>
-              <label htmlFor="password">{dic.password[lang]}</label>
+              <label htmlFor="password">{dic.password[lang]} </label>
               <input name="password" type="password" minLength="6" required />
             </li>
           </ul>

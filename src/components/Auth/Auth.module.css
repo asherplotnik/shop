@@ -67,3 +67,12 @@
     width: 500px;
   }
 }
+
+@media (max-width: 500px) {
+  .FormList li input {
+    width: 100px;
+  }
+  .FormList li {
+    font-size: medium;
+  }
+}
