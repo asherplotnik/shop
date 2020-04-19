@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import * as actions from "../../store/actions/index";
 import ProfileTable from "../ProfileTable/ProfileTable";
-import { serverAddress } from "../../assets/helper";
+import { serverAddress, dic } from "../../assets/helper";
 
 class Profile extends Component {
   state = {
@@ -207,6 +207,7 @@ class Profile extends Component {
   };
 
   render() {
+    const lang = this.props.lang;
     let viewPage = <Spinner />;
     if (this.props.token !== null) {
       viewPage = (
@@ -217,10 +218,10 @@ class Profile extends Component {
           >
             <div className={classes.Modal}>
               <form id="detailsForm" onSubmit={this.changeDetailsHandler}>
-                <p className={classes.Font}>CHANGE DETAILS:</p>
+                <p className={classes.Font}>{dic.changeDetails[lang]}:</p>
                 <ul className={classes.FormList}>
                   <li key="f">
-                    <label htmlFor="username">NAME:</label>
+                    <label htmlFor="username">{dic.name[lang]}</label>
                     <input
                       type="text"
                       defaultValue={this.props.user.username}
@@ -228,7 +229,7 @@ class Profile extends Component {
                     />
                   </li>
                   <li key="g">
-                    <label htmlFor="phone">PHONE:</label>
+                    <label htmlFor="phone">{dic.phone[lang]}</label>
                     <input
                       defaultValue={this.props.user.phone}
                       type="text"
@@ -236,7 +237,7 @@ class Profile extends Component {
                     />
                   </li>
                   <li key="h">
-                    <label htmlFor="address">ADDRESS:</label>
+                    <label htmlFor="address">{dic.address[lang]}</label>
                     <textarea
                       style={{ resize: "none" }}
                       rows="4"
@@ -247,13 +248,18 @@ class Profile extends Component {
                   </li>
                 </ul>
                 {this.state.message}
-                <input className={classes.Font} type="submit" value="SUBMIT" />
+                <input
+                  className={classes.Font}
+                  type="submit"
+                  value={dic.submit[lang]}
+                />
                 <span style={{ opacity: "0%" }}>_____</span>
                 <button
+                  type="button"
                   className={classes.Font}
                   onClick={this.onChangeDetailsPressed}
                 >
-                  CANCEL
+                  {dic.cancel[lang]}
                 </button>
               </form>
             </div>
@@ -265,25 +271,30 @@ class Profile extends Component {
           >
             <div className={classes.Modal}>
               <form id="emailForm" onSubmit={this.changeEmailHandler}>
-                <p className={classes.Font}>CHANGE EMAIL:</p>
+                <p className={classes.Font}>{dic.changeEmail[lang]}:</p>
                 <ul className={classes.FormList}>
                   <li key="i">
-                    <label htmlFor="email">NEW EMAIL:</label>
+                    <label htmlFor="email">{dic.newEmail[lang]}</label>
                     <input type="email" name="email" />
                   </li>
                   <li key="j">
-                    <label htmlFor="confirm">CONFIRM EMAIL:</label>
+                    <label htmlFor="confirm">{dic.confirmEmail[lang]}</label>
                     <input type="email" name="confirm" />
                   </li>
                 </ul>
                 {this.state.message}
-                <input className={classes.Font} type="submit" value="SUBMIT" />
+                <input
+                  className={classes.Font}
+                  type="submit"
+                  value={dic.submit[lang]}
+                />
                 <span style={{ opacity: "0%" }}>_____</span>
                 <button
+                  type="button"
                   className={classes.Font}
-                  onClick={this.onChangePasswordPressed}
+                  onClick={this.onChangeEmailPressed}
                 >
-                  CANCEL
+                  {dic.cancel[lang]}
                 </button>
               </form>
             </div>
@@ -295,7 +306,7 @@ class Profile extends Component {
           >
             <div className={classes.Modal}>
               <form id="passwordForm" onSubmit={this.changePasswordHandler}>
-                <p className={classes.Font}>CHANGE PASSWORD:</p>
+                <p className={classes.Font}>{dic.changePassword[lang]}:</p>
                 <ul className={classes.FormList}>
                   <li key="i">
                     <label htmlFor="password">NEW PASSWORD:</label>
@@ -307,27 +318,38 @@ class Profile extends Component {
                   </li>
                 </ul>
                 {this.state.message}
-                <input className={classes.Font} type="submit" value="SUBMIT" />
+                <input
+                  className={classes.Font}
+                  type="submit"
+                  value={dic.submit[lang]}
+                />
                 <span style={{ opacity: "0%" }}>_____</span>
                 <button
+                  type="button"
                   className={classes.Font}
                   onClick={this.onChangePasswordPressed}
                 >
-                  CANCEL
+                  {dic.cancel[lang]}
                 </button>
               </form>
             </div>
           </Modal>
           <div className={classes.Page}>
-            <h1>YOUR DETAILS</h1>
+            <h1>{dic.yourDetails[lang]}</h1>
             <div className={[classes.Divider, classes.Trans].join(" ")}>
               <div>
                 <div className={classes.DetailsWrapper}>
                   <div className={classes.DetailList}>
                     <ul className={classes.List}>
-                      <li key="a">NAME: {this.props.user.username}</li>
-                      <li key="b">PHONE: {this.props.user.phone}</li>
-                      <li key="c">ADDRESS: {this.props.user.address}</li>
+                      <li key="a">
+                        {dic.name[lang]} {this.props.user.username}
+                      </li>
+                      <li key="b">
+                        {dic.phone[lang]} {this.props.user.phone}
+                      </li>
+                      <li key="c">
+                        {dic.address[lang]} {this.props.user.address}
+                      </li>
                     </ul>
                   </div>
                   <div className={classes.Buttons}>
@@ -335,7 +357,7 @@ class Profile extends Component {
                       btnType="SuccessSmall"
                       clicked={this.onChangeDetailsPressed}
                     >
-                      CHANGE DETAILS
+                      {dic.changeDetails[lang]}
                     </Button>
                   </div>
                 </div>
@@ -344,8 +366,10 @@ class Profile extends Component {
                 <div className={classes.DetailsWrapper}>
                   <div className={classes.DetailList}>
                     <ul className={classes.List}>
-                      <li key="d">EMAIL: {this.props.user.email}</li>
-                      <li key="e">PASSWORD: •••••••••• </li>
+                      <li key="d">
+                        {dic.email[lang]} {this.props.user.email}
+                      </li>
+                      <li key="e">{dic.password[lang]} •••••••••• </li>
                     </ul>
                   </div>
                   <div className={classes.Buttons}>
@@ -354,7 +378,7 @@ class Profile extends Component {
                         btnType="SuccessSmall"
                         clicked={this.onChangeEmailPressed}
                       >
-                        CHANGE EMAIL
+                        {dic.changeEmail[lang]}
                       </Button>
                     </div>
                     <div>
@@ -362,15 +386,15 @@ class Profile extends Component {
                         btnType="SuccessSmall"
                         clicked={this.onChangePasswordPressed}
                       >
-                        CHANGE PASSWORD
+                        {dic.changePassword[lang]}
                       </Button>
                     </div>
                   </div>
                 </div>
               </div>
               <div className={classes.TableDiv}>
-                <h2 className={classes.Header}>YOUR ORDERS</h2>
-                <ProfileTable userId={this.props.userId} />
+                <h2 className={classes.Header}>{dic.yourOrders[lang]}</h2>
+                <ProfileTable lang={lang} userId={this.props.userId} />
               </div>
             </div>
           </div>
@@ -386,6 +410,7 @@ const mapStateToProps = (state) => {
     token: state.authReducer.token,
     userId: state.authReducer.userId,
     user: state.authReducer.user,
+    lang: state.langReducer.lang,
   };
 };
 

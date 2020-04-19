@@ -5,7 +5,8 @@ import classes from "./Items.module.css";
 import axios from "axios";
 import Spinner from "../UI/Spinner/Spinner";
 import PathLine from "../UI/PathLine/PathLine";
-import { serverAddress } from "../../assets/helper";
+import { serverAddress, dic } from "../../assets/helper";
+import { connect } from "react-redux";
 let TOPITEM;
 class Items extends Component {
   state = {
@@ -73,12 +74,12 @@ class Items extends Component {
 
   render() {
     let viewPage = <Spinner />;
-    let currentPath = [{ name: "collections", search: "" }];
+    let currentPath = [{ name: dic.collections[this.props.lang], search: "" }];
     if (this.state.loading === false) {
       const jsxMap = this.state.Items.map((item, index) => {
         currentPath = [
-          { name: "collections", search: "" },
-          { name: "items", search: item.collection },
+          { name: dic.collections[this.props.lang], search: "" },
+          { name: dic.items[this.props.lang], search: item.collection },
         ];
         const link = { pathname: "/product", search: item.code };
         const imagePath = item.img;
@@ -112,7 +113,7 @@ class Items extends Component {
             <PathLine currentPath={currentPath} />
           </div>
           <div className={classes.Search}>
-            SEARCH:{" "}
+            {dic.search[this.props.lang]}{" "}
             <input
               className={classes.Input}
               type="text"
@@ -158,4 +159,10 @@ class Items extends Component {
   }
 }
 
-export default Items;
+const mapStateToProps = (state) => {
+  return {
+    lang: state.langReducer.lang,
+  };
+};
+
+export default connect(mapStateToProps)(Items);

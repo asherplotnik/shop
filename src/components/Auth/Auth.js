@@ -5,7 +5,7 @@ import Button from "../UI/Button/Button";
 import classes from "./Auth.module.css";
 import * as actions from "../../store/actions/index";
 import { withRouter } from "react-router";
-import { serverAddress } from "../../assets/helper";
+import { serverAddress, dic } from "../../assets/helper";
 class Auth extends Component {
   state = {
     signIn: true,
@@ -207,6 +207,7 @@ class Auth extends Component {
     });
   };
   render() {
+    const lang = this.props.lang;
     if (this.props.token !== null) {
       this.onLogOut();
     }
@@ -214,21 +215,21 @@ class Auth extends Component {
       <div className={[classes.Auth, classes.TransIn].join(" ")}>
         <form id="signin" onSubmit={this.onSub} className={classes.Form}>
           <div>
-            <p>SIGN IN</p>
+            <p>{dic.signIn[lang]}</p>
           </div>
           <ul className={classes.FormList}>
             <li>
-              <label htmlFor="email">EMAIL:</label>
+              <label htmlFor="email">{dic.email[lang]}</label>
               <input name="email" type="email" required />
             </li>
             <li>
-              <label htmlFor="password">PASSWORD:</label>
+              <label htmlFor="password">{dic.password[lang]}</label>
               <input name="password" type="password" minLength="6" required />
             </li>
           </ul>
           <br></br>
           <Button btnType="SuccessSmall" type="submit">
-            SUBMIT
+            {dic.submit[lang]}
           </Button>
         </form>
         <p>{this.state.message}</p>
@@ -240,15 +241,15 @@ class Auth extends Component {
         <div className={[classes.Auth, classes.TransUp].join(" ")}>
           <form id="signup" onSubmit={this.onSub} className={classes.Form}>
             <div>
-              <p>SIGN UP</p>
+              <p>{dic.signUp[lang]}</p>
             </div>
             <ul className={classes.FormList}>
               <li>
-                <label htmlFor="username">NAME:</label>
+                <label htmlFor="username">{dic.name[lang]}</label>
                 <input name="username" type="text" required />
               </li>
               <li className={classes.FormList}>
-                <label htmlFor="address">SHIPPING ADDRESS:</label>
+                <label htmlFor="address">{dic.address[lang]}</label>
                 <textarea
                   style={{ resize: "none" }}
                   rows="4"
@@ -258,7 +259,7 @@ class Auth extends Component {
                 />
               </li>
               <li className={classes.FormList}>
-                <label htmlFor="phone">PHONE:</label>
+                <label htmlFor="phone">{dic.phone[lang]}</label>
                 <input
                   className={
                     this.state.messageClass === "phone"
@@ -271,15 +272,15 @@ class Auth extends Component {
                 />
               </li>
               <li className={classes.FormList}>
-                <label htmlFor="email">EMAIL:</label>
+                <label htmlFor="email">{dic.email[lang]}</label>
                 <input name="email" type="mail" required />
               </li>
               <li>
-                <label htmlFor="password">PASSWORD:</label>
+                <label htmlFor="password">{dic.password[lang]}</label>
                 <input name="password" type="password" minLength="6" required />
               </li>
               <li>
-                <label htmlFor="confirm">CONFIRM PASSWORD:</label>
+                <label htmlFor="confirm">{dic.confirmPassword[lang]}</label>
                 <input
                   className={
                     this.state.messageClass === "password"
@@ -294,7 +295,7 @@ class Auth extends Component {
               </li>
             </ul>
             <Button btnType="SuccessSmall" type="submit">
-              SUBMIT
+              {dic.submit[lang]}
             </Button>
           </form>
           {this.state.message}
@@ -305,7 +306,7 @@ class Auth extends Component {
         {form}
         <div style={{ fontSize: "x-large" }}>
           <Button clicked={this.switchSign} btnType="NavySmall">
-            {this.state.signIn ? "SIGN UP" : "SIGN IN"}
+            {this.state.signIn ? dic.signUp[lang] : dic.signIn[lang]}
           </Button>{" "}
         </div>
       </div>
@@ -326,6 +327,7 @@ const mapStateToProps = (state) => {
   return {
     token: state.authReducer.token,
     entries: state.cartReducer.entries,
+    lang: state.langReducer.lang,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Auth));

@@ -1,15 +1,8 @@
 import React from "react";
 import classes from "./NavigationItems.module.css";
 import NavigationItem from "./NavigationItem/NavigationItem";
+import { dic } from "../../../assets/helper";
 const NavigationItems = (props) => {
-  const dic = {
-    home: { eng: "HOME", thai: "หน้าแรก" },
-    collections: { eng: "COLLECTIONS", thai: "คอลเลกชัน" },
-    trending: { eng: "TRENDING NOW", thai: "แนวโน้ม" },
-    aboutUs: { eng: "ABOUT US", thai: "เกี่ยวกับเรา" },
-    aboutYou: { eng: "ABOUT YOU", thai: "ข้อมูลส่วนตัว" },
-    backend: { eng: "BACK END", thai: "แบ็กเอนด์" },
-  };
   return (
     <ul className={classes.NavigationItems}>
       <NavigationItem show={true} link="/" exact>

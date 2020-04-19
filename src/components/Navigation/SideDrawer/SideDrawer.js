@@ -5,6 +5,7 @@ import classes from "./SideDrawer.module.css";
 import Backdrop from "../../UI/Backdrop/Backdrop";
 import { withRouter } from "react-router";
 import { gc } from "../../../assets/helper";
+import { connect } from "react-redux";
 
 const sideDrawer = (props) => {
   const onPressedCart = () => {
@@ -22,7 +23,10 @@ const sideDrawer = (props) => {
           <Logo />
         </div>
         <nav>
-          <NavigationItems />
+          <NavigationItems
+            showAccount={props.token !== null}
+            lang={props.lang}
+          />
         </nav>
         <div onClick={onPressedCart} className={classes.Cart0}>
           <div onClick={onPressedCart} className={classes.Cart2}>
@@ -36,4 +40,11 @@ const sideDrawer = (props) => {
     </React.Fragment>
   );
 };
-export default withRouter(sideDrawer);
+
+const mapStateToProps = (state) => {
+  return {
+    lang: state.langReducer.lang,
+    token: state.authReducer.token,
+  };
+};
+export default connect(mapStateToProps)(withRouter(sideDrawer));

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Montez&family=Roboto:ital,wght@1,300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mitr&family=Sriracha&display=swap");
 .Wrapper {
   display: inline-block;
   width: 85%;
@@ -22,6 +23,12 @@
 
 .FirstHeader {
   font-family: "Montez", cursive;
+  font-size: 4em;
+  margin-bottom: 0px;
+}
+
+.FirstHeaderT {
+  font-family: "Sriracha", cursive;
   font-size: 4em;
   margin-bottom: 0px;
 }
@@ -73,6 +80,13 @@
   width: 45%;
   font-size: x-large;
   font-family: "Roboto", sans-serif;
+  margin-bottom: 0px;
+  text-align: left;
+}
+.PdivT {
+  width: 45%;
+  font-size: x-large;
+  font-family: "Sriracha", cursive;
   margin-bottom: 0px;
   text-align: left;
 }

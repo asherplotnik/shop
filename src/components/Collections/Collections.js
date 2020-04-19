@@ -5,7 +5,8 @@ import classes from "./Collections.module.css";
 import axios from "axios";
 import Spinner from "../UI/Spinner/Spinner";
 import PathLine from "../UI/PathLine/PathLine";
-import { serverAddress } from "../../assets/helper";
+import { serverAddress, dic } from "../../assets/helper";
+import { connect } from "react-redux";
 class Collections extends Component {
   state = {
     loading: true,
@@ -31,7 +32,7 @@ class Collections extends Component {
     this.fetchCollections();
   }
   render() {
-    let currentPath = [{ name: "collections", search: "" }];
+    let currentPath = [{ name: dic.collections[this.props.lang], search: "" }];
     let viewPage = <Spinner />;
     if (this.state.loading === false) {
       const jsxMap = this.state.collections.map((collection) => {
@@ -62,4 +63,10 @@ class Collections extends Component {
   }
 }
 
-export default Collections;
+const mapStateToProps = (state) => {
+  return {
+    lang: state.langReducer.lang,
+  };
+};
+
+export default connect(mapStateToProps)(Collections);

@@ -8,6 +8,11 @@
   margin-top: 0;
 }
 
+.Scroll {
+  height: 77vh;
+  overflow: auto;
+}
+
 .Ul li {
   display: flex;
   justify-content: space-between;

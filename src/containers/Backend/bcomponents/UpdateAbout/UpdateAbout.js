@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./UpdateAbout.module.css";
 const UpdateAbout = (props) => {
   return (
-    <div>
+    <div className={classes.Scroll}>
       <form id="updateAboutUs" onSubmit={props.updateAboutHandler}>
         <ul className={classes.Ul}>
           <li>
@@ -13,6 +13,17 @@ const UpdateAbout = (props) => {
               type="text"
               defaultValue={props.content.mainTitle}
               name="mainTitle"
+            />
+          </li>
+          <br className={classes.Br}></br>
+          <li>
+            <label htmlFor="mainTitle">MAIN TITLE (THAI):</label>
+          </li>
+          <li>
+            <input
+              type="text"
+              defaultValue={props.content.mainTitleT}
+              name="mainTitleT"
             />
           </li>
           <br className={classes.Br}></br>
@@ -33,6 +44,20 @@ const UpdateAbout = (props) => {
               rows="2"
               cols="100"
               name="firstParagraph"
+              required
+            />
+          </li>
+          <br className={classes.Br}></br>
+          <li>
+            <label htmlFor="firstParagraphT">FIRST PARAGRAPH (THAI):</label>
+          </li>
+          <li>
+            <textarea
+              defaultValue={props.content.firstParagraphT}
+              style={{ resize: "none" }}
+              rows="2"
+              cols="100"
+              name="firstParagraphT"
               required
             />
           </li>
@@ -59,6 +84,20 @@ const UpdateAbout = (props) => {
           </li>
           <br className={classes.Br}></br>
           <li>
+            <label htmlFor="secondParagraphT">SECOND PARAGRAPH (THAI):</label>
+          </li>
+          <li>
+            <textarea
+              defaultValue={props.content.secondParagraphT}
+              style={{ resize: "none" }}
+              rows="2"
+              cols="100"
+              name="secondParagraphT"
+              required
+            />
+          </li>
+          <br className={classes.Br}></br>
+          <li>
             <label htmlFor="thirdImage">THIRD IMAGE:</label>
           </li>
           <li>
@@ -75,6 +114,20 @@ const UpdateAbout = (props) => {
               rows="2"
               cols="100"
               name="thirdParagraph"
+              required
+            />
+          </li>
+          <br className={classes.Br}></br>
+          <li>
+            <label htmlFor="thirdParagraphT">THIRD PARAGRAPH (THAI):</label>
+          </li>
+          <li>
+            <textarea
+              defaultValue={props.content.thirdParagraphT}
+              style={{ resize: "none" }}
+              rows="2"
+              cols="100"
+              name="thirdParagraphT"
               required
             />
           </li>

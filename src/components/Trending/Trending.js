@@ -4,7 +4,8 @@ import classes from "./Trending.module.css";
 import axios from "axios";
 import Spinner from "../UI/Spinner/Spinner";
 import PathLine from "../UI/PathLine/PathLine";
-import { serverAddress } from "../../assets/helper";
+import { serverAddress, dic } from "../../assets/helper";
+import { connect } from "react-redux";
 let TOPITEM;
 class Trending extends Component {
   state = {
@@ -69,10 +70,10 @@ class Trending extends Component {
 
   render() {
     let viewPage = <Spinner />;
-    let currentPath = [{ name: "collections", search: "" }];
+    let currentPath = [{ name: dic.trending[this.props.lang], search: "" }];
     if (this.state.loading === false) {
       const jsxMap = this.state.Items.map((item, index) => {
-        currentPath = [{ name: "trending", search: "" }];
+        currentPath = [{ name: dic.trending[this.props.lang], search: "" }];
         const link = { pathname: "/product", search: item.code };
         const imagePath = item.img;
         const imagePath2 = item.img2;
@@ -105,7 +106,7 @@ class Trending extends Component {
             <PathLine currentPath={currentPath} />
           </div>
           <div className={classes.Search}>
-            SEARCH:{" "}
+            {dic.search[this.props.lang]}{" "}
             <input
               className={classes.Input}
               type="text"
@@ -151,4 +152,10 @@ class Trending extends Component {
   }
 }
 
-export default Trending;
+const mapStateToProps = (state) => {
+  return {
+    lang: state.langReducer.lang,
+  };
+};
+
+export default connect(mapStateToProps)(Trending);

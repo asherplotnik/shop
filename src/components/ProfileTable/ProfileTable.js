@@ -3,7 +3,7 @@ import ReactTable from "react-table-6";
 import classes from "./ProfileTable.module.css";
 import axios from "axios";
 import Spinner from "../UI/Spinner/Spinner";
-import { serverAddress } from "../../assets/helper";
+import { serverAddress, dic } from "../../assets/helper";
 
 const ProfileTable = (props) => {
   let [loadingOrders, setLoadingOrders] = useState(true);
@@ -91,34 +91,52 @@ const ProfileTable = (props) => {
       variation: null,
       quantity: null,
       price: null,
-      total: "Sub Total: " + subTotal,
+      total: dic.subTotal[props.lang] + subTotal,
     });
     return subTable;
   };
 
   const orderDetailsColumns = [
     {
-      Header: <strong className={classes.OrderDetails}>CODE</strong>,
+      Header: (
+        <strong className={classes.OrderDetails}>{dic.code[props.lang]}</strong>
+      ),
       accessor: "code",
       Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },
     {
-      Header: <strong className={classes.OrderDetails}>VARIATION</strong>,
+      Header: (
+        <strong className={classes.OrderDetails}>
+          {dic.variation[props.lang]}
+        </strong>
+      ),
       accessor: "variation",
       Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },
     {
-      Header: <strong className={classes.OrderDetails}>QUANTITY</strong>,
+      Header: (
+        <strong className={classes.OrderDetails}>
+          {dic.quantity[props.lang]}
+        </strong>
+      ),
       accessor: "quantity",
       Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },
     {
-      Header: <strong className={classes.OrderDetails}>PRICE</strong>,
+      Header: (
+        <strong className={classes.OrderDetails}>
+          {dic.price[props.lang]}
+        </strong>
+      ),
       accessor: "price",
       Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },
     {
-      Header: <strong className={classes.OrderDetails}>TOTAL</strong>,
+      Header: (
+        <strong className={classes.OrderDetails}>
+          {dic.total[props.lang]}
+        </strong>
+      ),
       accessor: "total",
       Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },
@@ -128,7 +146,7 @@ const ProfileTable = (props) => {
     {
       Header: (
         <div key="orderid" className={classes.HeaderStyle}>
-          ORDER ID
+          {dic.orderId[props.lang]}
         </div>
       ),
       width: 90,
@@ -143,7 +161,7 @@ const ProfileTable = (props) => {
     {
       Header: (
         <div key="wiredate" className={classes.HeaderStyle}>
-          PAYMENT DATE
+          {dic.paymentDate[props.lang]}
         </div>
       ),
       accessor: "wiredate",
@@ -157,7 +175,7 @@ const ProfileTable = (props) => {
     {
       Header: (
         <div key="acc" className={classes.HeaderStyle}>
-          NOTE
+          {dic.note[props.lang]}
         </div>
       ),
       accessor: "acc",
@@ -171,7 +189,7 @@ const ProfileTable = (props) => {
     {
       Header: (
         <div key="status" className={classes.HeaderStyle}>
-          STATUS
+          {dic.status[props.lang]}
         </div>
       ),
       accessor: "status",
@@ -185,7 +203,7 @@ const ProfileTable = (props) => {
     {
       Header: (
         <div key="tracking" className={classes.HeaderStyle}>
-          TRACKING No
+          {dic.trackingNo[props.lang]}
         </div>
       ),
       accessor: "tracking",

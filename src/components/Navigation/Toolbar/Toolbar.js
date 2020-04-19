@@ -69,7 +69,7 @@ const Toolbar = (props) => {
             <div className={classes.Flag} onClick={onChangeLangPressed}>
               <img
                 style={{ width: "40px" }}
-                src={gc + props.lang + ".png"}
+                src={process.env.PUBLIC_URL + "images/" + props.lang + ".png"}
                 alt={""}
               />
             </div>

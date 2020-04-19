@@ -3,8 +3,9 @@ import classes from "./About.module.css";
 import axios from "axios";
 import { serverAddress, gc } from "../../assets/helper";
 import Spinner from "../UI/Spinner/Spinner";
+import { connect } from "react-redux";
 
-const About = () => {
+const About = (props) => {
   let [content, setContent] = useState(null);
   let [loading, setLoading] = useState(true);
 
@@ -23,21 +24,39 @@ const About = () => {
       });
   };
   let viewPage = <Spinner />;
+  let mainTitle = "";
+  let firstHeader = classes.FirstHeader;
+  let pdiv = classes.Pdiv;
+  let firstParagraph = "";
+  let secondParagraph = "";
+  let thirdParagraph = "";
   if (!loading) {
+    mainTitle = content.mainTitle;
+    firstParagraph = content.firstParagraph;
+    secondParagraph = content.secondParagraph;
+    thirdParagraph = content.thirdParagraph;
+    if (props.lang === "thai") {
+      mainTitle = content.mainTitleT;
+      firstHeader = classes.FirstHeaderT;
+      pdiv = classes.PdivT;
+      firstParagraph = content.firstParagraphT;
+      secondParagraph = content.secondParagraphT;
+      thirdParagraph = content.thirdParagraphT;
+    }
     viewPage = (
       <div className={[classes.Wrapper, classes.Trans].join(" ")}>
         <div>
-          <h1 className={classes.FirstHeader}>{content.mainTitle}</h1>
+          <h1 className={firstHeader}>{mainTitle}</h1>
         </div>
         <div className={classes.FirstDiv}>
           <img src={gc + content.firstImage} alt={content.firstImage} />
-          <div className={classes.Pdiv}>
-            <p>{content.firstParagraph}</p>
+          <div className={pdiv}>
+            <p>{firstParagraph}</p>
           </div>
         </div>
         <div className={classes.SecondDiv}>
-          <div className={classes.Pdiv}>
-            <p>{content.secondParagraph}</p>
+          <div className={pdiv}>
+            <p>{secondParagraph}</p>
           </div>
           <div>
             <img src={gc + content.secondImage} alt={content.secondImage} />
@@ -45,8 +64,8 @@ const About = () => {
         </div>
         <div className={classes.ThirdDiv}>
           <img src={gc + content.thirdImage} alt={content.thirdImage} />
-          <div className={classes.Pdiv}>
-            <p>{content.thirdParagraph}</p>
+          <div className={pdiv}>
+            <p>{thirdParagraph}</p>
           </div>
         </div>
       </div>
@@ -55,4 +74,10 @@ const About = () => {
   return viewPage;
 };
 
-export default About;
+const mapStateToProps = (state) => {
+  return {
+    lang: state.langReducer.lang,
+  };
+};
+
+export default connect(mapStateToProps)(About);

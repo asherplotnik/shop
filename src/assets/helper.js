@@ -54,6 +54,45 @@ export function requestQuery(sql, action) {
     });
 }
 
+export const dic = {
+  collections: { eng: "COLLECTIONS", thai: "คอลเลกชัน" },
+  home: { eng: "HOME", thai: "หน้าแรก" },
+  aboutUs: { eng: "ABOUT US", thai: "เกี่ยวกับเรา" },
+  aboutYou: { eng: "ABOUT YOU", thai: "ข้อมูลส่วนตัว" },
+  backend: { eng: "BACK END", thai: "แบ็กเอนด์" },
+  items: { eng: "ITEMS", thai: "รายการ" },
+  cancel: { eng: "CANCEL", thai: "ยกเลิก" },
+  submit: { eng: "SUBMIT", thai: "เสนอ" },
+  search: { eng: "SEARCH: ", thai: "ค้นหา: " },
+  trending: { eng: "TRENDING", thai: "แนวโน้ม" },
+  yourDetails: { eng: "YOUR DETAILS", thai: "รายละเอียด" },
+  yourOrders: { eng: "YOUR ORDERS", thai: "ออเดอร์" },
+  name: { eng: "NAME: ", thai: "ชื่อ: " },
+  phone: { eng: "PHONE: ", thai: "โทรศัพท์: " },
+  address: { eng: "ADDRESS: ", thai: "ที่อยู่: " },
+  email: { eng: "EMAIL :", thai: "อีเมล: " },
+  newEmail: { eng: "NEW EMAIL :", thai: "อีเมลใหม่: " },
+  confirmEmail: { eng: "CONFIRM EMAIL :", thai: "ยืนยันอีเมล: " },
+  password: { eng: "PASSWORD: ", thai: "รหัสผ่าน: " },
+  confirmPassword: { eng: "CONFIRM PASSWORD: ", thai: "ยืนยันรหัสผ่าน: " },
+  orderId: { eng: "ORDER ID: ", thai: "ออเดอร์: " },
+  paymentDate: { eng: "PAYMENT DATE: ", thai: "วันที่จ่าย: " },
+  note: { eng: "note: ", thai: "บันทึก: " },
+  status: { eng: "STATUS: ", thai: "สถานะ: " },
+  trackingNo: { eng: "TRACKING No: ", thai: "เบอร์ไปรษณีย์: " },
+  code: { eng: "CODE: ", thai: "รหัส: " },
+  variation: { eng: "VARIATION: ", thai: "เภท: " },
+  quantity: { eng: "QUANTITY: ", thai: "จำนวน: " },
+  price: { eng: "PRICE: ", thai: "ราคา: " },
+  total: { eng: "TOTAL: ", thai: "รวม: " },
+  subTotal: { eng: "Sub total: ", thai: "รวมหมด: " },
+  changeDetails: { eng: "CHANGE DETAILS", thai: "เปลี่ยนรายละเอียด" },
+  changeEmail: { eng: "CHANGE EMAIL", thai: "เปลี่ยนอีเมล" },
+  changePassword: { eng: "CHANGE PASSWORD", thai: "เปลี่ยนรหัสผ่าน" },
+  signIn: { eng: "SIGN IN", thai: "เข้าสู่ระบบ" },
+  signUp: { eng: "SIGN UP", thai: "ลงชื่อ" },
+};
+
 export const local = "http://localhost:9000/";
 export const heroku = "https://indyapi.herokuapp.com/";
 export const gc = "https://storage.cloud.google.com/indy-4cba2.appspot.com/";
