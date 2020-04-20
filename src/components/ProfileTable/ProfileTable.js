@@ -10,6 +10,25 @@ const ProfileTable = (props) => {
   let [orders, setOrders] = useState([]);
   let [orderDetails, setOrderDetails] = useState([]);
 
+  const checkStatus = (val) => {
+    switch (val) {
+      case "WAIT APPROVE BANK TRANSFER":
+        return dic.checkingPayment[props.lang];
+      case "WAIT APPROVE CC PAYMENT":
+        return dic.checkingPayment[props.lang];
+      case "CONFIRMED PAYMENT":
+        return dic.paymentConfirmed[props.lang];
+      case "SHIPPED":
+        return dic.shipped[props.lang];
+      case "CANCELED":
+        return dic.canceled[props.lang];
+      case "SPECIAL ISSUE":
+        return dic.specialIssue[props.lang];
+      default:
+        return val;
+    }
+  };
+
   useEffect(() => {
     const fetchOrders = () => {
       const sqlQuery = {
@@ -196,7 +215,7 @@ const ProfileTable = (props) => {
       Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
-          {row.value.toUpperCase()}{" "}
+          {checkStatus(row.value.toUpperCase())}{" "}
         </div>
       ),
     },

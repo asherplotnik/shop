@@ -79,7 +79,7 @@ export const dic = {
   paymentDate: { eng: "PAYMENT DATE: ", thai: "วันที่จ่าย: " },
   note: { eng: "note: ", thai: "บันทึก: " },
   status: { eng: "STATUS: ", thai: "สถานะ: " },
-  trackingNo: { eng: "TRACKING No: ", thai: "เบอร์ไปรษณีย์: " },
+  trackingNo: { eng: "TRACKING No: ", thai: "รหัสไปรษณีย์: " },
   code: { eng: "CODE: ", thai: "รหัส: " },
   variation: { eng: "VARIATION: ", thai: "เภท: " },
   quantity: { eng: "QUANTITY: ", thai: "จำนวน: " },
@@ -90,7 +90,18 @@ export const dic = {
   changeEmail: { eng: "CHANGE EMAIL", thai: "เปลี่ยนอีเมล" },
   changePassword: { eng: "CHANGE PASSWORD", thai: "เปลี่ยนรหัสผ่าน" },
   signIn: { eng: "SIGN IN", thai: "เข้าสู่ระบบ" },
-  signUp: { eng: "SIGN UP", thai: "ลงชื่อ" },
+  signUp: { eng: "SIGN UP", thai: "สมัคร" },
+  checkingPayment: {
+    eng: "CHECKING PAYMENT",
+    thai: "รอการยืนยันชำระเงิน",
+  },
+  paymentConfirmed: {
+    eng: "PAYMENT CONFIRMED",
+    thai: "ยืนยันการชำระเงินแล้ว",
+  },
+  shipped: { eng: "SHIPPED", thai: "ส่งแล้ว" },
+  specialIssue: { eng: "SPECIAL ISSUE", thai: "กรณีพิเศษ" },
+  canceled: { eng: "CANCELED", thai: "ยกเลิก" },
 };
 
 export const local = "http://localhost:9000/";
