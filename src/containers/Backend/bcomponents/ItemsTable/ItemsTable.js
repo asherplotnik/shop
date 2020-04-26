@@ -150,7 +150,7 @@ const itemsTable = (props) => {
       Header: (
         <div>
           <div key="TRENDING" className={classes.HeaderStyle}>
-            TREND(1/0)
+            TREND(true/false)
           </div>
         </div>
       ),
@@ -158,7 +158,7 @@ const itemsTable = (props) => {
       Cell: (row) => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
-            {row.value === 1 ? "TRENDING" : ""}
+            {row.value === true ? "TRUE" : "FALSE"}
           </div>
         </div>
       ),

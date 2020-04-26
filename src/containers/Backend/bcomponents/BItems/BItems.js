@@ -56,12 +56,12 @@ class BItems extends Component {
         if (response.data === "Item exists already") {
           alert(response.data);
         }
-        document.querySelector("#updateItemForm").reset();
+        document.querySelector("#addItemForm").reset();
         this.requestQuery("SELECT * FROM items", "query");
       })
       .catch((error) => {
         alert(error);
-        document.querySelector("#updateItemForm").reset();
+        document.querySelector("#addItemForm").reset();
         this.requestQuery("SELECT * FROM collections", "query");
       });
   };
@@ -180,6 +180,11 @@ class BItems extends Component {
               formId="addItemForm"
               title="ADD PRODUCT"
               addItem={this.onAddItemForm}
+              rTrending={false}
+              rCollection="D.I.Y"
+              rDesc=""
+              rSize=""
+              rPrice={0}
               collSelect={this.props.collectionSelect}
               modalClosed={this.props.onAddPressed}
             />

@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./AddItemForm.module.css";
 
-const addItemForm = props => {
+const addItemForm = (props) => {
   let options = [];
   if (props.collSelect) {
     for (let i = 0; i < props.collSelect.length; i++) {
@@ -61,15 +61,14 @@ const addItemForm = props => {
               </option>
             </select>
           </li>
-
           <li key="trending">
             <label htmlFor="AddTrending">TRENDING: </label>
             <select name="addTrending">
-              <option selected={props.rTrending === 1 ? true : false}>
-                true
-              </option>
-              <option selected={props.rTrending === 0 ? true : false}>
+              <option selected={props.rTrending === false ? false : true}>
                 false
+              </option>
+              <option selected={props.rTrending === true ? true : false}>
+                true
               </option>
             </select>
           </li>
