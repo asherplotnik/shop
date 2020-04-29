@@ -104,7 +104,8 @@ export const dic = {
   canceled: { eng: "CANCELED", thai: "ยกเลิก" },
 };
 
+export const awsApi = "https://52.221.251.161/";
 export const local = "http://localhost:9000/";
 export const heroku = "https://indyapi.herokuapp.com/";
 export const gc = "https://storage.cloud.google.com/indy-4cba2.appspot.com/";
-export const serverAddress = local;
+export const serverAddress = awsApi;

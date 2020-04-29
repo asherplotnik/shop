@@ -250,7 +250,7 @@ class Checkout extends Component {
               >
                 <option>-</option>
                 <option>BANK TRANSFER</option>
-                <option>CREDIT CARD</option>
+                {/* <option>CREDIT CARD</option> */}
               </select>
               <div className={classes.ButtonAddress}>
                 <Button clicked={this.onAddressPressed} btnType="DangerSmall">
