@@ -96,7 +96,6 @@ class Trending extends Component {
             size={item.size}
             price={item.price}
             desc={item.desc}
-            exact
           ></ItemsElement>
         );
       });

@@ -43,7 +43,6 @@ class Collections extends Component {
             name={collection.name}
             key={collection.id}
             img={collection.img}
-            exact
           ></CollectionsElement>
         );
       });

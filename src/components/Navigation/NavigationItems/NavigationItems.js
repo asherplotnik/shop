@@ -8,16 +8,16 @@ const NavigationItems = (props) => {
       <NavigationItem show={true} link="/" exact>
         {dic.home[props.lang]}
       </NavigationItem>
-      <NavigationItem show={true} link="/collections" exact>
+      <NavigationItem show={true} link="/collections">
         {dic.collections[props.lang]}
       </NavigationItem>
-      <NavigationItem show={true} link="/trending" exact>
+      <NavigationItem show={true} link="/trending">
         {dic.trending[props.lang]}
       </NavigationItem>
-      <NavigationItem show={true} link="/about" exact>
+      <NavigationItem show={true} link="/about">
         {dic.aboutUs[props.lang]}
       </NavigationItem>
-      <NavigationItem show={props.showAccount} link="/profile" exact>
+      <NavigationItem show={props.showAccount} link="/profile">
         {dic.aboutYou[props.lang]}
       </NavigationItem>
       <NavigationItem

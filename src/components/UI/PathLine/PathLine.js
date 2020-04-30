@@ -6,7 +6,7 @@ const PathLine = (props) => {
     const link = "/" + pathElement.name + "?" + pathElement.search;
     return (
       <React.Fragment key={index}>
-        <NavLink className={classes.PathCss} to={link} exact>
+        <NavLink className={classes.PathCss} to={link}>
           {pathElement.search === ""
             ? pathElement.name.toUpperCase()
             : pathElement.search.toUpperCase()}

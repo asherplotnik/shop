@@ -34,16 +34,16 @@ class App extends Component {
             <Switch>
               <Layout>
                 <Route path="/" exact component={Home} />
-                <Route path="/collections" exact component={Collections} />
-                <Route path="/trending" exact component={Trending} />
-                <Route path="/about" exact component={About} />
-                <Route path="/items" exact component={Items} />
-                <Route path="/product" exact component={Product} />
-                <Route path="/profile" exact component={Profile} />
+                <Route path="/collections" component={Collections} />
+                <Route path="/trending" component={Trending} />
+                <Route path="/about" component={About} />
+                <Route path="/items" component={Items} />
+                <Route path="/product" component={Product} />
+                <Route path="/profile" component={Profile} />
                 <Route path="/shoppingcart" component={ShoppingCart} />
-                <Route path="/auth" exact component={Auth} />
-                <Route path="/checkout" exact component={Checkout} />
-                <Route path="/restricted" exact component={Restricted} />
+                <Route path="/auth" component={Auth} />
+                <Route path="/checkout" component={Checkout} />
+                <Route path="/restricted" component={Restricted} />
               </Layout>
             </Switch>
           </Switch>

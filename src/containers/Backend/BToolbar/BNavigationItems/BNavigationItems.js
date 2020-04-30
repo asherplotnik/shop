@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./BNavigationItems.module.css";
 import NavigationItem from "../../../../components/Navigation/NavigationItems/NavigationItem/NavigationItem";
-const bNavigationItems = props => (
+const bNavigationItems = (props) => (
   <ul className={classes.BNavigationItems}>
     <div style={{ margin: "0px 20px 0px 20px" }}>
       <NavigationItem show={true} link="/backend" exact>
@@ -9,27 +9,27 @@ const bNavigationItems = props => (
       </NavigationItem>
     </div>
     <div style={{ margin: "0px 20px 0px 20px" }}>
-      <NavigationItem show={true} link="/backend/collections" exact>
+      <NavigationItem show={true} link="/backend/collections">
         COLLECTIONS
       </NavigationItem>
     </div>
     <div style={{ margin: "0px 20px 0px 20px" }}>
-      <NavigationItem show={true} link="/backend/items" exact>
+      <NavigationItem show={true} link="/backend/items">
         ITEMS
       </NavigationItem>
     </div>
     <div style={{ margin: "0px 20px 0px 20px" }}>
-      <NavigationItem show={true} link="/backend/stock" exact>
+      <NavigationItem show={true} link="/backend/stock">
         STOCK
       </NavigationItem>{" "}
     </div>
     <div style={{ margin: "0px 20px 0px 20px" }}>
-      <NavigationItem show={true} link="/backend/users" exact>
+      <NavigationItem show={true} link="/backend/users">
         USERS
       </NavigationItem>
     </div>
     <div style={{ margin: "0px 20px 0px 20px" }}>
-      <NavigationItem show={true} link="/backend/orders" exact>
+      <NavigationItem show={true} link="/backend/orders">
         ORDERS
       </NavigationItem>
     </div>
