@@ -8,7 +8,7 @@ import About from "./components/About/About";
 import Items from "./components/Items/Items";
 import Product from "./components/Product/Product";
 import Backend from "./containers/Backend/Backend";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import Auth from "./components/Auth/Auth";
 import Profile from "./components/Profile/Profile";
@@ -27,26 +27,28 @@ class App extends Component {
       backend = Backend;
     }
     return (
-      <div className={classes.App}>
-        <Switch>
-          <Route path="/backend" component={backend} />
+      <BrowserRouter basename="/">
+        <div className={classes.App}>
           <Switch>
-            <Layout>
-              <Route path="/" exact component={Home} />
-              <Route path="/collections" exact component={Collections} />
-              <Route path="/trending" exact component={Trending} />
-              <Route path="/about" exact component={About} />
-              <Route path="/items" exact component={Items} />
-              <Route path="/product" exact component={Product} />
-              <Route path="/profile" exact component={Profile} />
-              <Route path="/shoppingcart" component={ShoppingCart} />
-              <Route path="/auth" exact component={Auth} />
-              <Route path="/checkout" exact component={Checkout} />
-              <Route path="/restricted" exact component={Restricted} />
-            </Layout>
+            <Route path="/backend" component={backend} />
+            <Switch>
+              <Layout>
+                <Route path="/" exact component={Home} />
+                <Route path="/collections" exact component={Collections} />
+                <Route path="/trending" exact component={Trending} />
+                <Route path="/about" exact component={About} />
+                <Route path="/items" exact component={Items} />
+                <Route path="/product" exact component={Product} />
+                <Route path="/profile" exact component={Profile} />
+                <Route path="/shoppingcart" component={ShoppingCart} />
+                <Route path="/auth" exact component={Auth} />
+                <Route path="/checkout" exact component={Checkout} />
+                <Route path="/restricted" exact component={Restricted} />
+              </Layout>
+            </Switch>
           </Switch>
-        </Switch>
-      </div>
+        </div>
+      </BrowserRouter>
     );
   }
 }

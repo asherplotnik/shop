@@ -1,9 +1,8 @@
 import React from "react";
-import Logo from "../../../assets/images/Logo.jpg";
 import classes from "./Logo.module.css";
 const logo = (props) => (
   <div className={classes.Logo}>
-    <img src={Logo} alt="logo" />
+    <img src={process.env.PUBLIC_URL + "static/images/Logo.jpg"} alt="logo" />
   </div>
 );
 

@@ -12,7 +12,7 @@ const Footer = () => {
         >
           <img
             className={classes.Facebook}
-            src={process.env.PUBLIC_URL + "images/facebook-logo.png"}
+            src={process.env.PUBLIC_URL + "static/images/facebook-logo.png"}
             alt="linkImage"
           />
         </a>
