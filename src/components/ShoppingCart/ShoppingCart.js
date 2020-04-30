@@ -3,7 +3,7 @@ import classes from "./ShoppingCart.module.css";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import Button from "../UI/Button/Button";
-import { withRouter } from "react-router";
+import { withRouter } from "react-router-dom";
 import ShoppingTable from "../ShoppingTable/ShoppingTable";
 
 const shoppingCart = (props) => {

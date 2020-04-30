@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Button from "../UI/Button/Button";
 import classes from "./Auth.module.css";
 import * as actions from "../../store/actions/index";
-import { withRouter } from "react-router";
+import { withRouter } from "react-router-dom";
 import { serverAddress, dic } from "../../assets/helper";
 class Auth extends Component {
   state = {

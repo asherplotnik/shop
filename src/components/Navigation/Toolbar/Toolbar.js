@@ -3,7 +3,7 @@ import Logo from "../../UI/Logo/Logo";
 import classes from "./Toolbar.module.css";
 import NavigationItems from "../NavigationItems/NavigationItems";
 import DrawerToggle from "../SideDrawer/DrawerToggle/DrawerToggle";
-import { withRouter } from "react-router";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/index";
 import { gc } from "../../../assets/helper";

@@ -3,7 +3,7 @@ import Logo from "../../UI/Logo/Logo";
 import NavigationItems from "../NavigationItems/NavigationItems";
 import classes from "./SideDrawer.module.css";
 import Backdrop from "../../UI/Backdrop/Backdrop";
-import { withRouter } from "react-router";
+import { withRouter } from "react-router-dom";
 import { gc } from "../../../assets/helper";
 import { connect } from "react-redux";
 
