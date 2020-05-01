@@ -27,7 +27,7 @@ class App extends Component {
       backend = Backend;
     }
     return (
-      <BrowserRouter basename="/">
+      <BrowserRouter>
         <div className={classes.App}>
           <Switch>
             <Route path="/backend" component={backend} />
@@ -46,7 +46,7 @@ class App extends Component {
                 <Route path="/restricted" component={Restricted} />
               </Layout>
             </Switch>
-          </Switch>
+          </Switch>{" "}
         </div>
       </BrowserRouter>
     );
