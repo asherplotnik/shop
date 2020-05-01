@@ -59,14 +59,14 @@
 .Desc {
   position: absolute;
   display: block;
-  opacity: 0%;
+  opacity: 0;
   bottom: 0px;
   transition: opacity 0.3s ease-out;
   width: 300px;
   text-align: center;
 }
 .Desc:hover {
-  opacity: 100%;
+  opacity: 1;
   transition: opacity 0.3s ease-out;
 }
 

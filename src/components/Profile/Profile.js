@@ -253,7 +253,7 @@ class Profile extends Component {
                   type="submit"
                   value={dic.submit[lang]}
                 />
-                <span style={{ opacity: "0%" }}>_____</span>
+                <span style={{ opacity: "0" }}>_____</span>
                 <button
                   type="button"
                   className={classes.Font}
@@ -288,7 +288,7 @@ class Profile extends Component {
                   type="submit"
                   value={dic.submit[lang]}
                 />
-                <span style={{ opacity: "0%" }}>_____</span>
+                <span style={{ opacity: "0" }}>_____</span>
                 <button
                   type="button"
                   className={classes.Font}
@@ -323,7 +323,7 @@ class Profile extends Component {
                   type="submit"
                   value={dic.submit[lang]}
                 />
-                <span style={{ opacity: "0%" }}>_____</span>
+                <span style={{ opacity: "0" }}>_____</span>
                 <button
                   type="button"
                   className={classes.Font}

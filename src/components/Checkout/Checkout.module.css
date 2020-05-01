@@ -67,10 +67,10 @@
 }
 
 .Show {
-  opacity: 100%;
+  opacity: 1;
 }
 .Hide {
-  opacity: 0%;
+  opacity: 0;
 }
 
 .Logo {

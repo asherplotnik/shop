@@ -5,7 +5,7 @@
 
 .Mail {
   display: inline-block;
-  opacity: 50%;
+  opacity: 0.5;
   transition: opacity 0.3s ease-out;
   font-family: "Work Sans", sans-serif;
   font-size: 1.3em;
@@ -15,19 +15,19 @@
   vertical-align: middle;
 }
 .Mail:hover {
-  opacity: 100%;
+  opacity: 1;
   transition: opacity 0.3s ease-out;
 }
 
 .Facebook {
   display: inline-block;
   width: 2em;
-  opacity: 50%;
+  opacity: 0.5;
   transition: opacity 0.3s ease-out;
 }
 .Facebook:hover {
   width: 2em;
-  opacity: 100%;
+  opacity: 1;
   transition: opacity 0.3s ease-out;
 }
 

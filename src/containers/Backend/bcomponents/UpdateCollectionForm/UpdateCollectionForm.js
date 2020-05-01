@@ -47,7 +47,7 @@ class AddForm extends Component {
                 defaultValue={this.props.updateState.pressedRecordName}
               />
             </li>
-            <li style={{ opacity: " 0% " }}>space</li>
+            <li style={{ opacity: " 0 " }}>space</li>
             <li>
               <label htmlFor="collDesc">COLLECTION'S DESCRIPTION:</label>
             </li>
@@ -60,14 +60,14 @@ class AddForm extends Component {
                 defaultValue={this.props.updateState.pressedRecordDesc}
               />
             </li>
-            <li style={{ opacity: " 0% " }}>space</li>
+            <li style={{ opacity: " 0 " }}>space</li>
             <li>
               <label htmlFor="uploadFile">CHANGE IMAGE FILE:</label>
             </li>
             <li>
               <input id="uploadFile" type="file" name="image" />
             </li>
-            <li style={{ opacity: " 0% " }}>space</li>
+            <li style={{ opacity: " 0 " }}>space</li>
             <li>
               <input type="submit" value="Submit" />
             </li>

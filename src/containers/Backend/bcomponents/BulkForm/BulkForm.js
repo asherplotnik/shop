@@ -78,7 +78,7 @@ const BulkForm = (props) => {
           disabled={!ExcelfileUploaded || !ZipfileUploaded}
           type="submit"
         />
-        <span style={{ opacity: "0%" }}>________</span>
+        <span style={{ opacity: "0" }}>________</span>
         <button
           className={classes.Font}
           type="button"

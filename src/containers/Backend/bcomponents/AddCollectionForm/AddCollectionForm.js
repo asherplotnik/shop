@@ -54,7 +54,7 @@ class AddForm extends Component {
               <li>
                 <input type="text" id="addCollName" name="collectionName" />
               </li>
-              <li style={{ opacity: " 0% " }}>space</li>
+              <li style={{ opacity: " 0 " }}>space</li>
               <li>
                 <label htmlFor="addCollDesc">
                   ENTER COLLECTION'S DESCRIPTION:
@@ -68,14 +68,14 @@ class AddForm extends Component {
                   size="30"
                 />
               </li>
-              <li style={{ opacity: " 0% " }}>space</li>
+              <li style={{ opacity: " 0 " }}>space</li>
               <li>
                 <label htmlFor="addUploadFile">ADD IMAGE FILE:</label>
               </li>
               <li>
                 <input id="addUploadFile" type="file" name="image" required />
               </li>
-              <li style={{ opacity: " 0% " }}>space</li>
+              <li style={{ opacity: " 0 " }}>space</li>
               <li>
                 <input type="submit" value="Submit" />
               </li>

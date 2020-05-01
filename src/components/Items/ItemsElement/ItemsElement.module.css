@@ -8,7 +8,7 @@
   color: #3990af;
 }
 .ItemsElement {
-  opacity: 100%;
+  opacity: 1;
   position: relative;
   margin: 5px;
   border: solid 1px #b6e4f5;
@@ -40,7 +40,7 @@
 .Desc {
   position: absolute;
   display: block;
-  opacity: 0%;
+  opacity: 0;
   bottom: 0px;
   transition: opacity 0.3s ease-out;
   width: 300px;
@@ -48,7 +48,7 @@
 }
 
 .Desc:hover {
-  opacity: 100%;
+  opacity: 1;
   transition: opacity 0.3s ease-out;
 }
 
