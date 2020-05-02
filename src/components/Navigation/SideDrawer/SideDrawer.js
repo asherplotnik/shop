@@ -9,16 +9,21 @@ import { connect } from "react-redux";
 
 const sideDrawer = (props) => {
   const onPressedCart = () => {
+    props.closed();
     props.history.push("/shoppingcart");
   };
   let attachedClasses = [classes.SideDrawer, classes.Close];
   if (props.open) {
     attachedClasses = [classes.SideDrawer, classes.Open];
   }
+  let showCart = classes.Hide;
+  if (props.entries.length > 0) {
+    showCart = classes.Cart0;
+  }
   return (
     <React.Fragment>
       <Backdrop show={props.open} clicked={props.closed} />
-      <div className={attachedClasses.join(" ")}>
+      <div onClick={props.closed} className={attachedClasses.join(" ")}>
         <div className={classes.Logo}>
           <Logo />
         </div>
@@ -28,8 +33,8 @@ const sideDrawer = (props) => {
             lang={props.lang}
           />
         </nav>
-        <div onClick={onPressedCart} className={classes.Cart0}>
-          <div onClick={onPressedCart} className={classes.Cart2}>
+        <div onClick={onPressedCart} className={showCart}>
+          <div className={classes.Cart2}>
             <img src={gc + "cart2.png"} alt="cart" />
           </div>
           <div className={classes.Cart}>
@@ -45,6 +50,7 @@ const mapStateToProps = (state) => {
   return {
     lang: state.langReducer.lang,
     token: state.authReducer.token,
+    entries: state.cartReducer.entries,
   };
 };
 export default connect(mapStateToProps)(withRouter(sideDrawer));

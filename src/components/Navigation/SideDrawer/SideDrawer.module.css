@@ -20,8 +20,8 @@
   transform: translateX(-100%);
 }
 
-.Logo {
-  height: 7%;
+.Logo img {
+  width: 160px;
   margin-bottom: 32px;
 }
 
@@ -54,6 +54,10 @@
   opacity: 1;
   transition: opacity 0.2s ease-out;
   cursor: pointer;
+}
+
+.Hide {
+  display: none;
 }
 
 @media (min-width: 500px) {
