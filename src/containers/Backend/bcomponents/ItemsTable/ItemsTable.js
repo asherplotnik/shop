@@ -297,6 +297,12 @@ const itemsTable = (props) => {
       columns={columns}
       defaultPageSize={5}
       filterable
+      defaultFilterMethod={(filter, row, column) => {
+        const id = filter.pivotId || filter.id;
+        return row[id] !== undefined
+          ? String(row[id].toUpperCase()).startsWith(filter.value.toUpperCase())
+          : true;
+      }}
       SubComponent={(row) => {
         return (
           <ReactTable

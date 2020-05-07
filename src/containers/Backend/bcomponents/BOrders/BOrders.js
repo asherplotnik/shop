@@ -150,7 +150,7 @@ const BOrders = () => {
           response.data.map((row) => {
             return {
               id: row.id,
-              userId: row.userId,
+              userid: row.userid,
               username: row.username,
               email: row.email,
               address: row.address,

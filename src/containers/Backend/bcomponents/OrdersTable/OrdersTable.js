@@ -64,7 +64,7 @@ const OrdersTable = (props) => {
           USER ID
         </div>
       ),
-      accessor: "userId",
+      accessor: "userid",
       width: 240,
       Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
@@ -80,6 +80,12 @@ const OrdersTable = (props) => {
         </div>
       ),
       accessor: "username",
+      filterMethod: (filter, row, column) => {
+        const id = filter.pivotId || filter.id;
+        return row[id] !== undefined
+          ? String(row[id].toUpperCase()).startsWith(filter.value.toUpperCase())
+          : true;
+      },
       Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
@@ -94,7 +100,12 @@ const OrdersTable = (props) => {
         </div>
       ),
       accessor: "email",
-      filterable: false,
+      filterMethod: (filter, row, column) => {
+        const id = filter.pivotId || filter.id;
+        return row[id] !== undefined
+          ? String(row[id].toUpperCase()).startsWith(filter.value.toUpperCase())
+          : true;
+      },
       Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
@@ -153,6 +164,12 @@ const OrdersTable = (props) => {
         </div>
       ),
       accessor: "status",
+      filterMethod: (filter, row, column) => {
+        const id = filter.pivotId || filter.id;
+        return row[id] !== undefined
+          ? String(row[id].toUpperCase()).startsWith(filter.value.toUpperCase())
+          : true;
+      },
       Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
@@ -259,7 +276,7 @@ const OrdersTable = (props) => {
               }
               if (e.target.innerHTML === "UPDATE") {
                 row.id = rowInfo.original.id;
-                row.userId = rowInfo.original.userId;
+                row.userId = rowInfo.original.userid;
                 row.username = rowInfo.original.username;
                 row.email = rowInfo.original.email;
                 row.address = rowInfo.original.address;

@@ -14,6 +14,12 @@ const transactionTable = (props) => {
     {
       Header: <strong className={classes.CellStyle}>VARIATION</strong>,
       accessor: "variation",
+      filterMethod: (filter, row, column) => {
+        const id = filter.pivotId || filter.id;
+        return row[id] !== undefined
+          ? String(row[id].toUpperCase()).startsWith(filter.value.toUpperCase())
+          : true;
+      },
       Cell: (row) => <span className={classes.CellStyle}>{row.value}</span>,
     },
     {
@@ -44,6 +50,12 @@ const transactionTable = (props) => {
     {
       Header: <strong className={classes.CellStyle}>NOTE</strong>,
       accessor: "note",
+      filterMethod: (filter, row, column) => {
+        const id = filter.pivotId || filter.id;
+        return row[id] !== undefined
+          ? String(row[id].toUpperCase()).startsWith(filter.value.toUpperCase())
+          : true;
+      },
       width: 350,
       Cell: (row) => <span className={classes.CellStyle}>{row.value}</span>,
     },

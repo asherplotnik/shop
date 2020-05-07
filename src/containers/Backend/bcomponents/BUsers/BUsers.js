@@ -299,6 +299,7 @@ const BUsers = () => {
         columns={columns}
         data={users}
         defaultPageSize={50}
+        filterable
         minRows={1}
         getTdProps={(state, rowInfo, column, instance) => {
           return {
