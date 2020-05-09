@@ -51,7 +51,7 @@ const BOrders = () => {
     formData.append("email", pressedOrder.email);
     formData.append(
       "subject",
-      "INDY COLLECTION SHIPPMENT TRACKING NUMBER FOR ORDER #" + pressedOrder.id
+      "INDY FASHION SHIPPMENT TRACKING NUMBER FOR ORDER #" + pressedOrder.id
     );
     formData.append("body", emailBody);
     axios

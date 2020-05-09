@@ -204,7 +204,7 @@ class Checkout extends Component {
               ORDER CONFIRMATION
               <span className={showConf}> #{this.state.confirmationNo}</span>
             </h3>
-            <h3> INDY COLLECTION </h3>
+            <h3> INDY FASHION </h3>
           </div>
           <ul className={classes.Ul}>
             <li key="name">

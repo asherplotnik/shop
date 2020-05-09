@@ -119,7 +119,7 @@ const IssueReceipt = (props) => {
           <div className={classes.Logo}>
             <Logo />
           </div>
-          <h1>INDY COLLECTION - RECEIPT</h1>
+          <h1>INDY FASHION - RECEIPT</h1>
           <ul className={classes.List}>
             <li key="name">NAME: {props.order.username}</li>
             <li key="email">EMAIL: {props.order.email}</li>

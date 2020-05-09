@@ -25,15 +25,35 @@ class Product extends Component {
   confirmForm = (entry) => {
     this.onAddToCartPressed();
     let arr = [...this.props.entries];
-    arr.push({
-      code: this.state.product[0].code,
-      variation: entry.selectedVar,
-      quantity: entry.quantity,
-      price: this.state.product[0].price,
-      img: this.state.product[0].img,
-      desc: this.state.product[0].desc,
-      total: entry.quantity * this.state.product[0].price,
-    });
+    let chkExists = null;
+    for (let i = 0; i < arr.length; i++) {
+      if (
+        arr[i].code === this.state.product[0].code &&
+        arr[i].variation === entry.selectedVar
+      ) {
+        chkExists = i;
+        break;
+      }
+    }
+    if (chkExists !== null) {
+      console.log(
+        "before qty:",
+        arr[chkExists].quantity,
+        " entry qty:",
+        entry.quantity
+      );
+      arr[chkExists].quantity = +arr[chkExists].quantity + +entry.quantity;
+    } else {
+      arr.push({
+        code: this.state.product[0].code,
+        variation: entry.selectedVar,
+        quantity: entry.quantity,
+        price: this.state.product[0].price,
+        img: this.state.product[0].img,
+        desc: this.state.product[0].desc,
+        total: entry.quantity * this.state.product[0].price,
+      });
+    }
     this.props.onAddToCart(arr);
     let a = [...this.state.stock];
     for (let i = 0; i < a.length; i++) {
