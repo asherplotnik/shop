@@ -78,15 +78,8 @@ const Toolbar = (props) => {
                 alt={""}
               />
             </div>
-            <div style={{ width: "150px" }}>
-              <p
-                onClick={onPressedLogin}
-                style={{
-                  margin: "20px",
-                  cursor: "pointer",
-                  fontSize: "larger",
-                }}
-              >
+            <div style={{ width: "150px", cursor: "pointer" }}>
+              <p onClick={onPressedLogin} className={classes.PLogin}>
                 {props.token === null
                   ? dic.login[props.lang]
                   : dic.logout[props.lang]}

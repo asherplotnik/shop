@@ -10,7 +10,7 @@ import AddToCartForm from "../AddToCartForm/AddToCartForm";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import { withRouter } from "react-router-dom";
-import { serverAddress, gc } from "../../assets/helper";
+import { serverAddress, gc, dic } from "../../assets/helper";
 
 class Product extends Component {
   state = {
@@ -36,12 +36,6 @@ class Product extends Component {
       }
     }
     if (chkExists !== null) {
-      console.log(
-        "before qty:",
-        arr[chkExists].quantity,
-        " entry qty:",
-        entry.quantity
-      );
       arr[chkExists].quantity = +arr[chkExists].quantity + +entry.quantity;
     } else {
       arr.push({
@@ -75,43 +69,41 @@ class Product extends Component {
   fetchProduct = () => {
     let selectedProduct = this.props.location.search.substr(1);
     selectedProduct = selectedProduct.replace(/%20/g, " ");
+
     const sql = "SELECT * FROM items WHERE code = '" + selectedProduct + "'";
     const sqlQuery = { sql: sql };
     axios
       .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
-        console.log("[product] => ", response.data);
         this.setState({ loading: false });
         this.setState({ product: response.data });
-      })
-      .catch((error) => {
-        this.setState({ loading: false });
-        console.log(error);
-      });
-
-    const sqlStock =
-      "SELECT * FROM stock WHERE code = '" + selectedProduct + "'";
-    const sqlStockQuery = { sql: sqlStock };
-    axios
-      .post(serverAddress + "API/query", sqlStockQuery)
-      .then((response) => {
-        let a = [...response.data];
-        for (let i = 0; i < a.length; i++) {
-          console.log(a.length);
-          for (let j = 0; j < this.props.entries.length; j++) {
-            if (
-              this.state.product[0].code === this.props.entries[j].code &&
-              a[i].variation === this.props.entries[j].variation
-            ) {
-              a[i].qty = a[i].qty - this.props.entries[j].quantity;
+        const sqlStock =
+          "SELECT * FROM stock WHERE code = '" + selectedProduct + "'";
+        const sqlStockQuery = { sql: sqlStock };
+        axios
+          .post(serverAddress + "API/query", sqlStockQuery)
+          .then((response) => {
+            let a = [...response.data];
+            for (let i = 0; i < a.length; i++) {
+              for (let j = 0; j < this.props.entries.length; j++) {
+                if (
+                  this.state.product[0].code === this.props.entries[j].code &&
+                  a[i].variation === this.props.entries[j].variation
+                ) {
+                  a[i].qty = a[i].qty - this.props.entries[j].quantity;
+                }
+              }
             }
-          }
-        }
-        this.setState({ stock: [...a] });
+            this.setState({ stock: [...a] });
+          })
+          .catch((error) => {
+            this.setState({ loading: false });
+            console.log(error);
+          });
       })
       .catch((error) => {
         this.setState({ loading: false });
-        console.log(error);
+        console.log("axios:", error);
       });
   };
 
@@ -120,6 +112,7 @@ class Product extends Component {
   }
 
   render() {
+    const lang = this.props.lang;
     const stockColumns = [
       {
         Header: <strong className={classes.StockColumns}>#</strong>,
@@ -162,11 +155,17 @@ class Product extends Component {
             <div className={classes.Text}>
               <p className={classes.PDesc}>{item.desc}</p>
               <hr className={classes.HrClass} />
-              <p className={classes.PName}>Code: {item.code}</p>
+              <p className={classes.PName}>
+                {dic.code[lang]} {item.code}
+              </p>
               <hr className={classes.HrClass} />
-              <p className={classes.PSize}>Size: {item.size}</p>
+              <p className={classes.PSize}>
+                {dic.size[lang]} {item.size}
+              </p>
               <hr className={classes.HrClass} />
-              <p className={classes.PPrice}>Price: {item.price} BHT</p>
+              <p className={classes.PPrice}>
+                {dic.price[lang]} {item.price} BHT
+              </p>
               <hr className={classes.HrClass} />
               <div style={{ display: "flex" }}>
                 <Button
@@ -240,6 +239,7 @@ const mapsStateToProps = (state) => {
   return {
     entries: state.cartReducer.entries,
     token: state.authReducer.token,
+    lang: state.langReducer.lang,
   };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -155,6 +155,12 @@ const itemsTable = (props) => {
         </div>
       ),
       accessor: "trending",
+      filterMethod: (filter, row, column) => {
+        const id = filter.pivotId || filter.id;
+        return row[id] !== undefined
+          ? String(row[id]).startsWith(filter.value)
+          : true;
+      },
       Cell: (row) => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>

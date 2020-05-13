@@ -1,8 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mitr&family=Sriracha&display=swap");
 
 .CellStyle {
   vertical-align: middle;
-  font-family: "BenchNine", sans-serif;
+  font-family: "BenchNine", "Sriracha";
   font-size: 20px;
 }
 
@@ -11,7 +12,7 @@
 }
 .HeaderStyle {
   vertical-align: middle;
-  font-family: "BenchNine", sans-serif;
+  font-family: "BenchNine", "Sriracha";
   font-size: x-large;
 }
 

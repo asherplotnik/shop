@@ -49,12 +49,10 @@ class Items extends Component {
     selectedColl = selectedColl.replace(/%20/g, " ");
     console.log(selectedColl);
     const sql = "SELECT * FROM Items WHERE collection = '" + selectedColl + "'";
-    console.log("[ ----items]", sql);
     const sqlQuery = { sql: sql };
     axios
       .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
-        console.log("[sql] => ", response.data);
         this.setState({ loading: false });
         this.setState({ Items: response.data });
       })

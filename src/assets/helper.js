@@ -102,6 +102,7 @@ export const dic = {
   shipped: { eng: "SHIPPED", thai: "ส่งแล้ว" },
   specialIssue: { eng: "SPECIAL ISSUE", thai: "กรณีพิเศษ" },
   canceled: { eng: "CANCELED", thai: "ยกเลิก" },
+  size: { eng: "SIZE: ", thai: "ขนาด: " },
 };
 
 export const awsApi = "";
@@ -110,4 +111,4 @@ export const local = "http://localhost:9000/";
 export const heroku = "https://indyapi.herokuapp.com/";
 //export const gc = "https://storage.cloud.google.com/indy-4cba2.appspot.com/";
 export const gc = "https://s3-ap-southeast-1.amazonaws.com/indyfashion.images/";
-export const serverAddress = awsApi;
+export const serverAddress = local;

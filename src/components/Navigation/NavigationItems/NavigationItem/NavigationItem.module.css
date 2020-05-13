@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Mitr&family=Sriracha&display=swap");
 .Hide {
   display: none;
 }
@@ -16,6 +17,7 @@
   box-sizing: border-box;
   display: block;
   font-size: larger;
+  font-family: "times new roman", "Sriracha";
   transition: color 0.4s ease-out;
 }
 

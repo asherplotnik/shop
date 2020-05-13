@@ -9,7 +9,7 @@
 
 .Toolbar {
   font-family: "BenchNine", sans-serif;
-  font-size: 25px;
+  font-size: large;
   justify-content: space-between;
   background-color: rgb(235, 232, 232);
   height: 80px;
