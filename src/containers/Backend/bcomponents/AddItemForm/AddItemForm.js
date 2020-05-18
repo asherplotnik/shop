@@ -59,6 +59,10 @@ const addItemForm = (props) => {
                 {" "}
                 RING
               </option>
+              <option selected={props.rType === "ACCESSORY" ? true : false}>
+                {" "}
+                ACCESSORY
+              </option>
             </select>
           </li>
           <li key="trending">

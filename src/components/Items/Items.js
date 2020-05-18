@@ -48,7 +48,10 @@ class Items extends Component {
     let selectedColl = this.props.location.search.substr(1);
     selectedColl = selectedColl.replace(/%20/g, " ");
     console.log(selectedColl);
-    const sql = "SELECT * FROM Items WHERE collection = '" + selectedColl + "'";
+    const sql =
+      "SELECT * FROM Items WHERE collection = '" +
+      selectedColl +
+      "' ORDER BY code ";
     const sqlQuery = { sql: sql };
     axios
       .post(serverAddress + "API/query", sqlQuery)
