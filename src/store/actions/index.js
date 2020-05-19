@@ -9,6 +9,9 @@ export {
   toggleUpdateOff,
   toggleAddOff,
   bulkPressed,
+  setPageRangeBack,
+  setPageRangeForward,
+  resetRange,
 } from "./itemsActions";
 
 export { addToCart, deleteEntry, clearCart } from "./cartActions";

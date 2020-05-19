@@ -1,64 +1,81 @@
 import * as actionTypes from "./actionTypes";
 
-export const setItems = items => {
+export const setItems = (items) => {
   return {
     type: actionTypes.SET_ITEMS,
-    items: items
+    items: items,
   };
 };
 
-export const setStock = stock => {
+export const setStock = (stock) => {
   return {
     type: actionTypes.SET_STOCK,
-    stock: stock
+    stock: stock,
   };
 };
 
 export const setLoadingFalse = () => {
   return {
-    type: actionTypes.SET_LOADING_FALSE
+    type: actionTypes.SET_LOADING_FALSE,
   };
 };
 
 export const addPressed = () => {
   return {
-    type: actionTypes.ADD_PRESSED
+    type: actionTypes.ADD_PRESSED,
   };
 };
 
-export const deletePressed = rowId => {
+export const deletePressed = (rowId) => {
   return {
     type: actionTypes.DELETE_PRESSED,
-    rowId: rowId
+    rowId: rowId,
   };
 };
-export const updatePressed = row => {
+export const updatePressed = (row) => {
   return {
     type: actionTypes.UPDATE_PRESSED,
-    row: row
+    row: row,
   };
 };
 
-export const setCollectionSelect = col => {
+export const setCollectionSelect = (col) => {
   return {
     type: actionTypes.SET_COLLECTION_SELECT,
-    col: col
+    col: col,
   };
 };
-export const toggleUpdateOff = col => {
+export const toggleUpdateOff = (col) => {
   return {
     type: actionTypes.TOGGLE_UPDATE_OFF,
-    col: col
+    col: col,
   };
 };
-export const toggleAddOff = col => {
+export const toggleAddOff = (col) => {
   return {
     type: actionTypes.TOGGLE_ADD_OFF,
-    col: col
+    col: col,
   };
 };
 export const bulkPressed = () => {
   return {
-    type: actionTypes.BULK_PRESSED
+    type: actionTypes.BULK_PRESSED,
+  };
+};
+
+export const setPageRangeBack = () => {
+  return {
+    type: actionTypes.SET_PAGE_RANGE_BACK,
+  };
+};
+
+export const setPageRangeForward = () => {
+  return {
+    type: actionTypes.SET_PAGE_RANGE_FORWARD,
+  };
+};
+export const resetRange = () => {
+  return {
+    type: actionTypes.RESET_RANGE,
   };
 };

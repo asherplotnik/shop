@@ -4,6 +4,7 @@ import ItemsElement from "./ItemsElement/ItemsElement";
 import classes from "./Items.module.css";
 import axios from "axios";
 import Spinner from "../UI/Spinner/Spinner";
+import * as actions from "../../store/actions/index";
 import PathLine from "../UI/PathLine/PathLine";
 import { serverAddress, dic } from "../../assets/helper";
 import { connect } from "react-redux";
@@ -13,35 +14,37 @@ class Items extends Component {
     loading: true,
     Items: [],
     search: "",
-    pageRangeStart: 0,
-    pageRangeEnd: 11,
+    //pageRangeStart: 0,
+    //pageRangeEnd: 11,
   };
 
   changePageBack = () => {
-    if (this.state.pageRangeStart > 0) {
+    if (this.props.pageRangeStart > 0) {
       window.scrollTo(0, 0);
-      this.setState((prevState) => {
-        return { pageRangeStart: prevState.pageRangeStart - 12 };
-      });
-      this.setState((prevState) => {
-        return { pageRangeEnd: prevState.pageRangeEnd - 12 };
-      });
+      this.props.setPageRangeBack();
+      // this.setState((prevState) => {
+      //   return { pageRangeStart: prevState.pageRangeStart - 12 };
+      // });
+      // this.setState((prevState) => {
+      //   return { pageRangeEnd: prevState.pageRangeEnd - 12 };
+      // });
     }
   };
 
   changePageForward = () => {
-    if (this.state.pageRangeEnd < TOPITEM) {
+    if (this.props.pageRangeEnd < TOPITEM) {
       window.scrollTo(0, 0);
-      this.setState((prevState) => {
-        return {
-          pageRangeStart: prevState.pageRangeStart + 12,
-        };
-      });
-      this.setState((prevState) => {
-        return {
-          pageRangeEnd: prevState.pageRangeEnd + 12,
-        };
-      });
+      this.props.setPageRangeForward();
+      // this.setState((prevState) => {
+      //   return {
+      //     pageRangeStart: prevState.pageRangeStart + 12,
+      //   };
+      // });
+      // this.setState((prevState) => {
+      //   return {
+      //     pageRangeEnd: prevState.pageRangeEnd + 12,
+      //   };
+      // });
     }
   };
   fetchItems = () => {
@@ -58,6 +61,9 @@ class Items extends Component {
       .then((response) => {
         this.setState({ loading: false });
         this.setState({ Items: response.data });
+        if (this.props.pageRangeStart > response.data.length) {
+          this.props.resetRange();
+        }
       })
       .catch((error) => {
         this.setState({ loading: false });
@@ -94,8 +100,8 @@ class Items extends Component {
             }
             search={this.state.search}
             keyP={index}
-            start={this.state.pageRangeStart}
-            end={this.state.pageRangeEnd}
+            start={this.props.pageRangeStart}
+            end={this.props.pageRangeEnd}
             link={link}
             img={imagePath}
             img2={imagePath2}
@@ -140,7 +146,7 @@ class Items extends Component {
                 }
                 disabled={this.state.search !== ""}
               >
-                {this.state.pageRangeStart + 1} - {this.state.pageRangeEnd + 1}
+                {this.props.pageRangeStart + 1} - {this.props.pageRangeEnd + 1}
               </span>
               <button
                 className={classes.Button}
@@ -162,7 +168,17 @@ class Items extends Component {
 const mapStateToProps = (state) => {
   return {
     lang: state.langReducer.lang,
+    pageRangeStart: state.itemsReducer.pageRangeStart,
+    pageRangeEnd: state.itemsReducer.pageRangeEnd,
   };
 };
 
-export default connect(mapStateToProps)(Items);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setPageRangeBack: () => dispatch(actions.setPageRangeBack()),
+    setPageRangeForward: () => dispatch(actions.setPageRangeForward()),
+    resetRange: () => dispatch(actions.resetRange()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Items);

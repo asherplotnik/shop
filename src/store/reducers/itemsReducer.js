@@ -20,7 +20,9 @@ const initialState = {
   collectionSelect: [],
   bulkPressed: false,
   asher: null,
-  canceled: false
+  canceled: false,
+  pageRangeStart: 0,
+  pageRangeEnd: 11,
 };
 
 const itemsReducer = (state = initialState, action) => {
@@ -28,28 +30,28 @@ const itemsReducer = (state = initialState, action) => {
     case actionTypes.SET_ITEMS:
       return {
         ...state,
-        items: action.items
+        items: action.items,
       };
     case actionTypes.SET_STOCK:
       return {
         ...state,
-        stock: action.stock
+        stock: action.stock,
       };
     case actionTypes.SET_LOADING_FALSE:
       return {
         ...state,
-        loading: false
+        loading: false,
       };
     case actionTypes.ADD_PRESSED:
       return {
         ...state,
-        addPressed: !state.addPressed
+        addPressed: !state.addPressed,
       };
     case actionTypes.DELETE_PRESSED:
       return {
         ...state,
         deletePressed: !state.deletePressed,
-        pressedRecordId: action.rowId
+        pressedRecordId: action.rowId,
       };
     case actionTypes.UPDATE_PRESSED:
       return {
@@ -62,12 +64,12 @@ const itemsReducer = (state = initialState, action) => {
         pressedRecordSize: action.row.size,
         pressedRecordType: action.row.typology,
         pressedRecordPrice: action.row.price,
-        pressedRecordTrending: action.row.Trending
+        pressedRecordTrending: action.row.Trending,
       };
     case actionTypes.SET_COLLECTION_SELECT:
       return {
         ...state,
-        collectionSelect: action.col
+        collectionSelect: action.col,
       };
     case actionTypes.TOGGLE_UPDATE_OFF:
       return {
@@ -79,7 +81,7 @@ const itemsReducer = (state = initialState, action) => {
         pressedRecordDesc: null,
         pressedRecordSize: null,
         pressedRecordType: null,
-        pressedRecordPrice: null
+        pressedRecordPrice: null,
       };
     case actionTypes.TOGGLE_ADD_OFF:
       return {
@@ -91,12 +93,31 @@ const itemsReducer = (state = initialState, action) => {
         pressedRecordDesc: null,
         pressedRecordSize: null,
         pressedRecordType: null,
-        pressedRecordPrice: null
+        pressedRecordPrice: null,
       };
     case actionTypes.BULK_PRESSED:
       return {
         ...state,
-        bulkPressed: !state.bulkPressed
+        bulkPressed: !state.bulkPressed,
+      };
+
+    case actionTypes.SET_PAGE_RANGE_BACK:
+      return {
+        ...state,
+        pageRangeStart: state.pageRangeStart - 12,
+        pageRangeEnd: state.pageRangeEnd - 12,
+      };
+    case actionTypes.SET_PAGE_RANGE_FORWARD:
+      return {
+        ...state,
+        pageRangeStart: state.pageRangeStart + 12,
+        pageRangeEnd: state.pageRangeEnd + 12,
+      };
+    case actionTypes.RESET_RANGE:
+      return {
+        ...state,
+        pageRangeStart: 0,
+        pageRangeEnd: 11,
       };
     default:
       return state;
