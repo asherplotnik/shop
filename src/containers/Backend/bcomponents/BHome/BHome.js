@@ -5,12 +5,16 @@ import axios from "axios";
 import { serverAddress } from "../../../../assets/helper";
 import Spinner from "../../../../components/UI/Spinner/Spinner";
 import UpdateAbout from "../UpdateAbout/UpdateAbout";
+import UpdateFooter from "../UpdateFooter/UpdateFooter";
 import UpdateSlide from "../UpdateSlide/UpdateSlide";
 const BHome = (props) => {
   let [updateAboutPressed, setUpdateAboutPressed] = useState(false);
   let [updateSlidePressed, setUpdateSlidePressed] = useState(false);
+  let [updateFooterPressed, setUpdateFooterPressed] = useState(false);
   let [aboutContent, setAboutContent] = useState(null);
+  let [footerContent, setFooterContent] = useState(null);
   let [loadingAbout, setLoadingAbout] = useState(true);
+  let [loadingFooter, setLoadingFooter] = useState(true);
 
   useEffect(() => {
     fetchData();
@@ -23,6 +27,14 @@ const BHome = (props) => {
       })
       .then((response) => {
         setAboutContent(JSON.parse(response.data[0].content));
+        axios
+          .post(serverAddress + "API/query", {
+            sql: "SELECT content FROM about WHERE id = 2",
+          })
+          .then((res) => {
+            setFooterContent(JSON.parse(res.data[0].content));
+            setLoadingFooter(false);
+          });
         setLoadingAbout(false);
       });
   };
@@ -45,13 +57,46 @@ const BHome = (props) => {
         console.log(error);
       });
   };
+
+  const updateFooterHandler = (e) => {
+    e.preventDefault();
+    setLoadingFooter(true);
+    const formData = new FormData(document.querySelector("#updateFooter"));
+    const youtube = formData.get("youtube");
+    const facebook = formData.get("facebook");
+    const email = formData.get("email");
+    const tel = formData.get("tel");
+    const sql = `UPDATE about SET "content" = '{"youtube": "${youtube}", "facebook": "${facebook}", "email": "${email}", "tel": "${tel}"}', lang = 'eng'`;
+    const sqlQuery = { sql: sql };
+    axios
+      .post(serverAddress + "API/update", sqlQuery)
+      .then((response) => {
+        setFooterContent(
+          JSON.parse(
+            `{"youtube": "${youtube}", "facebook": "${facebook}", "email": "${email}", "tel": "${tel}"}`
+          )
+        );
+        setLoadingFooter(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const onUpdateAbout = () => {
     setUpdateSlidePressed(false);
+    setUpdateFooterPressed(false);
     setUpdateAboutPressed(!updateAboutPressed);
   };
   const onUpdateSlide = () => {
     setUpdateAboutPressed(false);
+    setUpdateFooterPressed(false);
     setUpdateSlidePressed(!updateSlidePressed);
+  };
+  const onUpdateFooter = () => {
+    setUpdateAboutPressed(false);
+    setUpdateSlidePressed(false);
+    setUpdateFooterPressed(!updateFooterPressed);
   };
 
   let viewPage = <Spinner />;
@@ -78,8 +123,21 @@ const BHome = (props) => {
       </div>
     );
   }
+  if (updateFooterPressed) {
+    viewSubComponent = (
+      <div className={classes.Show}>
+        <div className={classes.Border}>
+          <UpdateFooter
+            onUpdateFooter={onUpdateFooter}
+            updateFooterHandler={updateFooterHandler}
+            content={footerContent}
+          />
+        </div>
+      </div>
+    );
+  }
 
-  if (!loadingAbout) {
+  if (!loadingAbout && !loadingFooter) {
     viewPage = (
       <div className={[classes.Wrapper, classes.Trans].join(" ")}>
         <div className={classes.Buttons}>
@@ -87,7 +145,10 @@ const BHome = (props) => {
             Update About Us
           </Button>
           <Button clicked={onUpdateSlide} btnType="Success">
-            Update slide
+            Update Slide
+          </Button>
+          <Button clicked={onUpdateFooter} btnType="Success">
+            Update Footer
           </Button>
         </div>
         {viewSubComponent}

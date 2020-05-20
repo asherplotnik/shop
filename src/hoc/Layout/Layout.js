@@ -3,20 +3,43 @@ import classes from "./Layout.module.css";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
 import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 import Footer from "../../components/Navigation/Footer/Footer";
+import axios from "axios";
+import { serverAddress } from "../../assets/helper";
+import Spinner from "../../components/UI/Spinner/Spinner";
+
 class Layout extends Component {
   state = {
     showSideDrawer: false,
+    loadingFooter: true,
+    footerContent: null,
+  };
+
+  fetchFooterData = () => {
+    axios
+      .post(serverAddress + "API/query", {
+        sql: "SELECT content FROM about WHERE id = 2",
+      })
+      .then((res) => {
+        this.setState({ footerContent: JSON.parse(res.data[0].content) });
+        this.setState({ loadingFooter: false });
+      });
   };
   sideDrawerClosedHandler = () => {
     this.setState({ showSideDrawer: false });
   };
-
   sideDrawerToggleHandler = () => {
     this.setState((prevState) => {
       return { showSideDrawer: !prevState.showSideDrawer };
     });
   };
+  componentDidMount() {
+    this.fetchFooterData();
+  }
   render() {
+    let footer = <Spinner />;
+    if (!this.state.loadingFooter) {
+      footer = <Footer content={this.state.footerContent} />;
+    }
     return (
       <div className={classes.Trans} style={{ textAlign: "center" }}>
         <div className={classes.Layout}>
@@ -26,7 +49,7 @@ class Layout extends Component {
             closed={this.sideDrawerClosedHandler}
           />
           <main className={classes.Content}>{this.props.children}</main>
-          <Footer />
+          {footer}
         </div>
       </div>
     );

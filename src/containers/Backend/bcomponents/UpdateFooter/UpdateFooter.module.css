@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
+.Ul {
+  font-family: "BenchNine", sans-serif;
+  font-size: 1.3em;
+  list-style: none;
+  text-align: left;
+  padding: 5px;
+  margin-top: 0;
+}
+
+.Scroll {
+  height: 77vh;
+  overflow: auto;
+}
+
+.Ul li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Ul input {
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+  width: 500px;
+}
+
+.Ul button {
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+  margin: 0px 40px 0px 40px;
+}
+
+.Br {
+  line-height: 0.1em;
+  font-size: x-small;
+}
