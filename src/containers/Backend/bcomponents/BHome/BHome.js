@@ -66,7 +66,7 @@ const BHome = (props) => {
     const facebook = formData.get("facebook");
     const email = formData.get("email");
     const tel = formData.get("tel");
-    const sql = `UPDATE about SET "content" = '{"youtube": "${youtube}", "facebook": "${facebook}", "email": "${email}", "tel": "${tel}"}', lang = 'eng'`;
+    const sql = `UPDATE about SET "content" = '{"youtube": "${youtube}", "facebook": "${facebook}", "email": "${email}", "tel": "${tel}"}', lang = 'eng' WHERE id = 2`;
     const sqlQuery = { sql: sql };
     axios
       .post(serverAddress + "API/update", sqlQuery)

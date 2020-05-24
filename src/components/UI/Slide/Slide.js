@@ -5,7 +5,10 @@ import axios from "axios";
 import Spinner from "../../UI/Spinner/Spinner";
 import classes from "./Slide.module.css";
 
-const Slide = () => {
+const Slide = (props) => {
+  let [loading, setLoading] = useState(true);
+  let [images, setImages] = useState([]);
+
   const fetchImages = () => {
     axios
       .post(serverAddress + "API/query", { sql: "SELECT * FROM slide" })
@@ -14,8 +17,13 @@ const Slide = () => {
         setLoading(false);
       });
   };
-  let [loading, setLoading] = useState(true);
-  let [images, setImages] = useState([]);
+
+  const onImageClick = (event) => {
+    const clickedImage = images.find(
+      (el) => el.original === event.target.src.slice(gc.length)
+    );
+    window.location.replace(clickedImage.imagelink);
+  };
   useEffect(() => {
     fetchImages();
   }, []);
@@ -32,6 +40,7 @@ const Slide = () => {
       <div>
         <div className={classes.Trans}>
           <ImageGallery
+            onClick={onImageClick}
             items={arr}
             showNav={true}
             showPlayButton={false}
