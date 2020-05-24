@@ -22,7 +22,9 @@ const Slide = (props) => {
     const clickedImage = images.find(
       (el) => el.original === event.target.src.slice(gc.length)
     );
-    window.location.replace(clickedImage.imagelink);
+    if (clickedImage.imagelink !== null) {
+      window.location.replace(clickedImage.imagelink);
+    }
   };
   useEffect(() => {
     fetchImages();

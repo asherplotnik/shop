@@ -13,7 +13,25 @@
   font-family: "BenchNine", sans-serif;
   font-size: x-large;
 }
+.FormList {
+  list-style: none;
+  padding: 3px;
+}
+.FormList li {
+  display: flex;
+  padding: 3px;
+  justify-content: space-between;
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}
 
+.Font,
+.FormList button,
+.FormList input,
+.FormList select {
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}
 .Hr {
   margin: 0px 20px;
   border: transparent;
@@ -22,6 +40,11 @@
 }
 .Row button,
 .Row input {
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}
+
+.Label {
   font-family: "BenchNine", sans-serif;
   font-size: x-large;
 }

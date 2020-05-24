@@ -4,6 +4,7 @@ import { serverAddress, gc } from "../../../../assets/helper";
 import classes from "./UpdateSlide.module.css";
 import Button from "../../../../components/UI/Button/Button";
 import Spinner from "../../../../components/UI/Spinner/Spinner";
+import Modal from "../../../../components/UI/Modal/Modal";
 const UpdateSlide = () => {
   let [slideList, setSlideList] = useState([]);
   let [addNewImgPressed, setAddNewImagePressed] = useState(false);
@@ -11,11 +12,12 @@ const UpdateSlide = () => {
   const onSetAddNewImagePressed = () => {
     setAddNewImagePressed(!addNewImgPressed);
   };
-  const onSetImgSelected = (event) => {
-    if (event.target.files.length > 0) {
-      const newFileName = event.target.files[0].name;
-      let formData = new FormData();
-      formData.append("imageFile", event.target.files[0]);
+  const onSetImgSelected = (e) => {
+    e.preventDefault();
+    let formData = new FormData(document.querySelector("#addImageToSlide"));
+    console.log(formData.get("imageFile"));
+    if (formData.get("imageFile").name.trim() !== "") {
+      const newFileName = formData.get("imageFile").name;
       formData.append("original", newFileName);
       formData.append("action", "insert");
       setLoadingSlide(true);
@@ -26,6 +28,7 @@ const UpdateSlide = () => {
           },
         })
         .then((response) => {
+          onSetAddNewImagePressed();
           if (response.data !== "no file sent") {
             console.log(response.data);
             let t = response.data;
@@ -34,6 +37,9 @@ const UpdateSlide = () => {
           }
         })
         .catch((err) => console.log(err));
+    } else {
+      alert("CHOOSE A FILE!");
+      onSetAddNewImagePressed();
     }
   };
 
@@ -119,25 +125,49 @@ const UpdateSlide = () => {
   if (!loadingSlide) {
     viewPage = (
       <div className={classes.Scroll}>
+        <Modal show={addNewImgPressed} modalClosed={onSetAddNewImagePressed}>
+          <form id="addImageToSlide" onSubmit={onSetImgSelected}>
+            <div className={classes.Font}>ADD IMAGE</div>
+            <div>
+              <ul className={classes.FormList}>
+                <li>
+                  <input
+                    id="addImage"
+                    name="imageFile"
+                    type="file"
+                    className={classes.CustomInput}
+                  />
+                </li>
+                <li>
+                  <br />
+                </li>
+                <li>
+                  <label className={classes.Label} htmlFor="imageLink">
+                    Enter Link:{" "}
+                  </label>
+                  <input
+                    className={classes.Row}
+                    name="imageLink"
+                    type="text"
+                    size="35"
+                  />
+                </li>
+                <li>
+                  <br />
+                </li>
+                <li>
+                  <div style={{ textAlign: "center", width: "450px" }}>
+                    <input type="submit" />
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </form>
+        </Modal>
         <div className={classes.AddImgDiv}>
           <Button clicked={onSetAddNewImagePressed} btnType="GotoCart">
             ADD NEW IMAGE
           </Button>
-          <div
-            className={
-              addNewImgPressed
-                ? classes.AddImgInputShow
-                : classes.AddImgInputHide
-            }
-          >
-            <input
-              id="addImage"
-              name="addImage"
-              type="file"
-              className={classes.CustomInput}
-              onChange={onSetImgSelected}
-            />
-          </div>
         </div>
         {listEl}
       </div>
