@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Footer.module.css";
-
+import { NavLink } from "react-router-dom";
 const Footer = (props) => {
   return (
     <div className={classes.Blk}>
@@ -32,7 +32,11 @@ const Footer = (props) => {
           />
         </a>
       </div>
-      <div className={classes.Mail}>email: {props.content.email}</div>
+      <div className={classes.Mail}>
+        <NavLink to="/contactus" exact="true">
+          email: {props.content.email}
+        </NavLink>
+      </div>
       <div className={classes.Mail}>Tel: {props.content.tel}</div>
     </div>
   );

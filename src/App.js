@@ -13,6 +13,7 @@ import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import Auth from "./components/Auth/Auth";
 import Profile from "./components/Profile/Profile";
 import Checkout from "./components/Checkout/Checkout";
+import ContactUs from "./components/ContactUs/ContactUs";
 import Restricted from "./components/Restricted/Restricted";
 import { connect } from "react-redux";
 import * as actions from "./store/actions/index";
@@ -43,6 +44,7 @@ class App extends Component {
                 <Route path="/shoppingcart" component={ShoppingCart} />
                 <Route path="/auth" component={Auth} />
                 <Route path="/checkout" component={Checkout} />
+                <Route path="/contactus" component={ContactUs} />
                 <Route path="/restricted" component={Restricted} />
               </Layout>
             </Switch>

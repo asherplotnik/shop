@@ -71,6 +71,7 @@ export const dic = {
   phone: { eng: "PHONE: ", thai: "โทรศัพท์: " },
   address: { eng: "ADDRESS: ", thai: "ที่อยู่: " },
   email: { eng: "EMAIL :", thai: "อีเมล: " },
+  emailC: { eng: "Email", thai: "อีเมล " },
   newEmail: { eng: "NEW EMAIL :", thai: "อีเมลใหม่: " },
   confirmEmail: { eng: "CONFIRM EMAIL :", thai: "ยืนยันอีเมล: " },
   password: { eng: "PASSWORD: ", thai: "รหัสผ่าน: " },
@@ -103,6 +104,16 @@ export const dic = {
   specialIssue: { eng: "SPECIAL ISSUE", thai: "กรณีพิเศษ" },
   canceled: { eng: "CANCELED", thai: "ยกเลิก" },
   size: { eng: "SIZE: ", thai: "ขนาด: " },
+  contactUs: { eng: "Contact Us ", thai: "ติดต่อกับเรา" },
+  send: { eng: "SEND ", thai: "ส่ง" },
+  firstName: { eng: "First Name ", thai: "ชื่อ" },
+  lastName: { eng: "Last Name ", thai: "นามสกุล" },
+  subject: { eng: "Subject ", thai: "เรื่อง" },
+  details: { eng: "Details ", thai: "รายละเอียด" },
+  emailSent: {
+    eng: "Email Sent Successfully. Thank you. ",
+    thai: "ส่งอีเมลสำเร็จแล้วขอบคุณ",
+  },
 };
 
 export const awsApi = "";

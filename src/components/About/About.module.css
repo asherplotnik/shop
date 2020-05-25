@@ -90,6 +90,10 @@
 }
 
 @media (max-width: 499px) {
+  .Wrapper {
+    display: inline-block;
+    width: 100%;
+  }
   .SecondDiv,
   .ThirdDiv,
   .FirstDiv {
