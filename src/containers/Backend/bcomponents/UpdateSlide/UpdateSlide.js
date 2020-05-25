@@ -7,15 +7,24 @@ import Spinner from "../../../../components/UI/Spinner/Spinner";
 import Modal from "../../../../components/UI/Modal/Modal";
 const UpdateSlide = () => {
   let [slideList, setSlideList] = useState([]);
+  let [rowId, setRowId] = useState(null);
   let [addNewImgPressed, setAddNewImagePressed] = useState(false);
+  let [updateImgPressed, setUpdateImagePressed] = useState(false);
   let [loadingSlide, setLoadingSlide] = useState(false);
   const onSetAddNewImagePressed = () => {
     setAddNewImagePressed(!addNewImgPressed);
   };
+  const onUpdateImagePressed = (rowId) => {
+    setUpdateImagePressed(!updateImgPressed);
+    setRowId(rowId);
+  };
+
+  const onUpdateOff = () => {
+    setUpdateImagePressed(false);
+  };
   const onSetImgSelected = (e) => {
     e.preventDefault();
     let formData = new FormData(document.querySelector("#addImageToSlide"));
-    console.log(formData.get("imageFile"));
     if (formData.get("imageFile").name.trim() !== "") {
       const newFileName = formData.get("imageFile").name;
       formData.append("original", newFileName);
@@ -43,14 +52,15 @@ const UpdateSlide = () => {
     }
   };
 
-  const updateSlideList = (event, rowId) => {
-    if (event.target.files.length > 0) {
-      const newFileName = event.target.files[0].name;
-      let formData = new FormData();
-      formData.append("imageFile", event.target.files[0]);
+  const updateSlideList = (event) => {
+    event.preventDefault();
+    let formData = new FormData(document.querySelector("#updateImageToSlide"));
+    if (formData.get("imageFile").name.trim() !== "") {
+      const newFileName = formData.get("imageFile").name;
       formData.append("id", rowId);
       formData.append("original", newFileName);
       formData.append("action", "update");
+
       setLoadingSlide(true);
       axios
         .post(serverAddress + "API/uploadSlideImage", formData, {
@@ -59,6 +69,7 @@ const UpdateSlide = () => {
           },
         })
         .then((response) => {
+          setUpdateImagePressed();
           if (response.data !== "no file sent") {
             console.log(response.data);
             let t = response.data;
@@ -67,6 +78,9 @@ const UpdateSlide = () => {
           }
         })
         .catch((err) => console.log(err));
+    } else {
+      alert("CHOOSE A FILE!");
+      setUpdateImagePressed();
     }
   };
 
@@ -103,13 +117,19 @@ const UpdateSlide = () => {
             <p>{row.original}</p>
           </div>
           <div>
-            <input
+            {/* <input
               name={"image" + row.id}
               id={"image" + row.id}
               type="file"
               className={classes.CustomFileInput}
               onChange={(event) => updateSlideList(event, row.id)}
-            />
+            /> */}
+            <Button
+              btnType="SuccessSmall"
+              clicked={() => onUpdateImagePressed(row.id)}
+            >
+              UPDATE IMAGE
+            </Button>
           </div>
           <div style={{ marginLeft: "120px" }}>
             <button onClick={(event) => onRemoveImage(event, row.id)}>
@@ -133,6 +153,45 @@ const UpdateSlide = () => {
                 <li>
                   <input
                     id="addImage"
+                    name="imageFile"
+                    type="file"
+                    className={classes.CustomInput}
+                  />
+                </li>
+                <li>
+                  <br />
+                </li>
+                <li>
+                  <label className={classes.Label} htmlFor="imageLink">
+                    Enter Link:{" "}
+                  </label>
+                  <input
+                    className={classes.Row}
+                    name="imageLink"
+                    type="text"
+                    size="35"
+                  />
+                </li>
+                <li>
+                  <br />
+                </li>
+                <li>
+                  <div style={{ textAlign: "center", width: "450px" }}>
+                    <input type="submit" />
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </form>
+        </Modal>
+        <Modal show={updateImgPressed} modalClosed={onUpdateOff}>
+          <form id="updateImageToSlide" onSubmit={updateSlideList}>
+            <div className={classes.Font}>UPDATE IMAGE</div>
+            <div>
+              <ul className={classes.FormList}>
+                <li>
+                  <input
+                    id="updateImage"
                     name="imageFile"
                     type="file"
                     className={classes.CustomInput}
