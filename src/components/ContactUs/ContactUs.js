@@ -52,6 +52,16 @@ const ContactUs = (props) => {
     firstHeader = classes.FirstHeaderT;
     firstDiv = classes.FirstDivT;
   }
+  let userEmail = null;
+  let userName = null;
+  let firstName = null;
+  let lastName = null;
+  if (props.token !== null) {
+    userEmail = props.user.email;
+    userName = props.user.username.split(" ");
+    firstName = userName[0];
+    if (userName.length > 1) lastName = userName[1];
+  }
   return (
     <div className={[classes.Wrapper, classes.Trans].join(" ")}>
       <div>
@@ -64,6 +74,7 @@ const ContactUs = (props) => {
               type="text"
               name="firstName"
               placeholder={dic.firstName[props.lang]}
+              defaultValue={firstName}
               required
             />
             <span style={{ opacity: "0" }}>________________</span>
@@ -71,6 +82,7 @@ const ContactUs = (props) => {
               type="text"
               name="lastName"
               placeholder={dic.lastName[props.lang]}
+              defaultValue={lastName}
               required
             />
           </div>
@@ -79,6 +91,7 @@ const ContactUs = (props) => {
               type="email"
               name="requestEmail"
               placeholder={dic.emailC[props.lang]}
+              defaultValue={userEmail}
               required
             />
             <span style={{ opacity: "0" }}>________________</span>
@@ -113,6 +126,7 @@ const ContactUs = (props) => {
 const mapStateToProps = (state) => {
   return {
     token: state.authReducer.token,
+    user: state.authReducer.user,
     lang: state.langReducer.lang,
   };
 };
