@@ -22,6 +22,10 @@ const Toolbar = (props) => {
     props.history.push("/shoppingcart");
   };
 
+  const onPressedLogo = () => {
+    props.history.push("/");
+  };
+
   const onChangeLangPressed = () => {
     props.setLang(props.lang === "thai" ? "eng" : "thai");
     if (localStorage.getItem("lang") === "thai") {
@@ -48,7 +52,7 @@ const Toolbar = (props) => {
         <div className={classes.Toolbar}>
           <DrawerToggle clicked={props.drawerToggleClicked} />
           <div className={classes.Left}>
-            <div className={classes.Logo}>
+            <div className={classes.Logo} onClick={onPressedLogo}>
               <Logo />
             </div>
             <nav className={classes.DesktopOnly}>
