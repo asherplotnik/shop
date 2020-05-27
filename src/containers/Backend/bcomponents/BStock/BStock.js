@@ -10,6 +10,8 @@ import Modal from "../../../../components/UI/Modal/Modal";
 import ModalConfirm from "../../../../components/UI/Modal/modalContents/modalConfirm/ModalConfirm";
 import Button from "../../../../components/UI/Button/Button";
 import AddTransForm from "../AddTransForm/AddTransForm";
+import AddVariationForm from "../AddVariationForm/AddVariationForm";
+import DeleteVariationForm from "../DeleteVariationForm/DeleteVariationForm";
 import { serverAddress, gc } from "../../../../assets/helper";
 
 class BStock extends Component {
@@ -24,6 +26,8 @@ class BStock extends Component {
     val: null,
     image: "",
     addEntryPressed: false,
+    addVariationPressed: false,
+    deleteVariationPressed: false,
     pressedDelete: false,
     pressedUpdate: false,
     pressedRecordId: null,
@@ -43,6 +47,22 @@ class BStock extends Component {
     this.setState((prevState) => {
       return {
         addEntryPressed: !prevState.addEntryPressed,
+        loadingTransactions: !prevState.loadingTransactions,
+      };
+    });
+  };
+  onAddVariationPressed = () => {
+    this.setState((prevState) => {
+      return {
+        addVariationPressed: !prevState.addVariationPressed,
+        loadingTransactions: !prevState.loadingTransactions,
+      };
+    });
+  };
+  onDeleteVariationPressed = () => {
+    this.setState((prevState) => {
+      return {
+        deleteVariationPressed: !prevState.deleteVariationPressed,
         loadingTransactions: !prevState.loadingTransactions,
       };
     });
@@ -85,7 +105,57 @@ class BStock extends Component {
         this.requestTransactions(this.state.val);
       });
   };
+  onDeleteVariation = (e) => {
+    e.preventDefault();
+    const formData = new FormData(document.querySelector("#deleteVariation"));
+    formData.append("deleteCode", this.state.val);
+    this.onDeleteVariationPressed();
+    axios
+      .post(serverAddress + "API/deleteVariation", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        document.querySelector("#deleteVariation").reset();
+        this.requestTransactions(this.state.val);
+        this.requestStock(this.state.val);
+        if (response.data === "ILLEGAL ACTION") {
+          this.setState({ illegal: true });
+        }
+      })
+      .catch((error) => {
+        alert(error);
+        document.querySelector("#deleteVariation").reset();
+        this.requestTransactions(this.state.val);
+      });
+  };
 
+  onAddVariation = (e) => {
+    e.preventDefault();
+    const formData = new FormData(document.querySelector("#addVariation"));
+    formData.append("addCode", this.state.val);
+    this.onAddVariationPressed();
+    axios
+      .post(serverAddress + "API/addVariation", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        document.querySelector("#addVariation").reset();
+        this.requestTransactions(this.state.val);
+        this.requestStock(this.state.val);
+        if (response.data === "ILLEGAL ACTION") {
+          this.setState({ illegal: true });
+        }
+      })
+      .catch((error) => {
+        alert(error);
+        document.querySelector("#addVariation").reset();
+        this.requestTransactions(this.state.val);
+      });
+  };
   onAddTransaction = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#addTransForm"));
@@ -261,13 +331,26 @@ class BStock extends Component {
         Header: <strong className={classes.Stock}>QUANTITY</strong>,
         accessor: "qty",
         Cell: (row) => <span className={classes.Stock}>{row.value}</span>,
-        width: 199,
+        width: 100,
       },
       {
         Header: <strong className={classes.Stock}>VARIATION</strong>,
         accessor: "variation",
         Cell: (row) => <span className={classes.Stock}>{row.value}</span>,
-        width: 199,
+      },
+      {
+        Header: <strong className={classes.Stock}>IMAGE</strong>,
+        accessor: "img",
+        Cell: (row) => (
+          <div style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
+            <img
+              src={gc + row.value}
+              alt={row.value}
+              style={{ width: "100px" }}
+              className={classes.CellStyle}
+            />
+          </div>
+        ),
       },
     ];
     return (
@@ -329,7 +412,7 @@ class BStock extends Component {
     return (
       <div className={[classes.WrapperFlex, classes.Transition].join(" ")}>
         <Modal show={this.state.illegal} modalClosed={this.onIllegalClose}>
-          <div>ILLEGAL ACTION</div>
+          <div>INVALID ACTION</div>
           <div>
             <Button clicked={this.onIllegalClose} btnType="DangerSmall">
               Ok
@@ -354,6 +437,26 @@ class BStock extends Component {
             addTransaction={this.onAddTransaction}
             title="ENTER TRANSACTION"
             modalClosed={this.onAddEntryPressed}
+            stock={this.state.stock}
+          />
+        </Modal>
+        <Modal
+          show={this.state.addVariationPressed}
+          modalClosed={this.onAddVariationPressed}
+        >
+          <AddVariationForm
+            addVariation={this.onAddVariation}
+            modalClosed={this.onAddVariationPressed}
+          />
+        </Modal>
+        <Modal
+          show={this.state.deleteVariationPressed}
+          modalClosed={this.onDeleteVariationPressed}
+        >
+          <DeleteVariationForm
+            modalClosed={this.onAddVariationPressed}
+            deleteVariation={this.onDeleteVariation}
+            stock={this.state.stock}
           />
         </Modal>
         <Modal
@@ -370,6 +473,7 @@ class BStock extends Component {
             rInout={this.state.pressedRecordInout}
             rNote={this.state.pressedRecordNote}
             modalClosed={this.onUpdatePressed}
+            stock={this.state.stock}
           />
         </Modal>
         <div>
@@ -387,14 +491,34 @@ class BStock extends Component {
           </div>
         </div>
         <div>
-          <div className={classes.NewEntry}>
-            <Button
-              clicked={this.onAddEntryPressed}
-              disabled={this.state.val === null}
-              btnType="Success"
-            >
-              ADD ENTRY:
-            </Button>
+          <div style={{ display: "flex" }}>
+            <div className={classes.NewEntry}>
+              <Button
+                clicked={this.onAddEntryPressed}
+                disabled={this.state.val === null}
+                btnType="Success"
+              >
+                ADD ENTRY
+              </Button>
+            </div>
+            <div className={classes.NewEntry}>
+              <Button
+                clicked={this.onAddVariationPressed}
+                disabled={this.state.val === null}
+                btnType="Success"
+              >
+                ADD VARIATION
+              </Button>
+            </div>
+            <div className={classes.NewEntry}>
+              <Button
+                clicked={this.onDeleteVariationPressed}
+                disabled={this.state.val === null}
+                btnType="Danger"
+              >
+                DELETE VARIATION
+              </Button>
+            </div>
           </div>
           <div className={classes.Trans}>{viewTrans}</div>
         </div>

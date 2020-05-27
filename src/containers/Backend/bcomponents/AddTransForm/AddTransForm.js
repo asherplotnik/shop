@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./AddTransForm.module.css";
 
 const addTransForm = (props) => {
+  let options = props.stock.map((row) => <option>{row.variation}</option>);
   return (
     <div className={classes.AddTransForm}>
       <form id={props.formId} onSubmit={props.addTransaction}>
@@ -9,11 +10,9 @@ const addTransForm = (props) => {
         <ul className={classes.FormList}>
           <li key="variation">
             <label htmlFor="addVariation">VARIATION: </label>
-            <input
-              type="text"
-              name="addVariation"
-              defaultValue={props.rVariation}
-            />
+            <select name="addVariation" defaultValue="-">
+              {options}
+            </select>
           </li>
           <li key="qty">
             <label htmlFor="addQty">QUANTITY: </label>

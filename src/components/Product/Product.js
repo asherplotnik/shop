@@ -6,6 +6,7 @@ import PathLine from "../UI/PathLine/PathLine";
 import Button from "../UI/Button/Button";
 import ReactTable from "react-table-6";
 import Modal from "../UI/Modal/Modal";
+import ImageWindow from "../UI/ImageWindow/ImageWindow";
 import AddToCartForm from "../AddToCartForm/AddToCartForm";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
@@ -17,6 +18,8 @@ class Product extends Component {
     product: [],
     stock: [],
     addToCartPressed: false,
+    imageHover: false,
+    image: "",
   };
 
   goToCart = () => {
@@ -107,6 +110,20 @@ class Product extends Component {
       });
   };
 
+  onMouseOverImage = (row) => {
+    this.setState({
+      imageHover: true,
+      image: row.img,
+    });
+  };
+
+  onMouseOutImage = () => {
+    this.setState({
+      imageHover: false,
+      image: "",
+    });
+  };
+
   componentDidMount() {
     this.fetchProduct();
   }
@@ -127,7 +144,22 @@ class Product extends Component {
         Cell: (row) => (
           <span className={classes.StockColumns}>{row.value}</span>
         ),
-        width: 152,
+        width: 125,
+      },
+      {
+        Header: <strong className={classes.StockColumns}>IMAGE</strong>,
+        accessor: "img",
+        Cell: (row) => (
+          <div style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
+            <img
+              src={gc + row.value}
+              alt=""
+              style={{ width: "100px" }}
+              className={classes.CellStyle}
+            />
+          </div>
+        ),
+        width: 110,
       },
     ];
     let currentPath = [{ name: "", search: "" }];
@@ -201,9 +233,40 @@ class Product extends Component {
                     ? this.state.stock
                     : [{ qty: 0, variation: "-" }]
                 }
-                defaultPageSize={50}
+                defaultPageSize={70}
                 minRows={1}
                 showPagination={false}
+                getTdProps={(state, rowInfo, column, instance) => {
+                  return {
+                    onClick: (e, handleOriginal) => {
+                      if (rowInfo.original.img && rowInfo.original.img !== "") {
+                        const rowDetails = {
+                          rowId: null,
+                          img: null,
+                        };
+                        if (rowInfo !== undefined) {
+                          rowDetails.rowId = rowInfo.original.id;
+                          rowDetails.img = rowInfo.original.img;
+                          this.onMouseOverImage(rowDetails);
+                          // console.log("A Td Element was clicked!");
+                          // console.log("it produced this event:", e.target.innerHTML);
+                          // console.log("It was in this column:", column.Header);
+                          // console.log("It was in this row:", rowInfo);
+                          // console.log("It was in this table instance:", instance);
+                          if (handleOriginal) {
+                            handleOriginal();
+                          }
+                        }
+                      }
+                    },
+                    onMouseOut: (e, handleOriginal) => {
+                      this.onMouseOutImage();
+                      if (handleOriginal) {
+                        handleOriginal();
+                      }
+                    },
+                  };
+                }}
               />
             </div>
           </div>
@@ -211,6 +274,10 @@ class Product extends Component {
       });
       viewPage = (
         <React.Fragment>
+          <ImageWindow
+            show={this.state.imageHover}
+            image={gc + this.state.image}
+          />
           <Modal
             show={this.state.addToCartPressed}
             modalClosed={this.onAddToCartPressed}

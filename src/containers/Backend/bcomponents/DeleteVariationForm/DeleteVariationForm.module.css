@@ -1,0 +1,24 @@
+.FormList {
+  list-style: none;
+  padding: 3px;
+  width: 350px;
+}
+.FormList li {
+  display: flex;
+  padding: 3px;
+  justify-content: space-between;
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}
+
+.Font,
+.FormList button,
+.FormList input,
+.FormList select {
+  font-family: "BenchNine", sans-serif;
+  font-size: x-large;
+}
+.deleteVariationForm {
+  display: inline-flex;
+  width: 350px;
+}

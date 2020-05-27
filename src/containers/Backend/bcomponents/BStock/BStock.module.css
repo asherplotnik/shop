@@ -64,6 +64,12 @@
   animation: trans 0.3s ease-out forwards;
 }
 
+.CellStyle {
+  vertical-align: middle;
+  font-family: "BenchNine", sans-serif;
+  font-size: 20px;
+}
+
 @keyframes trans {
   0% {
     opacity: 0;
