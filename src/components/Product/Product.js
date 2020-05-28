@@ -135,14 +135,18 @@ class Product extends Component {
         Header: <strong className={classes.StockColumns}>#</strong>,
         accessor: "variation",
         Cell: (row) => (
-          <span className={classes.StockColumns}>{row.value}</span>
+          <div style={{ lineHeight: "50px" }}>
+            <span className={classes.StockColumns}>{row.value}</span>
+          </div>
         ),
       },
       {
         Header: <strong className={classes.StockColumns}>IN STOCK</strong>,
         accessor: "qty",
         Cell: (row) => (
-          <span className={classes.StockColumns}>{row.value}</span>
+          <div style={{ lineHeight: "50px" }}>
+            <span className={classes.StockColumns}>{row.value}</span>
+          </div>
         ),
         width: 125,
       },
@@ -150,11 +154,11 @@ class Product extends Component {
         Header: <strong className={classes.StockColumns}>IMAGE</strong>,
         accessor: "img",
         Cell: (row) => (
-          <div style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
+          <div style={{ width: "50px", height: "50px", lineHeight: "50px" }}>
             <img
               src={gc + row.value}
               alt=""
-              style={{ width: "100px" }}
+              style={{ width: "50px" }}
               className={classes.CellStyle}
             />
           </div>
@@ -238,7 +242,7 @@ class Product extends Component {
                 showPagination={false}
                 getTdProps={(state, rowInfo, column, instance) => {
                   return {
-                    onClick: (e, handleOriginal) => {
+                    onMouseOver: (e, handleOriginal) => {
                       if (rowInfo.original.img && rowInfo.original.img !== "") {
                         const rowDetails = {
                           rowId: null,
@@ -248,11 +252,24 @@ class Product extends Component {
                           rowDetails.rowId = rowInfo.original.id;
                           rowDetails.img = rowInfo.original.img;
                           this.onMouseOverImage(rowDetails);
-                          // console.log("A Td Element was clicked!");
-                          // console.log("it produced this event:", e.target.innerHTML);
-                          // console.log("It was in this column:", column.Header);
-                          // console.log("It was in this row:", rowInfo);
-                          // console.log("It was in this table instance:", instance);
+
+                          if (handleOriginal) {
+                            handleOriginal();
+                          }
+                        }
+                      }
+                    },
+                    onMouseEnter: (e, handleOriginal) => {
+                      if (rowInfo.original.img && rowInfo.original.img !== "") {
+                        const rowDetails = {
+                          rowId: null,
+                          img: null,
+                        };
+                        if (rowInfo !== undefined) {
+                          rowDetails.rowId = rowInfo.original.id;
+                          rowDetails.img = rowInfo.original.img;
+                          this.onMouseOverImage(rowDetails);
+
                           if (handleOriginal) {
                             handleOriginal();
                           }
@@ -273,7 +290,10 @@ class Product extends Component {
         );
       });
       viewPage = (
-        <React.Fragment>
+        <div
+          onMouseOut={this.onMouseOutImage}
+          onMouseEnter={this.onMouseOutImage}
+        >
           <ImageWindow
             show={this.state.imageHover}
             image={gc + this.state.image}
@@ -293,8 +313,16 @@ class Product extends Component {
           </div>
           <br></br>
           <br></br>
-          <div className={classes.Wrapper}>{jsxMap}</div>
-        </React.Fragment>
+          <div
+            onMouseOut={this.onMouseOutImage}
+            onMouseEnter={this.onMouseOutImage}
+            className={classes.Wrapper}
+          >
+            {jsxMap}
+          </div>
+          <br />
+          <br />
+        </div>
       );
     }
 

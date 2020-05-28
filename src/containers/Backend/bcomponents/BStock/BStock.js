@@ -330,27 +330,42 @@ class BStock extends Component {
       {
         Header: <strong className={classes.Stock}>QUANTITY</strong>,
         accessor: "qty",
-        Cell: (row) => <span className={classes.Stock}>{row.value}</span>,
+        Cell: (row) => (
+          <div style={{ lineHeight: "50px" }}>
+            <span className={classes.Stock}>{row.value}</span>
+          </div>
+        ),
         width: 100,
       },
       {
         Header: <strong className={classes.Stock}>VARIATION</strong>,
         accessor: "variation",
-        Cell: (row) => <span className={classes.Stock}>{row.value}</span>,
+        Cell: (row) => (
+          <div style={{ lineHeight: "50px" }}>
+            <span className={classes.Stock}>{row.value}</span>
+          </div>
+        ),
       },
       {
         Header: <strong className={classes.Stock}>IMAGE</strong>,
         accessor: "img",
         Cell: (row) => (
-          <div style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
+          <div
+            style={{
+              width: "50px",
+              height: "50px",
+              lineHeight: "50px",
+            }}
+          >
             <img
               src={gc + row.value}
               alt={row.value}
-              style={{ width: "100px" }}
+              style={{ width: "50px" }}
               className={classes.CellStyle}
             />
           </div>
         ),
+        width: 60,
       },
     ];
     return (
