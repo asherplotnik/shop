@@ -7,7 +7,8 @@
   position: fixed;
   width: 300px;
   height: 300px;
-  left: calc(60% - 250px);
+  left: 14.51%;
+  top: 228px;
   border: solid 2px #b6e4f5;
   background-color: white;
   animation: trans 0.3s ease-out forwards;

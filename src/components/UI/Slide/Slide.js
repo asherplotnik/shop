@@ -4,6 +4,7 @@ import { serverAddress, gc } from "../../../assets/helper";
 import axios from "axios";
 import Spinner from "../../UI/Spinner/Spinner";
 import classes from "./Slide.module.css";
+import { withRouter } from "react-router-dom";
 
 const Slide = (props) => {
   let [loading, setLoading] = useState(true);
@@ -23,7 +24,11 @@ const Slide = (props) => {
       (el) => el.original === event.target.src.slice(gc.length)
     );
     if (clickedImage.imagelink !== null) {
-      window.location.replace(clickedImage.imagelink);
+      if (clickedImage.imagelink.slice(0, 24) === "https://indy-fashion.com") {
+        props.history.push(clickedImage.imagelink.slice(24));
+      } else {
+        window.open(clickedImage.imagelink, "_blank", "noopener");
+      }
     }
   };
   useEffect(() => {
@@ -59,4 +64,4 @@ const Slide = (props) => {
   return viewPage;
 };
 
-export default Slide;
+export default withRouter(Slide);

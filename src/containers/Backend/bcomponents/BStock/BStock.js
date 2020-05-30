@@ -510,7 +510,9 @@ class BStock extends Component {
             <div className={classes.NewEntry}>
               <Button
                 clicked={this.onAddEntryPressed}
-                disabled={this.state.val === null}
+                disabled={
+                  this.state.val === null || this.state.stock.length === 0
+                }
                 btnType="Success"
               >
                 ADD ENTRY

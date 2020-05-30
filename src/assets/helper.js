@@ -121,4 +121,4 @@ export const local = "http://localhost:9000/";
 export const heroku = "https://indyapi.herokuapp.com/";
 //export const gc = "https://storage.cloud.google.com/indy-4cba2.appspot.com/";
 export const gc = "https://s3-ap-southeast-1.amazonaws.com/indyfashion.images/";
-export const serverAddress = local;
+export const serverAddress = awsApi;
