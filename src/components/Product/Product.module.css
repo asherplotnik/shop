@@ -1,29 +1,31 @@
 @import url("https://fonts.googleapis.com/css?family=Lexend+Tera|Monda:700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mitr&family=Sriracha&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=Open+Sans:wght@300&display=swap");
 .ImageDiv {
   position: relative;
   display: inline-block;
-  left: 50px;
+  /* left: 50px; */
   border: 1px solid #b6e4f5;
 }
 
 .Wrapper {
   display: flex;
+  animation: trans 0.3s ease-out forwards;
 }
 
 .Text {
-  padding: 10px;
   vertical-align: top;
   display: inline-block;
   position: relative;
   text-align: left;
-  left: 80px;
+  left: 10px;
+  max-width: 450px;
 }
 
 .Stock {
   padding-top: 10px;
   position: relative;
-  left: 50px;
   width: 550px;
 }
 .HrClass {
@@ -75,7 +77,7 @@
 }
 
 .ImageDiv img {
-  max-width: 300px;
+  max-width: 350px;
 }
 
 .StockColumns {
@@ -86,6 +88,32 @@
 .Hide {
   display: none;
 }
+.BorderDetails {
+  border: 1px solid #b6e4f5;
+  margin: 3px 0px 3px 0px;
+}
+.MoreDetails {
+  text-align: left;
+  display: flex;
+  padding: 3px;
+  font-family: "Open Sans", "Sriracha", "times new roman";
+  cursor: pointer;
+  justify-content: space-between;
+}
+.MoreDetailsHide {
+  text-align: left;
+  max-width: 550px;
+  transform: scaleY(0);
+  max-height: 0;
+}
+
+.MoreDetailsShow {
+  text-align: left;
+  font-family: "Cormorant Garamond", "Sriracha", "times new roman";
+  animation: roll 0.26s ease-out forwards;
+  font-size: 1.2em;
+  max-width: 550px;
+}
 
 .Show {
   margin-left: 15px;
@@ -93,7 +121,10 @@
 }
 
 .Trans {
-  animation: trans 0.3s ease-out forwards;
+}
+.ImgAndText {
+  display: flex;
+  justify-content: flex-start;
 }
 
 @keyframes trans {
@@ -103,5 +134,17 @@
 
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes roll {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.26s ease-out;
+  }
+
+  100% {
+    transform: scaleY(1);
   }
 }

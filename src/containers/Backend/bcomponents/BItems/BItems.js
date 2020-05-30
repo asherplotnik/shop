@@ -180,10 +180,11 @@ class BItems extends Component {
               formId="addItemForm"
               title="ADD PRODUCT"
               addItem={this.onAddItemForm}
-              rTrending={false}
+              rTrending={null}
               rCollection="D.I.Y"
               rDesc=""
               rSize=""
+              rDetails=""
               rPrice={0}
               collSelect={this.props.collectionSelect}
               modalClosed={this.props.onAddPressed}
@@ -204,6 +205,7 @@ class BItems extends Component {
               rType={this.props.pressedRecordType}
               rPrice={this.props.pressedRecordPrice}
               rTrending={this.props.pressedRecordTrending}
+              rDetails={this.props.pressedRecordDetails}
               addItem={this.onUpdateItemForm}
               modalClosed={this.props.onUpdatePressed}
             />
@@ -247,6 +249,7 @@ const mapStateToProps = (state) => {
     pressedRecordType: state.itemsReducer.pressedRecordType,
     pressedRecordPrice: state.itemsReducer.pressedRecordPrice,
     pressedRecordTrending: state.itemsReducer.pressedRecordTrending,
+    pressedRecordDetails: state.itemsReducer.pressedRecordDetails,
     bulkPressed: state.itemsReducer.bulkPressed,
     collectionSelect: state.itemsReducer.collectionSelect,
   };

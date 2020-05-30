@@ -1,6 +1,7 @@
 import React from "react";
 import "./Home.css";
 import Slide from "../UI/Slide/Slide";
+import Collections from "../Collections/Collections";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
           <Slide />
         </div>
       </div>
+      <Collections />
     </div>
   );
 };

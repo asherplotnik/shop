@@ -114,6 +114,7 @@ export const dic = {
     eng: "Email Sent Successfully. Thank you. ",
     thai: "ส่งอีเมลสำเร็จแล้วขอบคุณ",
   },
+  moreDetails: { eng: "MORE DETAILS", thai: "รายละเอียด" },
 };
 
 export const awsApi = "";

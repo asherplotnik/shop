@@ -269,7 +269,8 @@ const itemsTable = (props) => {
               size: null,
               type: null,
               price: null,
-              trending: null,
+              trend: null,
+              Details: null,
             };
             if (rowInfo !== undefined) {
               if (e.target.innerHTML === "DELETE") {
@@ -283,7 +284,8 @@ const itemsTable = (props) => {
                 rowDetails.size = rowInfo.original.size;
                 rowDetails.typology = rowInfo.original.type;
                 rowDetails.price = rowInfo.original.price;
-                rowDetails.trending = rowInfo.original.trendning;
+                rowDetails.trend = rowInfo.original.trending;
+                rowDetails.Details = rowInfo.original.productdetails;
                 props.pressedUpdate(rowDetails);
               }
               // console.log("A Td Element was clicked!");

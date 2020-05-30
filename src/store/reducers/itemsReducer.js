@@ -64,7 +64,8 @@ const itemsReducer = (state = initialState, action) => {
         pressedRecordSize: action.row.size,
         pressedRecordType: action.row.typology,
         pressedRecordPrice: action.row.price,
-        pressedRecordTrending: action.row.Trending,
+        pressedRecordTrending: action.row.trend,
+        pressedRecordDetails: action.row.Details,
       };
     case actionTypes.SET_COLLECTION_SELECT:
       return {

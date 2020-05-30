@@ -5,11 +5,11 @@
   z-index: 500;
   display: block;
   position: fixed;
-  width: 300px;
-  height: 300px;
-  left: 14.51%;
-  top: 228px;
-  border: solid 2px #b6e4f5;
+  width: 350px;
+  height: 350px;
+  left: 10.35%;
+  top: 227px;
+  border: solid 1px #b6e4f5;
   background-color: white;
   animation: trans 0.3s ease-out forwards;
 }

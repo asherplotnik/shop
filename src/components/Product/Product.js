@@ -20,6 +20,7 @@ class Product extends Component {
     addToCartPressed: false,
     imageHover: false,
     image: "",
+    detailsPressed: false,
   };
 
   goToCart = () => {
@@ -124,6 +125,14 @@ class Product extends Component {
     });
   };
 
+  onDetailsPressed = () => {
+    this.setState((prevState) => {
+      return {
+        detailsPressed: !prevState.detailsPressed,
+      };
+    });
+  };
+
   componentDidMount() {
     this.fetchProduct();
   }
@@ -176,58 +185,84 @@ class Product extends Component {
           { name: "items", search: item.collection },
           { name: "product", search: item.code },
         ];
-        return (
-          <div className={classes.Trans} key={1}>
-            <div className={classes.ImageDiv}>
-              <img src={gc + item.img} alt="img" />
-              <div className={classes.Desc}>
-                <img
-                  src={gc + item.img2}
-                  alt="img2"
-                  className={classes.Image2}
-                />
+        let moreDetails = null;
+        if (item.productdetails && item.productdetails !== "") {
+          moreDetails = (
+            <div className={classes.BorderDetails}>
+              <div
+                className={classes.MoreDetails}
+                onClick={this.onDetailsPressed}
+              >
+                <div>{dic.moreDetails[lang]}</div>
+                <div>{this.state.detailsPressed ? "-" : "+"}</div>
+              </div>
+              <div
+                className={
+                  this.state.detailsPressed
+                    ? classes.MoreDetailsShow
+                    : classes.MoreDetailsHide
+                }
+              >
+                {item.productdetails}
               </div>
             </div>
-            <div className={classes.Text}>
-              <p className={classes.PDesc}>{item.desc}</p>
-              <hr className={classes.HrClass} />
-              <p className={classes.PName}>
-                {dic.code[lang]} {item.code}
-              </p>
-              <hr className={classes.HrClass} />
-              <p className={classes.PSize}>
-                {dic.size[lang]} {item.size}
-              </p>
-              <hr className={classes.HrClass} />
-              <p className={classes.PPrice}>
-                {dic.price[lang]} {item.price} BHT
-              </p>
-              <hr className={classes.HrClass} />
-              <div style={{ display: "flex" }}>
-                <Button
-                  disabled={this.state.stock.length === 0}
-                  clicked={this.onAddToCartPressed}
-                  btnType="Success"
-                >
-                  ADD TO CART
-                </Button>
-                <div
-                  className={
-                    this.props.entries.length === 0
-                      ? classes.Hide
-                      : classes.Show
-                  }
-                >
+          );
+        }
+        return (
+          <div className={classes.Trans} key={1}>
+            <div className={classes.ImgAndText}>
+              <div className={classes.ImageDiv}>
+                <img src={gc + item.img} alt="img" />
+                <div className={classes.Desc}>
+                  <img
+                    src={gc + item.img2}
+                    alt="img2"
+                    className={classes.Image2}
+                  />
+                </div>
+              </div>
+              <div className={classes.Text}>
+                <p className={classes.PDesc}>{item.desc}</p>
+                <hr className={classes.HrClass} />
+                <p className={classes.PName}>
+                  {dic.code[lang]} {item.code}
+                </p>
+                <hr className={classes.HrClass} />
+                <p className={classes.PSize}>
+                  {dic.size[lang]} {item.size}
+                </p>
+                <hr className={classes.HrClass} />
+                <p className={classes.PPrice}>
+                  {dic.price[lang]} {item.price} BHT
+                </p>
+                <hr className={classes.HrClass} />
+                <div style={{ display: "flex" }}>
                   <Button
-                    disabled={this.props.entries.length === 0}
-                    clicked={this.goToCart}
-                    btnType="GotoCart"
+                    disabled={this.state.stock.length === 0}
+                    clicked={this.onAddToCartPressed}
+                    btnType="Success"
                   >
-                    GO TO CART
+                    ADD TO CART
                   </Button>
+                  <div
+                    className={
+                      this.props.entries.length === 0
+                        ? classes.Hide
+                        : classes.Show
+                    }
+                  >
+                    <Button
+                      disabled={this.props.entries.length === 0}
+                      clicked={this.goToCart}
+                      btnType="GotoCart"
+                    >
+                      GO TO CART
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
+            {moreDetails}
             <div className={classes.Stock}>
               <ReactTable
                 style={{ border: "1px solid #b6e4f5" }}

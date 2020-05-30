@@ -15,6 +15,7 @@ const addItemForm = (props) => {
       );
     }
   }
+  console.log("rTrendning", props.rTrending);
   return (
     <div className={classes.AddItemsForm}>
       <form id={props.formId} onSubmit={props.addItem}>
@@ -68,7 +69,7 @@ const addItemForm = (props) => {
           <li key="trending">
             <label htmlFor="AddTrending">TRENDING: </label>
             <select name="addTrending">
-              <option selected={props.rTrending === false ? false : true}>
+              <option selected={props.rTrending === false ? true : false}>
                 false
               </option>
               <option selected={props.rTrending === true ? true : false}>
@@ -96,6 +97,16 @@ const addItemForm = (props) => {
               required={props.title === "ADD PRODUCT" ? true : false}
             />
           </li>{" "}
+          <li key="productDetails">
+            <textarea
+              style={{ resize: "none" }}
+              rows="5"
+              cols="50"
+              name="productDetails"
+              placeholder="Product Details"
+              defaultValue={props.rDetails}
+            />
+          </li>
           <br></br>
           <br></br>
           <li key="sub">
