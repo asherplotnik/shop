@@ -24,16 +24,16 @@ class Auth extends Component {
       returnSecureToken: true,
     };
     let url =
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDTc2IWZVm8QxfLyelchjJSuTbSvF-U3s0";
+      // "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDTc2IWZVm8QxfLyelchjJSuTbSvF-U3s0";
+      serverAddress + "API/login";
     axios
       .post(url, authData)
       .then((response) => {
-        const expirationDate = new Date(
-          new Date().getTime() + response.data.expiresIn * 1000
-        );
+        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+        console.log("yo", response.data.localId);
         const sqlQuery = {
           sql:
-            "SELECT * FROM users WHERE userId = '" +
+            "SELECT * FROM users WHERE userid = '" +
             response.data.localId +
             "'",
         };
@@ -84,70 +84,29 @@ class Auth extends Component {
   };
 
   onSignUp = (data) => {
-    const authData = {
+    const userInfo = {
+      username: data.get("username"),
       email: data.get("email"),
+      phone: data.get("phone"),
+      address: data.get("address"),
+      level: "normal",
       password: data.get("password"),
-      returnSecureToken: true,
     };
-    let url =
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDTc2IWZVm8QxfLyelchjJSuTbSvF-U3s0";
-    axios
-      .post(url, authData)
-      .then((response) => {
-        const expirationDate = new Date(
-          new Date().getTime() + response.data.expiresIn * 1000
-        );
-        localStorage.setItem("token", response.data.idToken);
-        localStorage.setItem("expirationDate", expirationDate);
-        localStorage.setItem("userId", response.data.localId);
-        localStorage.setItem("level", "normal");
 
-        this.props.onSignInSuccess(
-          response.data.idToken,
-          response.data.localId,
-          "normal"
-        );
-        const userInfo = {
-          username: data.get("username"),
-          email: data.get("email"),
-          phone: data.get("phone"),
-          address: data.get("address"),
-          level: "normal",
-          password: data.get("password"),
-        };
-        const sqlQuery = {
-          sql:
-            "INSERT INTO users  (username, email, address, phone, userid, level, password) VALUES('" +
-            userInfo.username +
-            "','" +
-            userInfo.email +
-            "','" +
-            userInfo.address +
-            "','" +
-            userInfo.phone +
-            "','" +
-            response.data.localId +
-            "','" +
-            userInfo.level +
-            "','" +
-            userInfo.password +
-            "')",
-        };
-        axios
-          .post(serverAddress + "API/update", sqlQuery)
-          .then((response) => {
-            return response.data;
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+    let url =
+      //"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDTc2IWZVm8QxfLyelchjJSuTbSvF-U3s0";
+      serverAddress + "API/newUser";
+    axios
+      .post(url, userInfo)
+      .then((response) => {
+        this.props.onSignInSuccess(null, null, "normal");
         this.setState({ signIn: true });
         this.props.onSignOut();
         this.props.history.push("/Auth");
       })
       .catch((err) => {
-        this.props.onSignInFail(err.response.data.error);
-        alert(err.response.data.error.message.replace("_", " "));
+        this.props.onSignInFail(err.message);
+        alert(err.message.replace("_", " "));
       });
   };
   onSub = (event) => {

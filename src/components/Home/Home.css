@@ -1,7 +1,7 @@
 @import "~react-image-gallery/styles/css/image-gallery.css";
 .Outer {
   display: block;
-  animation: trans 0.3s ease-out forwards;
+  /* animation: trans 0.3s ease-out forwards; */
 }
 
 @keyframes trans {
