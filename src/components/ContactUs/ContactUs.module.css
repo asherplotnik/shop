@@ -40,7 +40,7 @@
 .FirstDivT {
   display: block;
   justify-content: space-between;
-  padding: 20px;
+  padding: 20px 0 px 20px 0px;
   align-items: center;
 }
 
@@ -49,7 +49,7 @@
   font-family: "Roboto", sans-serif;
   font-size: x-large;
   padding: 10px;
-  margin: 20px;
+  margin: 20px 0px 20px 0px;
 }
 
 .FirstDivT input,
@@ -57,10 +57,27 @@
   font-family: "Sriracha", cursive;
   font-size: x-large;
   padding: 10px;
-  margin: 20px;
+  margin: 20px 0px 20px 0px;
 }
 .FirstHeaderT {
   font-family: "Sriracha", cursive;
   font-size: 4em;
   margin-bottom: 0px;
+}
+.FirstDiv textarea {
+  width: 400px;
+}
+
+@media (max-width: 400px) {
+  .Wrapper {
+    width: 100%;
+  }
+  .FirstDiv input,
+  .FirstDiv textarea {
+    width: 258px;
+  }
+  .FirstDivT input,
+  .FirstDivT textarea {
+    width: 258px;
+  }
 }

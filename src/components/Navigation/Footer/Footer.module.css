@@ -37,6 +37,7 @@
   }
   .Mail {
     display: inherit;
+    margin-left: 0px;
   }
   .Facebook {
     display: inherit;

@@ -62,6 +62,11 @@ const ContactUs = (props) => {
     firstName = userName[0];
     if (userName.length > 1) lastName = userName[1];
   }
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
   return (
     <div className={[classes.Wrapper, classes.Trans].join(" ")}>
       <div>
@@ -106,7 +111,6 @@ const ContactUs = (props) => {
             <textarea
               style={{ resize: "none" }}
               rows="5"
-              cols="50"
               name="requestDetails"
               placeholder={dic.details[props.lang]}
               required

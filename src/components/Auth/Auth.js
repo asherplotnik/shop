@@ -30,7 +30,6 @@ class Auth extends Component {
       .post(url, authData)
       .then((response) => {
         const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-        console.log("yo", response.data.localId);
         const sqlQuery = {
           sql:
             "SELECT * FROM users WHERE userid = '" +

@@ -8,8 +8,6 @@ import PaymentForm from "../PaymentForm/PaymentForm";
 import Modal from "../UI/Modal/Modal";
 import { withRouter } from "react-router-dom";
 import * as actions from "../../store/actions/index";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
 import Logo from "../UI/Logo/Logo";
 import { serverAddress } from "../../assets/helper";
 
@@ -47,37 +45,29 @@ class Checkout extends Component {
   sendCheckoutEmail = (payment, confNo) => {
     const emailBody =
       "<text> THANK YOU FOR YOUR PURCHASE. PLEASE SEE ATTACHED ORDER CONFIRMATION.</text> <br></br> <text> WE WILL REVIEW YOUR PAYMENT SHORTLY, AND SEND YOU A RECEIPT. </text><br></br> <text>  ONCE WE SENT THE PARCELL WE WILL NOTIFY YOU WITH THE TRACKING NUMBER. THANK YOU. </text>";
-    html2canvas(document.querySelector("#attachment")).then((canvas) => {
-      const imgData = canvas.toDataURL("image/jpeg");
-      const pdf = new jsPDF();
-      pdf.addImage(
-        imgData,
-        "JPEG",
-        35,
-        5,
-        135,
-        90 + this.props.entries.length * 15
-      );
-      // pdf.save("download.pdf");
-      const blobFile = pdf.output("blob");
-      const formData = new FormData();
-      formData.append("email", this.props.reduxUser.email);
-      formData.append("subject", "ORDER CONFIRMATION #" + confNo);
-      formData.append("body", emailBody);
-      formData.append("attachment", blobFile, "attachment.pdf");
-      axios
-        .post(serverAddress + "email/sendEmail", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    });
+
+    const formData = new FormData();
+    formData.append("email", this.props.reduxUser.email);
+    formData.append("address", this.props.reduxUser.address);
+    formData.append("username", this.props.reduxUser.username);
+    formData.append("subject", "ORDER CONFIRMATION #" + confNo);
+    formData.append("body", emailBody);
+    formData.append("confNo", confNo);
+    formData.append("sTotal", this.state.sTotal);
+    console.log(JSON.stringify(this.props.entries));
+    formData.append("entries", JSON.stringify(this.props.entries));
+    axios
+      .post(serverAddress + "email/sendConfirmEmail", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   sendCard = (e) => {
@@ -124,6 +114,8 @@ class Checkout extends Component {
     formData.append("amount", document.getElementById("amount").innerHTML);
     formData.append("status", "wait approve bank transfer");
     formData.append("order", JSON.stringify(this.props.entries));
+    formData.append("token", this.props.token);
+
     axios
       .post(serverAddress + "API/checkoutwire", formData, {
         headers: {
@@ -320,6 +312,7 @@ const mapStateToProps = (state) => {
   return {
     reduxUser: state.authReducer.user,
     userId: state.authReducer.userId,
+    token: state.authReducer.token,
     entries: state.cartReducer.entries,
   };
 };

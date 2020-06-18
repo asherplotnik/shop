@@ -41,6 +41,7 @@ class Product extends Component {
     }
     if (chkExists !== null) {
       arr[chkExists].quantity = +arr[chkExists].quantity + +entry.quantity;
+      arr[chkExists].total = arr[chkExists].quantity * arr[chkExists].price;
     } else {
       arr.push({
         code: this.state.product[0].code,
