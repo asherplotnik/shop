@@ -78,9 +78,8 @@ class Product extends Component {
     axios
       .get(serverAddress + "getProductByCode/" + selectedProduct)
       .then((response) => {
-        this.setState({ loading: false });
         this.setState({ product: response.data });
-        console.log(response.data);
+        this.setState({ loading: false });
         axios
           .get(serverAddress + "getStockByCode/" + selectedProduct)
           .then((response) => {
@@ -175,149 +174,145 @@ class Product extends Component {
     let currentPath = [{ name: "", search: "" }];
     let viewPage = <Spinner />;
     if (this.state.loading === false) {
-      const jsxMap = this.state.product.map((item) => {
-        currentPath = [
-          { name: "collections", search: "" },
-          { name: "items", search: item.collection.name },
-          { name: "product", search: item.code },
-        ];
-        let moreDetails = null;
-        if (item.productdetails && item.productdetails !== "") {
-          moreDetails = (
-            <div className={classes.BorderDetails}>
-              <div
-                className={classes.MoreDetails}
-                onClick={this.onDetailsPressed}
-              >
-                <div>{dic.moreDetails[lang]}</div>
-                <div>{this.state.detailsPressed ? "-" : "+"}</div>
-              </div>
-              <div
-                className={
-                  this.state.detailsPressed
-                    ? classes.MoreDetailsShow
-                    : classes.MoreDetailsHide
-                }
-              >
-                {item.productdetails}
-              </div>
+      const item = this.state.product;
+      currentPath = [
+        { name: "collections", search: "" },
+        { name: "items", search: item.collection.name },
+        { name: "product", search: item.code },
+      ];
+      let moreDetails = null;
+      if (item.productdetails && item.productdetails !== "") {
+        moreDetails = (
+          <div className={classes.BorderDetails}>
+            <div
+              className={classes.MoreDetails}
+              onClick={this.onDetailsPressed}
+            >
+              <div>{dic.moreDetails[lang]}</div>
+              <div>{this.state.detailsPressed ? "-" : "+"}</div>
             </div>
-          );
-        }
-        return (
-          <div className={classes.Trans} key={1}>
-            <div className={classes.ImgAndText}>
-              <div className={classes.ImageDiv}>
-                <img src={item.image1} alt="img" />
-                <div className={classes.Desc}>
-                  <img
-                    src={item.image2}
-                    alt="img2"
-                    className={classes.Image2}
-                  />
-                </div>
-              </div>
-              <div className={classes.Text}>
-                <p className={classes.PDesc}>{item.description}</p>
-                <hr className={classes.HrClass} />
-                <p className={classes.PName}>
-                  {dic.code[lang]} {item.code}
-                </p>
-                <hr className={classes.HrClass} />
-                <p className={classes.PSize}>
-                  {dic.size[lang]} {item.size}
-                </p>
-                <hr className={classes.HrClass} />
-                <p className={classes.PPrice}>
-                  {dic.price[lang]} {item.price} BHT
-                </p>
-                <hr className={classes.HrClass} />
-                <div style={{ display: "flex" }}>
-                  <Button
-                    disabled={this.state.stock.length === 0}
-                    clicked={this.onAddToCartPressed}
-                    btnType="Success"
-                  >
-                    ADD TO CART
-                  </Button>
-                  <div
-                    className={
-                      this.props.entries.length === 0
-                        ? classes.Hide
-                        : classes.Show
-                    }
-                  >
-                    <Button
-                      disabled={this.props.entries.length === 0}
-                      clicked={this.goToCart}
-                      btnType="GotoCart"
-                    >
-                      GO TO CART
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {moreDetails}
-            <div className={classes.Stock}>
-              <ReactTable
-                style={{ border: "1px solid #b6e4f5" }}
-                columns={stockColumns}
-                data={
-                  this.state.stock.length >= 1
-                    ? this.state.stock
-                    : [{ qty: 0, variation: "-" }]
-                }
-                defaultPageSize={70}
-                minRows={1}
-                showPagination={false}
-                getTdProps={(state, rowInfo, column, instance) => {
-                  return {
-                    onMouseOver: (e, handleOriginal) => {
-                      if (rowInfo.original.img && rowInfo.original.img !== "") {
-                        const rowDetails = {
-                          rowId: null,
-                          img: null,
-                        };
-                        if (rowInfo !== undefined) {
-                          rowDetails.rowId = rowInfo.original.id;
-                          rowDetails.img = rowInfo.original.img;
-                          this.onMouseOverImage(rowDetails);
-                          if (handleOriginal) {
-                            handleOriginal();
-                          }
-                        }
-                      }
-                    },
-                    onMouseEnter: (e, handleOriginal) => {
-                      if (rowInfo.original.img && rowInfo.original.img !== "") {
-                        const rowDetails = {
-                          rowId: null,
-                          img: null,
-                        };
-                        if (rowInfo !== undefined) {
-                          rowDetails.rowId = rowInfo.original.id;
-                          rowDetails.img = rowInfo.original.img;
-                          this.onMouseOverImage(rowDetails);
-                          if (handleOriginal) {
-                            handleOriginal();
-                          }
-                        }
-                      }
-                    },
-                    onMouseOut: (e, handleOriginal) => {
-                      this.onMouseOutImage();
-                      if (handleOriginal) {
-                        handleOriginal();
-                      }
-                    },
-                  };
-                }}
-              />
+            <div
+              className={
+                this.state.detailsPressed
+                  ? classes.MoreDetailsShow
+                  : classes.MoreDetailsHide
+              }
+            >
+              {item.productdetails}
             </div>
           </div>
         );
-      });
+      }
+
+      const jsxMap = (
+        <div className={classes.Trans} key={1}>
+          <div className={classes.ImgAndText}>
+            <div className={classes.ImageDiv}>
+              <img src={item.image1} alt="img" />
+              <div className={classes.Desc}>
+                <img src={item.image2} alt="img2" className={classes.Image2} />
+              </div>
+            </div>
+            <div className={classes.Text}>
+              <p className={classes.PDesc}>{item.description}</p>
+              <hr className={classes.HrClass} />
+              <p className={classes.PName}>
+                {dic.code[lang]} {item.code}
+              </p>
+              <hr className={classes.HrClass} />
+              <p className={classes.PSize}>
+                {dic.size[lang]} {item.size}
+              </p>
+              <hr className={classes.HrClass} />
+              <p className={classes.PPrice}>
+                {dic.price[lang]} {item.price} BHT
+              </p>
+              <hr className={classes.HrClass} />
+              <div style={{ display: "flex" }}>
+                <Button
+                  disabled={this.state.stock.length === 0}
+                  clicked={this.onAddToCartPressed}
+                  btnType="Success"
+                >
+                  ADD TO CART
+                </Button>
+                <div
+                  className={
+                    this.props.entries.length === 0
+                      ? classes.Hide
+                      : classes.Show
+                  }
+                >
+                  <Button
+                    disabled={this.props.entries.length === 0}
+                    clicked={this.goToCart}
+                    btnType="GotoCart"
+                  >
+                    GO TO CART
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {moreDetails}
+          <div className={classes.Stock}>
+            <ReactTable
+              style={{ border: "1px solid #b6e4f5" }}
+              columns={stockColumns}
+              data={
+                this.state.stock.length >= 1
+                  ? this.state.stock
+                  : [{ qty: 0, variation: "-" }]
+              }
+              defaultPageSize={70}
+              minRows={1}
+              showPagination={false}
+              getTdProps={(state, rowInfo, column, instance) => {
+                return {
+                  onMouseOver: (e, handleOriginal) => {
+                    if (rowInfo.original.img && rowInfo.original.img !== "") {
+                      const rowDetails = {
+                        rowId: null,
+                        img: null,
+                      };
+                      if (rowInfo !== undefined) {
+                        rowDetails.rowId = rowInfo.original.id;
+                        rowDetails.img = rowInfo.original.img;
+                        this.onMouseOverImage(rowDetails);
+                        if (handleOriginal) {
+                          handleOriginal();
+                        }
+                      }
+                    }
+                  },
+                  onMouseEnter: (e, handleOriginal) => {
+                    if (rowInfo.original.img && rowInfo.original.img !== "") {
+                      const rowDetails = {
+                        rowId: null,
+                        img: null,
+                      };
+                      if (rowInfo !== undefined) {
+                        rowDetails.rowId = rowInfo.original.id;
+                        rowDetails.img = rowInfo.original.img;
+                        this.onMouseOverImage(rowDetails);
+                        if (handleOriginal) {
+                          handleOriginal();
+                        }
+                      }
+                    }
+                  },
+                  onMouseOut: (e, handleOriginal) => {
+                    this.onMouseOutImage();
+                    if (handleOriginal) {
+                      handleOriginal();
+                    }
+                  },
+                };
+              }}
+            />
+          </div>
+        </div>
+      );
       viewPage = (
         <div
           onMouseOut={this.onMouseOutImage}
