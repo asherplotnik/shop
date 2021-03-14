@@ -1,7 +1,6 @@
 import React from "react";
 import classes from "./CollectionsElement.module.css";
 import { NavLink } from "react-router-dom";
-import { gc } from "../../../assets/helper";
 
 const CollectionsElement = (props) => {
   let show = classes.NavElement;
@@ -15,8 +14,8 @@ const CollectionsElement = (props) => {
           <img
             className={classes.Image}
             // src={gc  + props.img}
-            src={gc + props.img}
-            alt={props.img}
+            src={props.image}
+            alt={props.image}
           />
         </div>
       </div>

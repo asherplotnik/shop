@@ -52,7 +52,7 @@ class AddForm extends Component {
                 <label htmlFor="addCollName">ENTER COLLECTION'S NAME:</label>
               </li>
               <li>
-                <input type="text" id="addCollName" name="collectionName" />
+                <input type="text" id="addCollName" name="name" />
               </li>
               <li style={{ opacity: " 0 " }}>space</li>
               <li>
@@ -64,7 +64,7 @@ class AddForm extends Component {
                 <input
                   type="text"
                   id="addCollDesc"
-                  name="collectionDesc"
+                  name="description"
                   size="30"
                 />
               </li>

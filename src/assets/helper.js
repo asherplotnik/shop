@@ -118,7 +118,7 @@ export const dic = {
 };
 
 export const awsApi = "";
-export const local = "http://localhost:9000/";
+export const local = "http://localhost:8080/api/";
 export const lan = "http://192.168.1.103:9000/";
 export const heroku = "https://indyapi.herokuapp.com/";
 //export const gc = "https://storage.cloud.google.com/indy-4cba2.appspot.com/";

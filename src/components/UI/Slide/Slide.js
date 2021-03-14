@@ -8,15 +8,13 @@ import { withRouter } from "react-router-dom";
 
 const Slide = (props) => {
   let [loading, setLoading] = useState(true);
-  let [images, setImages] = useState([]);
+  let [images, setImages] = useState({});
 
   const fetchImages = () => {
-    axios
-      .post(serverAddress + "API/query", { sql: "SELECT * FROM slide" })
-      .then((response) => {
-        setImages(response.data);
-        setLoading(false);
-      });
+    axios.get(serverAddress + "getSlideImages").then((response) => {
+      setImages(response.data);
+      setLoading(false);
+    });
   };
 
   const onImageClick = (event) => {
@@ -39,8 +37,8 @@ const Slide = (props) => {
   if (!loading) {
     let arr = images.map((row) => {
       return {
-        original: gc + row.original,
-        thumbnail: gc + row.thumbnail,
+        original: row.original,
+        thumbnail: row.thumbnail,
       };
     });
     viewPage = (

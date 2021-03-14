@@ -14,10 +14,8 @@ class Collections extends Component {
   };
 
   fetchCollections = () => {
-    const sql = "SELECT * FROM collections";
-    const sqlQuery = { sql: sql };
     axios
-      .post(serverAddress + "API/query", sqlQuery)
+      .get(serverAddress + "getCollections")
       .then((response) => {
         this.setState({ loading: false });
         this.setState({ collections: response.data });
@@ -42,7 +40,7 @@ class Collections extends Component {
             link={link}
             name={collection.name}
             key={collection.id}
-            img={collection.img}
+            image={collection.image}
           ></CollectionsElement>
         );
       });
