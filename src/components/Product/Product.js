@@ -11,7 +11,7 @@ import AddToCartForm from "../AddToCartForm/AddToCartForm";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import { withRouter } from "react-router-dom";
-import { serverAddress, gc, dic } from "../../assets/helper";
+import { serverAddress, dic } from "../../assets/helper";
 
 class Product extends Component {
   state = {
@@ -48,8 +48,8 @@ class Product extends Component {
         variation: entry.selectedVar,
         quantity: entry.quantity,
         price: this.state.product[0].price,
-        img: this.state.product[0].img,
-        desc: this.state.product[0].desc,
+        img: this.state.product[0].image,
+        desc: this.state.product[0].description,
         total: entry.quantity * this.state.product[0].price,
       });
     }
@@ -75,18 +75,14 @@ class Product extends Component {
     let selectedProduct = this.props.location.search.substr(1);
     selectedProduct = selectedProduct.replace(/%20/g, " ");
 
-    const sql = "SELECT * FROM items WHERE code = '" + selectedProduct + "'";
-    const sqlQuery = { sql: sql };
     axios
-      .post(serverAddress + "API/query", sqlQuery)
+      .get(serverAddress + "getProductByCode/" + selectedProduct)
       .then((response) => {
         this.setState({ loading: false });
         this.setState({ product: response.data });
-        const sqlStock =
-          "SELECT * FROM stock WHERE code = '" + selectedProduct + "'";
-        const sqlStockQuery = { sql: sqlStock };
+        console.log(response.data);
         axios
-          .post(serverAddress + "API/query", sqlStockQuery)
+          .get(serverAddress + "getStockByCode/" + selectedProduct)
           .then((response) => {
             let a = [...response.data];
             for (let i = 0; i < a.length; i++) {
@@ -166,7 +162,7 @@ class Product extends Component {
         Cell: (row) => (
           <div style={{ width: "50px", height: "50px", lineHeight: "50px" }}>
             <img
-              src={gc + row.value}
+              src={row.value}
               alt=""
               style={{ width: "50px" }}
               className={classes.CellStyle}
@@ -177,13 +173,12 @@ class Product extends Component {
       },
     ];
     let currentPath = [{ name: "", search: "" }];
-
     let viewPage = <Spinner />;
     if (this.state.loading === false) {
       const jsxMap = this.state.product.map((item) => {
         currentPath = [
           { name: "collections", search: "" },
-          { name: "items", search: item.collection },
+          { name: "items", search: item.collection.name },
           { name: "product", search: item.code },
         ];
         let moreDetails = null;
@@ -213,17 +208,17 @@ class Product extends Component {
           <div className={classes.Trans} key={1}>
             <div className={classes.ImgAndText}>
               <div className={classes.ImageDiv}>
-                <img src={gc + item.img} alt="img" />
+                <img src={item.image1} alt="img" />
                 <div className={classes.Desc}>
                   <img
-                    src={gc + item.img2}
+                    src={item.image2}
                     alt="img2"
                     className={classes.Image2}
                   />
                 </div>
               </div>
               <div className={classes.Text}>
-                <p className={classes.PDesc}>{item.desc}</p>
+                <p className={classes.PDesc}>{item.description}</p>
                 <hr className={classes.HrClass} />
                 <p className={classes.PName}>
                   {dic.code[lang]} {item.code}
@@ -288,7 +283,6 @@ class Product extends Component {
                           rowDetails.rowId = rowInfo.original.id;
                           rowDetails.img = rowInfo.original.img;
                           this.onMouseOverImage(rowDetails);
-
                           if (handleOriginal) {
                             handleOriginal();
                           }
@@ -305,7 +299,6 @@ class Product extends Component {
                           rowDetails.rowId = rowInfo.original.id;
                           rowDetails.img = rowInfo.original.img;
                           this.onMouseOverImage(rowDetails);
-
                           if (handleOriginal) {
                             handleOriginal();
                           }
@@ -330,10 +323,7 @@ class Product extends Component {
           onMouseOut={this.onMouseOutImage}
           onMouseEnter={this.onMouseOutImage}
         >
-          <ImageWindow
-            show={this.state.imageHover}
-            image={gc + this.state.image}
-          />
+          <ImageWindow show={this.state.imageHover} image={this.state.image} />
           <Modal
             show={this.state.addToCartPressed}
             modalClosed={this.onAddToCartPressed}
@@ -361,7 +351,6 @@ class Product extends Component {
         </div>
       );
     }
-
     return viewPage;
   }
 }

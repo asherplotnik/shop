@@ -50,14 +50,8 @@ class Items extends Component {
   fetchItems = () => {
     let selectedColl = this.props.location.search.substr(1);
     selectedColl = selectedColl.replace(/%20/g, " ");
-    console.log(selectedColl);
-    const sql =
-      "SELECT * FROM Items WHERE collection = '" +
-      selectedColl +
-      "' ORDER BY code ";
-    const sqlQuery = { sql: sql };
     axios
-      .post(serverAddress + "API/query", sqlQuery)
+      .get(serverAddress + "getItemsByCollectionName/" + selectedColl)
       .then((response) => {
         this.setState({ loading: false });
         this.setState({ Items: response.data });
@@ -86,11 +80,14 @@ class Items extends Component {
       const jsxMap = this.state.Items.map((item, index) => {
         currentPath = [
           { name: dic.collections[this.props.lang], search: "" },
-          { name: dic.items[this.props.lang], search: item.collection },
+          {
+            name: dic.items[this.props.lang],
+            search: this.props.location.search.substr(1),
+          },
         ];
         const link = { pathname: "/product", search: item.code };
-        const imagePath = item.img;
-        const imagePath2 = item.img2;
+        const imagePath = item.image1;
+        const imagePath2 = item.image2;
         TOPITEM = index;
         return (
           <ItemsElement
@@ -109,7 +106,7 @@ class Items extends Component {
             key={item.id}
             size={item.size}
             price={item.price}
-            desc={item.desc}
+            desc={item.description}
           ></ItemsElement>
         );
       });

@@ -1,7 +1,6 @@
 import React from "react";
 import classes from "./ItemsElement.module.css";
 import { NavLink } from "react-router-dom";
-import { gc } from "../../../assets/helper";
 
 const ItemsElement = (props) => {
   let appear = classes.NavElement;
@@ -18,11 +17,7 @@ const ItemsElement = (props) => {
       <div className={classes.ItemsElement}>
         <div className={classes.Front}>
           <div style={{ height: "300px", lineHeight: "300px" }}>
-            <img
-              className={classes.Image1}
-              src={gc + props.img}
-              alt={props.img}
-            />
+            <img className={classes.Image1} src={props.img} alt={props.img} />
           </div>
           <div className={classes.TextWrap}>
             <div className={classes.Txt1}>{props.name}</div>
@@ -31,11 +26,7 @@ const ItemsElement = (props) => {
         </div>
         <div className={classes.Desc}>
           <div style={{ height: "300px", lineHeight: "300px" }}>
-            <img
-              className={classes.Image2}
-              src={gc + props.img2}
-              alt={props.img2}
-            />
+            <img className={classes.Image2} src={props.img2} alt={props.img2} />
           </div>
           <div className={classes.TextWrap}>
             <div className={classes.Txt1}>{props.name}</div>
