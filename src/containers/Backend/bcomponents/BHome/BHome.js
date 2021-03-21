@@ -21,22 +21,14 @@ const BHome = (props) => {
   }, []);
 
   const fetchData = () => {
-    axios
-      .post(serverAddress + "API/query", {
-        sql: "SELECT content FROM about WHERE id = 1",
-      })
-      .then((response) => {
-        setAboutContent(JSON.parse(response.data[0].content));
-        axios
-          .post(serverAddress + "API/query", {
-            sql: "SELECT content FROM about WHERE id = 2",
-          })
-          .then((res) => {
-            setFooterContent(JSON.parse(res.data[0].content));
-            setLoadingFooter(false);
-          });
-        setLoadingAbout(false);
-      });
+    axios.get(serverAddress + "api/getAboutUs").then((response) => {
+      console.log(response.data[0]);
+      console.log(response.data[1]);
+      setAboutContent(response.data[0]);
+      setFooterContent(response.data[1]);
+      setLoadingFooter(false);
+      setLoadingAbout(false);
+    });
   };
 
   const updateAboutHandler = (e) => {
@@ -44,13 +36,14 @@ const BHome = (props) => {
     setLoadingAbout(true);
     const formData = new FormData(document.querySelector("#updateAboutUs"));
     axios
-      .post(serverAddress + "API/updateAboutUs", formData, {
+      .post(serverAddress + "admin/updateAboutUs", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          token: localStorage.getItem("token"),
         },
       })
       .then((response) => {
-        setAboutContent(JSON.parse(response.data[0].content));
+        setAboutContent(response.data);
         setLoadingAbout(false);
       })
       .catch((error) => {
@@ -62,20 +55,16 @@ const BHome = (props) => {
     e.preventDefault();
     setLoadingFooter(true);
     const formData = new FormData(document.querySelector("#updateFooter"));
-    const youtube = formData.get("youtube");
-    const facebook = formData.get("facebook");
-    const email = formData.get("email");
-    const tel = formData.get("tel");
-    const sql = `UPDATE about SET "content" = '{"youtube": "${youtube}", "facebook": "${facebook}", "email": "${email}", "tel": "${tel}"}', lang = 'eng' WHERE id = 2`;
-    const sqlQuery = { sql: sql };
     axios
-      .post(serverAddress + "API/update", sqlQuery)
+      .post(serverAddress + "admin/updateFooter", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          token: localStorage.getItem("token"),
+        },
+      })
       .then((response) => {
-        setFooterContent(
-          JSON.parse(
-            `{"youtube": "${youtube}", "facebook": "${facebook}", "email": "${email}", "tel": "${tel}"}`
-          )
-        );
+        setFooterContent(response.data);
+        console.log(response);
         setLoadingFooter(false);
       })
       .catch((error) => {

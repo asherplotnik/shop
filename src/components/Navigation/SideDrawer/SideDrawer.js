@@ -4,7 +4,6 @@ import NavigationItems from "../NavigationItems/NavigationItems";
 import classes from "./SideDrawer.module.css";
 import Backdrop from "../../UI/Backdrop/Backdrop";
 import { withRouter } from "react-router-dom";
-import { gc } from "../../../assets/helper";
 import { connect } from "react-redux";
 
 const sideDrawer = (props) => {
@@ -35,10 +34,16 @@ const sideDrawer = (props) => {
         </nav>
         <div onClick={onPressedCart} className={showCart}>
           <div className={classes.Cart2}>
-            <img src={gc + "cart2.png"} alt="cart" />
+            <img
+              src={process.env.PUBLIC_URL + "static/images/cart2.png"}
+              alt="cart"
+            />
           </div>
           <div className={classes.Cart}>
-            <img src={gc + "cart.png"} alt="cart" />
+            <img
+              src={process.env.PUBLIC_URL + "static/images/cart.png"}
+              alt="cart"
+            />
           </div>
         </div>
       </div>

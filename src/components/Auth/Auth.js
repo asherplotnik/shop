@@ -5,7 +5,7 @@ import Button from "../UI/Button/Button";
 import classes from "./Auth.module.css";
 import * as actions from "../../store/actions/index";
 import { withRouter } from "react-router-dom";
-import { serverAddress, dic } from "../../assets/helper";
+import { dic } from "../../assets/helper";
 class Auth extends Component {
   state = {
     signIn: true,
@@ -15,66 +15,49 @@ class Auth extends Component {
 
   onLogOut = () => {
     this.props.history.push("/");
+    axios.post("http://localhost:8080/auth/signOut", {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    });
   };
 
   onSignIn = (email, password) => {
     const authData = {
       email: email,
       password: password,
-      returnSecureToken: true,
     };
-    let url =
-      // "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDTc2IWZVm8QxfLyelchjJSuTbSvF-U3s0";
-      serverAddress + "API/login";
+    let url = "http://localhost:8080/auth/signIn";
     axios
       .post(url, authData)
       .then((response) => {
-        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-        const sqlQuery = {
-          sql:
-            "SELECT * FROM users WHERE userid = '" +
-            response.data.localId +
-            "'",
+        let session = response.data;
+        console.log(session);
+        let user = {
+          id: session.id,
+          username: session.username,
+          email: session.email,
+          address: session.address,
+          phone: session.phone,
+          userId: session.userId,
+          level: session.level,
+          expiration: session.expiration,
         };
-        axios
-          .post(serverAddress + "API/query", sqlQuery)
-          .then((res) => {
-            let user = {};
-            res.data.map((row) => {
-              user = {
-                id: row.id,
-                username: row.username,
-                email: row.email,
-                address: row.address,
-                phone: row.phone,
-                userId: row.userId,
-                level: row.level,
-              };
-              return null;
-            });
-            localStorage.setItem("userName", user.username);
-            localStorage.setItem("userEmail", user.email);
-            localStorage.setItem("userAddress", user.address);
-            localStorage.setItem("userPhone", user.phone);
-            localStorage.setItem("userLevel", user.level);
-            localStorage.setItem("user", user);
-            localStorage.setItem("userId", response.data.localId);
-            localStorage.setItem("token", response.data.idToken);
-            localStorage.setItem("expirationDate", expirationDate);
-            this.props.onSignInSuccess(
-              response.data.idToken,
-              response.data.localId,
-              user
-            );
-            if (this.props.entries.length > 0) {
-              this.props.history.push("/checkout");
-            } else {
-              this.props.history.push("/");
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        localStorage.setItem("userName", user.username);
+        localStorage.setItem("userEmail", user.email);
+        localStorage.setItem("userAddress", user.address);
+        localStorage.setItem("userPhone", user.phone);
+        localStorage.setItem("userLevel", user.level);
+        localStorage.setItem("user", user);
+        localStorage.setItem("userId", user.userId);
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("expirationDate", user.expiration);
+        this.props.onSignInSuccess(response.data.token, user.id, user);
+        if (this.props.entries.length > 0) {
+          this.props.history.push("/checkout");
+        } else {
+          this.props.history.push("/");
+        }
       })
       .catch((err) => {
         this.props.onSignInFail(err.response.data.error);
@@ -92,9 +75,7 @@ class Auth extends Component {
       password: data.get("password"),
     };
 
-    let url =
-      //"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDTc2IWZVm8QxfLyelchjJSuTbSvF-U3s0";
-      serverAddress + "API/newUser";
+    let url = "http://localhost:8080/auth/signUp";
     axios
       .post(url, userInfo)
       .then((response) => {

@@ -1,48 +1,56 @@
 import React from "react";
 import classes from "./UpdateFooter.module.css";
 const UpdateFooter = (props) => {
+  // mainTitle = "youtube"
+  // mainTitleT = "facebook"
+  // firstParagraph = "email"
+  // firstParagraphT = "tel"
   return (
     <div className={classes.Scroll}>
       <form id="updateFooter" onSubmit={props.updateFooterHandler}>
         <ul className={classes.Ul}>
           <li>
-            <label htmlFor="youtube">YOUTUBE LINK:</label>
+            <label htmlFor="mainTitle">YOUTUBE LINK:</label>
           </li>
           <li>
             <input
               type="text"
-              defaultValue={props.content.youtube}
-              name="youtube"
+              defaultValue={props.content.mainTitle}
+              name="mainTitle"
             />
           </li>
           <br className={classes.Br}></br>
           <li>
-            <label htmlFor="facebook">FACEBOOK LINK:</label>
+            <label htmlFor="mainTitleT">FACEBOOK LINK:</label>
           </li>
           <li>
             <input
               type="text"
-              defaultValue={props.content.facebook}
-              name="facebook"
+              defaultValue={props.content.mainTitleT}
+              name="mainTitleT"
             />
           </li>
           <br className={classes.Br}></br>
           <li>
-            <label htmlFor="secondParagraph">EMAIL:</label>
+            <label htmlFor="firstParagraph">EMAIL:</label>
           </li>
           <li>
             <input
               type="text"
-              defaultValue={props.content.email}
-              name="email"
+              defaultValue={props.content.firstParagraph}
+              name="firstParagraph"
             />
           </li>
           <br className={classes.Br}></br>
           <li>
-            <label htmlFor="tel">PHONE NUMBER:</label>
+            <label htmlFor="firstParagraphT">PHONE NUMBER:</label>
           </li>
           <li>
-            <input type="text" defaultValue={props.content.tel} name="tel" />
+            <input
+              type="text"
+              defaultValue={props.content.firstParagraphT}
+              name="firstParagraphT"
+            />
           </li>
           <br className={classes.Br}></br>
           <button type="submit">SUBMIT</button>

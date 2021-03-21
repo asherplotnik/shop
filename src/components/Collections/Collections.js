@@ -15,7 +15,7 @@ class Collections extends Component {
 
   fetchCollections = () => {
     axios
-      .get(serverAddress + "getCollections")
+      .get(serverAddress + "api/getCollections")
       .then((response) => {
         this.setState({ loading: false });
         this.setState({ collections: response.data });

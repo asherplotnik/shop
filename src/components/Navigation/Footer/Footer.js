@@ -2,13 +2,17 @@ import React from "react";
 import classes from "./Footer.module.css";
 import { NavLink } from "react-router-dom";
 const Footer = (props) => {
+  // mainTitle = "youtube"
+  // mainTitleT = "facebook"
+  // firstParagraph = "email"
+  // firstParagraphT = "tel"
   return (
     <div className={classes.Blk}>
       <div className={classes.Mail}>
         <a
           rel="noopener noreferrer"
-          href="https://www.youtube.com/channel/UCOleG6EtOlMMU3lhwIGCgcQ"
-          //href={props.content.youtube}
+          // href="https://www.youtube.com/channel/UCOleG6EtOlMMU3lhwIGCgcQ"
+          href={props.content.mainTitle}
           target="_blank"
         >
           <img
@@ -21,8 +25,8 @@ const Footer = (props) => {
       <div className={classes.Mail}>
         <a
           rel="noopener noreferrer"
-          href="https://www.facebook.com/Indy-lady-fashion-101376811323628/"
-          //href={props.content.facebook}
+          //href="https://www.facebook.com/Indy-lady-fashion-101376811323628/"
+          href={props.content.mainTitleT}
           target="_blank"
         >
           <img
@@ -33,14 +37,14 @@ const Footer = (props) => {
         </a>
       </div>
       <div className={classes.Mail}>
-        <NavLink to="/contactus" exact="true">
-          {/* email: {props.content.email} */} Email:
-          "indy-collection@gmail.com"
+        <NavLink to="/contactus" exact={true}>
+          email: {props.content.firstParagraph} Email:
+          {/* "indy-collection@gmail.com" */}
         </NavLink>
       </div>
       <div className={classes.Mail}>
-        {/* Tel: {props.content.tel} */}
-        Tel: +66(0)879037504
+        Tel: {props.content.firstParagraphT}
+        {/* Tel: +66(0)879037504 */}
       </div>
     </div>
   );

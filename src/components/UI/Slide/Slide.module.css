@@ -1,5 +1,6 @@
 .Trans {
   animation: trans 0.3s ease-out forwards;
+  max-height: 300px;
 }
 
 @keyframes trans {

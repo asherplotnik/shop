@@ -11,7 +11,7 @@ const Slide = (props) => {
   let [images, setImages] = useState({});
 
   const fetchImages = () => {
-    axios.get(serverAddress + "getSlideImages").then((response) => {
+    axios.get(serverAddress + "api/getSlideImages").then((response) => {
       setImages(response.data);
       setLoading(false);
     });

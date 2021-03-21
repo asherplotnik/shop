@@ -3,8 +3,8 @@ import classes from "./Layout.module.css";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
 import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 import Footer from "../../components/Navigation/Footer/Footer";
-// import axios from "axios";
-// import { serverAddress } from "../../assets/helper";
+import axios from "axios";
+import { serverAddress } from "../../assets/helper";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
 class Layout extends Component {
@@ -15,14 +15,10 @@ class Layout extends Component {
   };
 
   fetchFooterData = () => {
-    // axios
-    //   .post(serverAddress + "API/query", {
-    //     sql: "SELECT content FROM about WHERE id = 2",
-    //   })
-    //   .then((res) => {
-    //     this.setState({ footerContent: JSON.parse(res.data[0].content) });
-    this.setState({ loadingFooter: false });
-    //   });
+    axios.get(serverAddress + "api/getAboutUs").then((res) => {
+      this.setState({ footerContent: res.data[1] });
+      this.setState({ loadingFooter: false });
+    });
   };
   sideDrawerClosedHandler = () => {
     this.setState({ showSideDrawer: false });

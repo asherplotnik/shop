@@ -45,7 +45,6 @@ export const logout = () => {
   localStorage.removeItem("userId");
   localStorage.removeItem("isAdmin");
   localStorage.removeItem("userAddress");
-
   return {
     type: actionTypes.LOGOUT,
   };

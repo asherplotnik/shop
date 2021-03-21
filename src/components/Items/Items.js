@@ -51,7 +51,7 @@ class Items extends Component {
     let selectedColl = this.props.location.search.substr(1);
     selectedColl = selectedColl.replace(/%20/g, " ");
     axios
-      .get(serverAddress + "getItemsByCollectionName/" + selectedColl)
+      .get(serverAddress + "api/getItemsByCollectionName/" + selectedColl)
       .then((response) => {
         this.setState({ loading: false });
         this.setState({ Items: response.data });

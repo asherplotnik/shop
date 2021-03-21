@@ -76,12 +76,12 @@ class Product extends Component {
     selectedProduct = selectedProduct.replace(/%20/g, " ");
 
     axios
-      .get(serverAddress + "getProductByCode/" + selectedProduct)
+      .get(serverAddress + "api/getProductByCode/" + selectedProduct)
       .then((response) => {
         this.setState({ product: response.data });
         this.setState({ loading: false });
         axios
-          .get(serverAddress + "getStockByCode/" + selectedProduct)
+          .get(serverAddress + "api/getStockByCode/" + selectedProduct)
           .then((response) => {
             let a = [...response.data];
             for (let i = 0; i < a.length; i++) {

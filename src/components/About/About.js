@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classes from "./About.module.css";
 import axios from "axios";
-import { serverAddress, gc } from "../../assets/helper";
+import { serverAddress } from "../../assets/helper";
 import Spinner from "../UI/Spinner/Spinner";
 import { connect } from "react-redux";
 
@@ -14,14 +14,10 @@ const About = (props) => {
   }, []);
 
   const fetchData = () => {
-    axios
-      .post(serverAddress + "API/query", {
-        sql: "SELECT content FROM about WHERE id = 1",
-      })
-      .then((response) => {
-        setContent(JSON.parse(response.data[0].content));
-        setLoading(false);
-      });
+    axios.get(serverAddress + "api/getAboutUs").then((response) => {
+      setContent(response.data[0]);
+      setLoading(false);
+    });
   };
   let viewPage = <Spinner />;
   let mainTitle = "";
@@ -49,7 +45,7 @@ const About = (props) => {
           <h1 className={firstHeader}>{mainTitle}</h1>
         </div>
         <div className={classes.FirstDiv}>
-          <img src={gc + content.firstImage} alt={content.firstImage} />
+          <img src={content.firstImage} alt={content.firstImage} />
           <div className={pdiv}>
             <p>{firstParagraph}</p>
           </div>
@@ -59,11 +55,11 @@ const About = (props) => {
             <p>{secondParagraph}</p>
           </div>
           <div>
-            <img src={gc + content.secondImage} alt={content.secondImage} />
+            <img src={content.secondImage} alt={content.secondImage} />
           </div>
         </div>
         <div className={classes.ThirdDiv}>
-          <img src={gc + content.thirdImage} alt={content.thirdImage} />
+          <img src={content.thirdImage} alt={content.thirdImage} />
           <div className={pdiv}>
             <p>{thirdParagraph}</p>
           </div>

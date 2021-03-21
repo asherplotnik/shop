@@ -6,7 +6,6 @@ import DrawerToggle from "../SideDrawer/DrawerToggle/DrawerToggle";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/index";
-import { gc } from "../../../assets/helper";
 const Toolbar = (props) => {
   const dic = {
     login: { eng: "LOGIN", thai: "เข้าสู่ระบบ" },
@@ -96,12 +95,16 @@ const Toolbar = (props) => {
               <div onClick={onPressedCart} className={classes.Cart2}>
                 <img
                   onClick={onPressedCart}
-                  src={gc + "cart2.png"}
+                  src={process.env.PUBLIC_URL + "static/images/cart2.png"}
                   alt="cart"
                 />
               </div>
               <div onClick={onPressedCart} className={classes.Cart}>
-                <img onClick={onPressedCart} src={gc + "cart.png"} alt="cart" />
+                <img
+                  onClick={onPressedCart}
+                  src={process.env.PUBLIC_URL + "static/images/cart.png"}
+                  alt="cart"
+                />
               </div>
             </div>
           </div>
