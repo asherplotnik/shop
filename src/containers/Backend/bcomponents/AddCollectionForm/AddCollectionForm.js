@@ -11,9 +11,10 @@ class AddForm extends Component {
     const addCollecionForm = document.querySelector("#addCollecionForm");
     const formData = new FormData(addCollecionForm);
     axios
-      .post(serverAddress + "API/uploadCollectionForm", formData, {
+      .post(serverAddress + "admin/addCollection", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          token: localStorage.getItem("token"),
         },
       })
       .then((response) => {
@@ -52,7 +53,7 @@ class AddForm extends Component {
                 <label htmlFor="addCollName">ENTER COLLECTION'S NAME:</label>
               </li>
               <li>
-                <input type="text" id="addCollName" name="name" />
+                <input type="text" id="addCollName" name="mainTitle" />
               </li>
               <li style={{ opacity: " 0 " }}>space</li>
               <li>
@@ -64,7 +65,7 @@ class AddForm extends Component {
                 <input
                   type="text"
                   id="addCollDesc"
-                  name="description"
+                  name="mainTitleT"
                   size="30"
                 />
               </li>
@@ -73,7 +74,12 @@ class AddForm extends Component {
                 <label htmlFor="addUploadFile">ADD IMAGE FILE:</label>
               </li>
               <li>
-                <input id="addUploadFile" type="file" name="image" required />
+                <input
+                  id="addUploadFile"
+                  type="file"
+                  name="firstImage"
+                  required
+                />
               </li>
               <li style={{ opacity: " 0 " }}>space</li>
               <li>

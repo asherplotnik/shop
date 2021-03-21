@@ -7,12 +7,12 @@ class AddForm extends Component {
     e.preventDefault();
     const updateCollecionForm = document.querySelector("#updateCollecionForm");
     const formData = new FormData(updateCollecionForm);
-    formData.append("collectionId", this.props.updateState.pressedRecordId);
-    formData.append("collPrev", this.props.updateState.pressedRecordName);
+    formData.append("id", this.props.updateState.pressedRecordId);
     axios
-      .post(serverAddress + "API/updateCollectionForm", formData, {
+      .post(serverAddress + "admin/updateCollection", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          token: localStorage.getItem("token"),
         },
       })
       .then((response) => {
@@ -43,7 +43,7 @@ class AddForm extends Component {
               <input
                 type="text"
                 id="collName"
-                name="collectionName"
+                name="mainTitle"
                 defaultValue={this.props.updateState.pressedRecordName}
               />
             </li>
@@ -55,7 +55,7 @@ class AddForm extends Component {
               <input
                 type="text"
                 id="collDesc"
-                name="collectionDesc"
+                name="mainTitleT"
                 size="30"
                 defaultValue={this.props.updateState.pressedRecordDesc}
               />
@@ -65,7 +65,7 @@ class AddForm extends Component {
               <label htmlFor="uploadFile">CHANGE IMAGE FILE:</label>
             </li>
             <li>
-              <input id="uploadFile" type="file" name="image" />
+              <input id="uploadFile" type="file" name="firstImage" />
             </li>
             <li style={{ opacity: " 0 " }}>space</li>
             <li>

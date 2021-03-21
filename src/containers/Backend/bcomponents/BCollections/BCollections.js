@@ -9,7 +9,7 @@ import Modal from "../../../../components/UI/Modal/Modal";
 import ModalConfirm from "../../../../components/UI/Modal/modalContents/modalConfirm/ModalConfirm";
 import AddCollectionForm from "../AddCollectionForm/AddCollectionForm";
 import UpdateCollectionForm from "../UpdateCollectionForm/UpdateCollectionForm";
-import { serverAddress, gc } from "../../../../assets/helper";
+import { serverAddress } from "../../../../assets/helper";
 
 class BCollections extends Component {
   state = {
@@ -32,7 +32,7 @@ class BCollections extends Component {
       loading: false,
     });
     document.querySelector("#updateCollecionForm").reset();
-    this.requestQuery("SELECT * FROM collections", "query");
+    this.requestQuery();
   };
 
   addFormCallBack = (parm) => {
@@ -42,27 +42,27 @@ class BCollections extends Component {
       loading: false,
     });
     document.querySelector("#addCollecionForm").reset();
-    this.requestQuery("SELECT * FROM collections", "query");
+    this.requestQuery();
   };
 
-  requestQuery = (sql, action) => {
-    const sqlQuery = { sql: sql };
+  deleteQuery = (id) => {
+    this.setState({ loading: true });
     axios
-      .post(serverAddress + "API/" + action, sqlQuery)
+      .delete(serverAddress + "admin/deleteCollection/" + id, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      })
+      .then(this.requestQuery());
+  };
+  requestQuery = () => {
+    axios
+      .get(serverAddress + "api/getCollections")
       .then((response) => {
-        console.log("[response.data] => ", response.data);
-        if (action === "query") {
-          this.setState({
-            loading: false,
-            collections: response.data,
-          });
-        } else if (action === "delete") {
-          this.setState({
-            loading: false,
-            deletePressed: false,
-            canceled: true,
-          });
-        }
+        this.setState({
+          loading: false,
+          collections: response.data,
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -70,44 +70,12 @@ class BCollections extends Component {
       });
   };
 
-  onAddCollecionForm = async (e) => {
-    e.preventDefault();
-
-    const addCollecionForm = document.querySelector("#addCollecionForm");
-    const formData = new FormData(addCollecionForm);
-    axios
-      .post(serverAddress + "API/uploadCollectionForm", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        console.log("[add collection respose] => ", response.data);
-        if (response.data === "collection exists already") {
-          alert(response.data);
-        }
-        this.setState({
-          inputFileToggleOn: false,
-          deletePressed: false,
-          loading: false,
-        });
-        this.requestQuery("SELECT * FROM collections", "query");
-        document.querySelector("#addCollecionForm").reset();
-      })
-      .catch((error) => {
-        alert(error);
-        document.querySelector("#addCollecionForm").reset();
-        this.setState({ loading: false, deletePressed: false });
-        this.requestQuery("SELECT * FROM collections", "query");
-      });
-  };
-
   componentDidMount() {
-    this.requestQuery("SELECT * FROM collections", "query");
+    this.requestQuery();
   }
   componentDidUpdate(nextProps, nextState) {
     if (this.state.canceled) {
-      this.requestQuery("SELECT * FROM collections", "query");
+      this.requestQuery();
       this.setState({ canceled: false });
     }
   }
@@ -122,17 +90,10 @@ class BCollections extends Component {
   };
 
   deleteRecordHandler = () => {
-    this.requestQuery(
-      "UPDATE items set collection = 'HIDDEN' WHERE collection = '" +
-        this.state.pressedRecordName +
-        "'",
-      "delete" //will not delete. only will make the sql command
-    );
-    this.requestQuery(
-      "DELETE FROM collections WHERE id = " + this.state.pressedRecordId,
-      "delete"
-    );
+    this.cancelDeleteHandler();
+    this.deleteQuery(this.state.pressedRecordId);
   };
+
   addInputHandler = () => {
     this.setState((prevState) => {
       return {
@@ -199,7 +160,7 @@ class BCollections extends Component {
             </div>
           </div>
         ),
-        accessor: "desc",
+        accessor: "description",
         width: 400,
         Cell: (row) => (
           <div style={{ lineHeight: "100px" }}>
@@ -218,10 +179,10 @@ class BCollections extends Component {
             </div>
           </div>
         ),
-        accessor: "img",
+        accessor: "image",
         Cell: (row) => (
           <img
-            src={gc + row.value}
+            src={row.value}
             alt={row.value}
             style={{ width: "100px", height: "100px" }}
           />
