@@ -8,42 +8,56 @@ const addItemForm = (props) => {
       options.push(
         <option
           key={i}
-          selected={props.collSelect[i] === props.rCollection ? "selected" : ""}
+          selected={
+            props.collSelect[i].name === props.rCollection ? "selected" : ""
+          }
         >
-          {props.collSelect[i]}
+          {props.collSelect[i].name}
         </option>
       );
     }
   }
-  console.log("rTrendning", props.rTrending);
   return (
+    //addCode  //addCollection  //addDesc  //addSize  //addPrice  //addType  //addTrending  //addImg  //addImg2 //productDetails
     <div className={classes.AddItemsForm}>
       <form id={props.formId} onSubmit={props.addItem}>
         <div className={classes.Font}>{props.title}</div>
         <ul className={classes.FormList}>
           <li key="code">
             <label htmlFor="AddCode">CODE: </label>
-            <input type="text" name="addCode" defaultValue={props.rCode} />
+            <input type="text" name="mainTitle" defaultValue={props.rCode} />
           </li>
           <li key="collection">
-            <label htmlFor="AddCollection">COLLECTION: </label>
-            <select name="addCollection"> {options}</select>
+            <label htmlFor="mainTitleT">COLLECTION: </label>
+            <select name="mainTitleT"> {options}</select>
           </li>
           <li key="desc">
-            <label htmlFor="AddDesc">DESCRIPTION: </label>
-            <input type="text" name="addDesc" defaultValue={props.rDesc} />
+            <label htmlFor="firstParagraph">DESCRIPTION: </label>
+            <input
+              type="text"
+              name="firstParagraph"
+              defaultValue={props.rDesc}
+            />
           </li>
           <li key="size">
-            <label htmlFor="AddSize">SIZE: </label>
-            <input type="text" name="addSize" defaultValue={props.rSize} />
+            <label htmlFor="firstParagraphT">SIZE: </label>
+            <input
+              type="text"
+              name="firstParagraphT"
+              defaultValue={props.rSize}
+            />
           </li>
           <li key="price">
-            <label htmlFor="AddPrice">PRICE: </label>
-            <input type="number" name="addPrice" defaultValue={props.rPrice} />
+            <label htmlFor="secondParagraph">PRICE: </label>
+            <input
+              type="number"
+              name="secondParagraph"
+              defaultValue={props.rPrice}
+            />
           </li>
           <li key="type">
-            <label htmlFor="AddType">TYPE: </label>
-            <select name="addType">
+            <label htmlFor="secondParagraphT">TYPE: </label>
+            <select name="secondParagraphT">
               <option selected={props.rType === "EARRINGS" ? true : false}>
                 EARRINGS
               </option>
@@ -67,8 +81,8 @@ const addItemForm = (props) => {
             </select>
           </li>
           <li key="trending">
-            <label htmlFor="AddTrending">TRENDING: </label>
-            <select name="addTrending">
+            <label htmlFor="thirdParagraph">TRENDING: </label>
+            <select name="thirdParagraph">
               <option selected={props.rTrending === false ? true : false}>
                 false
               </option>
@@ -78,22 +92,22 @@ const addItemForm = (props) => {
             </select>
           </li>
           <li key="imageL">
-            <label htmlFor="AddImg">IMAGE: </label>
+            <label htmlFor="firstImage">IMAGE: </label>
           </li>{" "}
           <li key="image">
             <input
               type="file"
-              name="addImg"
+              name="firstImage"
               required={props.title === "ADD PRODUCT" ? true : false}
             />
           </li>
           <li key="imageL2">
-            <label htmlFor="AddImg2">IMAGE 2: </label>
+            <label htmlFor="secondImage">IMAGE 2: </label>
           </li>{" "}
           <li key="image2">
             <input
               type="file"
-              name="addImg2"
+              name="secondImage"
               required={props.title === "ADD PRODUCT" ? true : false}
             />
           </li>{" "}
@@ -102,7 +116,7 @@ const addItemForm = (props) => {
               style={{ resize: "none" }}
               rows="5"
               cols="50"
-              name="productDetails"
+              name="thirdParagraphT"
               placeholder="Product Details"
               defaultValue={props.rDetails}
             />

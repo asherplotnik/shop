@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./ItemsTable.module.css";
 import Button from "../../../../components/UI/Button/Button";
 import ReactTable from "react-table-6";
-import { gc } from "../../../../assets/helper";
 
 const itemsTable = (props) => {
   const stockColumns = [
@@ -66,7 +65,7 @@ const itemsTable = (props) => {
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
             {" "}
-            {row.value.toUpperCase()}{" "}
+            {row.value.name.toUpperCase()}{" "}
           </div>
         </div>
       ),
@@ -79,7 +78,7 @@ const itemsTable = (props) => {
           </div>
         </div>
       ),
-      accessor: "desc",
+      accessor: "description",
       filterable: false,
       Cell: (row) => (
         <div style={{ lineHeight: "100px" }}>
@@ -104,7 +103,7 @@ const itemsTable = (props) => {
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
             {" "}
-            {row.value.toUpperCase()}{" "}
+            {row.value}{" "}
           </div>
         </div>
       ),
@@ -177,12 +176,12 @@ const itemsTable = (props) => {
           </div>
         </div>
       ),
-      accessor: "img",
+      accessor: "image1",
       filterable: false,
       Cell: (row) => (
         <div style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
           <img
-            src={gc + row.value}
+            src={row.value}
             alt={row.value}
             style={{ width: "100px" }}
             className={classes.CellStyle}
@@ -198,11 +197,11 @@ const itemsTable = (props) => {
           </div>
         </div>
       ),
-      accessor: "img2",
+      accessor: "image2",
       Cell: (row) => (
         <div style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
           <img
-            src={gc + row.value}
+            src={row.value}
             alt={row.value}
             style={{ width: "100px" }}
             className={classes.CellStyle}
@@ -250,7 +249,7 @@ const itemsTable = (props) => {
   const makeSubComp = (row) => {
     const subTable = [];
     for (let i = 0; i < props.passedStock.length; i++) {
-      if (props.passedStock[i].code === row.original.code) {
+      if (props.passedStock[i].item.id === row.original.id) {
         subTable.push(props.passedStock[i]);
       }
     }

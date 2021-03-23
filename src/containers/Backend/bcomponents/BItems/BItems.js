@@ -14,9 +14,9 @@ import { serverAddress } from "../../../../assets/helper";
 
 class BItems extends Component {
   componentDidMount() {
+    this.requestQuery();
     this.requestStock();
-    this.requestQuery("SELECT * FROM items", "query");
-    this.collectionQuery();
+    this.requestCollection();
   }
 
   onBulkConfirmed = async (e) => {
@@ -46,81 +46,54 @@ class BItems extends Component {
     const formData = new FormData(addItemForm);
     this.props.onToggleAddOff();
     axios
-      .post(serverAddress + "API/uploadItemForm", formData, {
+      .post(serverAddress + "admin/addItem", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          token: localStorage.getItem("token"),
         },
       })
-      .then((response) => {
-        console.log("[add collection respose] => ", response.data);
-        if (response.data === "Item exists already") {
-          alert(response.data);
-        }
+      .then(() => {
         document.querySelector("#addItemForm").reset();
-        this.requestQuery("SELECT * FROM items", "query");
+        this.requestQuery();
       })
       .catch((error) => {
         alert(error);
         document.querySelector("#addItemForm").reset();
-        this.requestQuery("SELECT * FROM collections", "query");
+        this.requestQuery();
       });
   };
 
   onUpdateItemForm = async (e) => {
     e.preventDefault();
-    const itemForm = document.querySelector("#updateItemForm");
-    const formData = new FormData(itemForm);
+    const addItemForm = document.querySelector("#updateItemForm");
+    const formData = new FormData(addItemForm);
+    formData.append("id", parseInt(this.props.pressedRecordId));
     this.props.onToggleUpdateOff();
-    formData.append("itemId", this.props.pressedRecordId);
     axios
-      .post(serverAddress + "API/updateItemForm", formData, {
+      .post(serverAddress + "admin/updateItem", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          token: localStorage.getItem("token"),
         },
       })
-      .then((response) => {
-        console.log("[add collection response] => ", response.data);
-        if (response.data === "Item exists already") {
-          alert(response.data);
-        }
+      .then(() => {
         document.querySelector("#updateItemForm").reset();
-        this.requestQuery("SELECT * FROM items", "query");
-      })
-      .catch((error) => {
-        alert(error);
-        document.querySelector("#updateItemForm").reset();
-        this.requestQuery("SELECT * FROM collections", "query");
-      });
-  };
-
-  collectionQuery = () => {
-    const sqlQuery = { sql: "SELECT name FROM collections" };
-    axios
-      .post(serverAddress + "API/query", sqlQuery)
-      .then((response) => {
-        let arr = response.data.map((el) => {
-          return el.name;
-        });
-        this.props.onSetCollectionSelect(arr);
+        this.requestQuery();
       })
       .catch((error) => {
         console.log(error);
+        alert(error);
+        document.querySelector("#updateItemForm").reset();
+        this.requestQuery();
       });
   };
 
-  requestQuery = (sql, act) => {
-    const sqlQuery = { sql: sql };
+  requestQuery = () => {
     axios
-      .post(serverAddress + "API/" + act, sqlQuery)
+      .get(serverAddress + "api/getItems")
       .then((response) => {
-        if (act === "query") {
-          this.props.setItems(response.data);
-          console.log(response.data);
-          this.props.setLoadingFalse();
-        } else if (act === "delete") {
-          this.requestQuery("select * from items", "query");
-          this.props.onDeletePressed();
-        }
+        this.props.setItems(response.data);
+        this.props.setLoadingFalse();
       })
       .catch((error) => {
         console.log(error);
@@ -128,10 +101,27 @@ class BItems extends Component {
       });
   };
 
-  requestStock = () => {
-    const sqlQuery = { sql: "SELECT * FROM stock" };
+  requestDelete = (id) => {
     axios
-      .post(serverAddress + "API/query", sqlQuery)
+      .delete(serverAddress + "admin/deleteItem/" + id, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          token: localStorage.getItem("token"),
+        },
+      })
+      .then(() => {
+        this.requestQuery();
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(error);
+        this.requestQuery();
+      });
+  };
+
+  requestStock = () => {
+    axios
+      .get(serverAddress + "api/getStock")
       .then((response) => {
         this.props.setStock(response.data);
       })
@@ -140,11 +130,21 @@ class BItems extends Component {
       });
   };
 
+  requestCollection = () => {
+    axios
+      .get(serverAddress + "api/getCollections")
+      .then((response) => {
+        this.props.onSetCollectionSelect(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   onDeleteHandler = () => {
-    this.requestQuery(
-      "delete from items where id = " + this.props.pressedRecordId,
-      "delete"
-    );
+    this.requestDelete(this.props.pressedRecordId);
+    this.props.onDeletePressed();
+    this.requestQuery();
   };
 
   render() {
