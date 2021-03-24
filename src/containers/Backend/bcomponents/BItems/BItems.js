@@ -25,18 +25,19 @@ class BItems extends Component {
     this.props.onBulkPressed();
     const formData = new FormData(bulkForm);
     axios
-      .post(serverAddress + "API/bulkUpload", formData, {
+      .post(serverAddress + "admin/bulkUpload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          token: localStorage.getItem("token"),
         },
       })
       .then((response) => {
         console.log(response.data);
-        this.requestQuery("SELECT * FROM items", "query");
+        this.requestQuery();
       })
       .catch((error) => {
-        alert(error);
-        this.requestQuery("SELECT * FROM collections", "query");
+        alert(error.response.data.message);
+        this.requestQuery();
       });
   };
 
@@ -57,7 +58,7 @@ class BItems extends Component {
         this.requestQuery();
       })
       .catch((error) => {
-        alert(error);
+        alert(error.response.data.message);
         document.querySelector("#addItemForm").reset();
         this.requestQuery();
       });
@@ -82,7 +83,7 @@ class BItems extends Component {
       })
       .catch((error) => {
         console.log(error);
-        alert(error);
+        alert(error.response.data.message);
         document.querySelector("#updateItemForm").reset();
         this.requestQuery();
       });
@@ -114,7 +115,7 @@ class BItems extends Component {
       })
       .catch((error) => {
         console.log(error);
-        alert(error);
+        alert(error.response.data.message);
         this.requestQuery();
       });
   };

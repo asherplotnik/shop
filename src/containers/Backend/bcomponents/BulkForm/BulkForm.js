@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classes from "./bulkForm.module.css";
-import { gc } from "../../../../assets/helper";
+import bulkImage from "../../../../assets/images/bulk.jpg";
 const BulkForm = (props) => {
   const [ExcelfileUploaded, setExcelFileUploaded] = useState(0);
   const [ZipfileUploaded, setZipFileUploaded] = useState(0);
@@ -28,66 +28,72 @@ const BulkForm = (props) => {
   };
 
   return (
-    <form id="bulkForm" onSubmit={props.bulkConfirmed}>
-      <div id="testD" className={classes.Font}>
-        SELECT FILES TO UPLOAD:
-      </div>
-      <br></br>
-      <div>
-        <strong>
-          <label htmlFor="bulkExcelFile">EXCEL FILE:</label>
-          <input
-            className={classes.FontInput}
-            type="file"
-            name="bulkExcelFile"
-            id="bulkExcelFile"
-            onChange={checkExcelValidity}
-          />
-        </strong>
-      </div>
-      <div>
-        <p>Instructions: only excel file with the following columns: </p>
-        <p>
-          CODE , COLLECTION , DESCRIPTION , SIZE , PRICE , TYPE , IMAGE , IMAGE2
-        </p>
-        <img
-          style={{ border: "solid 1px black", width: "95%" }}
-          src={gc + "bulk.jpg"}
-          alt="bulk"
-        />{" "}
+    <div>
+      <form id="bulkForm" onSubmit={props.bulkConfirmed}>
+        <div id="testD" className={classes.Font}>
+          SELECT FILES TO UPLOAD:
+        </div>
         <br></br>
-        <br></br>
-      </div>
-      <div>
-        <strong>
-          <label htmlFor="zipFile">ZIPPED IMAGES FILE:(.jpg ONLY)</label>
+        <div>
+          <strong>
+            <label htmlFor="bulkExcelFile">EXCEL FILE:</label>
+            <input
+              className={classes.FontInput}
+              type="file"
+              name="bulkExcelFile"
+              id="bulkExcelFile"
+              onChange={checkExcelValidity}
+            />
+          </strong>
+        </div>
+        <div>
+          <p>Instructions: only excel file with the following columns: </p>
+          <p>
+            CODE , COLLECTION , DESCRIPTION , SIZE , PRICE , TYPE , IMAGE ,
+            IMAGE2
+          </p>
+          <div className={classes.ImageDiv}>
+            <img
+              style={{ border: "solid 1px black", width: "95%" }}
+              className={classes.Image}
+              src="https://i.ibb.co/Dt2Jvy8/bulk.jpg"
+              alt="bulk"
+            />
+          </div>
+          <br></br>
+          <br></br>
+        </div>
+        <div>
+          <strong>
+            <label htmlFor="zipFile">ZIPPED IMAGES FILE:(.jpg ONLY)</label>
+            <input
+              className={classes.FontInput}
+              type="file"
+              name="zipFile"
+              id="zipFile"
+              onChange={checkZipValidity}
+            />
+          </strong>
+        </div>
+        <div>
           <input
-            className={classes.FontInput}
-            type="file"
-            name="zipFile"
-            id="zipFile"
-            onChange={checkZipValidity}
+            className={classes.Font}
+            name="bulk"
+            value="SUBMIT"
+            disabled={!ExcelfileUploaded || !ZipfileUploaded}
+            type="submit"
           />
-        </strong>
-      </div>
-      <div>
-        <input
-          className={classes.Font}
-          name="bulk"
-          value="SUBMIT"
-          disabled={!ExcelfileUploaded || !ZipfileUploaded}
-          type="submit"
-        />
-        <span style={{ opacity: "0" }}>________</span>
-        <button
-          className={classes.Font}
-          type="button"
-          onClick={props.modalClosed}
-        >
-          CANCEL
-        </button>
-      </div>
-    </form>
+          <span style={{ opacity: "0" }}>________</span>
+          <button
+            className={classes.Font}
+            type="button"
+            onClick={props.modalClosed}
+          >
+            CANCEL
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 export default BulkForm;
