@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import classes from "./bulkForm.module.css";
-import bulkImage from "../../../../assets/images/bulk.jpg";
 const BulkForm = (props) => {
   const [ExcelfileUploaded, setExcelFileUploaded] = useState(0);
   const [ZipfileUploaded, setZipFileUploaded] = useState(0);
@@ -40,7 +39,7 @@ const BulkForm = (props) => {
             <input
               className={classes.FontInput}
               type="file"
-              name="bulkExcelFile"
+              name="firstImage"
               id="bulkExcelFile"
               onChange={checkExcelValidity}
             />
@@ -56,7 +55,7 @@ const BulkForm = (props) => {
             <img
               style={{ border: "solid 1px black", width: "95%" }}
               className={classes.Image}
-              src="https://i.ibb.co/Dt2Jvy8/bulk.jpg"
+              src="https://i.ibb.co/8XgT6Gw/bulk.jpg"
               alt="bulk"
             />
           </div>
@@ -65,11 +64,15 @@ const BulkForm = (props) => {
         </div>
         <div>
           <strong>
+            <p>MAKE FILE NAMES AS EXAMPLE FOR PRIMARY IMAGE "N 0025a.jpg"</p>
+            <p>MAKE FILE NAMES AS EXAMPLE FOR SECONDARY IMAGE "N 0025b.jpg"</p>
+            <p>(ADD "a" OR "b" AT THE END OF THE FILE)</p>
+
             <label htmlFor="zipFile">ZIPPED IMAGES FILE:(.jpg ONLY)</label>
             <input
               className={classes.FontInput}
               type="file"
-              name="zipFile"
+              name="secondImage"
               id="zipFile"
               onChange={checkZipValidity}
             />
