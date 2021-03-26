@@ -26,13 +26,9 @@ const addTransForm = (props) => {
           </li>
           <li key="inout">
             <label htmlFor="addInout">IN / OUT: </label>
-            <select name="addInout">
-              <option selected={props.rInout === true ? true : false}>
-                IN
-              </option>
-              <option selected={props.rInout === false ? true : false}>
-                OUT
-              </option>
+            <select name="addInout" defaultValue={props.rInout}>
+              <option>IN</option>
+              <option>OUT</option>
             </select>
           </li>
           <li key="NOTE">

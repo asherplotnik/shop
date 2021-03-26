@@ -12,7 +12,7 @@ import Button from "../../../../components/UI/Button/Button";
 import AddTransForm from "../AddTransForm/AddTransForm";
 import AddVariationForm from "../AddVariationForm/AddVariationForm";
 import DeleteVariationForm from "../DeleteVariationForm/DeleteVariationForm";
-import { serverAddress, gc } from "../../../../assets/helper";
+import { serverAddress } from "../../../../assets/helper";
 
 class BStock extends Component {
   state = {
@@ -108,14 +108,17 @@ class BStock extends Component {
   onDeleteVariation = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#deleteVariation"));
-    formData.append("deleteCode", this.state.val);
+    const deleteVar = formData.get("deleteVariation");
     this.onDeleteVariationPressed();
     axios
-      .post(serverAddress + "API/deleteVariation", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      .delete(
+        serverAddress + `admin/deleteVariation/${this.state.val}/${deleteVar}`,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      )
       .then((response) => {
         document.querySelector("#deleteVariation").reset();
         this.requestTransactions(this.state.val);
@@ -134,12 +137,13 @@ class BStock extends Component {
   onAddVariation = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#addVariation"));
-    formData.append("addCode", this.state.val);
+    formData.append("mainTitleT", this.state.val);
     this.onAddVariationPressed();
     axios
-      .post(serverAddress + "API/addVariation", formData, {
+      .post(serverAddress + "admin/addVariation", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          token: localStorage.getItem("token"),
         },
       })
       .then((response) => {
@@ -227,11 +231,11 @@ class BStock extends Component {
   };
 
   requestDrop = () => {
-    const sqlQuery = { sql: "select code from items " };
     axios
-      .post(serverAddress + "API/query", sqlQuery)
+      .get(serverAddress + "api/getItems")
       .then((response) => {
-        this.setState({ drop: response.data });
+        const dropData = response.data.map((item) => item.code);
+        this.setState({ drop: dropData });
         this.setState({ loadingDrop: false });
       })
       .catch((error) => {
@@ -241,11 +245,8 @@ class BStock extends Component {
   };
 
   requestStock = (val) => {
-    const sqlQuery = {
-      sql: "SELECT * FROM stock WHERE code = '" + val + "'",
-    };
     axios
-      .post(serverAddress + "API/query", sqlQuery)
+      .get(serverAddress + "api/getStockByCode/" + val)
       .then((response) => {
         this.setState({ stock: response.data });
         this.setState({ loadingStock: false });
@@ -263,9 +264,9 @@ class BStock extends Component {
     axios
       .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
-        console.log(gc + response.data[0].img);
+        console.log(response.data[0].img);
         this.setState({
-          image: gc + response.data[0].img,
+          image: response.data[0].img,
         });
       })
       .catch((error) => {
@@ -341,7 +342,7 @@ class BStock extends Component {
         Header: <strong className={classes.Stock}>VARIATION</strong>,
         accessor: "variation",
         Cell: (row) => (
-          <div style={{ lineHeight: "50px" }}>
+          <div key={row.value} style={{ lineHeight: "50px" }}>
             <span className={classes.Stock}>{row.value}</span>
           </div>
         ),
@@ -358,7 +359,7 @@ class BStock extends Component {
             }}
           >
             <img
-              src={gc + row.value}
+              src={row.value}
               alt={row.value}
               style={{ width: "50px" }}
               className={classes.CellStyle}
@@ -383,9 +384,7 @@ class BStock extends Component {
   };
 
   render() {
-    let option = this.state.drop.map((row) => {
-      return row.code;
-    });
+    let option = this.state.drop;
     let viewDrop = <Spinner />;
     if (!this.state.loadingDrop) {
       viewDrop = (

@@ -8,19 +8,19 @@ const addVariationForm = (props) => {
         <div className={classes.Font}>ADD VARIATION</div>
         <ul className={classes.FormList}>
           <li key="variation">
-            <label htmlFor="addVariation">VARIATION: </label>
+            <label htmlFor="mainTitle">VARIATION: </label>
           </li>
           <li>
-            <input type="text" name="addVariation" defaultValue="-" />
+            <input type="text" name="mainTitle" defaultValue="-" />
           </li>
           <li>
             <br />
           </li>
           <li key="img">
-            <label htmlFor="addImage">IMAGE: </label>
+            <label htmlFor="firstImage">IMAGE: </label>
           </li>
           <li>
-            <input type="file" name="addImage" />
+            <input type="file" name="firstImage" />
           </li>
           <br></br>
           <br></br>
