@@ -163,13 +163,13 @@ class BStock extends Component {
   onAddTransaction = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#addTransForm"));
-    formData.append("addCode", this.state.val);
+    formData.append("code", this.state.val);
     this.onAddEntryPressed();
-
     axios
-      .post(serverAddress + "API/uploadTransForm", formData, {
+      .post(serverAddress + "admin/addTransaction", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          token: localStorage.getItem("token"),
         },
       })
       .then((response) => {
@@ -275,14 +275,22 @@ class BStock extends Component {
   };
 
   requestTransactions = (val) => {
-    const sqlQuery = {
-      sql: "SELECT * FROM transactions WHERE code = '" + val + "'",
-    };
     axios
-      .post(serverAddress + "API/query", sqlQuery)
+      .get(serverAddress + "api/getTransactions/" + val)
       .then((response) => {
+        const transData = response.data.map((row) => {
+          return {
+            id: row.id,
+            variation: row.stock.variation,
+            inorout: row.inorout,
+            note: row.note,
+            qty: row.qty,
+            orderid: row.orderid,
+            transdate: row.transdate,
+          };
+        });
         this.setState({ loadingTransactions: false });
-        this.setState({ transactions: response.data });
+        this.setState({ transactions: transData });
       })
       .catch((error) => {
         console.log(error);
@@ -395,7 +403,7 @@ class BStock extends Component {
           onChange={(event, newValue) => {
             this.setState({ val: newValue });
             this.callRequestStock(newValue);
-            this.checkImageName(newValue);
+            //this.checkImageName(newValue);
           }}
           options={option}
           getOptionLabel={(option) => option}

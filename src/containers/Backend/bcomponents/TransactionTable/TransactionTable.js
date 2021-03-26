@@ -30,7 +30,7 @@ const transactionTable = (props) => {
     },
     {
       Header: <strong className={classes.CellStyle}>IN/OUT</strong>,
-      accessor: "inout",
+      accessor: "inorout",
       Cell: (row) => (
         <span className={classes.CellStyle}>
           {row.value === true ? "IN" : "OUT"}
@@ -43,7 +43,7 @@ const transactionTable = (props) => {
       width: 250,
       Cell: (row) => (
         <span className={classes.CellStyle}>
-          {row.value.slice(0, row.value.length - 25)}
+          {row.value} {/*.slice(0, row.value.length - 25)} */}
         </span>
       ),
     },
