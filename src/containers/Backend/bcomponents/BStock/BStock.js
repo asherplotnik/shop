@@ -205,17 +205,15 @@ class BStock extends Component {
   };
 
   onDeleteHandler = () => {
-    let sql =
-      "delete from transactions where id = " + this.state.pressedRecordId;
-    const sqlQuery = {
-      sql: sql,
-      code: this.state.pressedRecordCode,
-      qty: this.state.pressedRecordQty,
-      variation: this.state.pressedRecordVariation,
-      inout: this.state.pressedRecordInout,
-    };
     axios
-      .post(serverAddress + "API/deleteTransaction", sqlQuery)
+      .delete(
+        serverAddress + `admin/removeTransaction/${this.state.pressedRecordId}`,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      )
       .then((response) => {
         this.requestTransactions(this.state.val);
         this.requestStock(this.state.val);
@@ -225,7 +223,7 @@ class BStock extends Component {
         }
       })
       .catch((error) => {
-        console.log(error);
+        alert(error.response.data.message);
         this.onToggleDelete();
       });
   };
