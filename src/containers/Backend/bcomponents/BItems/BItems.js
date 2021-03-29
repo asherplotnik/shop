@@ -32,7 +32,6 @@ class BItems extends Component {
         },
       })
       .then((response) => {
-        console.log(response.data);
         this.requestQuery();
       })
       .catch((error) => {

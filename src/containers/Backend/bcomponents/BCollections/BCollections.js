@@ -274,7 +274,7 @@ class BCollections extends Component {
                         pressedRecordId: rowInfo.original.id,
                         pressedRecordColl: column.Header,
                         pressedRecordName: rowInfo.original.name,
-                        pressedRecordDesc: rowInfo.original.desc,
+                        pressedRecordDesc: rowInfo.original.description,
                       };
                     }
                   });

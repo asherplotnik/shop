@@ -181,7 +181,7 @@ class Product extends Component {
         { name: "product", search: item.code },
       ];
       let moreDetails = null;
-      if (item.productdetails && item.productdetails !== "") {
+      if (item.productDetails && item.productDetails !== "") {
         moreDetails = (
           <div className={classes.BorderDetails}>
             <div
@@ -198,7 +198,7 @@ class Product extends Component {
                   : classes.MoreDetailsHide
               }
             >
-              {item.productdetails}
+              {item.productDetails}
             </div>
           </div>
         );

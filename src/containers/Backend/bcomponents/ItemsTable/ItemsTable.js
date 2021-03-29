@@ -278,13 +278,13 @@ const itemsTable = (props) => {
               if (e.target.innerHTML === "UPDATE") {
                 rowDetails.rowId = rowInfo.original.id;
                 rowDetails.code = rowInfo.original.code;
-                rowDetails.collection = rowInfo.original.collection;
-                rowDetails.desc = rowInfo.original.desc;
+                rowDetails.collection = rowInfo.original.collection.name;
+                rowDetails.desc = rowInfo.original.description;
                 rowDetails.size = rowInfo.original.size;
                 rowDetails.typology = rowInfo.original.type;
                 rowDetails.price = rowInfo.original.price;
                 rowDetails.trend = rowInfo.original.trending;
-                rowDetails.Details = rowInfo.original.productdetails;
+                // rowDetails.Details = rowInfo.original.productdetails;
                 props.pressedUpdate(rowDetails);
               }
               // console.log("A Td Element was clicked!");

@@ -23,7 +23,7 @@ class BStock extends Component {
     loadingDrop: true,
     loadingStock: true,
     loadingTransactions: true,
-    val: null,
+    val: "-",
     image: "",
     addEntryPressed: false,
     addVariationPressed: false,
@@ -71,6 +71,7 @@ class BStock extends Component {
   onToggleUpdate = () => {
     this.setState((prevState) => {
       return {
+        ...prevState,
         pressedUpdate: !prevState.pressedUpdate,
       };
     });
@@ -79,16 +80,13 @@ class BStock extends Component {
   onUpdateTransaction = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#updateTransForm"));
-    formData.append("addCode", this.state.val);
-    formData.append("oldVariation", this.state.pressedRecordVariation);
-    formData.append("oldQty", this.state.pressedRecordQty);
-    formData.append("oldInout", this.state.pressedRecordInout);
-    formData.append("addId", this.state.pressedRecordId);
+    formData.append("id", this.state.pressedRecordId);
     this.onToggleUpdate();
     axios
-      .post(serverAddress + "API/updateTransForm", formData, {
+      .post(serverAddress + "admin/updateTransaction", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          token: localStorage.getItem("token"),
         },
       })
       .then((response) => {
@@ -100,7 +98,7 @@ class BStock extends Component {
         }
       })
       .catch((error) => {
-        alert(error);
+        alert(error.response.data.message);
         document.querySelector("#updateTransForm").reset();
         this.requestTransactions(this.state.val);
       });
@@ -262,7 +260,6 @@ class BStock extends Component {
     axios
       .post(serverAddress + "API/query", sqlQuery)
       .then((response) => {
-        console.log(response.data[0].img);
         this.setState({
           image: response.data[0].img,
         });
@@ -303,33 +300,30 @@ class BStock extends Component {
   };
 
   onUpdatePressed = (row) => {
-    this.setState((prevState) => {
-      return {
-        pressedUpdate: !prevState.pressedUpdate,
-        pressedRecordId: row.rowId,
-        pressedRecordInout: row.inout,
-        pressedRecordCode: row.code,
-        pressedRecordVariation: row.variation,
-        pressedRecordQty: row.qty,
-        pressedRecordNote: row.note,
-      };
-    });
+    document.querySelector("#updateTransForm").reset();
+    if (row.variation) {
+      this.setState((prevState) => {
+        return {
+          pressedUpdate: !prevState.pressedUpdate,
+          pressedRecordId: row.rowId,
+          pressedRecordInout: row.inout,
+          pressedRecordCode: row.code,
+          pressedRecordVariation: row.variation,
+          pressedRecordQty: row.qty,
+          pressedRecordNote: row.note,
+        };
+      });
+    } else {
+      this.setState((prevState) => {
+        return {
+          pressedUpdate: !prevState.pressedUpdate,
+        };
+      });
+    }
   };
 
   onIllegalClose = () => {
     this.setState({ illegal: false });
-  };
-
-  onUpdateHandler = (row) => {
-    this.setState({
-      pressedRecordId: row.rowId,
-      pressedRecordCode: row.code,
-      pressedRecordQty: row.qty,
-      pressedRecordVariation: row.variation,
-      pressedRecordInout: row.inout,
-      pressedRecordTransdate: row.transdate,
-      pressedRecordNote: row.note,
-    });
   };
 
   stockTable = () => {

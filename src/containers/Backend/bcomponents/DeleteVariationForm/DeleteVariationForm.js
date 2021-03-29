@@ -2,7 +2,9 @@ import React from "react";
 import classes from "./DeleteVariationForm.module.css";
 
 const deleteVariationForm = (props) => {
-  let options = props.stock.map((row) => <option>{row.variation}</option>);
+  let options = props.stock.map((row, index) => (
+    <option key={index}>{row.variation}</option>
+  ));
   return (
     <div className={classes.deleteVariationForm}>
       <form id="deleteVariation" onSubmit={props.deleteVariation}>

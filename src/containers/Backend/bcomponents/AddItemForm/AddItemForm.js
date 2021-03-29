@@ -1,24 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./AddItemForm.module.css";
 
-const addItemForm = (props) => {
+const AddItemForm = (props) => {
+  useEffect(() => {
+    if (props.rCollection) {
+      setCollState(props.rCollection);
+    }
+  }, [props.rCollection]);
+  useEffect(() => {
+    if (props.rType) {
+      setTypeState(props.rType);
+    }
+  }, [props.rType]);
+  useEffect(() => {
+    if (props.rTrending) {
+      setTrendState(props.rTrending);
+    }
+  }, [props.rTrending]);
+  const [collState, setCollState] = useState("-");
+  const [typeState, setTypeState] = useState("-");
+  const [trendState, setTrendState] = useState("-");
+  const onSelectColl = (e) => {
+    setCollState(e.target.value);
+  };
+  const onSelectType = (e) => {
+    setTypeState(e.target.value);
+  };
+  const onSelectTrend = (e) => {
+    setTrendState(e.target.value);
+  };
   let options = [];
   if (props.collSelect) {
     for (let i = 0; i < props.collSelect.length; i++) {
-      options.push(
-        <option
-          key={i}
-          selected={
-            props.collSelect[i].name === props.rCollection ? "selected" : ""
-          }
-        >
-          {props.collSelect[i].name}
-        </option>
-      );
+      options.push(<option key={i}>{props.collSelect[i].name}</option>);
     }
   }
   return (
-    //addCode  //addCollection  //addDesc  //addSize  //addPrice  //addType  //addTrending  //addImg  //addImg2 //productDetails
     <div className={classes.AddItemsForm}>
       <form id={props.formId} onSubmit={props.addItem}>
         <div className={classes.Font}>{props.title}</div>
@@ -29,7 +46,10 @@ const addItemForm = (props) => {
           </li>
           <li key="collection">
             <label htmlFor="mainTitleT">COLLECTION: </label>
-            <select name="mainTitleT"> {options}</select>
+            <select name="mainTitleT" value={collState} onChange={onSelectColl}>
+              {" "}
+              {options}
+            </select>
           </li>
           <li key="desc">
             <label htmlFor="firstParagraph">DESCRIPTION: </label>
@@ -57,38 +77,28 @@ const addItemForm = (props) => {
           </li>
           <li key="type">
             <label htmlFor="secondParagraphT">TYPE: </label>
-            <select name="secondParagraphT">
-              <option selected={props.rType === "EARRINGS" ? true : false}>
-                EARRINGS
-              </option>
-              <option selected={props.rType === "BRACELET" ? true : false}>
-                BRACELET
-              </option>
-              <option selected={props.rType === "NECKLACE" ? true : false}>
-                NECKLACE
-              </option>
-              <option selected={props.rType === "PENDANT" ? true : false}>
-                PENDANT
-              </option>
-              <option selected={props.rType === "RING" ? true : false}>
-                {" "}
-                RING
-              </option>
-              <option selected={props.rType === "ACCESSORY" ? true : false}>
-                {" "}
-                ACCESSORY
-              </option>
+            <select
+              name="secondParagraphT"
+              value={typeState}
+              onChange={onSelectType}
+            >
+              <option>EARRINGS</option>
+              <option>BRACELET</option>
+              <option>NECKLACE</option>
+              <option>PENDANT</option>
+              <option>RING</option>
+              <option>ACCESSORY</option>
             </select>
           </li>
           <li key="trending">
             <label htmlFor="thirdParagraph">TRENDING: </label>
-            <select name="thirdParagraph">
-              <option selected={props.rTrending === false ? true : false}>
-                false
-              </option>
-              <option selected={props.rTrending === true ? true : false}>
-                true
-              </option>
+            <select
+              name="thirdParagraph"
+              value={trendState}
+              onChange={onSelectTrend}
+            >
+              <option>false</option>
+              <option>true</option>
             </select>
           </li>
           <li key="imageL">
@@ -135,4 +145,4 @@ const addItemForm = (props) => {
   );
 };
 
-export default addItemForm;
+export default AddItemForm;

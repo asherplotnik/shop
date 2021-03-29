@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./AddTransForm.module.css";
 
-const addTransForm = (props) => {
+const AddTransForm = (props) => {
+  useEffect(() => {
+    if (props.rVariation) {
+      setVarState(props.rVariation);
+    }
+  }, [props.rVariation]);
+  const [varState, setVarState] = useState("-");
+  const handleChange = (e) => {
+    setVarState(e.target.value);
+  };
+
   let options = props.stock.map((row, index) => (
     <option key={index}>{row.variation}</option>
   ));
@@ -12,7 +22,7 @@ const addTransForm = (props) => {
         <ul className={classes.FormList}>
           <li key="variation">
             <label htmlFor="variation">VARIATION: </label>
-            <select name="variation" defaultValue="-">
+            <select name="variation" value={varState} onChange={handleChange}>
               {options}
             </select>
           </li>
@@ -55,4 +65,4 @@ const addTransForm = (props) => {
   );
 };
 
-export default addTransForm;
+export default AddTransForm;
