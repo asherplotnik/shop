@@ -5,6 +5,7 @@ const initialState = {
   error: null,
   loading: false,
   user: null,
+  email: null,
 };
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -31,6 +32,14 @@ const authReducer = (state = initialState, action) => {
         user: {
           ...state.user,
           phone: action.phone,
+        },
+      };
+    case actionTypes.CHANGE_EMAIL:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          email: action.email,
         },
       };
     case actionTypes.CHANGE_USERNAME:

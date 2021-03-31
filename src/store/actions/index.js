@@ -23,6 +23,7 @@ export {
   authCheckState,
   changeAddress,
   changePhone,
+  changeEmail,
   changeUserName,
 } from "./authActions";
 

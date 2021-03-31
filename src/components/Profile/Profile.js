@@ -24,83 +24,46 @@ class Profile extends Component {
   changeDetailsHandler = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#detailsForm"));
-    let userName = "";
-    let phone = "";
-    let address = "";
-    if (formData.get("username").trim() !== "") {
-      userName = "username = '" + formData.get("username") + "' ";
-    }
-    if (formData.get("phone").trim() !== "") {
-      phone = "phone = '" + formData.get("phone") + "' ";
-    }
-    if (formData.get("address").trim() !== "") {
-      address = "address = '" + formData.get("address") + "'";
-    }
-    let sql = "";
-    if (userName === "" && phone === "" && address === "") {
+    if (
+      formData.get("phone").includes("'") ||
+      formData.get("address").includes("'") ||
+      formData.get("username").includes("'")
+    ) {
       this.setState({
-        message: <p className={classes.MessageOn}>NO DATA WAS ENTERED</p>,
-        messageClass: "noData",
+        message: (
+          <p className={classes.MessageOn}>
+            PLEASE AVOID USING ANY QUOTE SIGN{" "}
+          </p>
+        ),
+        messageClass: "quote",
       });
     } else {
-      let colonNP =
-        userName !== "" && (phone !== "" || address !== "") ? "," : "";
-      let colonPA = phone !== "" && address !== "" ? "," : "";
-      sql =
-        "UPDATE users SET " +
-        userName +
-        colonNP +
-        phone +
-        colonPA +
-        address +
-        " WHERE userId = '" +
-        this.props.userId +
-        "'";
-
-      if (
-        formData.get("phone").includes("'") ||
-        formData.get("address").includes("'") ||
-        formData.get("username").includes("'")
-      ) {
+      if (/\D/.test(formData.get("phone")) !== false) {
         this.setState({
-          message: (
-            <p className={classes.MessageOn}>
-              PLEASE AVOID USING ANY QUOTE SIGN{" "}
-            </p>
-          ),
-          messageClass: "quote",
+          message: <p className={classes.MessageOn}>PHONE NUMBER INVALID</p>,
+          messageClass: "phone",
         });
       } else {
-        if (/\D/.test(formData.get("phone")) !== false) {
-          this.setState({
-            message: <p className={classes.MessageOn}>PHONE NUMBER INVALID</p>,
-            messageClass: "phone",
+        axios
+          .post(serverAddress + "user/updateDetails", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              token: localStorage.getItem("token"),
+            },
+          })
+          .then((response) => {
+            this.props.onChangeUserName(formData.get("username"));
+            localStorage.setItem("userName", formData.get("username"));
+            this.props.onChangeAddress(formData.get("address"));
+            localStorage.setItem("userAddress", formData.get("address"));
+            this.props.onChangePhone(formData.get("phone"));
+            localStorage.setItem("userPhone", formData.get("phone"));
+            this.onChangeDetailsPressed();
+            return response.data;
+          })
+          .catch((error) => {
+            console.log(error);
           });
-        } else {
-          console.log("[ SQL]", sql);
-          const sqlQuery = { sql: sql };
-          axios
-            .post(serverAddress + "API/update", sqlQuery)
-            .then((response) => {
-              if (userName !== "") {
-                this.props.onChangeUserName(formData.get("username"));
-                localStorage.setItem("userName", formData.get("username"));
-              }
-              if (address !== "") {
-                this.props.onChangeAddress(formData.get("address"));
-                localStorage.setItem("userAddress", formData.get("address"));
-              }
-              if (phone !== "") {
-                this.props.onChangePhone(formData.get("phone"));
-                localStorage.setItem("userPhone", formData.get("phone"));
-              }
-              this.onChangeDetailsPressed();
-              return response.data;
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }
       }
     }
   };
@@ -108,50 +71,17 @@ class Profile extends Component {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#emailForm"));
     if (formData.get("email") === formData.get("confirm")) {
+      formData.delete("confirm");
       axios
-        .post(serverAddress + "API/query", {
-          sql:
-            "SELECT * FROM users WHERE email = '" + formData.get("email") + "'",
+        .post(serverAddress + "user/changeEmail", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            token: localStorage.getItem("token"),
+          },
         })
         .then((response) => {
-          const arr = [];
-          response.data.map((el) => {
-            arr.push(el.email);
-            return null;
-          });
-          if (arr.length === 0) {
-            const authData = {
-              idToken: this.props.token,
-              email: formData.get("email"),
-              returnSecureToken: true,
-            };
-            let url =
-              "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDTc2IWZVm8QxfLyelchjJSuTbSvF-U3s0";
-            axios.post(url, authData).then((response) => {
-              console.log("password Changed", response);
-              const sqlQuery = {
-                sql:
-                  "UPDATE users SET email = '" +
-                  formData.get("email") +
-                  "' WHERE userId= '" +
-                  this.props.userId +
-                  "'",
-              };
-              axios
-                .post(serverAddress + "API/update", sqlQuery)
-                .then((response) => {
-                  console.log("after update", sqlQuery);
-                  this.onChangePasswordPressed();
-                });
-            });
-          } else {
-            this.setState({
-              message: (
-                <p className={classes.MessageOn}>EMAIL EXISTS ALREADY!</p>
-              ),
-              messageClass: "confirm",
-            });
-          }
+          this.props.onChangeEmail(formData.get("email"));
+          localStorage.setItem("email", formData.get("email"));
           this.onChangeEmailPressed();
         });
     } else {
@@ -209,7 +139,6 @@ class Profile extends Component {
   render() {
     const lang = this.props.lang;
     let viewPage = <Spinner />;
-    console.log("TOKEN+++: " + this.props.token);
     if (this.props.token !== null) {
       viewPage = (
         <div className={classes.Trans}>
@@ -227,6 +156,7 @@ class Profile extends Component {
                       type="text"
                       defaultValue={this.props.user.username}
                       name="username"
+                      required
                     />
                   </li>
                   <li key="g">
@@ -235,6 +165,7 @@ class Profile extends Component {
                       defaultValue={this.props.user.phone}
                       type="text"
                       name="phone"
+                      required
                     />
                   </li>
                   <li key="h">
@@ -245,6 +176,7 @@ class Profile extends Component {
                       cols="30"
                       name="address"
                       defaultValue={this.props.user.address}
+                      required
                     />
                   </li>
                 </ul>
@@ -276,11 +208,11 @@ class Profile extends Component {
                 <ul className={classes.FormList}>
                   <li key="i">
                     <label htmlFor="email">{dic.newEmail[lang]}</label>
-                    <input type="email" name="email" />
+                    <input type="email" name="email" required />
                   </li>
                   <li key="j">
                     <label htmlFor="confirm">{dic.confirmEmail[lang]}</label>
-                    <input type="email" name="confirm" />
+                    <input type="email" name="confirm" required />
                   </li>
                 </ul>
                 {this.state.message}
@@ -419,6 +351,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onChangeAddress: (address) => dispatch(actions.changeAddress(address)),
     onChangePhone: (phone) => dispatch(actions.changePhone(phone)),
+    onChangeEmail: (email) => dispatch(actions.changeEmail(email)),
     onChangeUserName: (username) => dispatch(actions.changeUserName(username)),
     onTryAutoSignup: () => dispatch(actions.authCheckState()),
   };

@@ -20,6 +20,12 @@ export const changeAddress = (address) => {
     address: address,
   };
 };
+export const changeEmail = (email) => {
+  return {
+    type: actionTypes.CHANGE_EMAIL,
+    email: email,
+  };
+};
 export const changePhone = (phone) => {
   return {
     type: actionTypes.CHANGE_PHONE,
@@ -54,7 +60,7 @@ export const checkAuthTimeout = (expirationTime) => {
   return (dispatch) => {
     setTimeout(() => {
       dispatch(logout());
-    }, expirationTime * 1000);
+    }, expirationTime);
   };
 };
 
@@ -64,8 +70,8 @@ export const authCheckState = () => {
     if (!token) {
       dispatch(logout());
     } else {
-      const expirationDate = new Date(localStorage.getItem("expirationDate"));
-      if (expirationDate <= new Date()) {
+      const expirationDate = localStorage.getItem("expirationDate");
+      if (expirationDate <= Date.now()) {
         dispatch(logout());
       } else {
         const user = {
@@ -78,11 +84,7 @@ export const authCheckState = () => {
         };
         const userId = localStorage.getItem("userId");
         dispatch(signInSuccess(token, userId, user));
-        dispatch(
-          checkAuthTimeout(
-            (expirationDate.getTime() - new Date().getTime()) / 1000
-          )
-        );
+        dispatch(checkAuthTimeout(expirationDate - Date.now()));
       }
     }
   };

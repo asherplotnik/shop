@@ -30,59 +30,68 @@ const ProfileTable = (props) => {
   };
 
   useEffect(() => {
+    let mounted1 = true;
+    let mounted2 = true;
     const fetchOrders = () => {
       setLoadingOrders(true);
       axios
-        .get(serverAddress + "user/getOrders/" + props.userId, {
+        .get(serverAddress + "user/getOrders", {
           headers: { token: localStorage.getItem("token") },
         })
         .then((response) => {
-          setLoadingOrders(false);
-          setOrders(
-            response.data.map((row) => {
-              return {
-                id: row.id,
-                wiredate: row.wiredate,
-                acc: row.acc,
-                status: row.status,
-                tracking: row.tracking,
-              };
-            })
-          );
+          if (mounted1) {
+            setLoadingOrders(false);
+            setOrders(
+              response.data.map((row) => {
+                return {
+                  id: row.id,
+                  wiredate: row.wiredate,
+                  acc: row.acc,
+                  status: row.status,
+                  tracking: row.tracking,
+                };
+              })
+            );
+          }
         })
         .catch((error) => {
           console.log(error);
         });
     };
-
-    const fetchOrderDetails = () => {
-      let sqlQuery = { sql: "SELECT * FROM orderdetails" };
+    const fetchOrdersDetails = () => {
       setLoadingOrders(true);
       axios
-        .post(serverAddress + "API/query", sqlQuery)
+        .get(serverAddress + "user/getOrdersDetails", {
+          headers: { token: localStorage.getItem("token") },
+        })
         .then((response) => {
-          setLoadingOrders(false);
-          setOrderDetails(
-            response.data.map((row) => {
-              return {
-                id: row.id,
-                userId: row.userId,
-                orderid: row.orderid,
-                code: row.code,
-                variation: row.variation,
-                quantity: row.quantity,
-                price: row.price,
-              };
-            })
-          );
+          if (mounted2) {
+            setLoadingOrders(false);
+            setOrderDetails(
+              response.data.map((row) => {
+                return {
+                  id: row.id,
+                  userId: props.userId,
+                  orderid: row.purchase.id,
+                  code: row.code,
+                  variation: row.variation,
+                  quantity: row.quantity,
+                  price: row.price,
+                };
+              })
+            );
+          }
         })
         .catch((error) => {
           console.log(error);
         });
     };
-
     fetchOrders();
-    fetchOrderDetails();
+    fetchOrdersDetails();
+    return function cleanup() {
+      mounted1 = false;
+      mounted2 = false;
+    };
   }, [props.userId]);
 
   const makeSubComp = (row) => {

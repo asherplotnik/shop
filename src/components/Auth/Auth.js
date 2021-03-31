@@ -31,7 +31,6 @@ class Auth extends Component {
       .post(url, authData)
       .then((response) => {
         let session = response.data;
-        console.log(session);
         let user = {
           id: session.id,
           username: session.username,
@@ -51,6 +50,7 @@ class Auth extends Component {
         localStorage.setItem("userId", user.userId);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("expirationDate", user.expiration);
+
         this.props.onSignInSuccess(response.data.token, user.id, user);
         if (this.props.entries.length > 0) {
           this.props.history.push("/checkout");
