@@ -28,9 +28,10 @@ const IssueReceipt = (props) => {
       formData.append("body", emailBody);
       formData.append("attachment", blobFile, "attachment.pdf");
       axios
-        .post(serverAddress + "email/sendEmail", formData, {
+        .post(serverAddress + "user/email/sendEmailReceipt", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
+            token: localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -75,11 +76,10 @@ const IssueReceipt = (props) => {
   ];
   useEffect(() => {
     const fetchOrderDetails = (orderId) => {
-      const sqlQuery = {
-        sql: "SELECT * FROM orderdetails WHERE orderid='" + orderId + "'",
-      };
       axios
-        .post(serverAddress + "API/query", sqlQuery)
+        .get(serverAddress + "admin/getOrderDetailsById/" + orderId, {
+          headers: { token: localStorage.getItem("token") },
+        })
         .then((response) => {
           let subTotal = 0;
           let tempArr = response.data.map((row) => {

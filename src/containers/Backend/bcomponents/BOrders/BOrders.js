@@ -35,6 +35,10 @@ const BOrders = () => {
     setCanceled(false);
   };
 
+  const onDeletePressed = (rId) => {
+    setShowDelete(!showDelete);
+    setPressedOrder({ id: rId });
+  };
   const onUpdatePressed = (row) => {
     setShowUpdate(!showUpdate);
     setPressedOrder(row);
@@ -55,9 +59,10 @@ const BOrders = () => {
     );
     formData.append("body", emailBody);
     axios
-      .post(serverAddress + "email/sendEmail", formData, {
+      .post(serverAddress + "user/email/sendEmailShipped", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          token: localStorage.getItem("token"),
         },
       })
       .then((response) => {
@@ -95,17 +100,24 @@ const BOrders = () => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#orderupdate"));
     formData.append("id", pressedOrder.id);
+    const purchaseTime = formData.get("wiredate");
+    formData.delete("wiredate");
     setShowUpdate(!showUpdate);
     let status = formData.get("status");
     if (status === "canceled") {
       setCanceled(true);
     } else {
       axios
-        .post(serverAddress + "API/updateOrder", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
+        .post(
+          serverAddress + "admin/updateOrder?time=" + purchaseTime,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              token: localStorage.getItem("token"),
+            },
+          }
+        )
         .then((response) => {
           document.querySelector("#orderupdate").reset();
           fetchOrders();
@@ -126,34 +138,37 @@ const BOrders = () => {
     }
   };
 
-  const onDeletePressed = (rId) => {
-    setShowDelete(!showDelete);
-    setPressedOrder({ id: rId });
-  };
-
   const onDeleteHandler = () => {
-    requestQuery("delete from pending where id = " + pressedOrder.id, "delete");
-    requestQuery(
-      "delete from orderdetails where orderid = " + pressedOrder.id,
-      "delete"
-    );
+    setShowDelete(!showDelete);
+    axios
+      .delete(serverAddress + "admin/deleteOrder/" + pressedOrder.id, {
+        headers: { token: localStorage.getItem("token") },
+      })
+      .then(() => {
+        fetchOrders();
+      })
+      .catch((error) => {
+        alert(error);
+        fetchOrders();
+      });
   };
 
   const fetchOrders = () => {
-    const sqlQuery = { sql: "SELECT * FROM pending" };
     setLoadingOrders(true);
     axios
-      .post(serverAddress + "API/query", sqlQuery)
+      .get(serverAddress + "admin/getOrders", {
+        headers: { token: localStorage.getItem("token") },
+      })
       .then((response) => {
         setLoadingOrders(false);
         setOrders(
           response.data.map((row) => {
             return {
               id: row.id,
-              userid: row.userid,
-              username: row.username,
-              email: row.email,
-              address: row.address,
+              userid: row.user.id,
+              username: row.user.username,
+              email: row.user.email,
+              address: row.shipping,
               wiredate: row.wiredate,
               acc: row.acc,
               status: row.status,
@@ -167,43 +182,20 @@ const BOrders = () => {
       });
   };
 
-  const requestQuery = (sql, act) => {
-    setLoadingOrders(true);
-    const sqlQuery = { sql: sql };
-    axios
-      .post(serverAddress + "API/" + act, sqlQuery)
-      .then((response) => {
-        if (act === "delete") {
-          fetchOrders();
-          setLoadingOrders(false);
-          onDeletePressed();
-        }
-        if (act === "update") {
-          fetchOrders();
-          setLoadingOrders(false);
-          toggleCanceled();
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoadingOrders(false);
-        onDeletePressed();
-      });
-  };
-
   const fetchOrderDetails = () => {
-    let sqlQuery = { sql: "SELECT * FROM orderdetails" };
     setLoadingOrders(true);
     axios
-      .post(serverAddress + "API/query", sqlQuery)
+      .get(serverAddress + "admin/getOrderDetails", {
+        headers: { token: localStorage.getItem("token") },
+      })
       .then((response) => {
         setLoadingOrders(false);
         setOrderDetails(
           response.data.map((row) => {
             return {
               id: row.id,
-              userId: row.userId,
-              orderid: row.orderid,
+              //userId: row.userId,
+              orderid: row.purchase.id,
               code: row.code,
               variation: row.variation,
               quantity: row.quantity,

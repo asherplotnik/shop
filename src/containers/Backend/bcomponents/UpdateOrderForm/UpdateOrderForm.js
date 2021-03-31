@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./UpdateOrderForm.module.css";
 
-const updateOrderForm = (props) => {
+const UpdateOrderForm = (props) => {
+  const [statusState, setStatusState] = useState(props.status);
+  const handleStatus = (e) => {
+    setStatusState(e.target.value);
+  };
+  useEffect(() => {
+    if (props.status) {
+      setStatusState(props.status);
+    }
+  }, [props.status]);
   return (
     <div className={classes.UpdateOrderForm}>
       <form id="orderupdate" onSubmit={props.update}>
@@ -13,7 +22,7 @@ const updateOrderForm = (props) => {
               style={{ resize: "none" }}
               rows="4"
               cols="30"
-              name="address"
+              name="shipping"
               defaultValue={props.address}
               required
             />
@@ -33,49 +42,13 @@ const updateOrderForm = (props) => {
           </li>
           <li key="status">
             <label htmlFor="status">STATUS: </label>
-            <select name="status">
-              <option
-                key="1"
-                selected={
-                  // props.status === "wait approve cc payment" ? true : false
-                  true
-                }
-              >
-                wait approve cc payment
-              </option>
-              <option
-                key="2"
-                selected={
-                  props.status === "wait approve bank transfer" ? true : false
-                }
-              >
-                wait approve bank transfer
-              </option>
-              <option
-                key="3"
-                selected={props.status === "confirmed payment" ? true : false}
-              >
-                confirmed payment
-              </option>
-              <option
-                key="4"
-                // selected={props.status === "special issue" ? true : false}
-                selected={false}
-              >
-                special issue
-              </option>
-              <option
-                key="5"
-                selected={props.status === "shipped" ? true : false}
-              >
-                shipped
-              </option>
-              <option
-                key="6"
-                selected={props.status === "canceled" ? true : false}
-              >
-                canceled
-              </option>
+            <select name="status" value={statusState} onChange={handleStatus}>
+              <option key="1">wait approve cc payment</option>
+              <option key="2">wait approve bank transfer</option>
+              <option key="3">confirmed payment</option>
+              <option key="4">special issue</option>
+              <option key="5">shipped</option>
+              <option key="6">canceled</option>
             </select>
           </li>
           <li key="tracking">
@@ -98,4 +71,4 @@ const updateOrderForm = (props) => {
   );
 };
 
-export default updateOrderForm;
+export default UpdateOrderForm;

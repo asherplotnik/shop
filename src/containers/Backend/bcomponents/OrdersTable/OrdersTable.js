@@ -124,7 +124,7 @@ const OrdersTable = (props) => {
       Cell: (row) => (
         <div key={row.value} className={classes.CellStyle}>
           {" "}
-          {row.value.toUpperCase()}{" "}
+          {row.value === null ? "" : row.value.toUpperCase()}{" "}
         </div>
       ),
     },
@@ -241,6 +241,7 @@ const OrdersTable = (props) => {
         };
         subTable.push(currentRow);
         subTotal = subTotal + currentRow.total;
+        break;
       }
     }
     subTable.push({

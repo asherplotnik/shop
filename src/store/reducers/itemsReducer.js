@@ -16,6 +16,7 @@ const initialState = {
   pressedRecordType: null,
   pressedRecordPrice: null,
   pressedRecordTrending: null,
+  pressedRecordDetails: null,
   updateToggleOn: false,
   collectionSelect: [],
   bulkPressed: false,
@@ -65,7 +66,7 @@ const itemsReducer = (state = initialState, action) => {
         pressedRecordType: action.row.typology,
         pressedRecordPrice: action.row.price,
         pressedRecordTrending: action.row.trend,
-        //pressedRecordDetails: action.row.Details,
+        pressedRecordDetails: action.row.productDetails,
       };
     case actionTypes.SET_COLLECTION_SELECT:
       return {

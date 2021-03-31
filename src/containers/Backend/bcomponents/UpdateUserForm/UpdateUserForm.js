@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./UpdateUserForm.module.css";
 
-const updateUserForm = props => {
+const UpdateUserForm = (props) => {
+  const [levelState, setLevelState] = useState(props.level);
+  useEffect(() => {
+    if (props.level) {
+      setLevelState(props.level);
+    }
+  }, [props.level]);
+  const handleLevel = (e) => {
+    setLevelState(e.target.value);
+  };
   return (
     <div className={classes.UpdateUserForm}>
       <form id="userupdate" onSubmit={props.update}>
@@ -21,18 +30,10 @@ const updateUserForm = props => {
           </li>
           <li key="level">
             <label htmlFor="level">LEVEL: </label>
-            <select name="level">
-              <option
-                key="1"
-                selected={props.level === "normal" ? true : false}
-              >
-                normal
-              </option>
-              <option key="2" selected={props.level === "admin" ? true : false}>
-                admin
-              </option>
+            <select name="level" value={levelState} onChange={handleLevel}>
+              <option key="1">normal</option>
+              <option key="2">admin</option>
             </select>
-            {/* <input type="text" name="level" defaultValue={props.level} /> */}
           </li>
           <li key="submit">
             <input type="submit" value="SUBMIT" />
@@ -46,4 +47,4 @@ const updateUserForm = props => {
   );
 };
 
-export default updateUserForm;
+export default UpdateUserForm;

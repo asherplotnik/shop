@@ -22,8 +22,6 @@ const BHome = (props) => {
 
   const fetchData = () => {
     axios.get(serverAddress + "api/getAboutUs").then((response) => {
-      console.log(response.data[0]);
-      console.log(response.data[1]);
       setAboutContent(response.data[0]);
       setFooterContent(response.data[1]);
       setLoadingFooter(false);

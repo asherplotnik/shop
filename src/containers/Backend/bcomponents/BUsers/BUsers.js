@@ -32,14 +32,16 @@ const BUsers = () => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#userupdate"));
     formData.append("id", pressedUser.id);
+    formData.append("email", pressedUser.email);
     if (/\D/.test(formData.get("phone"))) {
       alert("PHONR NUMBER IN VALID");
     } else {
       setShowUpdate(!showUpdate);
       axios
-        .post(serverAddress + "API/updateUser", formData, {
+        .post(serverAddress + "admin/updateUser", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
+            token: localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -48,7 +50,7 @@ const BUsers = () => {
         })
         .catch((error) => {
           alert(error);
-          document.querySelector("#updateItemForm").reset();
+          document.querySelector("#userupdate").reset();
           fetchUsers();
         });
     }
@@ -124,17 +126,18 @@ const BUsers = () => {
   };
 
   const fetchUsers = () => {
-    const sqlQuery = { sql: "SELECT * FROM users" };
     setLoading(true);
     axios
-      .post(serverAddress + "API/query", sqlQuery)
+      .get(serverAddress + "admin/getUsers", {
+        headers: { token: localStorage.getItem("token") },
+      })
       .then((response) => {
         setLoading(false);
         setUsers(
           response.data.map((row) => {
             return {
               id: row.id,
-              userId: row.userid,
+              userId: row.id,
               username: row.username,
               email: row.email,
               address: row.address,
@@ -145,7 +148,7 @@ const BUsers = () => {
         );
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response.data.message);
       });
   };
 
@@ -345,7 +348,7 @@ const BUsers = () => {
   return (
     <div className={classes.Trans}>
       <Modal show={showDelete} modalClosed={onDeletePressed}>
-        <div class={classes.Font}>are you sure?</div>
+        <div className={classes.Font}>are you sure?</div>
         <div>
           <Button
             btnType="SuccessSmall"

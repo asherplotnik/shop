@@ -12,14 +12,13 @@ class Auth extends Component {
     message: <br className={classes.MessageOff}></br>,
     messageClass: null,
   };
-
   onLogOut = () => {
+    // axios.post("http://localhost:8080/auth/signOut", {
+    //   headers: {
+    //     token: localStorage.getItem("token"),
+    //   },
+    // });
     this.props.history.push("/");
-    axios.post("http://localhost:8080/auth/signOut", {
-      headers: {
-        token: localStorage.getItem("token"),
-      },
-    });
   };
 
   onSignIn = (email, password) => {
@@ -145,11 +144,9 @@ class Auth extends Component {
       };
     });
   };
+
   render() {
     const lang = this.props.lang;
-    if (this.props.token !== null) {
-      this.onLogOut();
-    }
     let form = (
       <div className={[classes.Auth, classes.TransIn].join(" ")}>
         <form id="signin" onSubmit={this.onSub} className={classes.Form}>

@@ -35,6 +35,7 @@ const AddItemForm = (props) => {
       options.push(<option key={i}>{props.collSelect[i].name}</option>);
     }
   }
+  console.log(props.rDetails);
   return (
     <div className={classes.AddItemsForm}>
       <form id={props.formId} onSubmit={props.addItem}>

@@ -31,12 +31,11 @@ const ProfileTable = (props) => {
 
   useEffect(() => {
     const fetchOrders = () => {
-      const sqlQuery = {
-        sql: "SELECT * FROM pending WHERE userId= '" + props.userId + "'",
-      };
       setLoadingOrders(true);
       axios
-        .post(serverAddress + "API/query", sqlQuery)
+        .get(serverAddress + "user/getOrders/" + props.userId, {
+          headers: { token: localStorage.getItem("token") },
+        })
         .then((response) => {
           setLoadingOrders(false);
           setOrders(

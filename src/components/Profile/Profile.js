@@ -209,6 +209,7 @@ class Profile extends Component {
   render() {
     const lang = this.props.lang;
     let viewPage = <Spinner />;
+    console.log("TOKEN+++: " + this.props.token);
     if (this.props.token !== null) {
       viewPage = (
         <div className={classes.Trans}>
