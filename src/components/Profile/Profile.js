@@ -95,28 +95,22 @@ class Profile extends Component {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#passwordForm"));
     if (formData.get("password") === formData.get("confirm")) {
-      const authData = {
-        idToken: this.props.token,
-        password: formData.get("password"),
-        returnSecureToken: true,
-      };
-      let url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDTc2IWZVm8QxfLyelchjJSuTbSvF-U3s0";
-      axios.post(url, authData).then((response) => {
-        console.log("password Changed", response);
-        const sqlQuery = {
-          sql:
-            "UPDATE users SET password = '" +
-            formData.get("password") +
-            "' WHERE userId= '" +
-            this.props.userId +
-            "'",
-        };
-        axios.post(serverAddress + "API/update", sqlQuery).then((response) => {
-          console.log("after update", sqlQuery);
+      const payload = { email: "", password: formData.get("password") };
+      axios
+        .post(serverAddress + "user/changePassword", payload, {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          console.log("password Changed ", response);
           this.onChangePasswordPressed();
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
         });
-      });
+    } else {
+      alert("CONFIRMED PASSWORD MUST MATCH!!!");
     }
   };
 
