@@ -1,11 +1,10 @@
 import React from "react";
 import classes from "./ShoppingTable.module.css";
 import Button from "../UI/Button/Button";
-import { gc } from "../../assets/helper";
 const shoppingTable = (props) => {
   const shoppingHead = (
-    <thead>
-      <tr key={"head"}>
+    <thead key="head">
+      <tr>
         <th
           style={{
             fontSize: "x-large",
@@ -32,7 +31,7 @@ const shoppingTable = (props) => {
     return (
       <tr key={index}>
         <td className={classes.Td}>
-          <img src={gc + entry.img} alt={entry.img} className={classes.Img} />
+          <img src={entry.img} alt={entry.img} className={classes.Img} />
         </td>
         <td className={classes.Td}>
           <span>{entry.code}</span>
@@ -66,7 +65,7 @@ const shoppingTable = (props) => {
 
   const shoppingTable = [];
   shoppingTable.push(shoppingHead);
-  shoppingTable.push(<tbody>{shoppingBody}</tbody>);
+  shoppingTable.push(<tbody key="tbody">{shoppingBody}</tbody>);
   let subtotal = 0;
   props.entries.map((entry) => (subtotal = subtotal + entry.total));
   const selectedItems = <table className={classes.Tb}>{shoppingTable}</table>;

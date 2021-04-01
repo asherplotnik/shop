@@ -15,7 +15,7 @@ import { serverAddress, dic } from "../../assets/helper";
 
 class Product extends Component {
   state = {
-    product: [],
+    product: {},
     stock: [],
     addToCartPressed: false,
     imageHover: false,
@@ -32,7 +32,7 @@ class Product extends Component {
     let chkExists = null;
     for (let i = 0; i < arr.length; i++) {
       if (
-        arr[i].code === this.state.product[0].code &&
+        arr[i].code === this.state.product.code &&
         arr[i].variation === entry.selectedVar
       ) {
         chkExists = i;
@@ -44,13 +44,14 @@ class Product extends Component {
       arr[chkExists].total = arr[chkExists].quantity * arr[chkExists].price;
     } else {
       arr.push({
-        code: this.state.product[0].code,
+        code: this.state.product.code,
         variation: entry.selectedVar,
         quantity: entry.quantity,
-        price: this.state.product[0].price,
-        img: this.state.product[0].image,
-        desc: this.state.product[0].description,
-        total: entry.quantity * this.state.product[0].price,
+        price: this.state.product.price,
+        //img: this.state.product.image1,
+        img: entry.img,
+        desc: this.state.product.description,
+        total: entry.quantity * this.state.product.price,
       });
     }
     this.props.onAddToCart(arr);
@@ -87,7 +88,7 @@ class Product extends Component {
             for (let i = 0; i < a.length; i++) {
               for (let j = 0; j < this.props.entries.length; j++) {
                 if (
-                  this.state.product[0].code === this.props.entries[j].code &&
+                  this.state.product.code === this.props.entries[j].code &&
                   a[i].variation === this.props.entries[j].variation
                 ) {
                   a[i].qty = a[i].qty - this.props.entries[j].quantity;

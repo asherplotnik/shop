@@ -20,21 +20,31 @@ const AddToCartForm = (props) => {
     return <option key={index}>{row.variation}</option>;
   });
 
+  const findImage = (variation) => {
+    for (let i = 0; i < props.stock.length; i++) {
+      if (props.stock[i].variation === variation) {
+        return props.stock[i].img;
+      }
+    }
+  };
+
   const checkValidity = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#addToCart"));
     const qty = formData.get("quantity");
     const vari = formData.get("selectedVar");
+    const img = findImage(vari);
+    console.log(img);
+
     let entry = null;
     for (let i = 0; i < props.stock.length; i++) {
       if (props.stock[i].variation === vari) {
         if (qty <= props.stock[i].qty) {
-          entry = { selectedVar: vari, quantity: qty };
+          entry = { selectedVar: vari, quantity: qty, img: img };
         }
         i = props.stock.length;
       }
     }
-    console.log("entry", entry);
     if (entry !== null) {
       props.confirmForm(entry);
     } else {
