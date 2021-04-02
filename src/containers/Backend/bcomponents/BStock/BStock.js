@@ -162,6 +162,7 @@ class BStock extends Component {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#addTransForm"));
     formData.append("code", this.state.val);
+    formData.append("orderid", -1);
     this.onAddEntryPressed();
     axios
       .post(serverAddress + "admin/addTransaction", formData, {

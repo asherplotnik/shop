@@ -100,7 +100,14 @@ const BOrders = () => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#orderupdate"));
     formData.append("id", pressedOrder.id);
-    const purchaseTime = formData.get("wiredate");
+    const payload = {
+      id: pressedOrder.id,
+      wiredate: formData.get("wiredate"),
+      acc: formData.get("acc"),
+      shipping: formData.get("shipping"),
+      status: formData.get("status"),
+      tracking: formData.get("tracking"),
+    };
     formData.delete("wiredate");
     setShowUpdate(!showUpdate);
     let status = formData.get("status");
@@ -108,16 +115,11 @@ const BOrders = () => {
       setCanceled(true);
     } else {
       axios
-        .post(
-          serverAddress + "admin/updateOrder?time=" + purchaseTime,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              token: localStorage.getItem("token"),
-            },
-          }
-        )
+        .post(serverAddress + "admin/updateOrder", payload, {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        })
         .then((response) => {
           document.querySelector("#orderupdate").reset();
           fetchOrders();

@@ -34,8 +34,6 @@ const AddToCartForm = (props) => {
     const qty = formData.get("quantity");
     const vari = formData.get("selectedVar");
     const img = findImage(vari);
-    console.log(img);
-
     let entry = null;
     for (let i = 0; i < props.stock.length; i++) {
       if (props.stock[i].variation === vari) {

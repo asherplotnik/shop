@@ -1,41 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from "./ContactUs.module.css";
 import Button from "../UI/Button/Button";
+import Spinner from "../UI/Spinner/Spinner";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { serverAddress, dic } from "../../assets/helper";
 import axios from "axios";
 
 const ContactUs = (props) => {
+  const [loading, setLoading] = useState(false);
   const onSendClicked = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#contactUs"));
     const emailBody =
       "First name: " +
       formData.get("firstName") +
-      "<br />" +
+      "\n" +
       "last name: " +
       formData.get("lastName") +
-      "<br />" +
+      "\n" +
       "Email: " +
       formData.get("requestEmail") +
-      "<br />" +
+      "\n" +
       "Subject: " +
       formData.get("requestSubject") +
-      "<br />" +
+      "\n" +
       "Details: " +
       formData.get("requestDetails");
 
     formData.append("email", "asherplotnik@gmail.com");
     formData.append("subject", "INDY FASHION Customer contact us!!!");
     formData.append("body", emailBody);
+    setLoading(true);
     axios
-      .post(serverAddress + "email/sendEmail", formData, {
+      .post(serverAddress + "user/email/sendContactUsEmail", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          token: localStorage.getItem("token"),
         },
       })
       .then((response) => {
+        setLoading(false);
         console.log(response);
         alert(dic.emailSent[props.lang]);
         props.history.push("/");
@@ -43,7 +48,6 @@ const ContactUs = (props) => {
       .catch((err) => {
         console.log(err);
       });
-    console.log("clicked send");
   };
   let mainTitle = dic.contactUs[props.lang];
   let firstHeader = classes.FirstHeader;
@@ -67,64 +71,69 @@ const ContactUs = (props) => {
     left: 0,
     behavior: "smooth",
   });
-  return (
-    <div className={[classes.Wrapper, classes.Trans].join(" ")}>
-      <div>
-        <h1 className={firstHeader}>{mainTitle}</h1>
+  let pageView = <Spinner />;
+  if (!loading) {
+    pageView = (
+      <div className={[classes.Wrapper, classes.Trans].join(" ")}>
+        <div>
+          <h1 className={firstHeader}>{mainTitle}</h1>
+        </div>
+        <div className={firstDiv}>
+          <form id="contactUs" onSubmit={onSendClicked}>
+            <div>
+              <input
+                type="text"
+                name="firstName"
+                placeholder={dic.firstName[props.lang]}
+                defaultValue={firstName}
+                required
+              />
+              <span style={{ opacity: "0" }}>________________</span>
+              <input
+                type="text"
+                name="lastName"
+                placeholder={dic.lastName[props.lang]}
+                defaultValue={lastName}
+                required
+              />
+            </div>
+            <div>
+              <input
+                type="email"
+                name="requestEmail"
+                placeholder={dic.emailC[props.lang]}
+                defaultValue={userEmail}
+                required
+              />
+              <span style={{ opacity: "0" }}>________________</span>
+              <input
+                type="text"
+                name="requestSubject"
+                placeholder={dic.subject[props.lang]}
+                required
+              />
+            </div>
+            <div>
+              <textarea
+                style={{ resize: "none" }}
+                rows="5"
+                name="requestDetails"
+                placeholder={dic.details[props.lang]}
+                required
+              />
+            </div>
+            <div style={{ fontSize: "1.6em" }}>
+              <Button type="submit" btnType="NavySmall">
+                {dic.send[props.lang]}
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
-      <div className={firstDiv}>
-        <form id="contactUs" onSubmit={onSendClicked}>
-          <div>
-            <input
-              type="text"
-              name="firstName"
-              placeholder={dic.firstName[props.lang]}
-              defaultValue={firstName}
-              required
-            />
-            <span style={{ opacity: "0" }}>________________</span>
-            <input
-              type="text"
-              name="lastName"
-              placeholder={dic.lastName[props.lang]}
-              defaultValue={lastName}
-              required
-            />
-          </div>
-          <div>
-            <input
-              type="email"
-              name="requestEmail"
-              placeholder={dic.emailC[props.lang]}
-              defaultValue={userEmail}
-              required
-            />
-            <span style={{ opacity: "0" }}>________________</span>
-            <input
-              type="text"
-              name="requestSubject"
-              placeholder={dic.subject[props.lang]}
-              required
-            />
-          </div>
-          <div>
-            <textarea
-              style={{ resize: "none" }}
-              rows="5"
-              name="requestDetails"
-              placeholder={dic.details[props.lang]}
-              required
-            />
-          </div>
-          <div style={{ fontSize: "1.6em" }}>
-            <Button type="submit" btnType="NavySmall">
-              {dic.send[props.lang]}
-            </Button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+    );
+  }
+
+  return pageView;
 };
 
 const mapStateToProps = (state) => {

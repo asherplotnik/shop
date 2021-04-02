@@ -53,11 +53,7 @@ const UpdateOrderForm = (props) => {
           </li>
           <li key="tracking">
             <label htmlFor="tracking">TRACKING No: </label>
-            <input
-              type="tracking"
-              name="tracking"
-              defaultValue={props.tracking}
-            />
+            <input type="text" name="tracking" defaultValue={props.tracking} />
           </li>
           <li key="submit">
             <input type="submit" value="SUBMIT" />

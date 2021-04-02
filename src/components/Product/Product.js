@@ -48,7 +48,6 @@ class Product extends Component {
         variation: entry.selectedVar,
         quantity: entry.quantity,
         price: this.state.product.price,
-        //img: this.state.product.image1,
         img: entry.img,
         desc: this.state.product.description,
         total: entry.quantity * this.state.product.price,

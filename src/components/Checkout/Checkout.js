@@ -54,20 +54,20 @@ class Checkout extends Component {
     formData.append("body", emailBody);
     formData.append("confNo", confNo);
     formData.append("sTotal", this.state.sTotal);
-    console.log(JSON.stringify(this.props.entries));
     formData.append("entries", JSON.stringify(this.props.entries));
-    axios
-      .post(serverAddress + "email/sendConfirmEmail", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios
+    //   .post(serverAddress + "email/sendConfirmEmail", formData, {
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //       token: localStorage.getItem("token"),
+    //     },
+    //   })
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   sendCard = (e) => {
@@ -106,26 +106,36 @@ class Checkout extends Component {
   wireSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#banktransfer"));
-    formData.append("userId", this.props.userId);
-    console.log(this.props.userId);
-    formData.append("username", this.props.reduxUser.username);
-    formData.append("address", this.props.reduxUser.address);
-    formData.append("email", this.props.reduxUser.email);
-    formData.append("amount", document.getElementById("amount").innerHTML);
-    formData.append("status", "wait approve bank transfer");
-    formData.append("order", JSON.stringify(this.props.entries));
-    formData.append("token", this.props.token);
-
+    const orderEntries = this.props.entries.map((entry) => {
+      return {
+        id: 0,
+        code: entry.code,
+        variation: entry.variation,
+        quantity: entry.quantity,
+        price: entry.price,
+        purchase: {},
+      };
+    });
+    const purchase = {
+      user: { id: this.props.userId },
+      shipping: this.props.reduxUser.address,
+      status: "wait approve bank transfer",
+      acc: formData.get("accwire"),
+      wiredate: formData.get("datewire"),
+      tracking: "",
+      entries: [],
+    };
+    const payload = { purchase: purchase, entries: orderEntries };
     axios
-      .post(serverAddress + "API/checkoutwire", formData, {
+      .post(serverAddress + "user/checkoutwire", payload, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          token: localStorage.getItem("token"),
         },
       })
       .then((response) => {
         document.querySelector("#banktransfer").reset();
-        this.setState({ confirmed: true, confirmationNo: response.data });
-        this.sendCheckoutEmail("tt", this.state.confirmationNo);
+        this.setState({ confirmed: true, confirmationNo: response.data.id });
+        //this.sendCheckoutEmail("tt", this.state.confirmationNo);
       })
       .catch((error) => {
         alert(error);
