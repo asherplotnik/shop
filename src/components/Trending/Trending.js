@@ -44,13 +44,9 @@ class Trending extends Component {
     }
   };
   fetchItems = () => {
-    //const sql = "SELECT * FROM Items  WHERE instr(code, 'LT.ROSE') > 0";
-    const sql = "SELECT * FROM Items WHERE trending = true ";
-    const sqlQuery = { sql: sql };
     axios
-      .post(serverAddress + "API/query", sqlQuery)
+      .get(serverAddress + "api/getTrending")
       .then((response) => {
-        console.log("[sql] => ", response.data);
         this.setState({ loading: false });
         this.setState({ Items: response.data });
       })
@@ -75,8 +71,8 @@ class Trending extends Component {
       const jsxMap = this.state.Items.map((item, index) => {
         currentPath = [{ name: dic.trending[this.props.lang], search: "" }];
         const link = { pathname: "/product", search: item.code };
-        const imagePath = item.img;
-        const imagePath2 = item.img2;
+        const imagePath = item.image1;
+        const imagePath2 = item.image2;
         TOPITEM = index;
         return (
           <ItemsElement
