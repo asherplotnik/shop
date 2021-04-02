@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../../UI/Logo/Logo";
 import classes from "./Toolbar.module.css";
 import NavigationItems from "../NavigationItems/NavigationItems";
@@ -6,7 +6,20 @@ import DrawerToggle from "../SideDrawer/DrawerToggle/DrawerToggle";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/index";
+import cart from "../../../assets/images/cart.png";
+import cart2 from "../../../assets/images/cart2.png";
+import engImage from "../../../assets/images/eng.png";
+import thaiImage from "../../../assets/images/thai.png";
 const Toolbar = (props) => {
+  const [showBackend, setShowBackend] = useState(false);
+  useEffect(() => {
+    console.log(props.user);
+    if (props.user && props.user.level === "admin") {
+      setShowBackend(true);
+    } else {
+      setShowBackend(false);
+    }
+  }, [props.user]);
   const dic = {
     login: { eng: "LOGIN", thai: "เข้าสู่ระบบ" },
     logout: { eng: "LOGOUT", thai: "ออกจากระบบ" },
@@ -57,13 +70,7 @@ const Toolbar = (props) => {
             <nav className={classes.DesktopOnly}>
               <NavigationItems
                 lang={props.lang}
-                showBackend={
-                  props.user === null
-                    ? false
-                    : props.user.level === "admin"
-                    ? true
-                    : false
-                }
+                showBackend={showBackend && props.token !== null}
                 showAccount={props.token !== null}
               />
             </nav>
@@ -72,13 +79,8 @@ const Toolbar = (props) => {
             <div className={classes.Flag} onClick={onChangeLangPressed}>
               <img
                 style={{ width: "40px" }}
-                src={
-                  process.env.PUBLIC_URL +
-                  "static/images/" +
-                  props.lang +
-                  ".png"
-                }
-                alt={""}
+                src={props.lang === "eng" ? engImage : thaiImage}
+                alt={"language"}
               />
             </div>
             <div style={{ width: "150px", cursor: "pointer" }}>
@@ -93,18 +95,10 @@ const Toolbar = (props) => {
               className={[showCart, classes.DesktopOnly].join(" ")}
             >
               <div onClick={onPressedCart} className={classes.Cart2}>
-                <img
-                  onClick={onPressedCart}
-                  src={process.env.PUBLIC_URL + "static/images/cart2.png"}
-                  alt="cart"
-                />
+                <img onClick={onPressedCart} src={cart2} alt="cart" />
               </div>
               <div onClick={onPressedCart} className={classes.Cart}>
-                <img
-                  onClick={onPressedCart}
-                  src={process.env.PUBLIC_URL + "static/images/cart.png"}
-                  alt="cart"
-                />
+                <img onClick={onPressedCart} src={cart} alt="cart" />
               </div>
             </div>
           </div>
