@@ -9,6 +9,7 @@ import Modal from "../UI/Modal/Modal";
 import { withRouter } from "react-router-dom";
 import * as actions from "../../store/actions/index";
 import Logo from "../UI/Logo/Logo";
+import Spinner from "../UI/Spinner/Spinner";
 import { serverAddress } from "../../assets/helper";
 
 class Checkout extends Component {
@@ -18,6 +19,7 @@ class Checkout extends Component {
     paymentMethod: "-",
     confirmed: null,
     confirmationNo: null,
+    loading: false,
   };
 
   onAddressPressed = () => {
@@ -71,6 +73,7 @@ class Checkout extends Component {
   };
 
   sendCard = (e) => {
+    this.setState({ loading: true });
     e.preventDefault();
     const formData = new FormData(document.querySelector("#creditcardform"));
     formData.append("userId", this.props.reduxUser.userId);
@@ -94,16 +97,19 @@ class Checkout extends Component {
         },
       })
       .then((response) => {
+        this.setState({ loading: false });
         document.querySelector("#creditcardform").reset();
         this.setState({ confirmed: true, confirmationNo: response.data });
         this.sendCheckoutEmail("ccp", this.state.confirmationNo);
       })
       .catch((error) => {
+        this.setState({ loading: false });
         alert(error);
         document.querySelector("#creditcardform").reset();
       });
   };
   wireSubmit = (e) => {
+    this.setState({ loading: true });
     e.preventDefault();
     const formData = new FormData(document.querySelector("#banktransfer"));
     const orderEntries = this.props.entries.map((entry) => {
@@ -133,11 +139,13 @@ class Checkout extends Component {
         },
       })
       .then((response) => {
+        this.setState({ loading: false });
         document.querySelector("#banktransfer").reset();
         this.setState({ confirmed: true, confirmationNo: response.data.id });
         //this.sendCheckoutEmail("tt", this.state.confirmationNo);
       })
       .catch((error) => {
+        this.setState({ loading: false });
         alert(error);
         document.querySelector("#banktransfer").reset();
       });
@@ -237,6 +245,7 @@ class Checkout extends Component {
         </div>
       </div>
     );
+
     let viewPage = (
       <React.Fragment>
         <div className={classes.Checkout}>
@@ -266,55 +275,60 @@ class Checkout extends Component {
         </div>
       </React.Fragment>
     );
-    return (
-      <div className={classes.Trans}>
-        <Modal
-          show={this.state.confirmed}
-          modalCLosed={this.onConfirmedPressed}
-        >
-          <div className={classes.Conf}>
-            {" CONFIRMATION REFERENCE :#" + this.state.confirmationNo}
-          </div>
-          <div className={classes.Conf}>
-            {"AN EMAIL WAS SENT TO YOU AT: " + this.props.reduxUser.email}
-          </div>
-          <div className={classes.Conf}>
-            IF YOU CAN'T SEE THE EMAIL PLEASE LOOK AT THE SPAM FOLDER
-          </div>
-          <div className={classes.Conf}>THANK YOU</div>
-          <div className={classes.Conf}>
-            <Button clicked={this.onConfirmedPressed} btnType="SuccessSmall">
-              OK
-            </Button>
-          </div>
-        </Modal>
-        <Modal
-          show={this.state.addressPressed}
-          modalClosed={this.onAddressPressed}
-        >
-          <form
-            className={classes.Font}
-            id="changeaddress"
-            onSubmit={this.onChangeAddress}
+
+    let checkoutPage = <Spinner />;
+    if (!this.state.loading) {
+      checkoutPage = (
+        <div className={classes.Trans}>
+          <Modal
+            show={this.state.confirmed}
+            modalCLosed={this.onConfirmedPressed}
           >
-            <p>
-              <label htmlFor="address">PLEASE ENTER NEW ADDRESS:</label>
-            </p>
-            <textarea
-              style={{ resize: "none" }}
-              rows="5"
-              cols="50"
-              name="address"
-              required
-            />
-            <br></br>
-            <input type="submit" value="SUBMIT"></input>
-          </form>
-        </Modal>
-        <h2 className={classes.Header}>CHECKOUT</h2>
-        {viewPage}
-      </div>
-    );
+            <div className={classes.Conf}>
+              {" CONFIRMATION REFERENCE :#" + this.state.confirmationNo}
+            </div>
+            <div className={classes.Conf}>
+              {"AN EMAIL WAS SENT TO YOU AT: " + this.props.reduxUser.email}
+            </div>
+            <div className={classes.Conf}>
+              IF YOU CAN'T SEE THE EMAIL PLEASE LOOK AT THE SPAM FOLDER
+            </div>
+            <div className={classes.Conf}>THANK YOU</div>
+            <div className={classes.Conf}>
+              <Button clicked={this.onConfirmedPressed} btnType="SuccessSmall">
+                OK
+              </Button>
+            </div>
+          </Modal>
+          <Modal
+            show={this.state.addressPressed}
+            modalClosed={this.onAddressPressed}
+          >
+            <form
+              className={classes.Font}
+              id="changeaddress"
+              onSubmit={this.onChangeAddress}
+            >
+              <p>
+                <label htmlFor="address">PLEASE ENTER NEW ADDRESS:</label>
+              </p>
+              <textarea
+                style={{ resize: "none" }}
+                rows="5"
+                cols="50"
+                name="address"
+                required
+              />
+              <br></br>
+              <input type="submit" value="SUBMIT"></input>
+            </form>
+          </Modal>
+          <h2 className={classes.Header}>CHECKOUT</h2>
+          {viewPage}
+        </div>
+      );
+    }
+    return checkoutPage;
   }
 }
 

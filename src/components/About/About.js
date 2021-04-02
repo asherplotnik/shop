@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import classes from "./About.module.css";
 import axios from "axios";
 import { serverAddress } from "../../assets/helper";
+//import { serverAddress } from process.env.PUBLIC_URL+"/helper";
 import Spinner from "../UI/Spinner/Spinner";
 import { connect } from "react-redux";
 
