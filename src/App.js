@@ -17,7 +17,6 @@ import ContactUs from "./components/ContactUs/ContactUs";
 import Restricted from "./components/Restricted/Restricted";
 import { connect } from "react-redux";
 import * as actions from "./store/actions/index";
-
 class App extends Component {
   componentDidMount() {
     this.props.onTryAutoSignup();
@@ -32,23 +31,21 @@ class App extends Component {
         <div className={classes.App}>
           <Switch>
             <Route path="/backend" component={backend} />
-            <Switch>
-              <Layout>
-                <Route path="/" exact component={Home} />
-                <Route path="/collections" component={Collections} />
-                <Route path="/trending" component={Trending} />
-                <Route path="/about" component={About} />
-                <Route path="/items" component={Items} />
-                <Route path="/product" component={Product} />
-                <Route path="/profile" component={Profile} />
-                <Route path="/shoppingcart" component={ShoppingCart} />
-                <Route path="/auth" component={Auth} />
-                <Route path="/checkout" component={Checkout} />
-                <Route path="/contactus" component={ContactUs} />
-                <Route path="/restricted" component={Restricted} />
-              </Layout>
-            </Switch>
-          </Switch>{" "}
+            <Layout>
+              <Route path="/" component={Home} exact />
+              <Route path="/collections" component={Collections} exact />
+              <Route path="/trending" component={Trending} exact />
+              <Route path="/about" component={About} exact />
+              <Route path="/items" component={Items} exact />
+              <Route path="/product" component={Product} exact />
+              <Route path="/profile" component={Profile} />
+              <Route path="/shoppingcart" component={ShoppingCart} exact />
+              <Route path="/auth" component={Auth} exact />
+              <Route path="/checkout" component={Checkout} exact />
+              <Route path="/contactus" component={ContactUs} exact />
+              <Route path="/restricted" component={Restricted} />
+            </Layout>
+          </Switch>
         </div>
       </BrowserRouter>
     );
