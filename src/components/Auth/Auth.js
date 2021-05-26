@@ -5,7 +5,7 @@ import Button from "../UI/Button/Button";
 import classes from "./Auth.module.css";
 import * as actions from "../../store/actions/index";
 import { withRouter } from "react-router-dom";
-import { dic } from "../../assets/helper";
+import { dic, serverAddress } from "../../assets/helper";
 class Auth extends Component {
   state = {
     signIn: true,
@@ -13,11 +13,6 @@ class Auth extends Component {
     messageClass: null,
   };
   onLogOut = () => {
-    // axios.post("http://localhost:8080/auth/signOut", {
-    //   headers: {
-    //     token: localStorage.getItem("token"),
-    //   },
-    // });
     this.props.history.push("/");
   };
 
@@ -26,7 +21,7 @@ class Auth extends Component {
       email: email,
       password: password,
     };
-    let url = "http://localhost:8080/auth/signIn";
+    let url = serverAddress + "/auth/signIn";
     axios
       .post(url, authData)
       .then((response) => {
@@ -59,7 +54,7 @@ class Auth extends Component {
         }
       })
       .catch((err) => {
-        this.props.onSignInFail(err.response.data.error);
+        this.props.onSignInFail(err.response?.data.error);
         alert("INVALID EMAIL OR PASSWORD!");
       });
   };
@@ -74,7 +69,7 @@ class Auth extends Component {
       password: data.get("password"),
     };
 
-    let url = "http://localhost:8080/auth/signUp";
+    let url = serverAddress + "/auth/signUp";
     axios
       .post(url, userInfo)
       .then((response) => {
