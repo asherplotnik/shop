@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ImageGallery from "react-image-gallery";
-import { serverAddress, gc } from "../../../assets/helper";
+import { serverAddress } from "../../../assets/helper";
 import axios from "axios";
 import Spinner from "../../UI/Spinner/Spinner";
 import classes from "./Slide.module.css";
@@ -18,16 +18,16 @@ const Slide = (props) => {
   };
 
   const onImageClick = (event) => {
-    const clickedImage = images.find(
-      (el) => el.original === event.target.src.slice(gc.length)
-    );
-    if (clickedImage.imagelink !== null) {
-      if (clickedImage.imagelink.slice(0, 24) === "https://indy-fashion.com") {
-        props.history.push(clickedImage.imagelink.slice(24));
-      } else {
-        window.open(clickedImage.imagelink, "_blank", "noopener");
-      }
-    }
+    // const clickedImage = images.find(
+    //   (el) => el.original === event.target.src.slice(gc.length)
+    // );
+    // if (clickedImage.imagelink !== null) {
+    //   if (clickedImage.imagelink.slice(0, 24) === "https://indy-fashion.com") {
+    //     props.history.push(clickedImage.imagelink.slice(24));
+    //   } else {
+    //     window.open(clickedImage.imagelink, "_blank", "noopener");
+    //   }
+    // }
   };
   useEffect(() => {
     fetchImages();

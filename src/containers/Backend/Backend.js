@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import BCollections from "./bcomponents/BCollections/BCollections";
 import BItems from "./bcomponents/BItems/BItems";
 import BStock from "./bcomponents/BStock/BStock";
@@ -14,12 +14,14 @@ class Backend extends Component {
     return (
       <div className={classes.Trans}>
         <BLayout>
-          <Route path="/backend" exact component={BHome} />
-          <Route path="/backend/collections" component={BCollections} />
-          <Route path="/backend/items" component={BItems} />
-          <Route path="/backend/stock" component={BStock} />
-          <Route path="/backend/users" component={BUsers} />
-          <Route path="/backend/orders" component={BOrders} />
+          <Switch>
+            <Route path="/backend/home" component={BHome} exact />
+            <Route path="/backend/collections" component={BCollections} exact />
+            <Route path="/backend/items" component={BItems} exact />
+            <Route path="/backend/stock" component={BStock} exact />
+            <Route path="/backend/users" component={BUsers} exact />
+            <Route path="/backend/orders" component={BOrders} exact />
+          </Switch>
         </BLayout>
       </div>
     );

@@ -4,7 +4,7 @@ import NavigationItem from "../../../../components/Navigation/NavigationItems/Na
 const bNavigationItems = (props) => (
   <ul className={classes.BNavigationItems}>
     <div style={{ margin: "0px 20px 0px 20px" }}>
-      <NavigationItem show={true} link="/backend" exact>
+      <NavigationItem show={true} link="/backend/home" exact>
         HOME
       </NavigationItem>
     </div>

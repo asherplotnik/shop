@@ -23,7 +23,7 @@ const NavigationItems = (props) => {
       <NavigationItem
         bStyle={{ backgroundColor: "rgb(235, 232, 232)" }}
         show={props.showBackend}
-        link="/backend"
+        link="/backend/home"
         exact
       >
         {dic.backend[props.lang]}

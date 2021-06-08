@@ -10,6 +10,8 @@ import cart from "../../../assets/images/cart.png";
 import cart2 from "../../../assets/images/cart2.png";
 import engImage from "../../../assets/images/eng.png";
 import thaiImage from "../../../assets/images/thai.png";
+import { Tooltip } from "@material-ui/core";
+import { dic } from "../../../assets/helper";
 const Toolbar = (props) => {
   const [showBackend, setShowBackend] = useState(false);
   useEffect(() => {
@@ -20,10 +22,6 @@ const Toolbar = (props) => {
       setShowBackend(false);
     }
   }, [props.user]);
-  const dic = {
-    login: { eng: "LOGIN", thai: "เข้าสู่ระบบ" },
-    logout: { eng: "LOGOUT", thai: "ออกจากระบบ" },
-  };
   if (localStorage.getItem("lang") === null) {
     localStorage.setItem("lang", props.lang);
   } else {
@@ -77,11 +75,13 @@ const Toolbar = (props) => {
           </div>
           <div style={{ display: "flex" }}>
             <div className={classes.Flag} onClick={onChangeLangPressed}>
-              <img
-                style={{ width: "40px" }}
-                src={props.lang === "eng" ? engImage : thaiImage}
-                alt={"language"}
-              />
+              <Tooltip title={dic.switchLanguage[props.lang]}>
+                <img
+                  style={{ width: "40px" }}
+                  src={props.lang === "eng" ? engImage : thaiImage}
+                  alt={"language"}
+                />
+              </Tooltip>
             </div>
             <div style={{ width: "150px", cursor: "pointer" }}>
               <p onClick={onPressedLogin} className={classes.PLogin}>

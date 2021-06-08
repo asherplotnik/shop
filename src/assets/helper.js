@@ -100,6 +100,7 @@ export const dic = {
     eng: "PAYMENT CONFIRMED",
     thai: "ยืนยันการชำระเงินแล้ว",
   },
+  switchLanguage: { eng: "Switch language", thai: "เปลี่ยนภาษา" },
   shipped: { eng: "SHIPPED", thai: "ส่งแล้ว" },
   specialIssue: { eng: "SPECIAL ISSUE", thai: "กรณีพิเศษ" },
   canceled: { eng: "CANCELED", thai: "ยกเลิก" },
@@ -114,6 +115,8 @@ export const dic = {
     eng: "Email Sent Successfully. Thank you. ",
     thai: "ส่งอีเมลสำเร็จแล้วขอบคุณ",
   },
+  login: { eng: "LOGIN", thai: "เข้าสู่ระบบ" },
+  logout: { eng: "LOGOUT", thai: "ออกจากระบบ" },
   moreDetails: { eng: "MORE DETAILS", thai: "รายละเอียด" },
 };
 
@@ -123,4 +126,4 @@ export const lan = "http://192.168.1.103:9000/";
 export const heroku = "https://indycollection.herokuapp.com/";
 //export const gc = "https://storage.cloud.google.com/indy-4cba2.appspot.com/";
 export const gc = "https://s3-ap-southeast-1.amazonaws.com/indyfashion.images/";
-export const serverAddress = heroku;
+export const serverAddress = local;

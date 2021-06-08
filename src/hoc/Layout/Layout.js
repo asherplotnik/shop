@@ -39,13 +39,15 @@ class Layout extends Component {
     return (
       <div className={classes.Trans} style={{ textAlign: "center" }}>
         <div className={classes.Layout}>
-          <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
+          <header>
+            <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
+          </header>
           <SideDrawer
             open={this.state.showSideDrawer}
             closed={this.sideDrawerClosedHandler}
           />
           <main className={classes.Content}>{this.props.children}</main>
-          {footer}
+          <footer>{footer}</footer>
         </div>
       </div>
     );

@@ -21,7 +21,7 @@ const ItemsElement = (props) => {
           </div>
           <div className={classes.TextWrap}>
             <div className={classes.Txt1}>{props.name}</div>
-            <div className={classes.Txt2}>{props.price} BHT</div>
+            <div className={classes.Txt2}>{props.price} ฿</div>
           </div>
         </div>
         <div className={classes.Desc}>
@@ -30,7 +30,7 @@ const ItemsElement = (props) => {
           </div>
           <div className={classes.TextWrap}>
             <div className={classes.Txt1}>{props.name}</div>
-            <div className={classes.Txt2}>{props.price} BHT</div>
+            <div className={classes.Txt2}>{props.price} ฿</div>
           </div>
         </div>
       </div>

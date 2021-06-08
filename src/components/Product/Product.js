@@ -83,6 +83,7 @@ class Product extends Component {
         axios
           .get(serverAddress + "api/getStockByCode/" + selectedProduct)
           .then((response) => {
+            console.log(response.data);
             let a = [...response.data];
             for (let i = 0; i < a.length; i++) {
               for (let j = 0; j < this.props.entries.length; j++) {
@@ -225,7 +226,7 @@ class Product extends Component {
               </p>
               <hr className={classes.HrClass} />
               <p className={classes.PPrice}>
-                {dic.price[lang]} {item.price} BHT
+                {dic.price[lang]} {item.price} ฿
               </p>
               <hr className={classes.HrClass} />
               <div style={{ display: "flex" }}>
