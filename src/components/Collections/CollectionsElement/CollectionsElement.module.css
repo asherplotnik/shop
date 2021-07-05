@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mitr&family=Sriracha&display=swap");
 .NavElement {
   display: inline-block;
   text-decoration: none;
@@ -18,6 +20,7 @@
 }
 
 .Txt {
+  font-family: "Roboto";
   margin-bottom: 10px;
   font-size: larger;
 }

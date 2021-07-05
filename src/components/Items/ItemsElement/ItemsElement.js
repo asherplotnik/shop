@@ -25,7 +25,7 @@ const ItemsElement = (props) => {
           </div>
         </div>
         <div className={classes.Desc}>
-          <div style={{ height: "300px", lineHeight: "300px" }}>
+          <div style={{ height: "3001x", lineHeight: "300px" }}>
             <img className={classes.Image2} src={props.img2} alt={props.img2} />
           </div>
           <div className={classes.TextWrap}>

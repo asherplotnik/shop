@@ -10,7 +10,7 @@ import cartReducer from "./store/reducers/cartReducer";
 import authReducer from "./store/reducers/authReducer";
 import langReducer from "./store/reducers/langReducer";
 import thunk from "redux-thunk";
-
+import CssBaseline from '@material-ui/core/CssBaseline';
 const composeEnhancers = compose;
 // const composeEnhancers =
 //   process.env.NODE_ENV === "development"
@@ -30,6 +30,7 @@ const store = createStore(
 );
 const app = (
   <Provider store={store}>
+    <CssBaseline />
     <App />
   </Provider>
 );

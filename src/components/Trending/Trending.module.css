@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mitr&family=Sriracha&display=swap");
 .Items {
   width: 100%;
   display: inline-block;
@@ -14,6 +16,7 @@
 }
 
 .Search {
+  font-family: "Roboto", "sriracha";
   text-align: left;
   margin-left: 50px;
   color: rgb(179, 178, 178);

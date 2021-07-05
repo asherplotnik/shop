@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mitr&family=Sriracha&display=swap");
 .NavElement {
   display: inline-block;
   text-decoration: none;
@@ -27,13 +29,13 @@
 }
 
 .Image1 {
-  max-height: 300px;
-  width: 300px;
+  max-height: 290px;
+  width: 290px;
   vertical-align: middle;
 }
 .Image2 {
-  max-height: 300px;
-  width: 300px;
+  max-height: 290px;
+  width: 290px;
   vertical-align: middle;
 }
 
@@ -43,7 +45,7 @@
   opacity: 0;
   bottom: 0px;
   transition: opacity 0.3s ease-out;
-  width: 300px;
+  width: 302px;
   text-align: center;
 }
 
@@ -58,11 +60,12 @@
 
 .TextWrap {
   height: 75px;
+  font-family: "Roboto";
 }
 
 .Front {
   display: block;
   bottom: 0px;
-  width: 300px;
+  width: 302px;
   text-align: center;
 }
