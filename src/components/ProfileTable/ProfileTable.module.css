@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mitr&family=Sriracha&display=swap");
 
 .CellStyle {
   vertical-align: middle;
-  font-family: "BenchNine", "Sriracha";
-  font-size: 20px;
+  font-family: "Roboto", "Sriracha";
+
 }
 
 .CellStyleButton {
@@ -12,8 +12,8 @@
 }
 .HeaderStyle {
   vertical-align: middle;
-  font-family: "BenchNine", "Sriracha";
-  font-size: x-large;
+  font-family: "Roboto", "Sriracha";
+  
 }
 
 .OrderDetails {

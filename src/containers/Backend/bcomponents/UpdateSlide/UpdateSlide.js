@@ -214,7 +214,7 @@ const UpdateSlide = () => {
           </form>
         </Modal>
         <div className={classes.AddImgDiv}>
-          <MyButton clicked={onSetAddNewImagePressed} btnType="GotoCart">
+          <MyButton clicked={onSetAddNewImagePressed} btnType="add">
             ADD NEW IMAGE
           </MyButton>
         </div>

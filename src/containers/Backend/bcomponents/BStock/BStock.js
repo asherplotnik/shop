@@ -330,7 +330,7 @@ class BStock extends Component {
   stockTable = () => {
     const stockColumns = [
       {
-        Header: <strong className={classes.Stock}>QUANTITY</strong>,
+        Header: <div className={classes.Stock}>QUANTITY</div>,
         accessor: "qty",
         Cell: (row) => (
           <div style={{ lineHeight: "50px" }}>
@@ -340,7 +340,7 @@ class BStock extends Component {
         width: 100,
       },
       {
-        Header: <strong className={classes.Stock}>VARIATION</strong>,
+        Header: <div className={classes.Stock}>VARIATION</div>,
         accessor: "variation",
         Cell: (row) => (
           <div key={row.value} style={{ lineHeight: "50px" }}>
@@ -349,7 +349,7 @@ class BStock extends Component {
         ),
       },
       {
-        Header: <strong className={classes.Stock}>IMAGE</strong>,
+        Header: <div className={classes.Stock}>IMAGE</div>,
         accessor: "img",
         Cell: (row) => (
           <div

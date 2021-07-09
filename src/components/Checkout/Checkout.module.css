@@ -1,6 +1,6 @@
-@import url("https://fonts.googleapis.com/css?family=Lexend+Tera|Monda:700|BenchNine:700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 .Container {
-  font-family: "BenchNine", sans-serif;
+  font-family: "Roboto", sans-serif;
   text-align: left;
   border: 1px solid #b6e4f5;
   margin-left: 20px;
@@ -11,7 +11,7 @@
 
 .Header {
   color: teal;
-  font-family: "BenchNine", sans-serif;
+  font-family: "Roboto", sans-serif;
   text-align: left;
   margin-left: 20px;
 }
@@ -26,7 +26,7 @@
 }
 
 .Shop {
-  font-family: "BenchNine", sans-serif;
+  font-family: "Roboto", sans-serif;
   margin-left: 20px;
   text-align: center;
 }
@@ -41,8 +41,8 @@
 
 .Conf {
   line-height: 1.2em;
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
+  font-family: "Roboto", sans-serif;
+  
   padding: 3px;
 }
 
@@ -61,8 +61,8 @@
 
 .Font input,
 .Font {
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
+  font-family: "Roboto", sans-serif;
+  
 }
 
 .Show {

@@ -47,7 +47,7 @@
 .FirstDiv input,
 .FirstDiv textarea {
   font-family: "Roboto", sans-serif;
-  font-size: x-large;
+  
   padding: 10px;
   margin: 20px 0px 20px 0px;
 }
@@ -55,7 +55,7 @@
 .FirstDivT input,
 .FirstDivT textarea {
   font-family: "Sriracha", cursive;
-  font-size: x-large;
+  
   padding: 10px;
   margin: 20px 0px 20px 0px;
 }

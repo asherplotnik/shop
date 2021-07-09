@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mitr&family=Sriracha&display=swap");
 
 .DetailsWrapper {
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
+  font-family: "Roboto", sans-serif;
+  
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -14,17 +14,17 @@
 
 .List {
   list-style: none;
-  font-family: "BenchNine", "Sriracha";
+  font-family: "Roboto", "Sriracha";
 }
 
 .List input {
   margin: 10px;
   font-size: large;
-  font-family: "BenchNine", "Sriracha";
+  font-family: "Roboto", "Sriracha";
 }
 .Header {
   line-height: 0.2em;
-  font-size: x-large;
+  
 }
 
 .Buttons {
@@ -35,7 +35,7 @@
 }
 
 .Page {
-  font-family: "BenchNine", "Sriracha";
+  font-family: "Roboto", "Sriracha";
   display: block;
 }
 
@@ -48,12 +48,12 @@
   display: flex;
   padding: 3px;
   justify-content: space-between;
-  font-family: "BenchNine", "Sriracha";
-  font-size: x-large;
+  font-family: "Roboto", "Sriracha";
+  
 }
 .FormList input {
-  font-family: "BenchNine", "Sriracha";
-  font-size: x-large;
+  font-family: "Roboto", "Sriracha";
+  
 }
 
 .Modal {
@@ -62,14 +62,14 @@
 }
 
 .Font {
-  font-family: "BenchNine", "Sriracha";
-  font-size: x-large;
+  font-family: "Roboto", "Sriracha";
+  
   margin: 10px;
 }
 
 .MessageOn {
-  font-family: "BenchNine", "Sriracha";
-  font-size: x-large;
+  font-family: "Roboto", "Sriracha";
+  
   font-weight: bold;
   background-color: salmon;
   border: 1px solid red;

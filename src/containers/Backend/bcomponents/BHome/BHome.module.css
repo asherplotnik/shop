@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 .Show {
   width: 80%;
   display: inline-block;
@@ -18,15 +18,15 @@
   width: 435px;
   padding: 5px;
   text-align: left;
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
+  font-family: "Roboto", sans-serif;
+  
 }
 .Lang select {
   border: 1px solid rgb(235, 232, 232);
   border-radius: 5px;
   width: 435px;
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
+  font-family: "Roboto", sans-serif;
+  
 }
 .Buttons {
   text-align: left;

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 
 .HrClass {
   margin: 0;
@@ -8,7 +8,7 @@
 }
 
 .Toolbar {
-  font-family: "BenchNine", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: large;
   justify-content: space-between;
   background-color: rgb(235, 232, 232);
@@ -43,5 +43,5 @@
 
 .Tback {
   font-size: 35px;
-  font-family: "BenchNine", sans-serif;
+  font-family: "Roboto", sans-serif;
 }

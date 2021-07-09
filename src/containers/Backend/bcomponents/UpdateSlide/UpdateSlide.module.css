@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 .Scroll {
   height: 77vh;
   overflow: auto;
@@ -11,8 +11,8 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
+  font-family: "Roboto", sans-serif;
+  
 }
 .FormList {
   list-style: none;
@@ -22,15 +22,15 @@
   display: flex;
   padding: 3px;
   justify-content: space-between;
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
+  font-family: "Roboto", sans-serif;
+  
 }
 
 .Font,
 .FormList input,
 .FormList select {
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
+  font-family: "Roboto", sans-serif;
+  
 }
 .Hr {
   margin: 0px 20px;
@@ -40,13 +40,13 @@
 }
 
 .Row input {
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
+  font-family: "Roboto", sans-serif;
+  
 }
 
 .Label {
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
+  font-family: "Roboto", sans-serif;
+  
 }
 .Row input:disabled {
   cursor: not-allowed;
@@ -70,8 +70,8 @@
 }
 .AddImgInputShow input {
   margin-left: 20px;
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
+  font-family: "Roboto", sans-serif;
+  
 }
 
 .AddImgInputShow button:disabled {
@@ -93,7 +93,7 @@
   cursor: pointer;
   text-shadow: 1px 1px #fff;
   font-weight: 700;
-  font-size: x-large;
+  
 }
 .CustomFileInput:hover::before {
   border-color: black;
@@ -117,7 +117,7 @@
   cursor: pointer;
   text-shadow: 1px 1px #fff;
   font-weight: 700;
-  font-size: x-large;
+  
 }
 .CustomInput:hover::before {
   border-color: black;

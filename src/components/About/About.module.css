@@ -53,7 +53,7 @@
   margin-bottom: 0px;
   text-align: right;
   padding: 50px;
-  font-size: x-large;
+  
 }
 
 .SecondDiv img {
@@ -76,14 +76,14 @@
 }
 .Pdiv {
   width: 45%;
-  font-size: x-large;
+  
   font-family: "Roboto", sans-serif;
   margin-bottom: 0px;
   text-align: left;
 }
 .PdivT {
   width: 45%;
-  font-size: x-large;
+  
   font-family: "Sriracha", cursive;
   margin-bottom: 0px;
   text-align: left;

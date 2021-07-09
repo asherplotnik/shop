@@ -1,6 +1,6 @@
-@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 .Ul {
-  font-family: "BenchNine", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.3em;
   list-style: none;
   text-align: left;
@@ -19,8 +19,8 @@
 }
 
 .Ul input {
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
+  font-family: "Roboto", sans-serif;
+  
   width: 500px;
 }
 

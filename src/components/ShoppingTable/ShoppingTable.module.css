@@ -1,6 +1,6 @@
-@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 .Tb {
-  font-family: "BenchNine", sans-serif;
+  font-family: "Roboto", sans-serif;
   border-collapse: collapse;
 }
 .Img {
@@ -14,7 +14,7 @@
 }
 
 .Th {
-  font-size: x-large;
+  
   margin: 0px;
   border-bottom: solid 1px #b6e4f5;
   /* box-sizing: border-box; */

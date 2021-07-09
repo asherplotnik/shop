@@ -6,13 +6,13 @@ import ReactTable from "react-table-6";
 const transactionTable = (props) => {
   const transColumns = [
     {
-      Header: <strong className={classes.CellStyle}>ID</strong>,
+      Header: <div className={classes.CellStyle}>ID</div>,
       accessor: "id",
       Cell: (row) => <span className={classes.CellStyle}>{row.value}</span>,
       width: 80,
     },
     {
-      Header: <strong className={classes.CellStyle}>VARIATION</strong>,
+      Header: <div className={classes.CellStyle}>VARIATION</div>,
       accessor: "variation",
       filterMethod: (filter, row, column) => {
         const id = filter.pivotId || filter.id;
@@ -23,13 +23,13 @@ const transactionTable = (props) => {
       Cell: (row) => <span className={classes.CellStyle}>{row.value}</span>,
     },
     {
-      Header: <strong className={classes.CellStyle}>QUANTITY</strong>,
+      Header: <div className={classes.CellStyle}>QUANTITY</div>,
       accessor: "qty",
       Cell: (row) => <span className={classes.CellStyle}>{row.value}</span>,
       width: 110,
     },
     {
-      Header: <strong className={classes.CellStyle}>IN/OUT</strong>,
+      Header: <div className={classes.CellStyle}>IN/OUT</div>,
       accessor: "inorout",
       Cell: (row) => (
         <span className={classes.CellStyle}>
@@ -38,7 +38,7 @@ const transactionTable = (props) => {
       ),
     },
     {
-      Header: <strong className={classes.CellStyle}>DATE</strong>,
+      Header: <div className={classes.CellStyle}>DATE</div>,
       accessor: "transdate",
       width: 250,
       Cell: (row) => (
@@ -48,7 +48,7 @@ const transactionTable = (props) => {
       ),
     },
     {
-      Header: <strong className={classes.CellStyle}>NOTE</strong>,
+      Header: <div className={classes.CellStyle}>NOTE</div>,
       accessor: "note",
       filterMethod: (filter, row, column) => {
         const id = filter.pivotId || filter.id;
@@ -60,7 +60,7 @@ const transactionTable = (props) => {
       Cell: (row) => <span className={classes.CellStyle}>{row.value}</span>,
     },
     {
-      Header: <strong className={classes.CellStyle}>ORDER ID</strong>,
+      Header: <div className={classes.CellStyle}>ORDER ID</div>,
       accessor: "orderid",
       width: 80,
       Cell: (row) => <span className={classes.CellStyle}>{row.value}</span>,

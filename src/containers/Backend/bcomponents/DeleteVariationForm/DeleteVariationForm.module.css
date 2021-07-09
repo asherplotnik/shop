@@ -7,15 +7,15 @@
   display: flex;
   padding: 3px;
   justify-content: space-between;
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
+  font-family: "Roboto", sans-serif;
+  
 }
 
 .Font,
 .FormList input,
 .FormList select {
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
+  font-family: "Roboto", sans-serif;
+  
 }
 .deleteVariationForm {
   display: inline-flex;

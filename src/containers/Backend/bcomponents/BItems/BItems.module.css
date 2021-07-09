@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 .Wrapper {
   display: block;
 }
@@ -39,15 +39,15 @@
   display: flex;
   padding: 3px;
   justify-content: space-between;
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
+  font-family: "Roboto", sans-serif;
+  
 }
 
 .Font,
 .Font button,
 .Font select {
-  font-family: "BenchNine", sans-serif;
-  font-size: x-large;
+  font-family: "Roboto", sans-serif;
+  
 }
 
 .FontInput {

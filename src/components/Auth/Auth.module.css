@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css?family=Lexend+Tera|Monda:700|BenchNine:700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mitr&family=Sriracha&display=swap");
 
 .Auth {
-  font-family: "BenchNine", "Sriracha";
+  font-family: "Roboto", "Sriracha";
   color: teal;
-  font-size: x-large;
+  
   margin: 20px auto;
   border: 1px solid #eee;
   box-shadow: 0 2px 3px #ccc;

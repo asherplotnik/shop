@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=BenchNine:700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 .Button {
   background-color: transparent;
   border: none;
@@ -20,7 +20,7 @@
   color: white;
   background-color: #87d9f6;
   border-radius: 8px;
-  font-family: "BenchNine", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.5em;
 }
 
@@ -28,7 +28,7 @@
   color: white;
   background-color: #944317;
   border-radius: 8px;
-  font-family: "BenchNine", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.5em;
 }
 
@@ -36,7 +36,7 @@
   color: white;
   background-color: seagreen;
   border-radius: 8px;
-  font-family: "BenchNine", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.5em;
 }
 
@@ -44,7 +44,7 @@
   color: white;
   background-color: #87d9f6;
   border-radius: 8px;
-  font-family: "BenchNine", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.1em;
 }
 
@@ -52,7 +52,7 @@
   color: white;
   background-color: #87d9f6;
   border-radius: 8px;
-  font-family: "BenchNine", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.1em;
   padding: 0px 8px 0px 0px;
   margin: 0px;
@@ -61,7 +61,7 @@
   color: white;
   background-color: navy;
   border-radius: 8px;
-  font-family: "BenchNine", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.1em;
 }
 
@@ -69,14 +69,14 @@
   color: white;
   background-color: #944317;
   border-radius: 8px;
-  font-family: "BenchNine", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.1em;
 }
 .DangerTiny {
   color: white;
   background-color: #944317;
   border-radius: 8px;
-  font-family: "BenchNine", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.1em;
   padding: 0px 8px 0px 0px;
   margin: 0px;
@@ -100,7 +100,7 @@
 
 .ShoppingTable {
   color: #5accf5;
-  font-family: "BenchNine", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.115em;
   padding: 0px 8px 0px 0px;
   margin: 0px;
