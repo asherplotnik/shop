@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classes from "./ContactUs.module.css";
-import Button from "../UI/Button/Button";
+import MyButton from "../UI/Button/Button";
 import Spinner from "../UI/Spinner/Spinner";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -123,9 +123,9 @@ const ContactUs = (props) => {
               />
             </div>
             <div style={{ fontSize: "1.6em" }}>
-              <Button type="submit" btnType="NavySmall">
+              <MyButton type="submit" btnType="email">
                 {dic.send[props.lang]}
-              </Button>
+              </MyButton>
             </div>
           </form>
         </div>

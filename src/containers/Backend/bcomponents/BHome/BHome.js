@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import classes from "./BHome.module.css";
-import Button from "../../../../components/UI/Button/Button";
+import MyButton from "../../../../components/UI/Button/Button";
 import axios from "axios";
 import { serverAddress } from "../../../../assets/helper";
 import Spinner from "../../../../components/UI/Spinner/Spinner";
@@ -128,15 +128,15 @@ const BHome = (props) => {
     viewPage = (
       <div className={[classes.Wrapper, classes.Trans].join(" ")}>
         <div className={classes.Buttons}>
-          <Button clicked={onUpdateAbout} btnType="Success">
+          <MyButton clicked={onUpdateAbout} btnType="update">
             Update About Us
-          </Button>
-          <Button clicked={onUpdateSlide} btnType="Success">
+          </MyButton>{"\u00A0"} {"\u00A0"}
+          <MyButton clicked={onUpdateSlide} btnType="update">
             Update Slide
-          </Button>
-          <Button clicked={onUpdateFooter} btnType="Success">
+          </MyButton>{"\u00A0"} {"\u00A0"}
+          <MyButton clicked={onUpdateFooter} btnType="update">
             Update Footer
-          </Button>
+          </MyButton>
         </div>
         {viewSubComponent}
       </div>

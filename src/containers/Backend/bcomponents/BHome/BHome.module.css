@@ -30,7 +30,7 @@
 }
 .Buttons {
   text-align: left;
-
+  padding:10px;
   width: 80%;
   display: inline-block;
 }

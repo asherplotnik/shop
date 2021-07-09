@@ -3,7 +3,7 @@ import axios from "axios";
 import Spinner from "../UI/Spinner/Spinner";
 import classes from "./Product.module.css";
 import PathLine from "../UI/PathLine/PathLine";
-import Button from "../UI/Button/Button";
+import MyButton from "../UI/Button/Button";
 import ReactTable from "react-table-6";
 import Modal from "../UI/Modal/Modal";
 import ImageWindow from "../UI/ImageWindow/ImageWindow";
@@ -229,14 +229,14 @@ class Product extends Component {
                 {dic.price[lang]} {item.price} ฿
               </p>
               <hr className={classes.HrClass} />
-              <div style={{ display: "flex" }}>
-                <Button
+              <div style={{ display: "flex",padding: "5px" }}>
+                <MyButton
                   disabled={this.state.stock.length === 0}
                   clicked={this.onAddToCartPressed}
-                  btnType="Success"
+                  btnType="AddShoppingCartIcon"
                 >
                   ADD TO CART
-                </Button>
+                </MyButton>
                 <div
                   className={
                     this.props.entries.length === 0
@@ -244,13 +244,13 @@ class Product extends Component {
                       : classes.Show
                   }
                 >
-                  <Button
+                  <MyButton
                     disabled={this.props.entries.length === 0}
                     clicked={this.goToCart}
-                    btnType="GotoCart"
+                    btnType="ShoppingCartIcon"
                   >
                     GO TO CART
-                  </Button>
+                  </MyButton>
                 </div>
               </div>
             </div>

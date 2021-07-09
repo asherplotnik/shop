@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "./UpdateUserForm.module.css";
+import MyButton from "../../../../components/UI/Button/Button";
 
 const UpdateUserForm = (props) => {
   const [levelState, setLevelState] = useState(props.level);
@@ -36,10 +37,10 @@ const UpdateUserForm = (props) => {
             </select>
           </li>
           <li key="submit">
-            <input type="submit" value="SUBMIT" />
-            <button type="button" onClick={props.modalClosed}>
+            <MyButton btnType="continue" type="submit">SUBMIT</MyButton>
+            <MyButton btnType="cancel" clicked={props.modalClosed}>
               CANCEL
-            </button>
+            </MyButton>
           </li>
         </ul>
       </form>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Button from "../../../../components/UI/Button/Button";
+import MyButton from "../../../../components/UI/Button/Button";
 import classes from "./AddCollectionForm.module.css";
 import axios from "axios";
 import { serverAddress } from "../../../../assets/helper";
@@ -34,14 +34,14 @@ class AddForm extends Component {
     return (
       <div className={classes.Control}>
         <div className={classes.AddButton}>
-          <Button
+          <MyButton
             className={classes.Add}
             clicked={this.props.onAddInputHanadler}
-            btnType="Success"
+            btnType="add"
             disabled={this.props.updateToggle}
           >
             ADD COLLECTION
-          </Button>
+          </MyButton>
         </div>
         <div className={classes.FormDiv} style={{ display: this.props.input }}>
           <form id="addCollecionForm" onSubmit={this.onAddCollecionForm}>
@@ -83,7 +83,7 @@ class AddForm extends Component {
               </li>
               <li style={{ opacity: " 0 " }}>space</li>
               <li>
-                <input type="submit" value="Submit" />
+                <MyButton btnType="continue" type="submit">SUBMIT</MyButton>
               </li>
             </ul>
           </form>

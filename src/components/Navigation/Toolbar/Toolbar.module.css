@@ -36,25 +36,16 @@
 .Cart0 {
   position: relative;
 }
-.Cart {
-  width: 50px;
-}
-.Cart img {
-  width: 50px;
-}
 
-.Cart2 img {
-  width: 50px;
-}
 .Cart2 {
+  z-index: 50;
   position: absolute;
-  width: 50px;
   opacity: 0;
   transition: opacity 0.2s ease-out;
 }
 .Cart2:hover {
+  z-index: 50;
   position: absolute;
-  width: 50px;
   opacity: 1;
   transition: opacity 0.2s ease-out;
   cursor: pointer;
@@ -63,7 +54,6 @@
 .PLogin {
   margin: "20px";
   font-family: "roboto", "Sriracha";
-  font-size: "larger";
 }
 
 @media (max-width: 499px) {

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import classes from "./bulkForm.module.css";
+import MyButton from "../../../../components/UI/Button/Button";
 const BulkForm = (props) => {
   const [ExcelfileUploaded, setExcelFileUploaded] = useState(0);
   const [ZipfileUploaded, setZipFileUploaded] = useState(0);
@@ -79,21 +80,22 @@ const BulkForm = (props) => {
           </strong>
         </div>
         <div>
-          <input
+          <MyButton
             className={classes.Font}
             name="bulk"
-            value="SUBMIT"
             disabled={!ExcelfileUploaded || !ZipfileUploaded}
             type="submit"
-          />
+            btnType="continue"
+            >SUBMIT</MyButton>
           <span style={{ opacity: "0" }}>________</span>
-          <button
+          <MyButton
             className={classes.Font}
             type="button"
-            onClick={props.modalClosed}
+            btnType="cancel"
+            clicked={props.modalClosed}
           >
             CANCEL
-          </button>
+          </MyButton>
         </div>
       </form>
     </div>

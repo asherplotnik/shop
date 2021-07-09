@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./ShoppingCart.module.css";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
-import Button from "../UI/Button/Button";
+import MyButton from "../UI/Button/Button";
 import { withRouter } from "react-router-dom";
 import ShoppingTable from "../ShoppingTable/ShoppingTable";
 
@@ -38,15 +38,15 @@ const shoppingCart = (props) => {
         />
         <br></br>
         <p style={{ marginLeft: "40px" }}>SUBTOTAL: {subtotal}</p>
-        <Button
+        <MyButton
           clicked={redirectCheckout}
           // disabled={props.token === null}
-          btnType="SuccessSmall"
+          btnType="signin"
         >
           {props.token === null
             ? "PLEASE LOGIN BEFORE CHECKOUT"
             : "CONTINUE TO CHECKOUT"}
-        </Button>
+        </MyButton>
       </div>
     );
   }

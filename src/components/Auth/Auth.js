@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import Button from "../UI/Button/Button";
+import MyButton from "../UI/Button/Button";
 import classes from "./Auth.module.css";
 import * as actions from "../../store/actions/index";
 import { withRouter } from "react-router-dom";
@@ -159,9 +159,9 @@ class Auth extends Component {
             </li>
           </ul>
           <br></br>
-          <Button btnType="SuccessSmall" type="submit">
+          <MyButton btnType="continue" type="submit">
             {dic.submit[lang]}
-          </Button>
+          </MyButton>
         </form>
         <p>{this.state.message}</p>
       </div>
@@ -225,9 +225,9 @@ class Auth extends Component {
                 />
               </li>
             </ul>
-            <Button btnType="SuccessSmall" type="submit">
+            <MyButton btnType="continue" type="submit">
               {dic.submit[lang]}
-            </Button>
+            </MyButton>
           </form>
           {this.state.message}
         </div>
@@ -236,9 +236,16 @@ class Auth extends Component {
       <div className={classes.Trans}>
         {form}
         <div style={{ fontSize: "x-large" }}>
-          <Button clicked={this.switchSign} btnType="NavySmall">
+          {/* <MyButton clicked={this.switchSign} btnType="signup">
             {this.state.signIn ? dic.signUp[lang] : dic.signIn[lang]}
-          </Button>{" "}
+          </MyButton>{" "} */}
+        {this.state.signIn ?  
+          <MyButton clicked={this.switchSign} btnType="signup">
+            {dic.signUp[lang] }
+          </MyButton> :
+          <MyButton clicked={this.switchSign} btnType="signin">
+          {dic.signIn[lang]}
+        </MyButton>}
         </div>
       </div>
     );

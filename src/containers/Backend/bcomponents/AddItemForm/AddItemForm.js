@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "./AddItemForm.module.css";
-
+import MyButton from "../../../../components/UI/Button/Button";
 const AddItemForm = (props) => {
   useEffect(() => {
     if (props.rCollection) {
@@ -135,10 +135,10 @@ const AddItemForm = (props) => {
           <br></br>
           <br></br>
           <li key="sub">
-            <input type="submit" value="SUBMIT" />
-            <button type="button" onClick={props.modalClosed}>
+            <MyButton type="submit" btnType="continue">SUBMIT</MyButton>
+            <MyButton type="button" btnType="cancel" clicked={props.modalClosed}>
               CANCEL
-            </button>
+            </MyButton>
           </li>
         </ul>
       </form>

@@ -22,6 +22,7 @@
 .Search input {
   text-align: left;
   color: rgb(179, 178, 178);
+  background-color: inherit;
 }
 
 .Button {

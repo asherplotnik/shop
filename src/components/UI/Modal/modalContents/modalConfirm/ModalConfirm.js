@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../../../Button/Button";
+import MyButton from "../../../Button/Button";
 import classes from "./ModalConfirm.module.css";
 const modalConfirm = (props) => {
   return (
@@ -9,15 +9,15 @@ const modalConfirm = (props) => {
       </div>
       <div className={classes.Cont}>
         <div>
-          <Button btnType="Success" clicked={props.confirmed}>
+          <MyButton btnType="continue" clicked={props.confirmed}>
             YES
-          </Button>
+          </MyButton>
         </div>
         <p style={{ color: "transparent" }}> {"-------"}</p>
         <div>
-          <Button btnType="Danger" clicked={props.modalClosed}>
+          <MyButton btnType="cancel" clicked={props.modalClosed}>
             NO
-          </Button>
+          </MyButton>
         </div>
       </div>
     </div>

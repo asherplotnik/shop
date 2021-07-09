@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Button from "../UI/Button/Button";
+import MyButton from "../UI/Button/Button";
 import Spinner from "../UI/Spinner/Spinner";
 import classes from "./Profile.module.css";
 import Modal from "../UI/Modal/Modal";
@@ -181,13 +181,14 @@ class Profile extends Component {
                   value={dic.submit[lang]}
                 />
                 <span style={{ opacity: "0" }}>_____</span>
-                <button
+                <MyButton
+                  btnType="cancel"
                   type="button"
                   className={classes.Font}
                   onClick={this.onChangeDetailsPressed}
                 >
                   {dic.cancel[lang]}
-                </button>
+                </MyButton>
               </form>
             </div>
           </Modal>
@@ -216,13 +217,14 @@ class Profile extends Component {
                   value={dic.submit[lang]}
                 />
                 <span style={{ opacity: "0" }}>_____</span>
-                <button
+                <MyButton
                   type="button"
+                  btnType="cancel"
                   className={classes.Font}
                   onClick={this.onChangeEmailPressed}
                 >
                   {dic.cancel[lang]}
-                </button>
+                </MyButton>
               </form>
             </div>
           </Modal>
@@ -251,13 +253,14 @@ class Profile extends Component {
                   value={dic.submit[lang]}
                 />
                 <span style={{ opacity: "0" }}>_____</span>
-                <button
+                <MyButton
                   type="button"
+                  btnType="cancel"
                   className={classes.Font}
                   onClick={this.onChangePasswordPressed}
                 >
                   {dic.cancel[lang]}
-                </button>
+                </MyButton>
               </form>
             </div>
           </Modal>
@@ -280,12 +283,12 @@ class Profile extends Component {
                     </ul>
                   </div>
                   <div className={classes.Buttons}>
-                    <Button
-                      btnType="SuccessSmall"
+                    <MyButton
+                      btnType="change"
                       clicked={this.onChangeDetailsPressed}
                     >
                       {dic.changeDetails[lang]}
-                    </Button>
+                    </MyButton>
                   </div>
                 </div>
                 <br></br>
@@ -301,20 +304,21 @@ class Profile extends Component {
                   </div>
                   <div className={classes.Buttons}>
                     <div>
-                      <Button
-                        btnType="SuccessSmall"
+                      <MyButton
+                        btnType="change"
                         clicked={this.onChangeEmailPressed}
                       >
                         {dic.changeEmail[lang]}
-                      </Button>
+                      </MyButton>
                     </div>
+                    <br />
                     <div>
-                      <Button
-                        btnType="SuccessSmall"
+                      <MyButton
+                        btnType="change"
                         clicked={this.onChangePasswordPressed}
                       >
                         {dic.changePassword[lang]}
-                      </Button>
+                      </MyButton>
                     </div>
                   </div>
                 </div>

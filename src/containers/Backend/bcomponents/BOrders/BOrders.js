@@ -7,7 +7,7 @@ import ModalConfirm from "../../../../components/UI/Modal/modalContents/modalCon
 import UpdateOrderForm from "../UpdateOrderForm/UpdateOrderForm";
 import IssueReceipt from "../IssueReceipt/IssueReceipt";
 import classes from "./BOrders.module.css";
-import Button from "../../../../components/UI/Button/Button";
+import MyButton from "../../../../components/UI/Button/Button";
 import { serverAddress } from "../../../../assets/helper";
 const BOrders = () => {
   let [confirmed, setConfirmed] = useState(false);
@@ -242,12 +242,12 @@ const BOrders = () => {
             <p>SEND TRACKING NUMBER: {shipped}</p>
           </div>
           <div className={classes.Buttons}>
-            <Button clicked={sendShippedEmail} btnType="SuccessSmall">
+            <MyButton clicked={sendShippedEmail} btnType="email">
               SEND
-            </Button>
-            <Button clicked={toggleShipped} btnType="DangerSmall">
+            </MyButton>
+            <MyButton clicked={toggleShipped} btnType="cancel">
               DON'T SEND
-            </Button>
+            </MyButton>
           </div>
         </Modal>
         <Modal
@@ -266,15 +266,15 @@ const BOrders = () => {
             </div>
             <div className={classes.Cont}>
               <div>
-                <Button btnType="Success" clicked={onCancelHandler}>
+                <MyButton btnType="continue" clicked={onCancelHandler}>
                   YES
-                </Button>
+                </MyButton>
               </div>
               <p style={{ color: "transparent" }}> {"-------"}</p>
               <div>
-                <Button btnType="Danger" clicked={toggleCanceled}>
+                <MyButton btnType="cancel" clicked={toggleCanceled}>
                   NO
-                </Button>
+                </MyButton>
               </div>
             </div>
           </div>

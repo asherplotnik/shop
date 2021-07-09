@@ -1,7 +1,7 @@
 import React from "react";
 import ReactTable from "react-table-6";
 import classes from "./AddToCartForm.module.css";
-import Button from "../UI/Button/Button";
+import MyButton from "../UI/Button/Button";
 const AddToCartForm = (props) => {
   const stockColumns = [
     {
@@ -86,12 +86,12 @@ const AddToCartForm = (props) => {
             </li>
             <li>
               {" "}
-              <Button type="submit" btnType="SuccessSmall">
+              <MyButton type="submit" btnType="continue">
                 CONTINUE
-              </Button>
-              <Button btnType="DangerSmall" clicked={props.cancel}>
+              </MyButton>
+              <MyButton btnType="cancel" clicked={props.cancel}>
                 CANCEL
-              </Button>
+              </MyButton>
             </li>
           </ul>
         </form>

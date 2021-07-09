@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ReactTable from "react-table-6";
 import classes from "./BUsers.module.css";
-import Button from "../../../../components/UI/Button/Button";
+import MyButton from "../../../../components/UI/Button/Button";
 import Spinner from "../../../../components/UI/Spinner/Spinner";
 import Modal from "../../../../components/UI/Modal/Modal";
 import UpdateUserForm from "../UpdateUserForm/UpdateUserForm";
@@ -273,9 +273,9 @@ const BUsers = () => {
       accessor: "upt",
       Cell: () => (
         <div>
-          <Button id="updateButton" btnType="SuccessTiny">
+          <MyButton id="updateButton" btnType="update">
             UPDATE
-          </Button>
+          </MyButton>
         </div>
       ),
       filterable: false,
@@ -289,7 +289,7 @@ const BUsers = () => {
       accessor: "del",
       Cell: () => (
         <div>
-          <Button btnType="DangerTiny">DELETE</Button>
+          <MyButton btnType="delete">DELETE</MyButton>
         </div>
       ),
       filterable: false,
@@ -349,16 +349,18 @@ const BUsers = () => {
     <div className={classes.Trans}>
       <Modal show={showDelete} modalClosed={onDeletePressed}>
         <div className={classes.Font}>are you sure?</div>
+        <br/>
         <div>
-          <Button
-            btnType="SuccessSmall"
+          <MyButton
+            btnType="continue"
             clicked={() => removeUser(pressedUser.id)}
           >
-            OK
-          </Button>
-          <Button btnType="DangerSmall" clicked={onDeletePressed}>
-            CANCEL
-          </Button>
+            YES
+          </MyButton>
+          {"\u00A0"} {"\u00A0"}
+          <MyButton btnType="cancel" clicked={onDeletePressed}>
+            NO
+          </MyButton>
         </div>
       </Modal>
       <Modal show={showUpdate} modalClosed={onUpdatePressed}>

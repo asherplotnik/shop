@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "./UpdateOrderForm.module.css";
+import MyButton from "../../../../components/UI/Button/Button";
 
 const UpdateOrderForm = (props) => {
   const [statusState, setStatusState] = useState(props.status);
@@ -56,10 +57,10 @@ const UpdateOrderForm = (props) => {
             <input type="text" name="tracking" defaultValue={props.tracking} />
           </li>
           <li key="submit">
-            <input type="submit" value="SUBMIT" />
-            <button type="button" onClick={props.modalClosed}>
+            <MyButton type="submit" btnType="continue">SUBMIT</MyButton>
+            <MyButton type="button" clicked={props.modalClosed} btnType="cancel">
               CANCEL
-            </button>
+            </MyButton>
           </li>
         </ul>
       </form>

@@ -30,7 +30,8 @@
 .Buttons {
   text-align: right;
   display: block;
-  margin: 20px;
+  margin: 20px ;
+  padding: 5px !important;
 }
 
 .Page {

@@ -4,7 +4,7 @@ import axios from "axios";
 import Spinner from "../../../../components/UI/Spinner/Spinner";
 import "react-table-6/react-table.css";
 import classes from "./BCollections.module.css";
-import Button from "../../../../components/UI/Button/Button";
+import MyButton from "../../../../components/UI/Button/Button";
 import Modal from "../../../../components/UI/Modal/Modal";
 import ModalConfirm from "../../../../components/UI/Modal/modalContents/modalConfirm/ModalConfirm";
 import AddCollectionForm from "../AddCollectionForm/AddCollectionForm";
@@ -199,17 +199,16 @@ class BCollections extends Component {
         ),
         accessor: "name",
         Cell: (row) => (
-          <div style={{ marginTop: "20px" }}>
-            <Button
+          <div style={{ marginTop: "30px" }}>
+            <MyButton
               disabled={row.value === "HIDDEN" || this.state.inputFileToggleOn}
               id="updateButton"
-              btnType="SuccessSmall"
+              btnType="update"
             >
               UPDATE
-            </Button>
+            </MyButton>
           </div>
         ),
-        width: 100,
       },
       {
         Header: (
@@ -221,26 +220,24 @@ class BCollections extends Component {
         ),
         accessor: "name",
         Cell: (row) => (
-          <div style={{ marginTop: "20px" }}>
-            <Button
+          <div style={{ marginTop: "30px" }}>
+            <MyButton
               disabled={row.value === "HIDDEN" || this.state.inputFileToggleOn}
-              btnType="DangerSmall"
+              btnType="delete"
             >
               DELETE
-            </Button>
+            </MyButton>
           </div>
         ),
-        width: 100,
       },
     ];
-
     return (
       <ReactTable
         className="-highlight "
         data={data}
         columns={columns}
         minRows={1}
-        defaultPageSize={10}
+        defaultPageSize={10} 
         getTdProps={(state, rowInfo, column, instance) => {
           return {
             onClick: (e, handleOriginal) => {

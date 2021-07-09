@@ -8,7 +8,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import TransactionTable from "../TransactionTable/TransactionTable";
 import Modal from "../../../../components/UI/Modal/Modal";
 import ModalConfirm from "../../../../components/UI/Modal/modalContents/modalConfirm/ModalConfirm";
-import Button from "../../../../components/UI/Button/Button";
+import MyButton from "../../../../components/UI/Button/Button";
 import AddTransForm from "../AddTransForm/AddTransForm";
 import AddVariationForm from "../AddVariationForm/AddVariationForm";
 import DeleteVariationForm from "../DeleteVariationForm/DeleteVariationForm";
@@ -429,9 +429,9 @@ class BStock extends Component {
         <Modal show={this.state.illegal} modalClosed={this.onIllegalClose}>
           <div>INVALID ACTION</div>
           <div>
-            <Button clicked={this.onIllegalClose} btnType="DangerSmall">
+            <MyButton clicked={this.onIllegalClose} btnType="continue">
               Ok
-            </Button>
+            </MyButton>
           </div>
         </Modal>
         <Modal
@@ -508,33 +508,35 @@ class BStock extends Component {
         <div>
           <div style={{ display: "flex" }}>
             <div className={classes.NewEntry}>
-              <Button
+              <MyButton
                 clicked={this.onAddEntryPressed}
                 disabled={
                   this.state.val === null || this.state.stock.length === 0
                 }
-                btnType="Success"
+                btnType="add"
               >
                 ADD ENTRY
-              </Button>
+              </MyButton>
             </div>
+            {"\u00A0"} {"\u00A0"}
             <div className={classes.NewEntry}>
-              <Button
+              <MyButton
                 clicked={this.onAddVariationPressed}
                 disabled={this.state.val === null}
-                btnType="Success"
+                btnType="add"
               >
                 ADD VARIATION
-              </Button>
+              </MyButton>
             </div>
+            {"\u00A0"} {"\u00A0"}
             <div className={classes.NewEntry}>
-              <Button
+              <MyButton
                 clicked={this.onDeleteVariationPressed}
                 disabled={this.state.val === null}
-                btnType="Danger"
+                btnType="delete"
               >
                 DELETE VARIATION
-              </Button>
+              </MyButton>
             </div>
           </div>
           <div className={classes.Trans}>{viewTrans}</div>

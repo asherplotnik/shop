@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import classes from "./UpdateCollectionForm.module.css";
 import axios from "axios";
 import { serverAddress } from "../../../../assets/helper";
+import MyButton from "../../../../components/UI/Button/Button";
 class AddForm extends Component {
   onUpdateCollecionForm = async (e) => {
     e.preventDefault();
@@ -69,7 +70,7 @@ class AddForm extends Component {
             </li>
             <li style={{ opacity: " 0 " }}>space</li>
             <li>
-              <input type="submit" value="Submit" />
+              <MyButton type="submit" btnType="continue" >SUBMIT</MyButton>
             </li>
           </ul>
         </form>

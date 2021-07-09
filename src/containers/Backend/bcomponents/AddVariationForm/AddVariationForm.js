@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./AddVariationForm.module.css";
-
+import MyButton from "../../../../components/UI/Button/Button";
 const addVariationForm = (props) => {
   return (
     <div className={classes.AddVariationForm}>
@@ -25,10 +25,10 @@ const addVariationForm = (props) => {
           <br></br>
           <br></br>
           <li key="sub">
-            <input type="submit" value="SUBMIT" />
-            <button type="button" onClick={props.modalClosed}>
+            <MyButton type="submit" btnType="continue" >SUBMIT</MyButton>
+            <MyButton type="button" btnType="cancel" clicked={props.modalClosed}>
               CANCEL
-            </button>
+            </MyButton>
           </li>
         </ul>
       </form>

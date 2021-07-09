@@ -9,6 +9,7 @@
 
 .Row {
   display: flex;
+  justify-content: space-evenly;
   align-items: center;
   font-family: "BenchNine", sans-serif;
   font-size: x-large;
@@ -26,7 +27,6 @@
 }
 
 .Font,
-.FormList button,
 .FormList input,
 .FormList select {
   font-family: "BenchNine", sans-serif;
@@ -38,7 +38,7 @@
   height: 1px;
   background-color: rgb(231, 231, 231);
 }
-.Row button,
+
 .Row input {
   font-family: "BenchNine", sans-serif;
   font-size: x-large;
@@ -51,10 +51,10 @@
 .Row input:disabled {
   cursor: not-allowed;
 }
-.Row div {
+/* .Row div {
   margin: 5px;
   width: 170px;
-}
+} */
 .AddImgDiv {
   text-align: left;
   margin-left: 15px;
@@ -68,8 +68,7 @@
 .AddImgInputShow {
   display: block;
 }
-.AddImgInputShow input,
-.AddImgInputShow button {
+.AddImgInputShow input {
   margin-left: 20px;
   font-family: "BenchNine", sans-serif;
   font-size: x-large;

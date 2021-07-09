@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ItemsTable from "../ItemsTable/ItemsTable";
 import classes from "./BItems.module.css";
-import Button from "../../../../components/UI/Button/Button";
+import MyButton from "../../../../components/UI/Button/Button";
 import axios from "axios";
 import { connect } from "react-redux";
 import * as actions from "../../../../store/actions/index";
@@ -211,12 +211,13 @@ class BItems extends Component {
             />
           </Modal>
           <div className={classes.addProduct}>
-            <Button btnType="NavySmall" clicked={this.props.onAddPressed}>
+            <MyButton btnType="add" clicked={this.props.onAddPressed}>
               ADD PRODUCT
-            </Button>
-            <Button btnType="NavySmall" clicked={this.props.onBulkPressed}>
+            </MyButton>
+            {" "}
+            <MyButton btnType="file" clicked={this.props.onBulkPressed}>
               ADD FROM FILE
-            </Button>
+            </MyButton>
           </div>
           <ItemsTable
             pressedDelete={this.props.onDeletePressed}
@@ -224,7 +225,6 @@ class BItems extends Component {
             passedData={this.props.itemsData}
             passedStock={this.props.stockData}
           />
-          ;
         </div>
       );
     }

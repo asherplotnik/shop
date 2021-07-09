@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import classes from "./AddTransForm.module.css";
-
+import MyButton from "../../../../components/UI/Button/Button";
 const AddTransForm = (props) => {
   useEffect(() => {
     if (props.rVariation) {
@@ -54,10 +54,10 @@ const AddTransForm = (props) => {
           <br></br>
           <br></br>
           <li key="sub">
-            <input type="submit" value="SUBMIT" />
-            <button type="button" onClick={props.modalClosed}>
+            <MyButton type="submit" btnType="continue">SUBMIT</MyButton>
+            <MyButton type="button" btnType="cancel" clicked={props.modalClosed}>
               CANCEL
-            </button>
+            </MyButton>
           </li>
         </ul>
       </form>

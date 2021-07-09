@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./ItemsTable.module.css";
-import Button from "../../../../components/UI/Button/Button";
+import MyButton from "../../../../components/UI/Button/Button";
 import ReactTable from "react-table-6";
 
 const itemsTable = (props) => {
@@ -221,12 +221,11 @@ const itemsTable = (props) => {
       accessor: "upt",
       Cell: () => (
         <div style={{ marginTop: "20px" }}>
-          <Button id="updateButton" btnType="SuccessSmall">
+          <MyButton id="updateButton" btnType="update">
             UPDATE
-          </Button>
+          </MyButton>
         </div>
       ),
-      width: 90,
       filterable: false,
     },
     {
@@ -240,7 +239,7 @@ const itemsTable = (props) => {
       accessor: "del",
       Cell: () => (
         <div style={{ marginTop: "20px" }}>
-          <Button btnType="DangerSmall">DELETE</Button>
+          <MyButton btnType="delete">DELETE</MyButton>
         </div>
       ),
       filterable: false,

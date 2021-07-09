@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 import classes from "./PaymentForm.module.css";
-import Button from "../UI/Button/Button";
+import MyButton from "../UI/Button/Button";
 
 class PaymentForm extends Component {
   state = {
@@ -82,9 +82,9 @@ class PaymentForm extends Component {
         <div style={{ textAlign: "center" }}>
           TOTAL AMOUNT IN THAI BAHT:
           <div id="amount">{this.props.subTotal}</div>
-          <Button btnType="SuccessSmall" type="submit">
+          <MyButton btnType="continue" type="submit">
             SUBMIT
-          </Button>
+          </MyButton>
         </div>
       </form>
     );

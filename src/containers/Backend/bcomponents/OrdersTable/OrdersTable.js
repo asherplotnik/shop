@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./OrdersTable.module.css";
-import Button from "../../../../components/UI/Button/Button";
+import MyButton from "../../../../components/UI/Button/Button";
 import ReactTable from "react-table-6";
 
 const OrdersTable = (props) => {
@@ -200,12 +200,15 @@ const OrdersTable = (props) => {
       accessor: "status",
       Cell: (row) => (
         <div>
-          <Button id="updateButton" btnType="SuccessTiny">
-            {row.value === "canceled" ? "DISABLED" : "UPDATE"}
-          </Button>
+          { row.value === "canceled" ?
+          <MyButton id="updateButton" btnType="cancel">
+           DISABLED
+          </MyButton> :
+          <MyButton id="updateButton" btnType="update">
+           UPDATE
+         </MyButton>}
         </div>
       ),
-      width: 90,
       filterable: false,
     },
     {
@@ -217,7 +220,7 @@ const OrdersTable = (props) => {
       accessor: "del",
       Cell: () => (
         <div>
-          <Button btnType="DangerTiny">DELETE</Button>
+          <MyButton btnType="delete">DELETE</MyButton>
         </div>
       ),
       filterable: false,

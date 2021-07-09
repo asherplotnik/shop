@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./ShoppingTable.module.css";
-import Button from "../UI/Button/Button";
+import MyButton from "../UI/Button/Button";
 const shoppingTable = (props) => {
   const shoppingHead = (
     <thead key="head">
@@ -52,12 +52,12 @@ const shoppingTable = (props) => {
           <span>{entry.total}</span>
         </td>
         <td className={props.onDeletePressed ? classes.Td : classes.Tbutton}>
-          <Button
+          <MyButton
             clicked={() => props.onDeletePressed(index)}
-            btnType="ShoppingTable"
+            btnType="delete"
           >
             REMOVE
-          </Button>
+          </MyButton>
         </td>
       </tr>
     );

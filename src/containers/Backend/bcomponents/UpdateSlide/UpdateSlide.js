@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { serverAddress } from "../../../../assets/helper";
 import classes from "./UpdateSlide.module.css";
-import Button from "../../../../components/UI/Button/Button";
+import MyButton from "../../../../components/UI/Button/Button";
 import Spinner from "../../../../components/UI/Spinner/Spinner";
 import Modal from "../../../../components/UI/Modal/Modal";
 const UpdateSlide = () => {
@@ -115,17 +115,16 @@ const UpdateSlide = () => {
             <p>{row.original}</p>
           </div>
           <div>
-            <Button
-              btnType="SuccessSmall"
+            <MyButton
+              btnType="update"
               clicked={() => onUpdateImagePressed(row.id)}
             >
               UPDATE IMAGE
-            </Button>
-          </div>
-          <div style={{ marginLeft: "120px" }}>
-            <button onClick={(event) => onRemoveImage(event, row.id)}>
+            </MyButton>
+            {"\u00A0"} {"\u00A0"}
+            <MyButton btnType="delete" clicked={(event) => onRemoveImage(event, row.id)}>
               Remove
-            </button>
+            </MyButton>
           </div>
         </div>
         <hr className={classes.Hr}></hr>
@@ -215,9 +214,9 @@ const UpdateSlide = () => {
           </form>
         </Modal>
         <div className={classes.AddImgDiv}>
-          <Button clicked={onSetAddNewImagePressed} btnType="GotoCart">
+          <MyButton clicked={onSetAddNewImagePressed} btnType="GotoCart">
             ADD NEW IMAGE
-          </Button>
+          </MyButton>
         </div>
         {listEl}
       </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Button from "../../../../components/UI/Button/Button";
+import MyButton from "../../../../components/UI/Button/Button";
 import Spinner from "../../../../components/UI/Spinner/Spinner";
 import axios from "axios";
 import jsPDF from "jspdf";
@@ -149,12 +149,12 @@ const IssueReceipt = (props) => {
           <p className={classes.OrderDetails}>thank you.</p>
         </div>
         <div>
-          <Button btnType="SuccessSmall" clicked={sendReceipt}>
+          <MyButton btnType="email" clicked={sendReceipt}>
             SEND RECEIPT TO CUSTOMER
-          </Button>
-          <Button btnType="DangerSmall" clicked={props.modalClosed}>
+          </MyButton>
+          <MyButton btnType="cancel" clicked={props.modalClosed}>
             DON'T SEND RECEIPT
-          </Button>
+          </MyButton>
         </div>
       </div>
     );

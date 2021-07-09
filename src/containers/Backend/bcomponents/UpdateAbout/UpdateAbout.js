@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./UpdateAbout.module.css";
+import MyButton from "../../../../components/UI/Button/Button";
 const UpdateAbout = (props) => {
   return (
     <div className={classes.Scroll}>
@@ -133,10 +134,10 @@ const UpdateAbout = (props) => {
           </li>
           <br className={classes.Br}></br>
 
-          <button type="submit">SUBMIT</button>
-          <button type="button" onClick={props.onUpdateAbout}>
+          <MyButton btnType="continue" type="submit">SUBMIT</MyButton>
+          <MyButton  btnType="cancel" type="button" clicked={props.onUpdateAbout}>
             CANCEL
-          </button>
+          </MyButton>
         </ul>
       </form>
     </div>

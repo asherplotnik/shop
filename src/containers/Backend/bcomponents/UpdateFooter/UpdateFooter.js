@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./UpdateFooter.module.css";
+import MyButton from "../../../../components/UI/Button/Button";
 const UpdateFooter = (props) => {
   // mainTitle = "youtube"
   // mainTitleT = "facebook"
@@ -53,10 +54,10 @@ const UpdateFooter = (props) => {
             />
           </li>
           <br className={classes.Br}></br>
-          <button type="submit">SUBMIT</button>
-          <button type="button" onClick={props.onUpdateFooter}>
+          <MyButton btnType="continue" type="submit">SUBMIT</MyButton>
+          <MyButton btnType="cancel" type="button" clicked={props.onUpdateFooter}>
             CANCEL
-          </button>
+          </MyButton>
         </ul>
       </form>
     </div>

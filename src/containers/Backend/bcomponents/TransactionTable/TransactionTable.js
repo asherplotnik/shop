@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./TransactionTable.module.css";
-import Button from "../../../../components/UI/Button/Button";
+import MyButton from "../../../../components/UI/Button/Button";
 import ReactTable from "react-table-6";
 
 const transactionTable = (props) => {
@@ -76,15 +76,15 @@ const transactionTable = (props) => {
       ),
       accessor: "upt",
       Cell: () => (
-        <Button
+        <MyButton
           id="updateButton"
           style={{ padding: "0px", margin: "0px" }}
-          btnType="SuccessTiny"
+          btnType="update"
         >
           UPDATE
-        </Button>
+        </MyButton>
       ),
-      width: 90,
+      width: 140,
       filterable: false,
     },
     {
@@ -95,11 +95,11 @@ const transactionTable = (props) => {
       ),
       accessor: "del",
       Cell: () => (
-        <Button style={{ padding: "0px", margin: "0px" }} btnType="DangerTiny">
+        <MyButton style={{ padding: "0px", margin: "0px" }} btnType="delete">
           DELETE
-        </Button>
+        </MyButton>
       ),
-      width: 90,
+      width: 140,
       filterable: false,
     },
   ];

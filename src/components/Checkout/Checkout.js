@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import classes from "./Checkout.module.css";
 import axios from "axios";
 import { connect } from "react-redux";
-import Button from "../UI/Button/Button";
+import MyButton from "../UI/Button/Button";
 import ShoppingTable from "../ShoppingTable/ShoppingTable";
 import PaymentForm from "../PaymentForm/PaymentForm";
 import Modal from "../UI/Modal/Modal";
@@ -188,9 +188,9 @@ class Checkout extends Component {
             <input type="number" name="accwire" required />
           </p>
           <div style={{ textAlign: "center" }}>
-            <Button btnType="SuccessSmall" type="submit">
+            <MyButton btnType="continue" type="submit">
               SUBMIT
-            </Button>
+            </MyButton>
           </div>
         </form>
       );
@@ -264,9 +264,9 @@ class Checkout extends Component {
                 {/* <option>CREDIT CARD</option> */}
               </select>
               <div className={classes.ButtonAddress}>
-                <Button clicked={this.onAddressPressed} btnType="DangerSmall">
+                <MyButton clicked={this.onAddressPressed} btnType="change">
                   Change Shipping Address
-                </Button>
+                </MyButton>
               </div>
             </div>
             <br></br>
@@ -295,9 +295,9 @@ class Checkout extends Component {
             </div>
             <div className={classes.Conf}>THANK YOU</div>
             <div className={classes.Conf}>
-              <Button clicked={this.onConfirmedPressed} btnType="SuccessSmall">
+              <MyButton clicked={this.onConfirmedPressed} btnType="SuccessSmall">
                 OK
-              </Button>
+              </MyButton>
             </div>
           </Modal>
           <Modal

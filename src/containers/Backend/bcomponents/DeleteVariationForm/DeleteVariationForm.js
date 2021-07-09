@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./DeleteVariationForm.module.css";
-
+import MyButton from "../../../../components/UI/Button/Button";
 const deleteVariationForm = (props) => {
   let options = props.stock.map((row, index) => (
     <option key={index}>{row.variation}</option>
@@ -17,10 +17,10 @@ const deleteVariationForm = (props) => {
           <br></br>
           <br></br>
           <li key="sub">
-            <input type="submit" value="SUBMIT" />
-            <button type="button" onClick={props.modalClosed}>
+            <MyButton type="submit" btnType="continue">SUBMIT</MyButton> 
+            <MyButton type="button" clicked={props.modalClosed} btnType="cancel">
               CANCEL
-            </button>
+            </MyButton>
           </li>
         </ul>
       </form>

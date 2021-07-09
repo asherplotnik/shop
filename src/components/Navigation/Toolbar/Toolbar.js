@@ -12,6 +12,10 @@ import engImage from "../../../assets/images/eng.png";
 import thaiImage from "../../../assets/images/thai.png";
 import { Tooltip } from "@material-ui/core";
 import { dic } from "../../../assets/helper";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
+import IconButton from "@material-ui/core/IconButton";
+
 const Toolbar = (props) => {
   const [showBackend, setShowBackend] = useState(false);
   useEffect(() => {
@@ -83,7 +87,7 @@ const Toolbar = (props) => {
                 />
               </Tooltip>
             </div>
-            <div style={{ width: "150px", cursor: "pointer" }}>
+            <div style={{ width: "150px", cursor: "pointer" , fontSize:"17px"}}>
               <p onClick={onPressedLogin} className={classes.PLogin}>
                 {props.token === null
                   ? dic.login[props.lang]
@@ -95,10 +99,14 @@ const Toolbar = (props) => {
               className={[showCart, classes.DesktopOnly].join(" ")}
             >
               <div onClick={onPressedCart} className={classes.Cart2}>
-                <img onClick={onPressedCart} src={cart2} alt="cart" />
+                <IconButton color="primary" aria-label="to shopping cart">
+                  <ShoppingCartIcon fontSize="large" />
+                </IconButton>
               </div>
               <div onClick={onPressedCart} className={classes.Cart}>
-                <img onClick={onPressedCart} src={cart} alt="cart" />
+                <IconButton color="primary" aria-label="to shopping cart">
+                  <ShoppingCartOutlinedIcon fontSize="large" />
+                </IconButton>
               </div>
             </div>
           </div>

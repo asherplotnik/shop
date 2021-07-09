@@ -18,8 +18,7 @@
   justify-content: space-between;
 }
 
-.Ul input,
-.Ul button {
+.Ul input {
   font-family: "BenchNine", sans-serif;
   font-size: x-large;
 }
