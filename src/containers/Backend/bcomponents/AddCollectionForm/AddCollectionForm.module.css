@@ -18,6 +18,9 @@
   display: flex;
   justify-content: space-between;
 }
+.TextField {
+  width: 90% !important;
+}
 
 .AddButton {
   padding: 20px;
@@ -30,8 +33,6 @@
 
 .FormDiv {
   display: block;
-  border: solid 1px #ccc;
-  border-radius: 10px;
   margin: 15px;
 }
 

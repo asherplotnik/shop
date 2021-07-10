@@ -16,7 +16,7 @@ const About = (props) => {
 
   const fetchData = () => {
     axios.get(serverAddress + "api/getAboutUs").then((response) => {
-      setContent(response.data[0]);
+      setContent(response?.data.find(el => el.id === 1));
       setLoading(false);
     });
   };

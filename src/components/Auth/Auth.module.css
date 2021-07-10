@@ -4,14 +4,11 @@
 .Auth {
   font-family: "Roboto", "Sriracha";
   color: teal;
-  
-  margin: 20px auto;
-  border: 1px solid #eee;
-  box-shadow: 0 2px 3px #ccc;
-  border-radius: 10px;
+  margin: 20px auto ; 
   padding: 5px 10px 5px 10px;
   box-sizing: border-box;
 }
+
 
 .TransIn {
   animation: trans 0.3s ease-out forwards;

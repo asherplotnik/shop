@@ -1,11 +1,17 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import MyButton from "../../../../components/UI/Button/Button";
 import classes from "./AddCollectionForm.module.css";
 import axios from "axios";
 import { serverAddress } from "../../../../assets/helper";
+import { TextField, Typography } from "@material-ui/core";
 
-class AddForm extends Component {
-  onAddCollecionForm = async (e) => {
+const AddForm =(props) => {
+  const [uploaded,setUploaded] = useState(null);
+
+  const onUploaded = (e) => {
+    setUploaded(e.target.value);
+  }
+  const onAddCollecionForm = async (e) => {
     e.preventDefault();
 
     const addCollecionForm = document.querySelector("#addCollecionForm");
@@ -22,76 +28,88 @@ class AddForm extends Component {
         if (response.data === "collection exists already") {
           alert(response.data);
         }
-        this.props.addForm();
+        props.addForm();
       })
       .catch((error) => {
         alert(error);
-        this.props.addForm();
+        props.addForm();
       });
   };
 
-  render() {
     return (
       <div className={classes.Control}>
         <div className={classes.AddButton}>
           <MyButton
             className={classes.Add}
-            clicked={this.props.onAddInputHanadler}
+            clicked={props.onAddInputHanadler}
             btnType="add"
-            disabled={this.props.updateToggle}
+            disabled={props.updateToggle}
           >
             ADD COLLECTION
           </MyButton>
         </div>
-        <div className={classes.FormDiv} style={{ display: this.props.input }}>
-          <form id="addCollecionForm" onSubmit={this.onAddCollecionForm}>
+        <div className={classes.FormDiv} style={{ display: props.input }}>
+          <form id="addCollecionForm" onSubmit={onAddCollecionForm}>
             <ul className={classes.FormList}>
-              <label className={classes.Font}>ADD COLLECTION :</label>
+              <li>
+                <Typography component="h1" variant="h6">
+                  ADD COLLECTION :
+                </Typography>
+              </li>
               <br></br>
-              <br></br>
               <li>
-                <label htmlFor="addCollName">ENTER COLLECTION'S NAME:</label>
-              </li>
-              <li>
-                <input type="text" id="addCollName" name="mainTitle" />
-              </li>
-              <li style={{ opacity: " 0 " }}>space</li>
-              <li>
-                <label htmlFor="addCollDesc">
-                  ENTER COLLECTION'S DESCRIPTION:
-                </label>
-              </li>
-              <li>
-                <input
+                <TextField
+                  className={classes.TextField}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  label="ENTER COLLECTION'S NAME:"
+                  name="mainTitle"
+                  id="addCollName"
                   type="text"
-                  id="addCollDesc"
-                  name="mainTitleT"
-                  size="30"
+                  autoFocus
                 />
               </li>
-              <li style={{ opacity: " 0 " }}>space</li>
               <li>
-                <label htmlFor="addUploadFile">ADD IMAGE FILE:</label>
+                <TextField
+                  className={classes.TextField}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  label="ENTER COLLECTION'S DESCRIPTION:"
+                  name="mainTitleT"
+                  id="addCollDesc"
+                  type="text"
+                  autoFocus
+                />
               </li>
-              <li>
+              <br></br>
+              <MyButton btnType={uploaded ? "uploaded" : "upload"} component="label">
+                ADD IMAGE FILE:
                 <input
-                  id="addUploadFile"
                   type="file"
+                  hidden
                   name="firstImage"
+                  type="file"
+                  id="addUploadFile"
+                  onChange={onUploaded}
                   required
                 />
-              </li>
+              </MyButton>
               <li style={{ opacity: " 0 " }}>space</li>
               <li>
-                <MyButton btnType="continue" type="submit">SUBMIT</MyButton>
+                <MyButton btnType="continue" type="submit">
+                  SUBMIT
+                </MyButton>
               </li>
             </ul>
           </form>
         </div>
-        {this.props.children}
+        {props.children}
       </div>
     );
-  }
 }
 
 export default AddForm;

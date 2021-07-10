@@ -20,6 +20,10 @@
 .Font,
 .FormList input,
 .FormList select {
-  font-family: "Roboto", sans-serif;
-  
+  font-family: "Roboto", sans-serif; 
+}
+
+.ButtonDiv {
+  margin: 5px;
+  width: 100%;
 }

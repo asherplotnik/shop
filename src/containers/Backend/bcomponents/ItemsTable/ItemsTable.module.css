@@ -1,20 +1,19 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 
 .CellStyle {
-  vertical-align: middle;
+  /* vertical-align: middle; */
   font-family: "Roboto", sans-serif;
 }
 
 .CellStyleButton {
-  vertical-align: middle;
+  /* vertical-align: middle; */
 }
 .HeaderStyle {
-  vertical-align: middle;
+  /* vertical-align: middle; */
   font-family: "Roboto", sans-serif;
   
 }
 
 .Stock {
-  font-family: sans-serif;
-  font-size: large;
+  font-family: "Roboto";
 }

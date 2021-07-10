@@ -29,12 +29,13 @@ const transactionTable = (props) => {
       width: 110,
     },
     {
-      Header: <div className={classes.CellStyle}>IN/OUT</div>,
+      Header: <div className={classes.CellStyle}>IN/OUT(true/false)</div>,
+      width:150,
       accessor: "inorout",
       Cell: (row) => (
-        <span className={classes.CellStyle}>
-          {row.value === true ? "IN" : "OUT"}
-        </span>
+          <span className={classes.CellStyle}>
+            {row.value === true ? "IN" : "OUT"}
+          </span>
       ),
     },
     {

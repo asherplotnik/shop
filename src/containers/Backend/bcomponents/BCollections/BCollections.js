@@ -242,8 +242,8 @@ class BCollections extends Component {
           return {
             onClick: (e, handleOriginal) => {
               if (rowInfo !== undefined) {
-                console.log("A Td Element was clicked!");
-                console.log("it produced this event:", e.target.innerHTML);
+                // console.log("A Td Element was clicked!");
+                // console.log("it produced this event:", e.target.innerHTML);
                 if (
                   e.target.innerHTML === "DELETE" &&
                   !this.state.inputFileToggleOn
@@ -276,9 +276,9 @@ class BCollections extends Component {
                     }
                   });
                 }
-                console.log("It was in this column:", column.Header);
-                console.log("It was in this row:", rowInfo);
-                console.log("It was in this table instance:", instance);
+                // console.log("It was in this column:", column.Header);
+                // console.log("It was in this row:", rowInfo);
+                // console.log("It was in this table instance:", instance);
 
                 if (handleOriginal) {
                   handleOriginal();

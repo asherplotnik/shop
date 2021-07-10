@@ -6,37 +6,37 @@ import ReactTable from "react-table-6";
 const OrdersTable = (props) => {
   const orderDetailsColumns = [
     {
-      Header: <strong className={classes.OrderDetails}>ID</strong>,
+      Header: <span className={classes.OrderDetails}>ID</span>,
       accessor: "id",
       Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },
     {
-      Header: <strong className={classes.OrderDetails}>ORDER ID</strong>,
+      Header: <span className={classes.OrderDetails}>ORDER ID</span>,
       accessor: "orderid",
       Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },
     {
-      Header: <strong className={classes.OrderDetails}>CODE</strong>,
+      Header: <span className={classes.OrderDetails}>CODE</span>,
       accessor: "code",
       Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },
     {
-      Header: <strong className={classes.OrderDetails}>VARIATION</strong>,
+      Header: <span className={classes.OrderDetails}>VARIATION</span>,
       accessor: "variation",
       Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },
     {
-      Header: <strong className={classes.OrderDetails}>QUANTITY</strong>,
+      Header: <span className={classes.OrderDetails}>QUANTITY</span>,
       accessor: "quantity",
       Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },
     {
-      Header: <strong className={classes.OrderDetails}>PRICE</strong>,
+      Header: <span className={classes.OrderDetails}>PRICE</span>,
       accessor: "price",
       Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },
     {
-      Header: <strong className={classes.OrderDetails}>TOTAL</strong>,
+      Header: <span className={classes.OrderDetails}>TOTAL</span>,
       accessor: "total",
       Cell: (row) => <span className={classes.OrderDetails}>{row.value}</span>,
     },

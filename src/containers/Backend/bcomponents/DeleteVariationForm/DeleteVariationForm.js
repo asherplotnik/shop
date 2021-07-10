@@ -1,9 +1,10 @@
 import React from "react";
 import classes from "./DeleteVariationForm.module.css";
 import MyButton from "../../../../components/UI/Button/Button";
+import { MenuItem, TextField } from "@material-ui/core";
 const deleteVariationForm = (props) => {
   let options = props.stock.map((row, index) => (
-    <option key={index}>{row.variation}</option>
+    <MenuItem key={index} value={row.variation}>{row.variation}</MenuItem>
   ));
   return (
     <div className={classes.deleteVariationForm}>
@@ -11,8 +12,16 @@ const deleteVariationForm = (props) => {
         <div className={classes.Font}>DELETE VARIATION</div>
         <ul className={classes.FormList}>
           <li key="variation">
-            <label htmlFor="deleteVariation">VARIATION: </label>
-            <select name="deleteVariation">{options}</select>
+            <TextField
+            fullWidth
+            variant="outlined"
+            name="deleteVariation"
+            select
+            margin="dense"
+            label="VARIATION:"
+            >
+            {options}
+          </TextField>
           </li>
           <br></br>
           <br></br>

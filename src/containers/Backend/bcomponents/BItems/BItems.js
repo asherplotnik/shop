@@ -82,7 +82,7 @@ class BItems extends Component {
       })
       .catch((error) => {
         console.log(error);
-        alert(error.response.data.message);
+        alert(error?.response?.data.message);
         document.querySelector("#updateItemForm").reset();
         this.requestQuery();
       });

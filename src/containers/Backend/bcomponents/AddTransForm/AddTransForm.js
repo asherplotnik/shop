@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import classes from "./AddTransForm.module.css";
 import MyButton from "../../../../components/UI/Button/Button";
+import { MenuItem, TextField } from "@material-ui/core";
 const AddTransForm = (props) => {
   useEffect(() => {
     if (props.rVariation) {
@@ -13,7 +14,7 @@ const AddTransForm = (props) => {
   };
 
   let options = props.stock.map((row, index) => (
-    <option key={index}>{row.variation}</option>
+    <MenuItem key={index} value={row.variation}>{row.variation}</MenuItem>
   ));
   return (
     <div className={classes.AddTransForm}>
@@ -21,23 +22,41 @@ const AddTransForm = (props) => {
         <div className={classes.Font}>{props.title}</div>
         <ul className={classes.FormList}>
           <li key="variation">
-            <label htmlFor="variation">VARIATION: </label>
-            <select name="variation" value={varState} onChange={handleChange}>
+            <TextField
+              fullWidth
+              className={classes.TextField}
+              value={varState}
+              onChange={handleChange}
+              variant="outlined"
+              name="variation"
+              select
+              margin="dense"
+              label="VARIATION: "
+            >
               {options}
-            </select>
+            </TextField>
           </li>
           <li key="qty">
-            <label htmlFor="qty">QUANTITY: </label>
+            {/* <label htmlFor="qty">QUANTITY: </label>
             <input
               type="number"
               name="qty"
+              
+              defaultValue={props.rQty}
+            /> */}
+            <TextField
+              fullWidth
+              type="number"
               min="1"
               step="1"
-              defaultValue={props.rQty}
+              name="qty"
+              margin="dense"
+              variant="outlined"
+              label="QUANTITY: "
             />
           </li>
           <li key="inout">
-            <label htmlFor="inorout">IN / OUT: </label>
+            {/* <label htmlFor="inorout">IN / OUT: </label>
             <select name="inorout" defaultValue={props.rInout}>
               <option key={1} value={true}>
                 IN
@@ -45,11 +64,32 @@ const AddTransForm = (props) => {
               <option key={2} value={false}>
                 OUT
               </option>
-            </select>
+            </select> */}
+            <TextField
+              fullWidth
+              variant="outlined"
+              name="inorout"
+              select
+              margin="dense"
+              label="IN / OUT: "
+            >
+              <MenuItem key={1} value={true}>
+                IN
+              </MenuItem>
+              <MenuItem key={2} value={false}>
+                OUT
+              </MenuItem>
+            </TextField>
           </li>
           <li key="NOTE">
-            <label htmlFor="note">NOTE: </label>
-            <input type="text" name="note" defaultValue={props.rNote} />
+            <TextField
+              fullWidth
+              type="text"
+              name="note"
+              margin="dense"
+              variant="outlined"
+              label="NOTE: "
+            />
           </li>
           <br></br>
           <br></br>

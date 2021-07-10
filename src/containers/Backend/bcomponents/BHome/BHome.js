@@ -22,8 +22,8 @@ const BHome = (props) => {
 
   const fetchData = () => {
     axios.get(serverAddress + "api/getAboutUs").then((response) => {
-      setAboutContent(response.data[0]);
-      setFooterContent(response.data[1]);
+      setAboutContent(response?.data.find(el => el.id === 1));
+      setFooterContent(response?.data.find(el => el.id === 2));
       setLoadingFooter(false);
       setLoadingAbout(false);
     });
@@ -33,6 +33,8 @@ const BHome = (props) => {
     e.preventDefault();
     setLoadingAbout(true);
     const formData = new FormData(document.querySelector("#updateAboutUs"));
+    console.log(formData.get("mainTitle"));
+    console.log(formData.get("firstParagraph"));
     axios
       .post(serverAddress + "admin/updateAboutUs", formData, {
         headers: {

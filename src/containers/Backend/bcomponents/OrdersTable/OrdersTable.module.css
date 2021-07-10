@@ -3,7 +3,7 @@
 .CellStyle {
   vertical-align: middle;
   font-family: "Roboto", sans-serif;
-
+  line-height: 40px;
 }
 
 .CellStyleButton {
@@ -16,6 +16,5 @@
 }
 
 .OrderDetails {
-  font-family: sans-serif;
-  font-size: large;
+  font-family: Roboto;
 }

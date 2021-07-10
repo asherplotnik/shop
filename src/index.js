@@ -24,7 +24,7 @@ const rootReducer = combineReducers({
   langReducer: langReducer,
 });
 
-const store = createStore(
+export const store = createStore(
   rootReducer,
   composeEnhancers(applyMiddleware(thunk))
 );

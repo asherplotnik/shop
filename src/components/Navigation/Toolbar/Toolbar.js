@@ -98,16 +98,19 @@ const Toolbar = (props) => {
               onClick={onPressedCart}
               className={[showCart, classes.DesktopOnly].join(" ")}
             >
+               <Tooltip title={dic.shoppingCart[props.lang]}>
               <div onClick={onPressedCart} className={classes.Cart2}>
                 <IconButton color="primary" aria-label="to shopping cart">
                   <ShoppingCartIcon fontSize="large" />
                 </IconButton>
               </div>
+              </Tooltip>
               <div onClick={onPressedCart} className={classes.Cart}>
                 <IconButton color="primary" aria-label="to shopping cart">
                   <ShoppingCartOutlinedIcon fontSize="large" />
                 </IconButton>
               </div>
+             
             </div>
           </div>
         </div>

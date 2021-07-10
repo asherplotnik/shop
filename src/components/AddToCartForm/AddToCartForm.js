@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactTable from "react-table-6";
 import classes from "./AddToCartForm.module.css";
 import MyButton from "../UI/Button/Button";
+import { MenuItem, TextField, Typography } from "@material-ui/core";
+import { dic } from "../../assets/helper";
+import { store } from "../..";
 const AddToCartForm = (props) => {
+  const lang = store.getState().langReducer.lang;
+  const [variation, setVariation] = useState();
   const stockColumns = [
     {
       Header: <strong className={classes.StockColumns}>IN STOCK</strong>,
@@ -17,7 +22,11 @@ const AddToCartForm = (props) => {
     },
   ];
   let option = props.stock.map((row, index) => {
-    return <option key={index}>{row.variation}</option>;
+    return (
+      <MenuItem key={index} value={row.variation}>
+        {row.variation}
+      </MenuItem>
+    );
   });
 
   const findImage = (variation) => {
@@ -28,6 +37,9 @@ const AddToCartForm = (props) => {
     }
   };
 
+  const handleVariation = (e) => {
+    setVariation(e.target.value);
+  };
   const checkValidity = (e) => {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#addToCart"));
@@ -46,13 +58,15 @@ const AddToCartForm = (props) => {
     if (entry !== null) {
       props.confirmForm(entry);
     } else {
-      alert("QUANTITY ABOVE STOCK AVAILABILITY!");
+      alert("INVALID INPUT!");
     }
   };
 
   return (
     <div>
-      <h1 className={classes.Title}>ADD TO CART</h1>
+      <Typography component="h1" variant="h6">
+        ADD TO CART
+      </Typography>
       <ReactTable
         style={{ border: "1px solid #b6e4f5" }}
         columns={stockColumns}
@@ -65,25 +79,36 @@ const AddToCartForm = (props) => {
       />
       <div className={classes.Font}>
         <form id="addToCart" onSubmit={checkValidity}>
-          {/*onSubmit={props.confirmForm}> */}
+          <br />
+
+          <TextField
+            className={classes.TextField}
+            value={variation}
+            onChange={handleVariation}
+            variant="outlined"
+            name="selectedVar"
+            select
+            label="SELECT VARIATION:"
+            helperText="Please select variation"
+          >
+            {option}
+          </TextField>
+          <br />
+          <TextField
+            className={classes.TextField}
+            min="1"
+            step="1"
+            defaultValue="1"
+            variant="outlined"
+            margin="normal"
+            required
+            label={dic.quantity[lang]}
+            name="quantity"
+            type="number"
+            autoFocus
+          />
+          <br />
           <ul className={classes.Flist}>
-            <li>
-              {" "}
-              <label htmlFor="selectedVar"> SELECT VARIATION: </label>{" "}
-              <select name="selectedVar">{option}</select>
-            </li>
-            <li>
-              {" "}
-              <label htmlFor="quantity">ENTER QUANTITY:</label>{" "}
-              <input
-                type="number"
-                name="quantity"
-                min="1"
-                step="1"
-                defaultValue="1"
-                required
-              />
-            </li>
             <li>
               {" "}
               <MyButton type="submit" btnType="continue">

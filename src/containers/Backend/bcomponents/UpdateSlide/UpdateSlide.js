@@ -11,8 +11,13 @@ const UpdateSlide = () => {
   let [addNewImgPressed, setAddNewImagePressed] = useState(false);
   let [updateImgPressed, setUpdateImagePressed] = useState(false);
   let [loadingSlide, setLoadingSlide] = useState(false);
+  const [uploaded,setUploaded] = useState(null);
+  const onUploaded = (e) => {
+    setUploaded(e.target.value);
+  }
   const onSetAddNewImagePressed = () => {
     setAddNewImagePressed(!addNewImgPressed);
+    setUploaded(null);
   };
   const onUpdateImagePressed = (rowId) => {
     setUpdateImagePressed(!updateImgPressed);
@@ -21,6 +26,7 @@ const UpdateSlide = () => {
 
   const onUpdateOff = () => {
     setUpdateImagePressed(false);
+    setUploaded(null);
   };
   const onSetImgSelected = (e) => {
     e.preventDefault();
@@ -140,34 +146,26 @@ const UpdateSlide = () => {
             <div className={classes.Font}>ADD IMAGE</div>
             <div>
               <ul className={classes.FormList}>
-                <li>
-                  <input
-                    id="addImage"
-                    name="firstImage"
-                    type="file"
-                    className={classes.CustomInput}
-                  />
-                </li>
-                <li>
-                  <br />
-                </li>
-                <li>
-                  <label className={classes.Label} htmlFor="imageLink">
-                    Enter Link:{" "}
-                  </label>
-                  <input
-                    className={classes.Row}
-                    name="imageLink"
-                    type="text"
-                    size="35"
-                  />
-                </li>
+              <li>
+                <MyButton fullWidth btnType={uploaded ? "uploaded" : "upload"} component="label">
+                UPLOAD IMAGE FILE:
+                <input
+                  id="addImage"
+                  type="file"
+                  hidden
+                  name="firstImage"
+                  type="file"
+                  onChange={onUploaded}
+                  required
+                />
+              </MyButton>
+              </li>
                 <li>
                   <br />
                 </li>
                 <li>
-                  <div style={{ textAlign: "center", width: "450px" }}>
-                    <input type="submit" />
+                  <div style={{ textAlign: "center", width: "100%" }}>
+                    <MyButton type="submit" btnType="continue">SUBMIT</MyButton>
                   </div>
                 </li>
               </ul>
@@ -179,34 +177,26 @@ const UpdateSlide = () => {
             <div className={classes.Font}>UPDATE IMAGE</div>
             <div>
               <ul className={classes.FormList}>
-                <li>
-                  <input
-                    id="updateImage"
-                    name="firstImage"
-                    type="file"
-                    className={classes.CustomInput}
-                  />
-                </li>
-                <li>
-                  <br />
-                </li>
-                <li>
-                  <label className={classes.Label} htmlFor="imageLink">
-                    Enter Link:{" "}
-                  </label>
-                  <input
-                    className={classes.Row}
-                    name="imageLink"
-                    type="text"
-                    size="35"
-                  />
-                </li>
+              <li>
+                <MyButton fullWidth btnType={uploaded ? "uploaded" : "upload"} component="label">
+                UPLOAD IMAGE FILE:
+                <input
+                  id="updateImage"
+                  type="file"
+                  hidden
+                  name="firstImage"
+                  type="file"
+                  onChange={onUploaded}
+                  required
+                />
+              </MyButton>
+              </li>
                 <li>
                   <br />
                 </li>
                 <li>
-                  <div style={{ textAlign: "center", width: "450px" }}>
-                    <input type="submit" />
+                  <div style={{ textAlign: "center", width: "100%" }}>
+                    <MyButton type="submit" btnType="continue">SUBMIT</MyButton>
                   </div>
                 </li>
               </ul>

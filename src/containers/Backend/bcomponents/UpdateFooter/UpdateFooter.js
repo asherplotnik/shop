@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./UpdateFooter.module.css";
 import MyButton from "../../../../components/UI/Button/Button";
+import { TextField } from "@material-ui/core";
 const UpdateFooter = (props) => {
   // mainTitle = "youtube"
   // mainTitleT = "facebook"
@@ -11,46 +12,58 @@ const UpdateFooter = (props) => {
       <form id="updateFooter" onSubmit={props.updateFooterHandler}>
         <ul className={classes.Ul}>
           <li>
-            <label htmlFor="mainTitle">YOUTUBE LINK:</label>
-          </li>
-          <li>
-            <input
-              type="text"
+            <TextField
               defaultValue={props.content.mainTitle}
+              variant="outlined"
+              margin="normal"
+              label="YOUTUBE LINK:"
               name="mainTitle"
+              id="youtube"
+              type="text"
+              autoFocus
+              required
             />
           </li>
           <br className={classes.Br}></br>
           <li>
-            <label htmlFor="mainTitleT">FACEBOOK LINK:</label>
-          </li>
-          <li>
-            <input
-              type="text"
+            <TextField
               defaultValue={props.content.mainTitleT}
+              variant="outlined"
+              margin="normal"
+              label="FACEBOOK LINK:"
               name="mainTitleT"
+              id="facebook"
+              type="text"
+              autoFocus
+              required
             />
           </li>
           <br className={classes.Br}></br>
           <li>
-            <label htmlFor="firstParagraph">EMAIL:</label>
-          </li>
-          <li>
-            <input
-              type="text"
+             <TextField
               defaultValue={props.content.firstParagraph}
+              variant="outlined"
+              margin="normal"
+              label="EMAIL:"
               name="firstParagraph"
+              id="myEmail"
+              type="email"
+              autoFocus
+              required
             />
           </li>
           <br className={classes.Br}></br>
           <li>
-            <label htmlFor="firstParagraphT">PHONE NUMBER:</label>
-          </li>
-          <li>
-            <input
-              type="text"
+          <TextField
               defaultValue={props.content.firstParagraphT}
+              variant="outlined"
+              margin="normal"
+              label="PHONE NUMBER:"
               name="firstParagraphT"
+              id="myPhone"
+              type="text"
+              autoFocus
+              required
             />
           </li>
           <br className={classes.Br}></br>

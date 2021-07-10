@@ -6,6 +6,17 @@ import classes from "./Auth.module.css";
 import * as actions from "../../store/actions/index";
 import { withRouter } from "react-router-dom";
 import { dic, serverAddress } from "../../assets/helper";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import { TextareaAutosize } from "@material-ui/core";
 class Auth extends Component {
   state = {
     signIn: true,
@@ -143,88 +154,116 @@ class Auth extends Component {
   render() {
     const lang = this.props.lang;
     let form = (
-      <div className={[classes.Auth, classes.TransIn].join(" ")}>
-        <form id="signin" onSubmit={this.onSub} className={classes.Form}>
-          <div>
-            <p>{dic.signIn[lang]}</p>
-          </div>
-          <ul className={classes.FormList}>
-            <li>
-              <label htmlFor="email">{dic.email[lang]} </label>
-              <input name="email" type="email" required />
-            </li>
-            <li>
-              <label htmlFor="password">{dic.password[lang]} </label>
-              <input name="password" type="password" minLength="6" required />
-            </li>
-          </ul>
-          <br></br>
-          <MyButton btnType="continue" type="submit">
-            {dic.submit[lang]}
-          </MyButton>
-        </form>
-        <p>{this.state.message}</p>
-      </div>
+      
+        <div className={[classes.Auth, classes.TransIn].join(" ")}>
+          <form id="signin" onSubmit={this.onSub} className={classes.Form}>
+            <Typography component="h1" variant="h6">
+              {dic.signIn[lang]}
+            </Typography>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label={dic.email[lang]}
+              name="email"
+              type="email"
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label={dic.password[lang]}
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <br />
+            <br />
+            <MyButton btnType="continue" type="submit">
+              {dic.submit[lang]}
+            </MyButton>
+          </form>
+          <p>{this.state.message}</p>
+        </div>
     );
 
     if (!this.state.signIn)
       form = (
         <div className={[classes.Auth, classes.TransUp].join(" ")}>
           <form id="signup" onSubmit={this.onSub} className={classes.Form}>
-            <div>
-              <p>{dic.signUp[lang]}</p>
-            </div>
-            <ul className={classes.FormList}>
-              <li>
-                <label htmlFor="username">{dic.name[lang]}</label>
-                <input name="username" type="text" required />
-              </li>
-              <li className={classes.FormList}>
-                <label htmlFor="address">{dic.address[lang]}</label>
-                <textarea
-                  style={{ resize: "none" }}
-                  rows="4"
-                  cols="30"
-                  name="address"
-                  required
-                />
-              </li>
-              <li className={classes.FormList}>
-                <label htmlFor="phone">{dic.phone[lang]}</label>
-                <input
-                  className={
-                    this.state.messageClass === "phone"
-                      ? classes.MessageOn
-                      : classes.MessageOff
-                  }
-                  name="phone"
-                  type="text"
-                  required
-                />
-              </li>
-              <li className={classes.FormList}>
-                <label htmlFor="email">{dic.email[lang]}</label>
-                <input name="email" type="mail" required />
-              </li>
-              <li>
-                <label htmlFor="password">{dic.password[lang]}</label>
-                <input name="password" type="password" minLength="6" required />
-              </li>
-              <li>
-                <label htmlFor="confirm">{dic.confirmPassword[lang]}</label>
-                <input
-                  className={
-                    this.state.messageClass === "password"
-                      ? classes.MessageOn
-                      : classes.MessageOff
-                  }
-                  name="confirm"
-                  type="password"
-                  minLength="6"
-                  required
-                />
-              </li>
-            </ul>
+            <Typography component="h1" variant="h6">
+              {dic.signUp[lang]}
+            </Typography>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              label={dic.name[lang]}
+              name="username"
+              type="text"
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              label={dic.address[lang]}
+              name="address"
+              type="text"
+              multiline
+              rows={2}
+              autoFocus
+            />
+             <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              label={dic.phone[lang]}
+              name="phone"
+              type="text"
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              label={dic.email[lang]}
+              name="email"
+              type="email"
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              label={dic.password[lang]}
+              name="password"
+              type="password"
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              label={dic.confirmPassword[lang]}
+              name="confirm"
+              type="password"
+              autoFocus
+            />
+            <br />
+            <br />
             <MyButton btnType="continue" type="submit">
               {dic.submit[lang]}
             </MyButton>
@@ -232,21 +271,20 @@ class Auth extends Component {
           {this.state.message}
         </div>
       );
+
     return (
-      <div className={classes.Trans}>
+      <div >
         {form}
-        <div style={{ fontSize: "x-large" }}>
-          {/* <MyButton clicked={this.switchSign} btnType="signup">
-            {this.state.signIn ? dic.signUp[lang] : dic.signIn[lang]}
-          </MyButton>{" "} */}
-        {this.state.signIn ?  
+        {this.state.signIn ? (
           <MyButton clicked={this.switchSign} btnType="signup">
-            {dic.signUp[lang] }
-          </MyButton> :
+            {dic.signUp[lang]}
+          </MyButton>
+        ) : (
           <MyButton clicked={this.switchSign} btnType="signin">
-          {dic.signIn[lang]}
-        </MyButton>}
-        </div>
+            {dic.signIn[lang]}
+          </MyButton>
+        )}
+        
       </div>
     );
   }

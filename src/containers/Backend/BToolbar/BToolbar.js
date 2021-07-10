@@ -14,7 +14,7 @@ const toolbar = props => (
         <nav className={classes.DesktopOnly}>
           <BNavigationItems />
         </nav>
-        <div className={classes.Tback}>BACK-END</div>
+        <div className={classes.Tback}>ADMIN</div>
       </div>
       <hr className={classes.HrClass} />
     </header>

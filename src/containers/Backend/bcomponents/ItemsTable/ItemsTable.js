@@ -9,11 +9,13 @@ const itemsTable = (props) => {
       Header: <strong className={classes.Stock}>QUANTITY</strong>,
       accessor: "qty",
       Cell: (row) => <span className={classes.Stock}>{row.value}</span>,
+      width:200,
     },
     {
       Header: <strong className={classes.Stock}>VARIATION</strong>,
       accessor: "variation",
       Cell: (row) => <span className={classes.Stock}>{row.value}</span>,
+      width:200,
     },
   ];
 
@@ -25,6 +27,12 @@ const itemsTable = (props) => {
         </div>
       ),
       accessor: "id",
+      filterMethod: (filter, row, column) => {
+        const id = filter.pivotId || filter.id;
+        return row[id] !== undefined
+          ? String(row[id]).startsWith(filter.value)
+          : true;
+      },
       Cell: (row) => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
@@ -43,6 +51,12 @@ const itemsTable = (props) => {
         </div>
       ),
       accessor: "code",
+      filterMethod: (filter, row, column) => {
+        const id = filter.pivotId || filter.id;
+        return row[id] !== undefined
+          ? String(row[id]).toUpperCase().startsWith(filter.value.toUpperCase())
+          : true;
+      },
       Cell: (row) => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
@@ -61,6 +75,12 @@ const itemsTable = (props) => {
         </div>
       ),
       accessor: "collection",
+      filterMethod: (filter, row, column) => {
+        const id = filter.pivotId || filter.id;
+        return row[id] !== undefined
+          ? String(row[id]).toUpperCase().startsWith(filter.value.toUpperCase())
+          : true;
+      },
       Cell: (row) => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
@@ -136,6 +156,12 @@ const itemsTable = (props) => {
         </div>
       ),
       accessor: "type",
+      filterMethod: (filter, row, column) => {
+        const id = filter.pivotId || filter.id;
+        return row[id] !== undefined
+          ? String(row[id]).toUpperCase().startsWith(filter.value.toUpperCase())
+          : true;
+      },
       Cell: (row) => (
         <div style={{ lineHeight: "100px" }}>
           <div key={row.value} className={classes.CellStyle}>
@@ -157,7 +183,7 @@ const itemsTable = (props) => {
       filterMethod: (filter, row, column) => {
         const id = filter.pivotId || filter.id;
         return row[id] !== undefined
-          ? String(row[id]).startsWith(filter.value)
+          ? String(row[id]).toUpperCase().startsWith(filter.value.toUpperCase())
           : true;
       },
       Cell: (row) => (
@@ -220,7 +246,7 @@ const itemsTable = (props) => {
       ),
       accessor: "upt",
       Cell: () => (
-        <div style={{ marginTop: "20px" }}>
+        <div style={{ marginTop: "30px" }}>
           <MyButton id="updateButton" btnType="update">
             UPDATE
           </MyButton>
@@ -238,7 +264,7 @@ const itemsTable = (props) => {
       ),
       accessor: "del",
       Cell: () => (
-        <div style={{ marginTop: "20px" }}>
+        <div style={{ marginTop: "30px" }}>
           <MyButton btnType="delete">DELETE</MyButton>
         </div>
       ),

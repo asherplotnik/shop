@@ -1,135 +1,223 @@
 import React, { useEffect, useState } from "react";
 import classes from "./AddItemForm.module.css";
 import MyButton from "../../../../components/UI/Button/Button";
+import { MenuItem, TextField, Typography } from "@material-ui/core";
 const AddItemForm = (props) => {
-  useEffect(() => {
-    if (props.rCollection) {
-      setCollState(props.rCollection);
-    }
-  }, [props.rCollection]);
-  useEffect(() => {
-    if (props.rType) {
-      setTypeState(props.rType);
-    }
-  }, [props.rType]);
-  useEffect(() => {
-    if (props.rTrending) {
-      setTrendState(props.rTrending);
-    }
-  }, [props.rTrending]);
-  const [collState, setCollState] = useState("-");
-  const [typeState, setTypeState] = useState("-");
-  const [trendState, setTrendState] = useState("-");
+  const [uploaded1,setUploaded1] = useState(null);
+  const [uploaded2,setUploaded2] = useState(null);
+  const [state, setState] = useState();
+  useEffect(()=>{
+    setState(props);
+    console.log("fdsgdfGDFYEESS");
+  },[props]);
+  const onUploaded1 = (e) => {
+    setUploaded1(e.target.value);
+  }
+  const onUploaded2 = (e) => {
+    setUploaded2(e.target.value);
+  }
+  
   const onSelectColl = (e) => {
-    setCollState(e.target.value);
+    let temp = {...state};
+    temp.rCollection = e.target.value
+    setState(temp);
   };
   const onSelectType = (e) => {
-    setTypeState(e.target.value);
+    let temp = {...state};
+    temp.rType = e.target.value;
+    setState(temp);
   };
   const onSelectTrend = (e) => {
-    setTrendState(e.target.value);
+    let temp = {...state};
+    temp.rTrending = e.target.value;
+    setState(temp);
   };
+  
+  const onSelectCode = (e) => {
+    let temp = {...state};
+    temp.rCode = e.target.value;
+    setState(temp);
+  };
+  const onSelectDesc = (e) => {
+    let temp = {...state};
+    temp.rDesc = e.target.value;
+    setState(temp);
+  };
+  const onSelectSize = (e) => {
+    let temp = {...state};
+    temp.rSize = e.target.value;
+    setState(temp);
+  };
+  const onSelectPrice = (e) => {
+    let temp = {...state};
+    temp.rPrice = e.target.value;
+    setState(temp);
+  };
+  const onSelectDetails = (e) => {
+    let temp = {...state};
+    temp.rDetails = e.target.value;
+    setState(temp);
+  };
+
+
   let options = [];
   if (props.collSelect) {
     for (let i = 0; i < props.collSelect.length; i++) {
-      options.push(<option key={i}>{props.collSelect[i].name}</option>);
+      options.push(<MenuItem key={i} value={props.collSelect[i].name}>{props.collSelect[i].name}</MenuItem>);
     }
   }
   console.log(props.rDetails);
   return (
     <div className={classes.AddItemsForm}>
       <form id={props.formId} onSubmit={props.addItem}>
-        <div className={classes.Font}>{props.title}</div>
+        <Typography component="h1" variant="h5">{props.title}</Typography>
         <ul className={classes.FormList}>
           <li key="code">
-            <label htmlFor="AddCode">CODE: </label>
-            <input type="text" name="mainTitle" defaultValue={props.rCode} />
+            <TextField
+              value={state?.rCode || ""}
+              onChange={onSelectCode}
+              variant="outlined"
+              margin="dense"
+              required
+              fullWidth
+              label="CODE:"
+              name="mainTitle"
+              type="text"
+              autoFocus
+            />
           </li>
           <li key="collection">
-            <label htmlFor="mainTitleT">COLLECTION: </label>
-            <select name="mainTitleT" value={collState} onChange={onSelectColl}>
-              {" "}
-              {options}
-            </select>
+            <TextField
+            fullWidth
+            className={classes.TextField}
+            value={state?.rCollection  || ""}
+            onChange={onSelectColl}
+            variant="outlined"
+            name="mainTitleT"
+            select
+            margin="dense"
+            label="COLLECTION:"
+            >
+            {options}
+          </TextField>
           </li>
           <li key="desc">
-            <label htmlFor="firstParagraph">DESCRIPTION: </label>
-            <input
-              type="text"
+            <TextField
+              value={state?.rDesc  || ""}
+              onChange={onSelectDesc}
+              variant="outlined"
+              margin="dense"
+              fullWidth
+              label="DESCRIPTION:"
               name="firstParagraph"
-              defaultValue={props.rDesc}
+              type="text"
+              autoFocus
             />
           </li>
           <li key="size">
-            <label htmlFor="firstParagraphT">SIZE: </label>
-            <input
-              type="text"
+            <TextField
+              value={state?.rSize  || ""}
+              onChange={onSelectSize}
+              variant="outlined"
+              margin="dense"
+              fullWidth
+              label="SIZE:"
               name="firstParagraphT"
-              defaultValue={props.rSize}
+              type="text"
+              autoFocus
             />
           </li>
           <li key="price">
-            <label htmlFor="secondParagraph">PRICE: </label>
-            <input
-              type="number"
+            <TextField
+              value={state?.rPrice  || ""}
+              onChange={onSelectPrice}
+              variant="outlined"
+              margin="dense"
+              fullWidth
+              label="PRICE:"
               name="secondParagraph"
-              defaultValue={props.rPrice}
+              type="number"
+              autoFocus
             />
           </li>
           <li key="type">
-            <label htmlFor="secondParagraphT">TYPE: </label>
-            <select
-              name="secondParagraphT"
-              value={typeState}
-              onChange={onSelectType}
+            <TextField
+            fullWidth
+            className={classes.TextField}
+            value={state?.rType  || ""}
+            onChange={onSelectType}
+            variant="outlined"
+            name="secondParagraphT"
+            margin="dense"
+            select
+            label="TYPE:"
             >
-              <option>EARRINGS</option>
-              <option>BRACELET</option>
-              <option>NECKLACE</option>
-              <option>PENDANT</option>
-              <option>RING</option>
-              <option>ACCESSORY</option>
-            </select>
+            <MenuItem key="EARRINGS" value="EARRINGS">EARRINGS</MenuItem>
+            <MenuItem key="BRACELET" value="BRACELET">BRACELET</MenuItem>
+            <MenuItem key="NECKLACE" value="NECKLACE">NECKLACE</MenuItem>
+            <MenuItem key="PENDANT" value="PENDANT">PENDANT</MenuItem>
+            <MenuItem key="PENDANT" value="PENDANT">RING</MenuItem>
+            <MenuItem key="RING" value="RING">ACCESSORY</MenuItem>
+          </TextField>
           </li>
           <li key="trending">
-            <label htmlFor="thirdParagraph">TRENDING: </label>
-            <select
-              name="thirdParagraph"
-              value={trendState}
-              onChange={onSelectTrend}
+            <TextField
+            fullWidth
+            defaultValue={false}
+            className={classes.TextField}
+            value={state?.rTrending  || false}
+            onChange={onSelectTrend}
+            variant="outlined"
+            name="thirdParagraph"
+            select
+            label="TRENDING:"
+            margin="dense"
             >
-              <option>false</option>
-              <option>true</option>
-            </select>
+            <MenuItem key="false" value="false">FALSE</MenuItem>
+            <MenuItem key="true" value="true">TRUE</MenuItem>
+          </TextField>
           </li>
-          <li key="imageL">
-            <label htmlFor="firstImage">IMAGE: </label>
-          </li>{" "}
           <li key="image">
-            <input
-              type="file"
-              name="firstImage"
-              required={props.title === "ADD PRODUCT" ? true : false}
-            />
+            <div className={classes.ButtonDiv}>
+            <MyButton fullWidth btnType={uploaded1 ? "uploaded" : "upload"} component="label">
+                ADD PRIMARY IMAGE FILE:
+                <input
+                  type="file"
+                  hidden
+                  name="firstImage"
+                  type="file"
+                  onChange={onUploaded1}
+                  required={props.title === "ADD PRODUCT" ? true : false}
+                />
+              </MyButton>
+              </div>
           </li>
-          <li key="imageL2">
-            <label htmlFor="secondImage">IMAGE 2: </label>
-          </li>{" "}
           <li key="image2">
-            <input
-              type="file"
-              name="secondImage"
-              required={props.title === "ADD PRODUCT" ? true : false}
-            />
-          </li>{" "}
+          <div className={classes.ButtonDiv}>
+            <MyButton fullWidth btnType={uploaded2 ? "uploaded" : "upload"} component="label">
+                ADD SECONDARY IMAGE FILE:
+                <input
+                  type="file"
+                  hidden
+                  name="secondImage"
+                  type="file"
+                  onChange={onUploaded2}
+                  required={props.title === "ADD PRODUCT" ? true : false}
+                />
+              </MyButton>
+              </div>
+          </li>
           <li key="productDetails">
-            <textarea
-              style={{ resize: "none" }}
-              rows="5"
-              cols="50"
+            <TextField
+              value={state?.rDetails  || ""}
+              onChange={onSelectDetails}
+              fullWidth
+              multiline
+              rows={3}
+              variant="outlined"
               name="thirdParagraphT"
-              placeholder="Product Details"
-              defaultValue={props.rDetails}
+              label="PRODUCT DETAILS:"
+              margin="dense"
             />
           </li>
           <br></br>

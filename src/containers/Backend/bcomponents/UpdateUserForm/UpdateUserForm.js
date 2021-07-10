@@ -1,40 +1,102 @@
 import React, { useEffect, useState } from "react";
 import classes from "./UpdateUserForm.module.css";
 import MyButton from "../../../../components/UI/Button/Button";
+import { MenuItem, TextField } from "@material-ui/core";
 
 const UpdateUserForm = (props) => {
-  const [levelState, setLevelState] = useState(props.level);
+  const [state, setState] = useState(props.level);
   useEffect(() => {
-    if (props.level) {
-      setLevelState(props.level);
+    if (props) {
+      setState(props);
     }
   }, [props.level]);
+  
   const handleLevel = (e) => {
-    setLevelState(e.target.value);
+    let temp = {...state};
+    temp.level = e.target.value;
+    setState(temp);
   };
+
+  const handleName = (e)=>{
+    let temp = {...state};
+    temp.username = e.target.value;
+    setState(temp);
+  }
+
+  const handlePhone = (e)=>{
+    let temp = {...state};
+    temp.phone = e.target.value;
+    setState(temp);
+  }
+
+  const handleAddress = (e)=>{
+    let temp = {...state};
+    temp.address = e.target.value;
+    setState(temp);
+  }
+
+
+  
   return (
     <div className={classes.UpdateUserForm}>
       <form id="userupdate" onSubmit={props.update}>
         <div className={classes.Font}>UPDATE USER DETAILS</div>
         <ul className={classes.FormList}>
           <li key="username">
-            <label htmlFor="username">USER NAME: </label>
-            <input type="text" name="username" defaultValue={props.username} />
+            <TextField
+                  variant="outlined"
+                  margin="normal"
+                  value={state?.username || ""}
+                  onChange={handleName}
+                  fullWidth
+                  label="USERNAME:"
+                  name="username"
+                  type="text"
+                  autoFocus
+                />
           </li>
           <li key="address">
-            <label htmlFor="address">ADDRESS: </label>
-            <input type="text" name="address" defaultValue={props.address} />
+            <TextField
+                  variant="outlined"
+                  margin="normal"
+                  value={state?.address || ""}
+                  onChange={handleAddress}
+                  fullWidth
+                  label="ADDRESS:"
+                  name="address"
+                  type="text"
+                  autoFocus
+                />
           </li>
           <li key="phone">
-            <label htmlFor="phone">PHONE: </label>
-            <input type="text" name="phone" defaultValue={props.phone} />
+            <TextField
+                  variant="outlined"
+                  margin="normal"
+                  value={state?.phone || ""}
+                  onChange={handlePhone}
+                  fullWidth
+                  label="PHONE:"
+                  name="phone"
+                  type="text"
+                  autoFocus
+                />
           </li>
           <li key="level">
-            <label htmlFor="level">LEVEL: </label>
-            <select name="level" value={levelState} onChange={handleLevel}>
-              <option key="1">normal</option>
-              <option key="2">admin</option>
-            </select>
+            <TextField
+                  variant="outlined"
+                  select
+                  margin="normal"
+                  value={state?.level || "normal"}
+                  onChange={handleLevel}
+                  fullWidth
+                  label="LEVEL:"
+                  name="level"
+                  type="text"
+                  autoFocus
+            >
+              <MenuItem key="1" value="normal">NORMAL</MenuItem>
+              <MenuItem key="2" value="admin">ADMIN</MenuItem>
+            </TextField>
           </li>
           <li key="submit">
             <MyButton btnType="continue" type="submit">SUBMIT</MyButton>

@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import classes from "./bulkForm.module.css";
 import MyButton from "../../../../components/UI/Button/Button";
+import { Typography } from "@material-ui/core";
 const BulkForm = (props) => {
   const [ExcelfileUploaded, setExcelFileUploaded] = useState(0);
   const [ZipfileUploaded, setZipFileUploaded] = useState(0);
-
-  const checkExcelValidity = () => {
+  const [uploaded1,setUploaded1] = useState(null);
+  const [uploaded2,setUploaded2] = useState(null);
+  const checkExcelValidity = (e) => {
     if (document.getElementById("bulkExcelFile").value.slice(-5) === ".xlsx") {
       setExcelFileUploaded((prevState) => {
+        setUploaded1(e.target.value);
         return { ExcelfileUploaded: !prevState.ExcelfileUploaded };
       });
     } else {
@@ -16,9 +19,10 @@ const BulkForm = (props) => {
     }
   };
 
-  const checkZipValidity = () => {
+  const checkZipValidity = (e) => {
     if (document.getElementById("zipFile").value.slice(-4) === ".zip") {
       setZipFileUploaded((prevState) => {
+        setUploaded2(e.target.value);
         return { ZipfileUploaded: !prevState.ZipfileUploaded };
       });
     } else {
@@ -30,22 +34,24 @@ const BulkForm = (props) => {
   return (
     <div>
       <form id="bulkForm" onSubmit={props.bulkConfirmed}>
-        <div id="testD" className={classes.Font}>
+        <Typography variant="h5" component="h1">
           SELECT FILES TO UPLOAD:
-        </div>
+        </Typography>
         <br></br>
-        <div>
-          <strong>
-            <label htmlFor="bulkExcelFile">EXCEL FILE:</label>
-            <input
-              className={classes.FontInput}
-              type="file"
-              name="firstImage"
-              id="bulkExcelFile"
-              onChange={checkExcelValidity}
-            />
-          </strong>
-        </div>
+        <div className={classes.ButtonDiv}>
+            <MyButton btnType={uploaded1 ? "uploaded" : "upload"} component="label">
+                UPLOAD EXCEL FILE:
+                <input
+                  type="file"
+                  hidden
+                  name="firstImage"
+                  type="file"
+                  onChange={checkExcelValidity}
+                  id="bulkExcelFile"
+                  required={props.title === "ADD PRODUCT" ? true : false}
+                />
+              </MyButton>
+          </div>
         <div>
           <p>Instructions: only excel file with the following columns: </p>
           <p>
@@ -65,18 +71,23 @@ const BulkForm = (props) => {
         </div>
         <div>
           <strong>
-            <p>MAKE FILE NAMES AS EXAMPLE FOR PRIMARY IMAGE "N 0025a.jpg"</p>
-            <p>MAKE FILE NAMES AS EXAMPLE FOR SECONDARY IMAGE "N 0025b.jpg"</p>
+            <p>MAKE FILE NAMES AS EXAMPLE FOR PRIMARY IMAGE "P 0010a.jpg"</p>
+            <p>MAKE FILE NAMES AS EXAMPLE FOR SECONDARY IMAGE "P 0010b.jpg"</p>
             <p>(ADD "a" OR "b" AT THE END OF THE FILE)</p>
-
-            <label htmlFor="zipFile">ZIPPED IMAGES FILE:(.jpg ONLY)</label>
-            <input
-              className={classes.FontInput}
-              type="file"
-              name="secondImage"
-              id="zipFile"
-              onChange={checkZipValidity}
-            />
+          <div className={classes.ButtonDiv}>
+            <MyButton btnType={uploaded2 ? "uploaded" : "upload"} component="label">
+                UPLOAD ZIPPED IMAGES FILE:(.jpg ONLY)
+                <input
+                  type="file"
+                  hidden
+                  name="secondImage"
+                  type="file"
+                  onChange={checkZipValidity}
+                  id="zipFile"
+                  required={props.title === "ADD PRODUCT" ? true : false}
+                />
+              </MyButton>
+          </div>
           </strong>
         </div>
         <div>

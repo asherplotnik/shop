@@ -16,7 +16,7 @@ class Layout extends Component {
 
   fetchFooterData = () => {
     axios.get(serverAddress + "api/getAboutUs").then((res) => {
-      this.setState({ footerContent: res.data[1] });
+      this.setState({ footerContent:res?.data.find(el => el.id === 2) });
       this.setState({ loadingFooter: false });
     });
   };

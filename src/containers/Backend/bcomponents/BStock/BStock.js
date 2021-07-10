@@ -136,6 +136,9 @@ class BStock extends Component {
     e.preventDefault();
     const formData = new FormData(document.querySelector("#addVariation"));
     formData.append("mainTitleT", this.state.val);
+    console.log("___________");
+    console.log(formData.get("mainTitle"));
+    console.log(formData.get("mainTitleT"));
     this.onAddVariationPressed();
     axios
       .post(serverAddress + "admin/addVariation", formData, {
@@ -245,6 +248,7 @@ class BStock extends Component {
     axios
       .get(serverAddress + "api/getStockByCode/" + val)
       .then((response) => {
+        console.log(response.data);
         this.setState({ stock: response.data });
         this.setState({ loadingStock: false });
       })
@@ -396,7 +400,6 @@ class BStock extends Component {
           onChange={(event, newValue) => {
             this.setState({ val: newValue });
             this.callRequestStock(newValue);
-            //this.checkImageName(newValue);
           }}
           options={option}
           getOptionLabel={(option) => option}
@@ -469,7 +472,7 @@ class BStock extends Component {
           modalClosed={this.onDeleteVariationPressed}
         >
           <DeleteVariationForm
-            modalClosed={this.onAddVariationPressed}
+            modalClosed={this.onDeleteVariationPressed}
             deleteVariation={this.onDeleteVariation}
             stock={this.state.stock}
           />
@@ -522,7 +525,7 @@ class BStock extends Component {
             <div className={classes.NewEntry}>
               <MyButton
                 clicked={this.onAddVariationPressed}
-                disabled={this.state.val === null}
+                disabled={this.state.val === null || this.state.stock.length === 0}
                 btnType="add"
               >
                 ADD VARIATION
@@ -532,7 +535,7 @@ class BStock extends Component {
             <div className={classes.NewEntry}>
               <MyButton
                 clicked={this.onDeleteVariationPressed}
-                disabled={this.state.val === null}
+                disabled={this.state.val === null || this.state.stock.length === 0}
                 btnType="delete"
               >
                 DELETE VARIATION

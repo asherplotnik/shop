@@ -1,26 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from "./AddVariationForm.module.css";
 import MyButton from "../../../../components/UI/Button/Button";
-const addVariationForm = (props) => {
+import { TextField } from "@material-ui/core";
+const AddVariationForm = (props) => {
+  const [uploaded,setUploaded] = useState(null);
+  const onUploaded = (e) => {
+    setUploaded(e.target.value);
+  }
+  const [variationVal, setVariationVal] = useState();
+  const handleVal = (e) => {
+    setVariationVal(e.target.value);
+  }
   return (
     <div className={classes.AddVariationForm}>
       <form id="addVariation" onSubmit={props.addVariation}>
         <div className={classes.Font}>ADD VARIATION</div>
         <ul className={classes.FormList}>
           <li key="variation">
-            <label htmlFor="mainTitle">VARIATION: </label>
-          </li>
-          <li>
-            <input type="text" name="mainTitle" defaultValue="-" />
+            <TextField
+              value={variationVal}
+              onChange={handleVal}
+              defaultValue="-"
+              variant="outlined"
+              margin="dense"
+              required
+              fullWidth
+              label="VARIATION:"
+              name="mainTitle"
+              type="text"
+              autoFocus
+            />
           </li>
           <li>
             <br />
           </li>
-          <li key="img">
-            <label htmlFor="firstImage">IMAGE: </label>
-          </li>
           <li>
-            <input type="file" name="firstImage" />
+            <div className={classes.ButtonDiv}>
+             <MyButton fullWidth btnType={uploaded ? "uploaded" : "upload"} component="label">
+                UPLOAD IMAGE FILE:
+                <input
+                  type="file"
+                  hidden
+                  name="firstImage"
+                  type="file"
+                  onChange={onUploaded}
+                  required
+                />
+              </MyButton> 
+              </div>
           </li>
           <br></br>
           <br></br>
@@ -36,4 +63,4 @@ const addVariationForm = (props) => {
   );
 };
 
-export default addVariationForm;
+export default AddVariationForm;

@@ -21,12 +21,11 @@ const NavigationItems = (props) => {
         {dic.aboutYou[props.lang]}
       </NavigationItem>
       <NavigationItem
-        bStyle={{ backgroundColor: "rgb(235, 232, 232)" }}
         show={props.showBackend}
         link="/backend/home"
         exact
       >
-        {dic.backend[props.lang]}
+        <strong>{dic.admin[props.lang]}</strong>
       </NavigationItem>
     </ul>
   );

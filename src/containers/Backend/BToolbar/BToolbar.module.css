@@ -2,16 +2,15 @@
 
 .HrClass {
   margin: 0;
-  background-color: #b6e4f5;
+  background-color: rgb(235, 232, 232);
   border: none;
   height: 1px;
 }
 
 .Toolbar {
   font-family: "Roboto", sans-serif;
-  font-size: large;
   justify-content: space-between;
-  background-color: rgb(235, 232, 232);
+  background-color: #b6e4f5;
   height: 80px;
   width: 100%;
   top: 0;

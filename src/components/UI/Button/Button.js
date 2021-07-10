@@ -13,7 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import UpdateIcon from '@material-ui/icons/Update';
 import AddIcon from '@material-ui/icons/Add';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
-
+import BackupIcon from '@material-ui/icons/Backup';
 const MyButton = props => {
   let icon;
   let variant;
@@ -79,18 +79,27 @@ const MyButton = props => {
       variant = "contained";
       color="primary";
       break;
+    case "upload":
+      icon = <BackupIcon />;
+      variant = "contained";
+      color="default";
+      break;
+    case "uploaded":
+      icon = <BackupIcon />;
+      variant = "contained";
+      color="primary";
+      break;
   }
   return(
   <Button
-    className={classes.button}
+    component={props.component}
+    fullWidth = {props.fullWidth}
     m={10}
     variant={variant}
     startIcon={icon}
     color={color}
     type={props.type === "submit" ? props.type : "button"}
     disabled={props.disabled}
-    className={classes.button}
-
     onClick={props.clicked}
   >
     <div className={classes.ButtonDiv}>{props.children}</div>
