@@ -6,7 +6,7 @@ import Collections from "../Collections/Collections";
 const Home = () => {
   return (
     <div className="Outer" style={{ display: "block" }}>
-      <div style={{ display: "inline-block" }}>
+      <div style={{ display: "block" }}>
         <div>
           <Slide />
         </div>
