@@ -127,4 +127,4 @@ export const lan = "http://192.168.1.103:9000/";
 export const heroku = "https://indycollection.herokuapp.com/";
 //export const gc = "https://storage.cloud.google.com/indy-4cba2.appspot.com/";
 export const gc = "https://s3-ap-southeast-1.amazonaws.com/indyfashion.images/";
-export const serverAddress = local;
+export const serverAddress = heroku;
