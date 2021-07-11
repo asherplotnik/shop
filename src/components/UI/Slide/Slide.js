@@ -48,6 +48,7 @@ const Slide = (props) => {
             onClick={onImageClick}
             items={arr}
             showNav={true}
+            showNav={false}
             showPlayButton={false}
             showThumbnails={false}
             showFullscreenButton={false}
